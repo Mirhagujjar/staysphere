@@ -11,6 +11,8 @@
                     <h5 class="card-title">{{ $hotels->name }}</h5>
                     <p>Email: {{ $hotels->email }}</p>
                     <p>Phone: {{ $hotels->phone }}</p>
+                    <p>Check-in: {{ $hotels->check_in }}</p>
+                    <p>Check-out: {{ $hotels->check_out }}</p>
                     <p>Room Type: {{ $hotels->room_type }}</p>
                     <p>Guests: {{ $hotels->guests }}</p>
 
