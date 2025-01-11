@@ -9,12 +9,12 @@
             <div class="card shadow">
                 <div class="card-body">
                     <h5 class="card-title">{{ $room->name }}</h5>
-                    <p><h4>Email:</h4> {{ $room->email }}</p>
-                    <p><h4>Phone:</h4> {{ $room->phone }}</p>
-                    <p><h4>Check-in:</h4> {{ $room->check_in }}</p>
-                    <p><h4>Check-out:</h4> {{ $room->check_out }}</p>
-                    <p><h4>Room Type:</h4> {{ $room->room_type }}</p>
-                    <p><h4>Guests:</h4> {{ $room->guests }}</p>
+                    <p>Email: {{ $room->email }}</p>
+                    <p>Phone: {{ $room->phone }}</p>
+                    <p>Check-in: {{ $room->check_in }}</p>
+                    <p>Check-out: {{ $room->check_out }}</p>
+                    <p>Room Type: {{ $room->room_type }}</p>
+                    <p>Guests: {{ $room->guests }}</p>
                     
 
                     <!-- Edit Button -->
@@ -22,8 +22,8 @@
 
                     <!-- Delete Form -->
                     <form action="{{ route('hotel.destroy', $room->id) }}" method="POST" style="display:inline;">
-                        @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Cancel</button>
+                        {{-- @csrf @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Cancel</button> --}}
                     </form>
                 </div>
             </div>

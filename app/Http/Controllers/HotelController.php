@@ -91,12 +91,12 @@ class HotelController extends Controller
                 return redirect()->route('hotel.index')->with('success', 'Booking Updated Successfully!');
             }
         
-            // Delete Data
-            public function destroy(Hotel $hotel)
-            {
-                $hotel->delete(); // Delete Record
-                return redirect()->route('hotel.index')->with('success', 'Booking Deleted!');
-            }          
+            // // Delete Data
+            // public function destroy(Hotel $hotel)
+            // {
+            //     $hotel->delete(); // Delete Record
+            //     return redirect()->route('hotel.index')->with('success', 'Booking Deleted!');
+            // }          
 }
 
 
