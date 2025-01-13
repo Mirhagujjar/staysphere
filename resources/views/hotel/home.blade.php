@@ -7,6 +7,7 @@
         @foreach($hotel as $room)
         <div class="col-md-4 mb-4">
             <div class="card shadow">
+                <img src="{{ asset($room->image) }}" class="card-img-top" alt="Image of {{ $room->name }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ $room->name }}</h5>
                     <p>Email: {{ $room->email }}</p>
@@ -35,3 +36,37 @@
     </div>
 </div>
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- @extends('layouts.master')
+
+@section('content')
+<div class="container mt-4">
+    <h2 class="text-center">Our Hotel Rooms</h2>
+    <div class="row">
+        @foreach($hotel as $rooms)
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <img src="{{ asset('images/pic.jpg') }}" class="card-img-top" alt="Room">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $rooms->room_type }}</h5>
+                    <p>Guests: {{ $rooms->guests }}</p>
+                    <p>Check-in: {{ $rooms->check_in }}</p>
+                    <a href="{{ route('hotel.show', $rooms->id) }}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</div>
+@endsection --}}

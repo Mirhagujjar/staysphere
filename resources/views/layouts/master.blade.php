@@ -10,13 +10,13 @@
     
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #F8F9FA; /* Off-White */
-            color: #343A40; /* Dark Gray */
+            font-family: Arial, sans-serif; 
+            background-color: #F8F9FA; 
+            color: #343A40; 
         }
-        .navbar {
-            background-color: #2C3E50 !important; /* Midnight Blue */
-        }
+         .navbar {
+            background-color: #2C3E50 !important; 
+         } 
         .navbar a {
             color: white !important;
         }
@@ -32,12 +32,13 @@
             background-color: #D4AC0D !important;
         }
         .footer {
-            background-color: #343A40; /* Dark Gray */
-            color: white;
+            background-color: #343A40;/*  Dark Gray */
+             color: white;
             padding: 10px;
-            text-align: center;
-        }
+            text-align: center; 
+         } 
     </style>
+
 </head>
 <body>
 
@@ -53,24 +54,28 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-
-                    {{-- <li class="nav-item"><a class="nav-link" href="#">Home</a></li> --}}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('hotel.create') }}">Book a Room</a>
+                        <a class="nav-link" href="{{ route('hotel.create') }}">Book Now</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('hotel.rooms') }}">Rooms</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="{{ route('hotel.rooms') }}">Reserved Rooms</a></li> 
+                     {{-- <li><a href="{{ route('hotel.show', ['hotel' => $hotel->id]) }}">View Hotel</a></li> --}}
 
-                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">About</a></li>
+                    {{-- <li class="nav-item"><a class="nav-link" href="{{ route('hotel.show', $hotel->id) }}">Services</a></li> --}}
+                    <li class="nav-item"><a class="nav-link" href="{{ route('services') }}">Services</a></li>
+
+                    <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact us</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
+   
+    
+
     <!-- Header -->
     @yield('header')
-    <header class="text-center py-3" style="background-color: #1ABC9C; color: white;">
+    <header class="text-center py-3" style="background-color: #2C3E50; color: white ">
         <h1>Stay Sphere</h1>
     </header>
 
@@ -83,37 +88,10 @@
             Our hotel management system provides a seamless experience for both administrators and guests.
         </p>
 
-        <div class="row">
-            <div class="col-md-4">
-                <h3>Basic Hotel Services</h3>
-                <ul>
-                    <li>Room Service</li>
-                    <li>Housekeeping</li>
-                    <li>Concierge</li>
-                    <li>Reception/Front Desk</li>
-                    <li>Wi-Fi/Internet Access</li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h3>Food & Beverage Services</h3>
-                <ul>
-                    <li>Restaurants</li>
-                    <li>Bars and Lounges</li>
-                    <li>Cafes and Snack Bars</li>
-                    <li>In-Room Dining</li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h3>Recreational & Wellness</h3>
-                <ul>
-                    <li>Swimming Pool</li>
-                    <li>Fitness Center</li>
-                    <li>Spa & Massage</li>
-                    <li>Sauna & Steam Room</li>
-                </ul>
-            </div>
-        </div>
+        
     </div>
+
+    
 
     <!-- Footer -->
     @yield('footer')
