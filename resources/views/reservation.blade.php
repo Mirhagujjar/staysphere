@@ -1,4 +1,4 @@
-{{-- @extends('layouts.master') 
+@extends('layouts.master') 
 
 @section('content')
 <div class="container mt-5">
@@ -12,7 +12,7 @@
     @endif
 
     <div class="card shadow p-4">
-        <form action="{{ route('hotel.store') }}" method="POST">
+        <form action="#" method="POST">
             @csrf
 
             <div class="mb-3">
@@ -58,4 +58,4 @@
         </form>
     </div>
 </div>
-@endsection --}}
+@endsection

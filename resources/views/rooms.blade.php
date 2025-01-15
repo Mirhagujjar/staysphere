@@ -1,4 +1,4 @@
-{{-- @extends('layouts.master')
+@extends('layouts.master')
 
 @section('content')
 <div class="container">
@@ -7,7 +7,6 @@
         @foreach($hotel as $room)
         <div class="col-md-4 mb-4">
             <div class="card shadow">
-                <img src="{{ asset($room->image) }}" class="card-img-top" alt="Image of {{ $room->name }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ $room->name }}</h5>
                     <p>Email: {{ $room->email }}</p>
@@ -17,13 +16,13 @@
                     <p>Room Type: {{ $room->room_type }}</p>
                     <p>Guests: {{ $room->guests }}</p>
 
-                   
+                    <!-- View Details Button -->
                     <a href="{{ route('hotel.show', $room->id) }}" class="btn btn-primary">View Details</a>
 
-                  
+                    <!-- Edit Button -->
                     <a href="{{ route('hotel.edit', $room->id) }}" class="btn btn-warning">Edit</a>
 
-                 
+                    <!-- Delete Form -->
                     <form action="{{ route('hotel.destroy', $room->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
@@ -35,7 +34,8 @@
         @endforeach
     </div>
 </div>
-@endsection --}}
+@endsection
+
 
 
 
@@ -51,21 +51,22 @@
 {{-- @extends('layouts.master')
 
 @section('content')
-<div class="container mt-4">
-    <h2 class="text-center">Our Hotel Rooms</h2>
+<div class="container">
+    <h1>Our Rooms</h1>
     <div class="row">
-        @foreach($hotel as $rooms)
-        <div class="col-md-4">
-            <div class="card shadow-sm">
-                <img src="{{ asset('images/pic.jpg') }}" class="card-img-top" alt="Room">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $rooms->room_type }}</h5>
-                    <p>Guests: {{ $rooms->guests }}</p>
-                    <p>Check-in: {{ $rooms->check_in }}</p>
-                    <a href="{{ route('hotel.show', $rooms->id) }}" class="btn btn-primary">View Details</a>
+        @foreach($rooms as $room)
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ asset('storage/' . $room->image) }}" class="card-img-top" alt="Room Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $room->name }}</h5>
+                        <p class="card-text">Price: ${{ $room->price }}</p>
+                        <p class="card-text">Services: {{ $room->services }}</p>
+                        <p class="card-text">View: {{ $room->view }}</p>
+                        <a href="{{ route('room.details', $room->id) }}" class="btn btn-primary">View Details</a>
+                    </div>
                 </div>
             </div>
-        </div>
         @endforeach
     </div>
 </div>

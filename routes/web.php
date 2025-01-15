@@ -1,43 +1,30 @@
 <?php
-
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\RoomsController;
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AboutController;
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\RoomController;
 
-// Home Route - Set Only One!
-Route::get('/', [HotelController::class, 'home'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation');
+Route::get('/rooms', [RoomsController::class, 'index'])->name('rooms');
+//  Route::get('/rooms', [RoomsController::class, 'rooms'])->name('hotel.rooms');
 
-// Hotel Routes
-Route::get('/hotel', [HotelController::class, 'index'])->name('hotel.index');
-Route::get('/hotel/create', [HotelController::class, 'create'])->name('hotel.create');
-Route::post('/hotel', [HotelController::class, 'store'])->name('hotel.store');
-Route::get('/hotel/{hotel}/edit', [HotelController::class, 'edit'])->name('hotel.edit');
-Route::put('/hotel/{hotel}', [HotelController::class, 'update'])->name('hotel.update');
-Route::delete('/hotel/{hotel}', [HotelController::class, 'destroy'])->name('hotel.destroy');
-Route::get('/rooms', [HotelController::class, 'showRooms'])->name('hotel.rooms');
-Route::get('/hotel/{id}', [HotelController::class, 'show'])->name('hotel.show');
+Route::get('/events', [EventsController::class, 'index'])->name('events');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 
-// Static Pages
-// Route::get('/about', [PageController::class, 'about'])->name('about');
-// Route::get('/contact', [PageController::class, 'contact'])->name('contact');
-// Route::post('/contact/send', [PageController::class, 'sendContact'])->name('contact.send');
-
-// Route::resource('hotel', HotelController::class);
-// Route::get('about', [PageController::class, 'about']);
-// Route::get('contact', [PageController::class, 'contact']);
 
 
-Route::get('/', [PageController::class, 'home'])->name('home');
-Route::get('/about', [PageController::class, 'about'])->name('about');
-Route::get('/services', [PageController::class, 'services'])->name('services'); // Add this line
-Route::get('/contact', [PageController::class, 'contact'])->name('contact');
-Route::post('contact/send', [PageController::class, 'sendContact'])->name('contact.send');
-  
 
 
-// Authentication Routes
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 

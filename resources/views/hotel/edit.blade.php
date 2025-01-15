@@ -1,4 +1,4 @@
-@extends('layouts.master')
+{{-- @extends('layouts.master')
 
 @section('content')
 <div class="container mt-5">
@@ -52,4 +52,4 @@
         </form>
     </div>
 </div>
-@endsection
+@endsection --}}

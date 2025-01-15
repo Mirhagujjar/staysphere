@@ -1,4 +1,4 @@
-@extends('layouts.master')
+{{-- @extends('layouts.master')
 
 @section('content')
 <div class="container mt-4">
@@ -15,9 +15,9 @@
                     <p>Check-out: {{ $hotel->check_out }}</p>
                     <p>Room Type: {{ $hotel->room_type }}</p>
                     <p>Guests: {{ $hotel->guests }}</p>
-                    <!-- Edit Button -->
+                   
                     <a href="{{ route('hotel.edit', $hotel->id) }}" class="btn btn-warning">Edit</a>
-                    <!-- Delete Button -->
+                   
                     <form action="{{ route('hotel.destroy', $hotel->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
@@ -29,4 +29,4 @@
         @endforeach
     </div>
 </div>
-@endsection
+@endsection --}}

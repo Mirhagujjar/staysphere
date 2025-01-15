@@ -1,9 +1,9 @@
-@extends('layouts.master')
+{{-- @extends('layouts.master')
 
 @section('content')
 <div class="container mt-4">
-    {{-- <h2>{{ $hotel->room_type }}</h2> --}}
-    <h1>{{ $hotel->name }}</h1>  <!-- Example of accessing hotel properties -->
+  
+    <h1>{{ $hotel->name }}</h1>  
 
     <h2>{{ $hotel->room_type }}</h2>
 
@@ -13,4 +13,4 @@
     <p><strong>Phone:</strong> {{ $hotel->phone }}</p>
     <a href="{{ route('hotel.index') }}" class="btn btn-secondary">Back to Home</a>
 </div>
-@endsection
+@endsection --}}

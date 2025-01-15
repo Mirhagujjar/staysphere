@@ -6,13 +6,15 @@
     <div class="row">
         <div class="col-md-6">
             <h4>Our Address</h4>
-            <p>123, Hotel Street, City, Country</p>
+            <p> info@staysphere.com
+                Lahore, Pakistan</p>
             <p>Email: support@hotel.com</p>
             <p>Phone: +123456789</p>
         </div>
         <div class="col-md-6">
             <h4>Send a Message</h4>
-            <form action="{{ route('contact.send') }}" method="POST">
+            {{-- <form action="{{ route('contact.send') }}" method="POST"> --}}
+                <form action="#" method="POST">
                 @csrf
                 <div class="mb-3">
                     <input type="text" name="name" class="form-control" placeholder="Your Name" required>
