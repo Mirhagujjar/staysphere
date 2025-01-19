@@ -174,15 +174,56 @@
         font-size: 2.5rem;
     }
 }
+
+.carousel-inner img {
+      width: 100%;
+      height: 500px; /* Set the height as per your requirement */
+      object-fit: cover;
+}
+.section {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section h1 {
+      font-size: 3rem;
+      color: #343A40;
+    }
+
+    .image-window {
+      display: flex;
+      gap: 20px;
+    }
+
+    .image-window img {
+      height: 300px;
+      width: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .background {
+      background: white;
+      height: 100%;
+      width: 50%;
+      position: absolute;
+      left: 25%;
+      z-index: -1;
+    }
+    
   </style>
 </head>
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg shadow">
+  <nav class="navbar navbar-expand-lg shadow margin-down">
     <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="#">
-            <img src="logo4.png" alt="Stay Sphere Logo" width="40" height="40" style="border-radius: 50%;">
+        <a class="navbar-brand fw-bold " href="#">
+            <img src="{{ asset('build/assets/images/logo.jpg')}}" alt="Stay Sphere Logo" width="40" height="40" style="border-radius: 50%;">
 
           </a>
 
@@ -198,15 +239,21 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('reservation') }}">Book Now</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('reservations.create') }}" >Book Now</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('rooms') }}">Rooms</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('events') }}">Events</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact Us</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('contact.index') }}">Contact Us</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">About Us</a></li>
         </ul>
       </div>
     </div>
   </nav>
+
+ 
+
+ 
+
+
 
   @yield('content') 
   {{-- <div class="video-background">
@@ -230,7 +277,7 @@
 
 
   <!-- Footer -->
-  <footer class="text-center text-lg-start shadow">
+  <footer class="text-center text-lg-start shadow margin-top">
     <div class="container p-4">
       <div class="row">
 
@@ -242,16 +289,18 @@
         </div>
 
 
-        {{-- <div class="col-lg-3 col-md-6 mb-4">
+        <div class="col-lg-3 col-md-6 mb-4">
           <h5 class="text-uppercase fw-bold">Quick Links</h5>
           <ul class="list-unstyled mb-0">
-            <li><a href="{{ route('home') }}">Home</a></li>
             <li><a href="#">start of the page</a></li>
-            <li><a href="{{ route('hotel.rooms') }}">Rooms</a></li>
+            <li><a href="{{ route('home') }}">Home</a></li>
+            <li><a href="{{ route('reservations.index') }}">Book now</a></li>
+            <li><a href="{{ route('reservations.index') }}">Rooms</a></li>
+            <li><a href="{{ route('events') }}">Events</a></li>
             <li><a href="{{ route('about') }}">About Us</a></li>
-            <li><a href="{{ route('contact') }}">Contact Us</a></li>
+            <li><a href="{{ route('contact.index') }}">Contact Us</a></li>
           </ul>
-        </div> --}}
+        </div>
 
 
         <div class="col-lg-3 col-md-6 mb-4">
@@ -265,7 +314,7 @@
       </div>
     </div>
     <div class="text-center p-3" style="background-color: var(--text-color); color: white;">
-      © 2025 Stay Sphere. All rights reserved.
+       © {{ date('Y') }} Stay Sphere. All rights reserved.
     </div>
   </footer>
 

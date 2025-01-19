@@ -14,7 +14,7 @@
         <div class="col-md-6">
             <h4>Send a Message</h4>
             {{-- <form action="{{ route('contact.send') }}" method="POST"> --}}
-                <form action="#" method="POST">
+                <form action="{{route('contact.store')}}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <input type="text" name="name" class="form-control" placeholder="Your Name" required>
@@ -27,6 +27,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Send</button>
             </form>
+     
         </div>
     </div>
 </div>

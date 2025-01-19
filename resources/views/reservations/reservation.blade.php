@@ -12,7 +12,7 @@
     @endif
 
     <div class="card shadow p-4">
-        <form action="#" method="POST">
+        <form action="{{ route('reservations.store') }}" method="POST">
             @csrf
 
             <div class="mb-3">
