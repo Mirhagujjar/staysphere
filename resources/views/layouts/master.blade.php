@@ -12,7 +12,15 @@
   {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
   {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
   <link rel="stylesheet" href="{{ asset('build/assets/css/bootstrap.min.css') }}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/icofont/1.0.1/css/icofont.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
   <script src="{{ asset('build/assets/js/bootstrap.bundle.min.js')}}"></script>
+
+
   <style>
     /* Navbar Styling */
     .navbar {
@@ -51,16 +59,16 @@
 
     a {
     color: inherit; /* Keep default text color */
-}
+    }
 
-.card {
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
+    .card {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
 
-.card:hover {
-    transform: scale(1.05); /* Slightly enlarge on hover */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
+    .card:hover {
+       transform: scale(1.05); /* Slightly enlarge on hover */
+       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
 
     /* Video Background
     .video-background {
@@ -90,10 +98,12 @@
       background-color: #2C3E50; /* Midnight Blue */
       color: white;
     }
+
     footer a {
       color: #F1C40F; /* Soft Gold */
       text-decoration: none;
     }
+
     footer a:hover {
       color: #1ABC9C; /* Light Teal */
     }
@@ -103,117 +113,163 @@
       background-color: #F1C40F; /* Soft Gold */
       color: #2C3E50; /* Midnight Blue */
     }
+
     .btn-custom:hover {
       background-color: #1ABC9C; /* Light Teal */
       color: white;
     }
 
     body {
-    background-color: #F8F9FA; /* Off-White */
-    color: #343A40; /* Dark Gray */
-    font-family: Arial, sans-serif;
-   } 
+      background-color: #F8F9FA; /* Off-White */
+      color: #343A40; /* Dark Gray */
+      font-family: Arial, sans-serif;
+    } 
 
-/* Welcome Section */
-.welcome-section {
-    background-color: #2C3E50; /* Midnight Blue */
-    padding: 100px 0;
-}
-
-.welcome-title {
-    color: #FFFFFF;
-    font-size: 3.5rem;
-}
-
-.lead {
-    font-size: 1.25rem;
-    color: #FFFFFF;
-}
-
-/* Hotel Services Section */
-.hotel-services {
-    margin-top: 50px;
-    padding: 50px 0;
-}
-
-.service-box {
-    background-color: #FFFFFF;
-    border: 1px solid #E5E5E5;
-    padding: 30px;
-    margin-bottom: 30px;
-    border-radius: 8px;
-}
-
-.service-title {
-    color: #2C3E50; /* Midnight Blue */
-    font-size: 1.75rem;
-    margin-bottom: 15px;
-}
-
-/* Call to Action */
-.cta-section {
-    background-color: #F1C40F; /* Soft Gold */
-    padding: 60px 0;
-    color: #FFFFFF;
-}
-
-.btn-primary {
-    background-color: #1ABC9C; /* Light Teal */
-    border-color: #1ABC9C;
-    color: white;
-}
-
-.btn-primary:hover {
-    background-color: #16A085; /* Slightly darker teal */
-    border-color: #16A085;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .welcome-title {
-        font-size: 2.5rem;
+     /* Welcome Section */
+    .welcome-section {
+      background-color: #2C3E50; /* Midnight Blue */
+      padding: 100px 0;
     }
-}
 
-.carousel-inner img {
-      width: 100%;
-      height: 500px; /* Set the height as per your requirement */
-      object-fit: cover;
-}
-.section {
+    .welcome-title {
+      color: #FFFFFF;
+      font-size: 3.5rem;
+    }
+
+    .lead {
+      font-size: 1.25rem;
+      color: #FFFFFF;
+    }
+
+     /* Hotel Services Section */
+    .hotel-services {
+       margin-top: 50px;
+       padding: 50px 0;
+    }
+
+    .service-box {
+       background-color: #FFFFFF;
+       border: 1px solid #E5E5E5;
+       padding: 30px;
+       margin-bottom: 30px;
+       border-radius: 8px;
+    }
+
+    .service-title {
+      color: #2C3E50; /* Midnight Blue */
+      font-size: 1.75rem;
+      margin-bottom: 15px;
+    }
+
+    /* Call to Action */
+    .cta-section {
+      background-color: #F1C40F; /* Soft Gold */
+      padding: 60px 0;
+      color: #FFFFFF;
+    }
+
+    .btn-primary {
+      background-color: #1ABC9C; /* Light Teal */
+      border-color: #1ABC9C;
+      color: white;
+     } 
+
+    .btn-primary:hover {
+       background-color: #16A085; /* Slightly darker teal */
+      border-color: #16A085;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .welcome-title {
+        font-size: 2.5rem;
+      }
+    }
+
+
+
+
+    /* .section {
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
       overflow: hidden;
-    }
+     } */
 
-    .section h1 {
+    /* .section h1 {
       font-size: 3rem;
       color: #343A40;
-    }
+     } */
 
-    .image-window {
+    /* .image-window {
       display: flex;
       gap: 20px;
-    }
+    } */
 
-    .image-window img {
+    /* .image-window img {
       height: 300px;
       width: 200px;
       object-fit: cover;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-    .background {
+    } */
+
+    /* .background {
       background: white;
       height: 100%;
       width: 50%;
       position: absolute;
       left: 25%;
       z-index: -1;
+    } */
+
+    /* .container {
+        font-family: 'Arial', sans-serif;
+     }  */
+    /* .bg-dark {
+       background-color: #2C3E50 !important;
+    } */
+    /* .btn-warning {
+      background-color: #F1C40F;
+      border: none;
+    } */
+    .rounded-circle {
+      border: 5px solid #F1C40F;
+     }
+
+    .container {
+       font-family: 'Arial', sans-serif;
     }
+
+    h2 {
+       color: #2C3E50; /* Midnight Blue */
+      
+    }
+
+    p {
+        color: #343A40; /* Dark Gray */
+     }
+
+    
+
+   
+      
+   .dropdown-menu {
+         background-color: #2C3E50; /* Midnight Blue background for dropdown */
+    }
+
+   .dropdown-item {
+         color: #FFFFFF; /* White text for dropdown items */
+    }
+    .dropdown-item:hover {
+         background-color: #F1C40F; /* Soft Gold highlight */
+         color: #2C3E50; /* Midnight Blue text on hover */
+      }
+
+
+
     
   </style>
 </head>
@@ -242,6 +298,9 @@
             <li class="nav-item"><a class="nav-link" href="{{ route('reservations.create') }}" >Book Now</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('rooms') }}">Rooms</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('events') }}">Events</a></li>
+
+           
+
             <li class="nav-item"><a class="nav-link" href="{{ route('contact.index') }}">Contact Us</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">About Us</a></li>
         </ul>

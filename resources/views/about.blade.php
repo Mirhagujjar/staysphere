@@ -115,7 +115,7 @@
     <section id="history" class="history-section">
         <div class="container">
             <h2 class="section-heading">Our History</h2>
-            <img src="{{ asset('build/assets/images/slider1.jpg') }}" alt="History Image">
+            <img src="{{ asset('build/assets/images/slider7.jpg') }}" alt="History Image">
             <p class="section-description">
                 Our company was founded with a vision to bring innovation and customer satisfaction. Over the years, we have grown, expanding our reach and services to new heights. Our mission is simple: to provide the best solutions and build lasting relationships with our clients.
             </p>
