@@ -15,7 +15,7 @@
      }
 
      .carousel-indicators .active {
-    background-color: #0b0f0e; /* Light Teal */
+         background-color: #0b0f0e; /* Light Teal */
     }
 
      .carousel-indicators button {
@@ -37,46 +37,40 @@
        border-radius: 10px;
        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for better visibility */
        width: 80%;
-       z-index: 10; /* Ensure the form stays above the carousel */
+       z-index: 10; /*  `the form stays above the carousel */
     }
     
      /* img set window like shap */
      img {
-        /* border: 3px solid #F1C40F;  */
-        border-radius: 5px; /* Window Shape Effect */
+        border-radius: 5px; 
      }
 
     .custom-image-container {
         width: 450px;
         height: 550px;
         overflow: hidden;
-        border-radius: 150px 150px 0 0; /* Top rounded (circle), bottom square */
+        border-radius: 150px 150px 0 0; 
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
       }
 
     .custom-image-container img {
         width: 150%;
         height: 100%;
-        object-fit: cover; /* Ensures the image covers the container properly */
+        object-fit: cover; 
         display: block;
     }
     
-    /* practice */
-    /* @media (min-width: 1200px) {
-    .container, .container-lg, .container-md, .container-sm, .container-xl {
-        max-width: 1200px;
-    } */
-   /* } */
+   
       .img-fluid {
       max-width: 100%;
       height: auto;
     }
       
     .card {
-    background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-}
+      background: #fff;
+      border-radius: 8px;
+       overflow: hidden;
+    } 
 
 .card-body img {
     border-radius: 50%;
@@ -134,33 +128,22 @@
          color: #f1c40f; 
     }
     
-     /* vedio */
-     /* .pinned-image__container img, .pinned-image__container video, .pinned-image__container {
-    height: 100%;
-    left: 0;
-    -o-object-fit: cover;
-    object-fit: cover;
-    -o-object-position: center;
-    object-position: center;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    background-color: #ccc;
-}
-.pinned_over_content {
-    text-align: center;
-    padding: 0 60px;
-    width: 100%;
-    left: 50%;
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    transform: translate3d(-50%, -50%, 0);
-} */
+ 
+/* for rooms */
+    /* General Styles */
+
+
+
+
+
 
 
 
 </style>
+
+
+
+
 
 {{-- slider --}}
 <div id="carouselExampleDark" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -220,9 +203,6 @@
 </div>
 
 
-
-
-
 {{-- Exceptional Hospitality --}}
 <div class="container text-center py-5">
   <div class="row align-items-center">
@@ -250,134 +230,180 @@
 </div>
 
 
-
 <!-- Hotel Services Section -->
-<div class="container my-5">
-    <div class="row g-4">
-        <!-- Card 1 -->
-        <div class="col-lg-4 col-md-6">
-            <div class="card border-0 shadow h-100 text-center">
-                <div class="card-body">
-                    <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;">
-                        <i class="fas fa-bed fs-3"></i>
+<div class=" py-5">
+    <div class="position-relative" style="height: 100vh; overflow: hidden;">
+        <!-- Background Video -->
+        <video autoplay loop muted playsinline class="position-absolute w-100 h-100" style="object-fit: cover;">
+            <source src="{{asset('build/assets/vedio/video3.mp4')}}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+      
+        <!-- Content Overlay -->
+        <div class="container position-relative my-5 text-white" style="z-index: 1;">
+            <div class="row g-4">
+                <!-- Card 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card border-0 shadow h-100 text-center">
+                        <div class="card-body">
+                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center"> 
+                                 {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
+                                <i class="fas fa-bed fs-3"></i>
+                            </div>
+                            <h4 class="mt-3">Luxurious Rooms</h4>
+                            <p>Comfortable, spacious rooms with breathtaking views.</p>
+                        </div>
                     </div>
-                    <h4 class="mt-3">Luxurious Rooms</h4>
-                    <p>Comfortable, spacious rooms with breathtaking views.</p>
+                </div>
+      
+                <!-- Card 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card border-0 shadow h-100 text-center">
+                        <div class="card-body">
+                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center " style="color:#f1c40f;" >
+                                 {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
+                                <i class="fas fa-swimmer fs-3"></i>
+                            </div>
+                            <h4 class="mt-3">Swimming Pool</h4>
+                            <p>Relax and rejuvenate in our luxurious pool area.</p>
+                        </div>
+                    </div>
+                </div>
+      
+                <!-- Card 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card border-0 shadow h-100 text-center">
+                        <div class="card-body">
+                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" >
+                                 {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
+                                <i class="fas fa-dumbbell fs-3"></i>
+                            </div>
+                            <h4 class="mt-3">Fitness Center</h4>
+                            <p>Stay active with state-of-the-art fitness equipment.</p>
+                        </div>
+                    </div>
+                </div>
+      
+                <!-- Card 4 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card border-0 shadow h-100 text-center">
+                        <div class="card-body">
+                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center"> 
+                                 {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
+                                <i class="fas fa-headset fs-3"></i>
+                            </div>
+                            <h4 class="mt-3">24/7 Customer Service</h4>
+                            <p>We're here to assist you at all times.</p>
+                        </div>
+                    </div>
+                </div>
+      
+                <!-- Card 5 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card border-0 shadow h-100 text-center">
+                        <div class="card-body">
+                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center"> 
+                                 {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
+                                <i class="fas fa-users fs-3"></i>
+                            </div>
+                            <h4 class="mt-3">Meeting Room</h4>
+                            <p>Host professional meetings with state-of-the-art facilities.</p>
+                        </div>
+                    </div>
+                </div>
+      
+                <!-- Card 6 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card border-0 shadow h-100 text-center">
+                        <div class="card-body">
+                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center">
+                                 {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
+                                <i class="fas fa-calendar-alt fs-3"></i>
+                            </div>
+                            <h4 class="mt-3">Event Management</h4>
+                            <p>Manage events like conferences, weddings, and parties.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Card 2 -->
-        <div class="col-lg-4 col-md-6">
-            <div class="card border-0 shadow h-100 text-center">
-                <div class="card-body">
-                    <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;">
-                        <i class="fas fa-swimmer fs-3"></i>
-                    </div>
-                    <h4 class="mt-3">Swimming Pool</h4>
-                    <p>Relax and rejuvenate in our luxurious pool area.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="col-lg-4 col-md-6">
-            <div class="card border-0 shadow h-100 text-center">
-                <div class="card-body">
-                    <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;">
-                        <i class="fas fa-dumbbell fs-3"></i>
-                    </div>
-                    <h4 class="mt-3">Fitness Center</h4>
-                    <p>Stay active with state-of-the-art fitness equipment.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="col-lg-4 col-md-6">
-            <div class="card border-0 shadow h-100 text-center">
-                <div class="card-body">
-                    <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;">
-                        <i class="fas fa-headset fs-3"></i>
-                    </div>
-                    <h4 class="mt-3">24/7 Customer Service</h4>
-                    <p>We're here to assist you at all times.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="col-lg-4 col-md-6">
-            <div class="card border-0 shadow h-100 text-center">
-                <div class="card-body">
-                    <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;">
-                        <i class="fas fa-users fs-3"></i>
-                    </div>
-                    <h4 class="mt-3">Meeting Room</h4>
-                    <p>Host professional meetings with state-of-the-art facilities.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="col-lg-4 col-md-6">
-            <div class="card border-0 shadow h-100 text-center">
-                <div class="card-body">
-                    <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;">
-                        <i class="fas fa-calendar-alt fs-3"></i>
-                    </div>
-                    <h4 class="mt-3">Event Management</h4>
-                    <p>Manage events like conferences, weddings, and parties.</p>
-                </div>
-            </div>
-        </div>
-        {{-- card 7 --}}
-        <div class="col-lg-4 col-md-6">
-            <div class="card border-0 shadow h-100 text-center">
-                <div class="card-body">
-                    <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;">
-                        <i class="fas fa-parking fs-3"></i>
-                    </div>
-                    <h4 class="mt-3">Private Parking</h4>
-                    <p>Safe and secure parking for your convenience.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 8 -->
-        <div class="col-lg-4 col-md-6">
-            <div class="card border-0 shadow h-100 text-center">
-                <div class="card-body">
-                    <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;">
-                        <i class="fas fa-wifi fs-3"></i>
-                    </div>
-                    <h4 class="mt-3">Free WiFi</h4>
-                    <p>Stay connected with high-speed internet access.</p>
-                </div>
-            </div>
-        </div>
-        <!-- Card 9 -->
-        <div class="col-lg-4 col-md-6">
-            <div class="card border-0 shadow h-100 text-center">
-                <div class="card-body">
-                    <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;">
-                        <i class="fas fa-concierge-bell fs-3"></i>
-                    </div>
-                    <h4 class="mt-3">Room Service</h4>
-                    <p>Enjoy the comfort of meals served in your room.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+      </div>
 </div>
 
 
 
+{{-- rooms --}}
+<div class="container py-5">
+    <!-- Section Title -->
+    <div class="text-center mb-4">
+        <small class="text-muted">Luxury Experience</small>
+        <h2 class="mt-2">Rooms & Suites</h2>
+    </div>
 
+    <!-- Carousel -->
+    <div id="roomsCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <!-- Room Item 1 -->
+            <div class="carousel-item active">
+                <div class="card border-0">
+                    <img src="{{asset('build/assets/images/room12.jpg')}}" class="card-img-top rounded" alt="Double Room">
+                    
+                    <div class="card-body text-center">
+                        <small>From $150/night</small>
+                        <h5 class="card-title mt-2">Double Room</h5>
+                        <a href="room-details.html" class="btn btn-outline-primary mt-2">Read More</a>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- Room Item 2 -->
+            <div class="carousel-item">
+                <div class="card border-0">
+                    <img src="{{asset('build/assets/images/room13.jpg')}}" class="card-img-top rounded" alt="Deluxe Room" >                    >
+                    <div class="card-body text-center">
+                        <small>From $190/night</small>
+                        <h5 class="card-title mt-2">Deluxe Room</h5>
+                        <a href="room-details.html" class="btn btn-outline-primary mt-2">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Room Item 3 -->
+            <div class="carousel-item">
+                <div class="card border-0">
+                    <img src="{{asset('build/assets/images/room14.jpg')}}" class="card-img-top rounded" alt="Superior Room">
+                    <div class="card-body text-center">
+                        <small>From $240/night</small>
+                        <h5 class="card-title mt-2">Superior Room</h5>
+                        <a href="room-details.html" class="btn btn-outline-primary mt-2">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Room Item 4 -->
+            <div class="carousel-item">
+                <div class="card border-0">
+                    <img src="{{asset('build/assets/images/room15.jpg')}}" class="card-img-top rounded" alt="Junior Suite" >
+                    <div class="card-body text-center">
+                        <small>From $250/night</small>
+                        <h5 class="card-title mt-2">Junior Suite</h5>
+                        <a href="room-details.html" class="btn btn-outline-primary mt-2">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Carousel Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#roomsCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#roomsCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
 
-
-
-
+    <!-- View All Button -->
+    <div class="text-end mt-3">
+        <a href="room-list-1.html" class="btn btn-outline-dark">View All Rooms</a>
+    </div>
+</div>
 
 
 {{-- text on pic --}}
@@ -459,37 +485,8 @@
 
 
 
-{{-- <div class="pinned-image pinned-image--medium">
-    <div class="pinned-image__container" id="section_video" style="translate: none; rotate: none; scale: none; transform: scale(1.05, 1.05);">
-        <video loop="loop" muted="muted" id="loadvideo" webkit-playsinline="" playsinline="">
-            <source src="video/swimming_pool_2.mp4" type="video/mp4">
-            <source src="video/swimming_pool_2.webm" type="video/webm">
-            <source src="video/swimming_pool_2.ogv" type="video/ogg">
-        </video>
-        <div class="pinned-image__container-overlay" style="opacity: 1; visibility: inherit;"></div>
-    </div>
-    <div class="pinned_over_content" style="opacity: 1; visibility: inherit;">
-        <div class="title white">
-            <small data-cue="slideInUp" data-delay="200" data-show="true" style="animation-name: slideInUp; animation-duration: 600ms; animation-timing-function: ease; animation-delay: 200ms; animation-direction: normal; animation-fill-mode: both;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Luxury Hotel Experience</font></font></small>
-            <h2 data-cue="slideInUp" data-delay="300" data-show="true" style="animation-name: slideInUp; animation-duration: 600ms; animation-timing-function: ease; animation-delay: 300ms; animation-direction: normal; animation-fill-mode: both;">Enjoy in a very<br> Immersive Relax</h2>
-        </div>
-    </div>
-</div> --}}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+{{-- Tailored services --}}
 <div class="container py-5">
     <div class="row align-items-center justify-content-between flex-lg-row-reverse">
       <!-- Image Section -->
@@ -515,7 +512,124 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
+
+
+{{-- video --}}
+<div class=" py-5">
+    <div class="position-relative" style="height: 100vh; overflow: hidden;">
+        <!-- Background Video -->
+        <video autoplay loop muted playsinline class="position-absolute w-100 h-100" style="object-fit: cover;">
+            <source src="{{asset('build/assets/vedio/vedeo2.mp4')}}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+       
+        <div class="container position-relative my-5 " style="z-index: 1;">
+             <h4>Luxurious Rooms</h4>
+             <p>Comfortable, spacious rooms with breathtaking views.</p>
+             
+        </div>
+        <div class="text-center container position-relative my-5 text-white" style="z-index: 1;" >
+            <h1>StaySphere</h1>
+            <h4>"Experience the Art of Hospitality"</h4>
+        </div>
+        
+     </div>
+</div>
   
+
+
+
+
+
+
+
+<div class="bg-white py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Left Side: Static Text Section -->
+            <div class="col-lg-5 position-sticky top-0" style="height: 100vh; overflow-y: auto;">
+                <div>
+                    <small class="text-muted">Paradise Hotel</small>
+                    <h2>Local Amenities</h2>
+                    <p>
+                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
+                        totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                    </p>
+                </div>
+                <ul class="list-unstyleds">
+                    <li class="mb-4">
+                        <h5>Local Restaurants</h5>
+                        <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur.</p>
+                    </li>
+                    <li class="mb-4">
+                        <h5>Nature</h5>
+                        <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.</p>
+                    </li>
+                    <li>
+                        <h5>Art and Culture</h5>
+                        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Right Side: Moving Images Section -->
+            <div class="col-lg-6">
+                <div class="scrollable-images h-100" style="overflow-y: auto;">
+                    <div class="image mb-3" style="background-image: url('build/assets/images/room1.jpg'); height: 100vh;"></div>
+                    <div class="image mb-3" style="background-image: url('build/assets/images/room12.jpg'); height: 100vh;"></div>
+                    <div class="image" style="background-image: url('build/assets/images/room9.jpg'); height: 100vh;"></div>
+                    <div class="image" style="background-image: url('build/assets/images/room2.jpg'); height: 100vh;"></div>
+                    <div class="image" style="background-image: url('build/assets/images/room4.jpg'); height: 100vh;"></div>
+                    <div class="image" style="background-image: url('build/assets/images/room5.jpg'); height: 100vh;"></div>
+                    <div class="image" style="background-image: url('build/assets/images/room6.jpg'); height: 100vh;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* General Styles */
+.bg-white {
+    background-color: #fff;
+}
+
+.py-5 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.text-muted {
+    color: #6c757d;
+}
+
+.position-sticky {
+    position: sticky;
+    top: 0;
+}
+
+.list-unstyleds li {
+    margin-bottom: 1.5rem;
+}
+
+/* Right Side: Scrollable Images Section */
+.scrollable-images {
+    scroll-behavior: smooth;
+}
+
+.image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.image.mb-3 {
+    margin-bottom: 1rem; /* Add spacing between images */
+}
+</style>
+
+
 
 @endsection
