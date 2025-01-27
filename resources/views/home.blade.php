@@ -61,7 +61,7 @@
     }
     
    
-      .img-fluid {
+    .img-fluid {
       max-width: 100%;
       height: auto;
     }
@@ -72,32 +72,32 @@
        overflow: hidden;
     } 
 
-.card-body img {
-    border-radius: 50%;
-    background-color: #e9e6dc; 
-    padding: 10px;
-} 
-.icon-wrapper {
-    width: 70px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
-    font-size: 1.5rem;
-}
+    .card-body img {
+       border-radius: 50%;
+       background-color: #e9e6dc; 
+       padding: 10px;
+    } 
+    .icon-wrapper {
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+    }
 
-.card-body h4 {
-    margin-top: 15px;
-    font-weight: bold;
-}
+    .card-body h4 {
+      margin-top: 15px;
+      font-weight: bold;
+    }
 
-.card-body p {
-    color: #6c757d;
-}
+    .card-body p {
+      color: #6c757d;
+    }
 
        /* Testimonial Section */
-       .testimonial-section {
+    .testimonial-section {
          
          height: 110vh; 
          width: 100%;
@@ -105,7 +105,7 @@
          background-size: cover;
          background-position: center;
          position: relative;
-      }
+    }
 
       /* Semi-circular overlay */
     .testimonial-overlay {
@@ -127,21 +127,70 @@
          font-weight: bold;
          color: #f1c40f; 
     }
-    
- 
-/* for rooms */
+</style>
+
+<style>
     /* General Styles */
+    .bg-white {
+      background-color: #fff;
+    }
 
+    .py-5 {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
 
+    .text-muted {
+       color: #6c757d;
+    }
 
+    .position-sticky {
+      position: sticky;
+      top: 0;
+    }
 
+    .list-unstyleds li {
+      margin-bottom: 1.5rem;
+    }
 
+    /* Right Side: Scrollable Images Section */
+    .scrollable-images {
+      scroll-behavior: smooth;
+    }
 
+   .image {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;  /*new*/
+    }
+
+   .image.mb-3 {
+    margin-bottom: 1rem; /* Add spacing between images */
+    }
+   
+
+    .card-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .details {
+        text-align: center;
+    }
+    .btn-book {
+        background-color: #1ABC9C;
+        color: white;
+    }
 
 
 </style>
-
-
 
 
 
@@ -333,75 +382,102 @@
 
 
 {{-- rooms --}}
-<div class="container py-5">
-    <!-- Section Title -->
-    <div class="text-center mb-4">
-        <small class="text-muted">Luxury Experience</small>
-        <h2 class="mt-2">Rooms & Suites</h2>
-    </div>
+<div class="bg-white py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Left Side: Static Text Section -->
+            <div class="col-lg-5 position-sticky top-0" style="height: 100vh; overflow-y: auto;">
+                <div>
+                    <small class="text-muted">StaySphere Hotel</small>
+                    <h2>Our Rooms</h2>
+                    <p>
+                        Choose from our range of luxurious rooms and suites, each designed to offer comfort, style, and tranquility. Whether you seek a cozy space for a quick getaway or a spacious suite for a longer stay, we have something for everyone.
 
-    <!-- Carousel -->
-    <div id="roomsCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <!-- Room Item 1 -->
-            <div class="carousel-item active">
-                <div class="card border-0">
-                    <img src="{{asset('build/assets/images/room12.jpg')}}" class="card-img-top rounded" alt="Double Room">
-                    
-                    <div class="card-body text-center">
-                        <small>From $150/night</small>
-                        <h5 class="card-title mt-2">Double Room</h5>
-                        <a href="room-details.html" class="btn btn-outline-primary mt-2">Read More</a>
-                        
-                    </div>
+                    </p>
                 </div>
+                <ul class="list-unstyled">
+                    <li class="mb-4">
+                        <h5>Superior Room</h5>
+                        <p>Designed for comfort, our Superior Rooms offer a relaxing stay with all the amenities you need for a perfect escape.</p>
+                    </li>
+                    <li class="mb-4">
+                        <h5>Junior Suite</h5>
+                        <p>Enjoy the luxury of extra space with our Junior Suites, equipped with premium furnishings and modern amenities for an exceptional stay.</p>
+
+                    </li>
+                    <li>
+                        <h5>Deluxe Room</h5>
+                        <p>Our Deluxe Rooms provide a blend of luxury and comfort, ideal for those seeking a touch of elegance and style.</p>
+                    </li>
+                    <li>
+                        <h5>Double Room</h5>
+                        <p>Perfect for couples or friends, our Double Rooms offer a cozy, spacious retreat with premium amenities.</p>
+                    </li>
+                </ul>
             </div>
-            <!-- Room Item 2 -->
-            <div class="carousel-item">
-                <div class="card border-0">
-                    <img src="{{asset('build/assets/images/room13.jpg')}}" class="card-img-top rounded" alt="Deluxe Room" >                    >
-                    <div class="card-body text-center">
-                        <small>From $190/night</small>
-                        <h5 class="card-title mt-2">Deluxe Room</h5>
-                        <a href="room-details.html" class="btn btn-outline-primary mt-2">Read More</a>
+
+            <!-- Right Side: Moving Images Section -->
+            <div class="col-lg-7">
+                <div class="scrollable-images h-100" style="overflow-y: auto;">
+                    <!-- First Image -->
+                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room1.jpg'); height: 100vh; background-size: cover; background-position: center; ">
+                        <div class="position-absolute top-50 start-50 translate-middle">
+                            <small class="text-light">From $250/night</small>
+                            <h5 class="text-light">Junior Suite</h5>
+                            <a href="room-details.html" class="btn btn-outline-light">Read More</a>
+                            <a href="{{route('reservations.create')}}"  class="btn btn-warning">book Now</a>
+
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- Room Item 3 -->
-            <div class="carousel-item">
-                <div class="card border-0">
-                    <img src="{{asset('build/assets/images/room14.jpg')}}" class="card-img-top rounded" alt="Superior Room">
-                    <div class="card-body text-center">
-                        <small>From $240/night</small>
-                        <h5 class="card-title mt-2">Superior Room</h5>
-                        <a href="room-details.html" class="btn btn-outline-primary mt-2">Read More</a>
+
+                    <!-- Second Image -->
+                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room11.jpg'); height: 100vh; background-size: cover; background-position: center;">
+                        <div class="position-absolute top-50 start-50 translate-middle">
+                            <small class="text-light">From $250/night</small>
+                            <h5 class="text-light">Junior Suite</h5>
+                            <a href="room-details.html" class="btn btn-outline-light">Read More</a>
+                            <a href="{{route('reservations.create')}}" class="btn btn-warning">book Now</a>
+
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- Room Item 4 -->
-            <div class="carousel-item">
-                <div class="card border-0">
-                    <img src="{{asset('build/assets/images/room15.jpg')}}" class="card-img-top rounded" alt="Junior Suite" >
-                    <div class="card-body text-center">
-                        <small>From $250/night</small>
-                        <h5 class="card-title mt-2">Junior Suite</h5>
-                        <a href="room-details.html" class="btn btn-outline-primary mt-2">Read More</a>
+                    <!-- Third Image -->
+                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room15.jpg'); height: 100vh; background-size: cover; background-position: center;">
+                        <div class="position-absolute top-50 start-50 translate-middle">
+                            <small class="text-light">From $250/night</small>
+                            <h5 class="text-light">Junior Suite</h5>
+                            <a href="room-details.html" class="btn btn-outline-light">Read More</a>
+                            <a href="{{route('reservations.create')}}" class="btn btn-warning">book Now</a>
+
+                        </div>
+                    </div>
+                    {{-- fourth image --}}
+                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room17.jpg'); height: 100vh; background-size: cover; background-position: center;">
+                        <div class="position-absolute top-50 start-50 translate-middle">
+                            <small class="text-light">From $250/night</small>
+                            <h5 class="text-light">Junior Suite</h5>
+                            <a href="room-details.html" class="btn btn-outline-light">Read More</a>
+                            <a href="{{route('reservations.create')}}" class="btn btn-warning">book Now</a>
+
+                        </div>
+                    </div>
+                    {{-- fifth image --}}
+                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room18.jpg'); height: 100vh; background-size: cover; background-position: center;">
+                        <div class="position-absolute top-50 start-50 translate-middle">
+                            <small class="text-light">From $250/night</small>
+                            <h5 class="text-light">Junior Suite</h5>
+                            <a href="room-details.html" class="btn btn-outline-light">Read More</a>
+                            <a href="{{route('reservations.create')}}" class="btn btn-warning">book Now</a>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Carousel Controls -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#roomsCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#roomsCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        </button>
-    </div>
 
-    <!-- View All Button -->
-    <div class="text-end mt-3">
-        <a href="room-list-1.html" class="btn btn-outline-dark">View All Rooms</a>
+        <!-- View All Rooms Button -->
+        <div class="text-end mt-3">
+            <a href="room-list-1.html" class="btn btn-outline-dark">View All Rooms</a>
+        </div>
     </div>
 </div>
 
@@ -412,7 +488,7 @@
       <div class="container position-relative">
         <div id="testimonialsCarousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="1000">
+            <div class="carousel-item active" data-bs-interval="2000">
               <div class="row justify-content-center">
                 <div class="col-12 col-md-10 col-lg-8">
                   <div class="testimonial-overlay text-center p-4">
@@ -426,7 +502,7 @@
                 </div>
               </div>
             </div>
-            <div class="carousel-item" data-bs-interval="1000">
+            <div class="carousel-item" data-bs-interval="2000">
               <div class="row justify-content-center">
                 <div class="col-12 col-md-10 col-lg-8">
                   <div class="testimonial-overlay text-center p-4">
@@ -440,7 +516,7 @@
                 </div>
               </div>
             </div>
-            <div class="carousel-item" data-bs-interval="1000">
+            <div class="carousel-item" data-bs-interval="2000">
               <div class="row justify-content-center">
                 <div class="col-12 col-md-10 col-lg-8">
                   <div class="testimonial-overlay text-center p-4">
@@ -537,14 +613,8 @@
         
      </div>
 </div>
-  
 
-
-
-
-
-
-
+{{--local animities --}}
 <div class="bg-white py-5">
     <div class="container">
         <div class="row">
@@ -554,22 +624,21 @@
                     <small class="text-muted">Paradise Hotel</small>
                     <h2>Local Amenities</h2>
                     <p>
-                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
-                        totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                        But so that you may see where all this error of those who accuse pleasure and praise pain comes from, I will reveal the whole matter, and I will explain the very things that were said by that discoverer of truth and, as it were, the architect of a happy life.
                     </p>
                 </div>
                 <ul class="list-unstyleds">
                     <li class="mb-4">
                         <h5>Local Restaurants</h5>
-                        <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur.</p>
+                        <p>Nor is there anyone who does not love pain itself because it is pain.</p>
                     </li>
                     <li class="mb-4">
                         <h5>Nature</h5>
-                        <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.</p>
+                        <p>But who would rightly blame even him who wishes to be in that pleasure which results in no discomfort?</p>
                     </li>
                     <li>
                         <h5>Art and Culture</h5>
-                        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
+                        <p>For no one despises, hates, or flees pleasure itself because it is pleasure.</p>
                     </li>
                 </ul>
             </div>
@@ -577,58 +646,15 @@
             <!-- Right Side: Moving Images Section -->
             <div class="col-lg-6">
                 <div class="scrollable-images h-100" style="overflow-y: auto;">
-                    <div class="image mb-3" style="background-image: url('build/assets/images/room1.jpg'); height: 100vh;"></div>
-                    <div class="image mb-3" style="background-image: url('build/assets/images/room12.jpg'); height: 100vh;"></div>
-                    <div class="image" style="background-image: url('build/assets/images/room9.jpg'); height: 100vh;"></div>
-                    <div class="image" style="background-image: url('build/assets/images/room2.jpg'); height: 100vh;"></div>
-                    <div class="image" style="background-image: url('build/assets/images/room4.jpg'); height: 100vh;"></div>
-                    <div class="image" style="background-image: url('build/assets/images/room5.jpg'); height: 100vh;"></div>
-                    <div class="image" style="background-image: url('build/assets/images/room6.jpg'); height: 100vh;"></div>
+                    <div class="image mb-3" style="background-image: url('build/assets/images/restu.jpg'); height: 100vh;"></div>
+                    <div class="image mb-3" style="background-image: url('build/assets/images/natur1.jpg'); height: 100vh;"></div>
+                    <div class="image" style="background-image: url('build/assets/images/art1.jpg'); height: 100vh;"></div>
+                    
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<style>
-/* General Styles */
-.bg-white {
-    background-color: #fff;
-}
-
-.py-5 {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-}
-
-.text-muted {
-    color: #6c757d;
-}
-
-.position-sticky {
-    position: sticky;
-    top: 0;
-}
-
-.list-unstyleds li {
-    margin-bottom: 1.5rem;
-}
-
-/* Right Side: Scrollable Images Section */
-.scrollable-images {
-    scroll-behavior: smooth;
-}
-
-.image {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.image.mb-3 {
-    margin-bottom: 1rem; /* Add spacing between images */
-}
-</style>
 
 
 

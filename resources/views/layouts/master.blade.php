@@ -41,219 +41,41 @@
         width: 50px;
      }
    .navbar-toggler {
-      border-color: white; /* Border color */
+      border-color: white;
     }
    .navbar-toggler-icon {
-     background-color: white; /* Button color */
+     background-color: white; 
     }
     .navbar-toggler:hover,
     .navbar-toggler:focus {
-       background-color: #1ABC9C; /* Light Teal */
+       background-color: #1ABC9C; 
      }
       
-     .card:hover {
-    transform: scale(1.05);
-    transition: 0.3s ease-in-out;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    a {
-    color: inherit; /* Keep default text color */
-    }
-
-    .card {
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
-
-    .card:hover {
-       transform: scale(1.05); /* Slightly enlarge on hover */
-       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Video Background
-    .video-background {
-      position: relative;
-      height: 100vh;
-      overflow: hidden;
-    }
-    #bg-video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      text-align: center;
-    } */
-
     /* Footer Styling */
     footer {
-      background-color: #2C3E50; /* Midnight Blue */
+      background-color: #2C3E50; 
       color: white;
     }
 
     footer a {
-      color: #F1C40F; /* Soft Gold */
+      color: #F1C40F;
       text-decoration: none;
     }
 
     footer a:hover {
-      color: #1ABC9C; /* Light Teal */
+      color: #1ABC9C; 
     }
 
-    /* Button Styling */
-    .btn-custom {
-      background-color: #F1C40F; /* Soft Gold */
-      color: #2C3E50; /* Midnight Blue */
-    }
+   
 
-    .btn-custom:hover {
-      background-color: #1ABC9C; /* Light Teal */
-      color: white;
-    }
+   
+   
+ 
+   
 
-    body {
-      background-color: #F8F9FA; /* Off-White */
-      color: #343A40; /* Dark Gray */
-      font-family: Arial, sans-serif;
-    } 
-
-     /* Welcome Section */
-    .welcome-section {
-      background-color: #2C3E50; /* Midnight Blue */
-      padding: 100px 0;
-    }
-
-    .welcome-title {
-      color: #FFFFFF;
-      font-size: 3.5rem;
-    }
-
-    .lead {
-      font-size: 1.25rem;
-      color: #FFFFFF;
-    }
-
-     /* Hotel Services Section */
-    .hotel-services {
-       margin-top: 50px;
-       padding: 50px 0;
-    }
-
-    .service-box {
-       background-color: #FFFFFF;
-       border: 1px solid #E5E5E5;
-       padding: 30px;
-       margin-bottom: 30px;
-       border-radius: 8px;
-    }
-
-    .service-title {
-      color: #2C3E50; /* Midnight Blue */
-      font-size: 1.75rem;
-      margin-bottom: 15px;
-    }
-
-    /* Call to Action */
-    .cta-section {
-      background-color: #F1C40F; /* Soft Gold */
-      padding: 60px 0;
-      color: #FFFFFF;
-    }
-
-    .btn-primary {
-      background-color: #1ABC9C; /* Light Teal */
-      border-color: #1ABC9C;
-      color: white;
-     } 
-
-    .btn-primary:hover {
-       background-color: #16A085; /* Slightly darker teal */
-      border-color: #16A085;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .welcome-title {
-        font-size: 2.5rem;
-      }
-    }
-
-
-
-
-    /* .section {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-     } */
-
-    /* .section h1 {
-      font-size: 3rem;
-      color: #343A40;
-     } */
-
-    /* .image-window {
-      display: flex;
-      gap: 20px;
-    } */
-
-    /* .image-window img {
-      height: 300px;
-      width: 200px;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    } */
-
-    /* .background {
-      background: white;
-      height: 100%;
-      width: 50%;
-      position: absolute;
-      left: 25%;
-      z-index: -1;
-    } */
-
-    /* .container {
-        font-family: 'Arial', sans-serif;
-     }  */
-    /* .bg-dark {
-       background-color: #2C3E50 !important;
-    } */
-    /* .btn-warning {
-      background-color: #F1C40F;
-      border: none;
-    } */
-    .rounded-circle {
-      border: 5px solid #F1C40F;
-     }
-
-    .container {
-       font-family: 'Arial', sans-serif;
-    }
-
-    h2 {
-       color: #2C3E50; /* Midnight Blue */
-      
-    }
-
-    p {
-        color: #343A40; /* Dark Gray */
-     }
-
-    
-
+   
+  
+   
    
       
    .dropdown-menu {
@@ -315,26 +137,6 @@
 
 
   @yield('content') 
-  {{-- <div class="video-background">
-    <video autoplay muted loop id="bg-video">
-        <source src="{{ asset('assets/videos/vd1.mp4') }}" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <div class="content">
-         <!-- Content Placeholder -->
-  <div class="container my-5">
-    <h1 style="color: var(--background-color);">Welcome to Stay Sphere</h1>
-    <p style="color: var(--background-color);">
-      Your comfort, our priority. Explore our rooms and book your stay today!
-    </p>
-    <button class="btn btn-custom">Explore Now</button>
-  </div>
-    </div>
-</div> --}}
-
-
-
-
   <!-- Footer -->
   <footer class="text-center text-lg-start shadow margin-top">
     <div class="container p-4">
