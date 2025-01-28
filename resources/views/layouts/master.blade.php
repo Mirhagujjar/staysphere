@@ -21,7 +21,8 @@
   <script src="{{ asset('build/assets/js/bootstrap.bundle.min.js')}}"></script>
 
 
-  <style>
+
+<style>
     /* Navbar Styling */
     .navbar {
       background-color: #2C3E50; /* Midnight Blue */
@@ -52,7 +53,7 @@
      }
       
     /* Footer Styling */
-    footer {
+    /* footer {
       background-color: #2C3E50; 
       color: white;
     }
@@ -65,35 +66,56 @@
     footer a:hover {
       color: #1ABC9C; 
     }
-
-   
-
-   
-   
- 
-   
-
-   
-  
-   
-   
       
    .dropdown-menu {
-         background-color: #2C3E50; /* Midnight Blue background for dropdown */
+         background-color: #2C3E50; 
     }
 
    .dropdown-item {
-         color: #FFFFFF; /* White text for dropdown items */
+         color: #FFFFFF; 
     }
     .dropdown-item:hover {
-         background-color: #F1C40F; /* Soft Gold highlight */
-         color: #2C3E50; /* Midnight Blue text on hover */
-      }
+         background-color: #F1C40F; 
+         color: #2C3E50; 
+      } */
+       
+    footer {
+      font-size: 14px;
+     line-height: 1.6;
+    }
 
+    footer h6 {
+     color: #F1C40F;
+     font-size: 16px;
+     font-weight: bold;
+    }
 
+    footer .btn-warning {
+     background-color: #F1C40F;
+     border: none;
+     color: #fff;
+    }
+
+    footer .btn-warning:hover {
+      background-color: #e5b700;
+    }
 
     
-  </style>
+
+      /* for button */
+    html {
+        scroll-behavior: smooth;
+    }
+    a:hover {
+        transform: scale(1.1); /* Slightly enlarges the button on hover */
+    }
+    #scrollToTop {
+        background: conic-gradient(#F1C40F 0%, transparent 0%);
+    }
+
+
+</style>
+
 </head>
 <body>
 
@@ -125,7 +147,11 @@
 
             <li class="nav-item"><a class="nav-link" href="{{ route('contact.index') }}">Contact Us</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">About Us</a></li>
+
+            @yield('nav-content')
+
         </ul>
+       
       </div>
     </div>
   </nav>
@@ -138,7 +164,7 @@
 
   @yield('content') 
   <!-- Footer -->
-  <footer class="text-center text-lg-start shadow margin-top">
+  {{-- <footer class="text-center text-lg-start shadow margin-top">
     <div class="container p-4">
       <div class="row">
 
@@ -177,7 +203,89 @@
     <div class="text-center p-3" style="background-color: var(--text-color); color: white;">
        © {{ date('Y') }} Stay Sphere. All rights reserved.
     </div>
+  </footer> --}}
+  <footer class="bg-dark text-light pt-5 pb-4 ">
+    <div class="container text-center text-md-start margin-top">
+      <div class="row">
+        <!-- Logo and Description -->
+        <div class="col-md-4 col-lg-4 col-xl-3 mx-auto mt-3">
+          <h6 class="text-uppercase mb-4 font-weight-bold">Stay Sphere</h6>
+          <p>
+            Providing a seamless platform for booking the best hotel rooms with comfort, ease, and luxury.
+
+          </p>
+          <div >
+            <h5 class="text-uppercase fw-bold">Contact Us</h5>
+            <ul class="list-unstyled mb-0">
+              <li><i class="bi bi-telephone-fill"></i> +92 123 456 7890</li>
+              <li><i class="bi bi-envelope-fill"></i> info@staysphere.com</li>
+              <li><i class="bi bi-geo-alt-fill"></i> Lahore, Pakistan</li>
+            </ul>
+          </div>
+        </div>
+  
+        <!-- Useful Links -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+          <h6 class="text-uppercase mb-4 font-weight-bold">Links</h6>
+          <p><a href="{{ route('about') }}" class="text-light text-decoration-none">About Us</a></p>
+          <p><a href="#" class="text-light text-decoration-none">Services</a></p>
+          <p><a href="{{ route('reservations.index') }}" class="text-light text-decoration-none">Book Now</a></p>
+          <p><a href="{{ route('reservations.index') }}" class="text-light text-decoration-none">Rooms</a></p>
+          <p><a href="{{ route('events') }}" class="text-light text-decoration-none">Events</a></p>
+        </div>
+  
+        <!-- More Links -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+          <h6 class="text-uppercase mb-4 font-weight-bold">Useful Links</h6>
+          <p><a href="{{ route('home') }}" class="text-light text-decoration-none">Home</a></p>
+          <p><a href="#" class="text-light text-decoration-none">Blog</a></p>
+          <p><a href="#" class="text-light text-decoration-none">FAQ</a></p>
+          <p><a href="#" class="text-light text-decoration-none">Testimonials</a></p>
+          <p><a href="{{ route('contact.index') }}" class="text-light text-decoration-none">Contact Us</a></p>
+        </div>
+  
+        <!-- Newsletter -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+          <h6 class="text-uppercase mb-4 font-weight-bold">Newsletter</h6>
+          <p class=" mb-4 font-weight-bold">
+            "Stay updated with the latest offers, exclusive discounts, and upcoming events at our hotel. Be the first to know about special packages and exciting services tailored just for you. Subscribe to our newsletter and let us bring the best of comfort and luxury right to your inbox!
+          </p>
+          <form>
+            <div class="mb-3">
+              <input type="email" class="form-control" placeholder="Your Email*" />
+            </div>
+            <button type="submit" class="btn btn-warning w-100">Subscribe Now</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    
+    <div class="text-center p-3" style="background-color: var(--text-color); color: white;">
+      © {{ date('Y') }} Stay Sphere. All rights reserved.
+   </div>
   </footer>
+  
+  
+
+  {{-- <a href="#" class="btn btn-primary position-fixed bottom-0 end-0 m-3">
+    ↑ Top
+ </a> --}}
+
+ {{-- <a href="#" 
+   class="btn position-fixed bottom-0 end-0 m-3" 
+   style="background-color: #F1C40F; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.2s ease;">
+    ↑
+ </a> --}}
+
+ <a href="#" 
+   id="scrollToTop" 
+   class="btn position-fixed bottom-0 end-0 m-3" 
+   style="background-color: transparent; color: #F1C40F; width: 60px; height: 60px; border-radius: 50%; border: 4px solid #F1C40F; display: flex; align-items: center; justify-content: center; font-weight: bold; transition: background-color 0.3s;background-color:#2C3E50">
+    ↑
+ </a>
+
+
 
 
 </body>

@@ -1,4 +1,5 @@
-@extends('layouts.master')
+@extends('layouts.app')
+
 
 @section('content')
 
@@ -119,13 +120,14 @@
     .blockquote {
          font-size: 1.5rem;
          font-style: italic;
-         line-height: 1.9;
+         line-height: 1.3;
     }  
 
    .blockquote-footer {
          font-size: 1rem;
          font-weight: bold;
-         color: #f1c40f; 
+         color: #f1c40f;
+         background-color:#2C3E50; 
     }
 </style>
 
@@ -295,9 +297,9 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card border-0 shadow h-100 text-center">
                         <div class="card-body">
-                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center"> 
+                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="color:#f1c40f;"> 
                                  {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
-                                <i class="fas fa-bed fs-3"></i>
+                                <i class="fas fa-bed fs-1"></i>
                             </div>
                             <h4 class="mt-3">Luxurious Rooms</h4>
                             <p>Comfortable, spacious rooms with breathtaking views.</p>
@@ -311,7 +313,7 @@
                         <div class="card-body">
                             <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center " style="color:#f1c40f;" >
                                  {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
-                                <i class="fas fa-swimmer fs-3"></i>
+                                <i class="fas fa-swimmer fs-1"></i>
                             </div>
                             <h4 class="mt-3">Swimming Pool</h4>
                             <p>Relax and rejuvenate in our luxurious pool area.</p>
@@ -323,9 +325,9 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card border-0 shadow h-100 text-center">
                         <div class="card-body">
-                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" >
+                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="color:#f1c40f;">
                                  {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
-                                <i class="fas fa-dumbbell fs-3"></i>
+                                <i class="fas fa-dumbbell fs-1"></i>
                             </div>
                             <h4 class="mt-3">Fitness Center</h4>
                             <p>Stay active with state-of-the-art fitness equipment.</p>
@@ -337,9 +339,9 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card border-0 shadow h-100 text-center">
                         <div class="card-body">
-                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center"> 
+                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="color:#f1c40f;"> 
                                  {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
-                                <i class="fas fa-headset fs-3"></i>
+                                <i class="fas fa-headset fs-1"></i>
                             </div>
                             <h4 class="mt-3">24/7 Customer Service</h4>
                             <p>We're here to assist you at all times.</p>
@@ -351,9 +353,9 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card border-0 shadow h-100 text-center">
                         <div class="card-body">
-                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center"> 
+                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="color:#f1c40f;"> 
                                  {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
-                                <i class="fas fa-users fs-3"></i>
+                                <i class="fas fa-users fs-1"></i>
                             </div>
                             <h4 class="mt-3">Meeting Room</h4>
                             <p>Host professional meetings with state-of-the-art facilities.</p>
@@ -365,9 +367,9 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card border-0 shadow h-100 text-center">
                         <div class="card-body">
-                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center">
+                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="color:#f1c40f;">
                                  {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
-                                <i class="fas fa-calendar-alt fs-3"></i>
+                                <i class="fas fa-calendar-alt fs-1" ></i>
                             </div>
                             <h4 class="mt-3">Event Management</h4>
                             <p>Manage events like conferences, weddings, and parties.</p>
@@ -424,7 +426,7 @@
                         <div class="position-absolute top-50 start-50 translate-middle">
                             <small class="text-light">From $250/night</small>
                             <h5 class="text-light">Junior Suite</h5>
-                            <a href="room-details.html" class="btn btn-outline-light">Read More</a>
+                            <a href="{{ route('about') }}" class="btn btn-outline-warning">Read More</a>
                             <a href="{{route('reservations.create')}}"  class="btn btn-warning">book Now</a>
 
                         </div>
@@ -435,7 +437,7 @@
                         <div class="position-absolute top-50 start-50 translate-middle">
                             <small class="text-light">From $250/night</small>
                             <h5 class="text-light">Junior Suite</h5>
-                            <a href="room-details.html" class="btn btn-outline-light">Read More</a>
+                            <a href="{{ route('about') }}" class="btn btn-outline-warning">Read More</a>
                             <a href="{{route('reservations.create')}}" class="btn btn-warning">book Now</a>
 
                         </div>
@@ -445,7 +447,7 @@
                         <div class="position-absolute top-50 start-50 translate-middle">
                             <small class="text-light">From $250/night</small>
                             <h5 class="text-light">Junior Suite</h5>
-                            <a href="room-details.html" class="btn btn-outline-light">Read More</a>
+                            <a href="{{ route('about') }}" class="btn btn-outline-warning">Read More</a>
                             <a href="{{route('reservations.create')}}" class="btn btn-warning">book Now</a>
 
                         </div>
@@ -455,7 +457,7 @@
                         <div class="position-absolute top-50 start-50 translate-middle">
                             <small class="text-light">From $250/night</small>
                             <h5 class="text-light">Junior Suite</h5>
-                            <a href="room-details.html" class="btn btn-outline-light">Read More</a>
+                            <a href="{{ route('about') }}" class="btn btn-outline-warning">Read More</a>
                             <a href="{{route('reservations.create')}}" class="btn btn-warning">book Now</a>
 
                         </div>
@@ -465,7 +467,7 @@
                         <div class="position-absolute top-50 start-50 translate-middle">
                             <small class="text-light">From $250/night</small>
                             <h5 class="text-light">Junior Suite</h5>
-                            <a href="room-details.html" class="btn btn-outline-light">Read More</a>
+                            <a href="{{ route('about') }}" class="btn btn-outline-warning">Read More</a>
                             <a href="{{route('reservations.create')}}" class="btn btn-warning">book Now</a>
 
                         </div>

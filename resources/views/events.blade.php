@@ -1,11 +1,11 @@
-@extends('layouts.master')
+@extends('layouts.app')
 @section('content')
 
 
 <style>
     /* four cards in one row*/
 
-.card-container1 {
+  .card-container1 {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -24,31 +24,31 @@
     width: 100%;
     height: 70vh;
     object-fit: cover;
-}
-
-.custom-card1 .bottom-text1 {
-  position: absolute;
-  bottom: 10px; /* Adjust to move text closer to the bottom */
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-}
-
-
-
-
-
-.event-card {
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    height: 90vh;
   }
+
+  .custom-card1 .bottom-text1 {
+    position: absolute;
+    bottom: 10px; /* Adjust to move text closer to the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+   }
+
+
+
+
+
+   .event-card {
+     position: relative;
+     border-radius: 10px;
+     overflow: hidden;
+     height: 90vh;
+   }
 
 
 
@@ -109,11 +109,11 @@
         font-weight: bold;
     }
 
-/one sude image and other side text/
+  /* one sude image and other side text/ */
 
     .image-section img {
         width: 100%;
-        height: auto;
+      height: 600px;
         border-radius: 15px; /* Rounded corners for images */
         object-fit: cover;
     }
@@ -138,36 +138,36 @@
             color: white;
             padding: 10px;
             margin: 10px;
-        }
-        .btn:hover {
+    }
+    .btn:hover {
             background-color: gray;
-        }
+    }
 
 
-/*two cards in one row */
+    /*two cards in one row */
 
 
 
-        .card-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px; /* Spacing between cards */
-    margin-top: 50px;
-  }
+    .card-container {
+       display: flex;
+       justify-content: space-between;
+       flex-wrap: wrap;
+       gap: 10px; /* Spacing between cards */
+       margin-top: 50px;
+     }
 
-  .custom-card {
-    position: relative;
-    width: 48%; /* Two cards in one row */
-    border-radius: 10px;
-    overflow: hidden;
-  }
+    .custom-card {
+      position: relative;
+      width: 48%; /* Two cards in one row */
+      border-radius: 10px;
+      overflow: hidden;
+     }
 
-  .custom-card img {
-    width: 100vh;
-    height: 60vh; /* Set image height */
-    object-fit: cover;
-  }
+    .custom-card img {
+      width: 100vh;
+      height: 60vh; /* Set image height */
+      object-fit: cover;
+     }
 
   .card-footer {
     position: absolute;
@@ -333,10 +333,10 @@
 
 <!--  ..............................................................................  -->
 <div class="container">
-<div class="mt-3"><h1>How to Book Your Event</h1>
-<p>Plan seamlessly with our innovative tools and resources.
-</p></div>
-    <div class="card-container1 ">
+  <div class="mt-3"><h1>How to Book Your Event</h1>
+     <p>Plan seamlessly with our innovative tools and resources.</p>
+  </div>
+   <div class="card-container1 ">
       <!-- Card 1 -->
       <div class="custom-card ">
         <img src="assets/images/book.jpeg" alt="Card Image 1">
@@ -358,7 +358,7 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 
 
 
@@ -372,7 +372,7 @@
 <!-- First Row -->
 <div class="row align-items-center mb-5">
     <div class="col-md-6 image-section">
-        <img src="assets/images/meeting.jpeg" alt="Hotel Image 1">
+        <img src="{{asset('build/assets/images/mindfulmeeting.jpg')}}" class="img-fluid" alt="Hotel Image 1">
     </div>
     <div class="col-md-6 text-section">
         <h2>Mindful Meetings & Events</h2>
@@ -387,7 +387,7 @@
 <!-- Second Row -->
 <div class="row align-items-center mb-5">
     <div class="col-md-6 order-md-2 image-section">
-        <img src="assets/images/1.jpg" alt="Hotel Image 2">
+        <img src="{{asset('build/assets/images/conference.jpg')}}" class="img-fluid" alt="Hotel Image 2">
     </div>
     <div class="col-md-6 order-md-1 text-section">
         <h2>Conferences</h2>
@@ -400,7 +400,7 @@
 <!-- third Row -->
 <div class="row align-items-center mb-5">
     <div class="col-md-6 image-section">
-        <img src="assets/images/music.jpeg" alt="Hotel Image 1">
+        <img src="{{asset('build/assets/images/sufi.jpg')}}" class="img-fluid" alt="Hotel Image 1">
     </div>
     <div class="col-md-6 text-section">
         <h2>Sufi Musical Performance </h2>
@@ -412,7 +412,7 @@
 <!-- 4th row -->
 <div class="row align-items-center mb-5">
     <div class="col-md-6 order-md-2 image-section">
-        <img src="assets/images/1.jpg" alt="Hotel Image 2">
+        <img src="{{asset('build/assets/images/haal.jpg')}}" class="img-fluid" alt="Hotel Image 2">
     </div>
     <div class="col-md-6 order-md-1 text-section">
         <h2>Gather Together</h2>
@@ -426,7 +426,7 @@
 <!-- 5th row-->
 <div class="row align-items-center mb-5">
     <div class="col-md-6 image-section">
-        <img src="assets/images/hotel.jpeg" alt="Hotel Image 1">
+        <img src="{{asset('build/assets/images/multiproperty.jpg')}}" class="img-fluid" alt="Hotel Image 1">
     </div>
     <div class="col-md-6 text-section">
         <h2>Multi-Property Hotel </h2>

@@ -30,7 +30,7 @@ Route::get('/rooms', [RoomsController::class, 'index'])->name('rooms');
 Route::get('/events', [EventsController::class, 'index'])->name('events');
 
 Route::prefix('contact')->group(function(){
-    Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+    Route::get('/', [ContactController::class, 'index'])->name('contact.index');
     Route::post('/store',[ContactController::class, 'store'])->name('contact.store');
 });
 
