@@ -9,6 +9,7 @@
       height: 600px; /* Set the height as per your requirement */
       object-fit: cover;
     }
+   
 
     .carousel-caption {
         transform: translateY(20%);
@@ -29,11 +30,11 @@
      }
 
     .reservation-form {
-       position: absolute;
+       position: relative;
        bottom: 0;
        left: 50%;
        transform: translate(-50%, 50%); /* Center and overlap */
-       background-color: #ffffff; /* Solid white background */
+       background-color:  #1ABC9C; /* light teal background */
        padding: 20px;
        border-radius: 10px;
        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for better visibility */
@@ -47,15 +48,15 @@
      }
 
     .custom-image-container {
-        width: 450px;
-        height: 550px;
+        width: 350px;
+        height: 500px;
         overflow: hidden;
         border-radius: 150px 150px 0 0; 
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
       }
 
     .custom-image-container img {
-        width: 150%;
+        width: 100%;
         height: 100%;
         object-fit: cover; 
         display: block;
@@ -255,8 +256,8 @@
 
 
 {{-- Exceptional Hospitality --}}
-<div class="container text-center py-5">
-  <div class="row align-items-center">
+<div class=" text-center py-5" style="background-image: url('{{asset('build/assets/images/bg2.jpg')}}'); background-size: cover; background-position: center; background-repeat: no-repeat; color: white;">
+    <div class="row align-items-center">
       <!-- Left Image -->
       <div class="col-md-4 d-flex justify-content-center">
           <div class="custom-image-container">
@@ -404,16 +405,16 @@
                     </li>
                     <li class="mb-4">
                         <h5>Junior Suite</h5>
-                        <p>Enjoy the luxury of extra space with our Junior Suites, equipped with premium furnishings and modern amenities for an exceptional stay.</p>
+                        <p>Enjoy the luxury of extra space with our Junior Suites.</p>
 
                     </li>
                     <li>
                         <h5>Deluxe Room</h5>
-                        <p>Our Deluxe Rooms provide a blend of luxury and comfort, ideal for those seeking a touch of elegance and style.</p>
+                        <p>Our Deluxe Rooms provide a blend of luxury and comfort.</p>
                     </li>
                     <li>
                         <h5>Double Room</h5>
-                        <p>Perfect for couples or friends, our Double Rooms offer a cozy, spacious retreat with premium amenities.</p>
+                        <p>Perfect for couples or friends.</p>
                     </li>
                 </ul>
             </div>
@@ -422,10 +423,10 @@
             <div class="col-lg-7">
                 <div class="scrollable-images h-100" style="overflow-y: auto;">
                     <!-- First Image -->
-                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room1.jpg'); height: 100vh; background-size: cover; background-position: center; ">
+                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room1.jpg'); height: 50vh;  width: 80%; background-size: cover; background-position: center; ">
                         <div class="position-absolute top-50 start-50 translate-middle">
-                            <small class="text-light">From $250/night</small>
-                            <h5 class="text-light">Junior Suite</h5>
+                            <small class="text-color:#0b0f0e">From $250/night</small>
+                            <h5 class="text-color:#0b0f0e">Junior Suite</h5>
                             <a href="{{ route('about') }}" class="btn btn-outline-warning">Read More</a>
                             <a href="{{route('reservations.create')}}"  class="btn btn-warning">book Now</a>
 
@@ -433,40 +434,40 @@
                     </div>
 
                     <!-- Second Image -->
-                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room11.jpg'); height: 100vh; background-size: cover; background-position: center;">
+                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room11.jpg'); height: 50vh; width: 80%; background-size: cover; background-position: center;">
                         <div class="position-absolute top-50 start-50 translate-middle">
-                            <small class="text-light">From $250/night</small>
-                            <h5 class="text-light">Junior Suite</h5>
+                            <small class="text-color:#0b0f0e">From $250/night</small>
+                            <h5 class="text-color:#0b0f0e">Junior Suite</h5>
                             <a href="{{ route('about') }}" class="btn btn-outline-warning">Read More</a>
                             <a href="{{route('reservations.create')}}" class="btn btn-warning">book Now</a>
 
                         </div>
                     </div>
                     <!-- Third Image -->
-                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room15.jpg'); height: 100vh; background-size: cover; background-position: center;">
+                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room15.jpg'); height: 50vh; width: 80%; background-size: cover; background-position: center;">
                         <div class="position-absolute top-50 start-50 translate-middle">
-                            <small class="text-light">From $250/night</small>
-                            <h5 class="text-light">Junior Suite</h5>
+                            <small class="text-color:#0b0f0e">From $250/night</small>
+                            <h5 class="text-color:#0b0f0e">Junior Suite</h5>
                             <a href="{{ route('about') }}" class="btn btn-outline-warning">Read More</a>
                             <a href="{{route('reservations.create')}}" class="btn btn-warning">book Now</a>
 
                         </div>
                     </div>
                     {{-- fourth image --}}
-                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room17.jpg'); height: 100vh; background-size: cover; background-position: center;">
+                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room17.jpg'); height: 50vh; width: 80%; background-size: cover; background-position: center;">
                         <div class="position-absolute top-50 start-50 translate-middle">
-                            <small class="text-light">From $250/night</small>
-                            <h5 class="text-light">Junior Suite</h5>
+                            <small class="text-color:#0b0f0e">From $250/night</small>
+                            <h5 class="text-color:#0b0f0e">Junior Suite</h5>
                             <a href="{{ route('about') }}" class="btn btn-outline-warning">Read More</a>
                             <a href="{{route('reservations.create')}}" class="btn btn-warning">book Now</a>
 
                         </div>
                     </div>
                     {{-- fifth image --}}
-                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room18.jpg'); height: 100vh; background-size: cover; background-position: center;">
-                        <div class="position-absolute top-50 start-50 translate-middle">
-                            <small class="text-light">From $250/night</small>
-                            <h5 class="text-light">Junior Suite</h5>
+                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room18.jpg'); height: 50vh; width: 80%; background-size: cover; background-position: center;">
+                        <div class="position-absolute top-50 start-50 translate-middle ">
+                            <small class="text-color:#0b0f0e">From $250/night</small>
+                            <h5 class="text-color:#0b0f0e">Junior Suite</h5>
                             <a href="{{ route('about') }}" class="btn btn-outline-warning">Read More</a>
                             <a href="{{route('reservations.create')}}" class="btn btn-warning">book Now</a>
 
@@ -478,7 +479,7 @@
 
         <!-- View All Rooms Button -->
         <div class="text-end mt-3">
-            <a href="room-list-1.html" class="btn btn-outline-dark">View All Rooms</a>
+            <a href="{{ route('rooms') }}" class="btn btn-outline-dark">View All Rooms</a>
         </div>
     </div>
 </div>
@@ -620,8 +621,20 @@
 <div class="bg-white py-5">
     <div class="container">
         <div class="row">
-            <!-- Left Side: Static Text Section -->
-            <div class="col-lg-5 position-sticky top-0" style="height: 100vh; overflow-y: auto;">
+          
+
+            <!-- Right Side: Moving Images Section -->
+            <div class="col-lg-6">
+                <div class="scrollable-images h-100" style="overflow-y: auto;">
+                    <div class="image mb-3" style="background-image: url('build/assets/images/restu.jpg');  width: 80%; background-size: cover; height:60vh;"></div>
+                    <div class="image mb-3" style="background-image: url('build/assets/images/natur1.jpg'); width: 80%; background-size: cover; height:60vh;"></div>
+                    <div class="image mb-3" style="background-image: url('build/assets/images/art1.jpg'); width: 80%; background-size: cover; height:60vh;"></div>
+                    
+                </div>
+            </div>
+
+              <!-- Left Side: Static Text Section -->
+              <div class="col-lg-6 position-sticky top-0" style="height: 100vh; overflow-y: auto;">
                 <div>
                     <small class="text-muted">Paradise Hotel</small>
                     <h2>Local Amenities</h2>
@@ -638,21 +651,11 @@
                         <h5>Nature</h5>
                         <p>But who would rightly blame even him who wishes to be in that pleasure which results in no discomfort?</p>
                     </li>
-                    <li>
+                    <li class="mb-4">
                         <h5>Art and Culture</h5>
                         <p>For no one despises, hates, or flees pleasure itself because it is pleasure.</p>
                     </li>
                 </ul>
-            </div>
-
-            <!-- Right Side: Moving Images Section -->
-            <div class="col-lg-6">
-                <div class="scrollable-images h-100" style="overflow-y: auto;">
-                    <div class="image mb-3" style="background-image: url('build/assets/images/restu.jpg'); height: 100vh;"></div>
-                    <div class="image mb-3" style="background-image: url('build/assets/images/natur1.jpg'); height: 100vh;"></div>
-                    <div class="image" style="background-image: url('build/assets/images/art1.jpg'); height: 100vh;"></div>
-                    
-                </div>
             </div>
         </div>
     </div>

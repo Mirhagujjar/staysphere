@@ -18,7 +18,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: #161616;
+    color: #2C3E50;
 }
 .overlay-text h1 {
     font-size: 3rem;
