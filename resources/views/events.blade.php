@@ -209,6 +209,96 @@
 </style>
 </head>
 <body>
+
+
+
+
+
+    <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <!-- First Slide -->
+            <div class="carousel-item active">
+                <img src="{{asset('build/assets/images/room.jpg')}}" class="d-block w-100" alt="Hotel Image">
+                <div class="carousel-caption d-flex justify-content-between align-items-start" style="top: 10%; left: 5%; right: 5%;">
+                    
+                    <!-- StaySphere Text on the Left -->
+                    <h1 class="text-light fw-bold display-4">StaySphere</h1>
+                    
+                    <!-- Reservation Form on the Right -->
+                    <div class="bg-light p-4 rounded shadow-lg" style="width: 300px;">
+                        <h4 class="text-center">Reserve Your Stay</h4>
+                        <form>
+                            <div class="mb-2">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" placeholder="Enter your name">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">Check-in Date</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">Check-out Date</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary w-100">Book Now</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Add More Slides if Needed -->
+            <div class="carousel-item active">
+                <img src="{{asset('build/assets/images/room1.jpg')}}" class="d-block w-100" alt="Hotel Image">
+                <div class="carousel-caption d-flex justify-content-between align-items-start" style="top: 10%; left: 5%; right: 5%;">
+                    
+                    <!-- StaySphere Text on the Left -->
+                    <h1 class="text-light fw-bold display-4">StaySphere</h1>
+                    
+                    <!-- Reservation Form on the Right -->
+                    <div class="bg-light p-4 rounded shadow-lg" style="width: 300px;">
+                        <h4 class="text-center">Reserve Your Stay</h4>
+                        <form>
+                            <div class="mb-2">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" placeholder="Enter your name">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">Check-in Date</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">Check-out Date</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary w-100">Book Now</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Carousel Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#hotelCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+    
+
+
+
+
+
+
+
+
+
 <!-- Hero Section -->
 <div class="hero-section">
     <h1>Plan Your Events</h1>

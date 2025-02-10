@@ -5,6 +5,9 @@ use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\MenuController;
+
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HotelController;
@@ -13,6 +16,7 @@ use App\Http\Controllers\RoomController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// reservation
 Route::prefix('reservations')->group(function () {
     Route::get('/', [ReservationController::class, 'index'])->name('reservations.index'); // List reservations
     Route::get('/create', [ReservationController::class, 'reservationform'])->name('reservations.create'); // Show form
@@ -29,6 +33,8 @@ Route::get('/rooms', [RoomsController::class, 'index'])->name('rooms');
 
 Route::get('/events', [EventsController::class, 'index'])->name('events');
 
+
+// contact
 Route::prefix('contact')->group(function(){
     Route::get('/', [ContactController::class, 'index'])->name('contact.index');
     Route::post('/store',[ContactController::class, 'store'])->name('contact.store');
@@ -37,6 +43,11 @@ Route::prefix('contact')->group(function(){
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 
+// blogs
+Route::get('/blogs', [BlogController::class, 'showBlogs'])->name('blogs');
+
+// menu of the day 
+Route::get('/menu-of-the-day', [MenuController::class, 'showMenu'])->name('menu');
 
 
 

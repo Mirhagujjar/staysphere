@@ -6,7 +6,7 @@
 <style>
       .carousel-inner img {
       width: 100%;
-      height: 600px; /* Set the height as per your requirement */
+      height: 470px; /* Set the height as per your requirement */
       object-fit: cover;
     }
    
@@ -34,7 +34,7 @@
        bottom: 0;
        left: 50%;
        transform: translate(-50%, 50%); /* Center and overlap */
-       background-color:  #1ABC9C; /* light teal background */
+       background-color:  white; /* light teal background */
        padding: 20px;
        border-radius: 10px;
        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for better visibility */
@@ -49,7 +49,7 @@
 
     .custom-image-container {
         width: 350px;
-        height: 500px;
+        height: 550px;
         overflow: hidden;
         border-radius: 150px 150px 0 0; 
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -132,6 +132,8 @@
     }
 </style>
 
+
+{{-- scrollable imges style --}}
 <style>
     /* General Styles */
     .bg-white {
@@ -208,25 +210,99 @@
       <!-- First Slide -->
       <div class="carousel-item  active" data-bs-interval="2000">
           <img src="{{ asset('build/assets/images/slider.jpg') }}" class="d-block w-100" alt="First slide">
-          <div class="carousel-caption d-none d-md-block text-center">
-              <h1>StaySphere</h1>
+          {{-- <div class="carousel-caption d-none d-md-block text-center">
               <h4>"Experience the Art of Hospitality"</h4>
+          </div> --}}
+          <div class="carousel-caption d-flex justify-content-between align-items-start" style="top: 2%;    left: 10%; right: 10%;">      
+            <!-- StaySphere Text on the Left -->
+            <h1 class="text-light fw-bold display-4">StaySphere</h1>
+            <!-- Reservation Form on the Right -->
+            <div class="bg-dark p-4 rounded shadow-lg" style="width: 300px;">
+                <h4 class="text-center">Reserve Your Stay</h4>
+                <form>
+                    <div class="mb-2">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" placeholder="Enter your name">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Check-in Date</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Check-out Date</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-warning w-100">Book Now</button>
+                    </div>
+                </form>
+            </div>
           </div>
       </div>
       <!-- Second Slide -->
       <div class="carousel-item " data-bs-interval="2000">
           <img src="{{ asset('build/assets/images/slider3.jpg') }}" class="d-block w-100" alt="Second slide">
-          <div class="carousel-caption  d-none d-md-block text-center">
+          {{-- <div class="carousel-caption  d-none d-md-block text-center">
               <h1>StaySphere</h1>
               <h4>"Stay Easy, Live Luxuriously"</h4>
+          </div> --}}
+          <div class="carousel-caption d-flex justify-content-between align-items-start" style="top: 2%;    left: 10%; right: 10%;">      
+            <!-- StaySphere Text on the Left -->
+            <h1 class="text-light fw-bold display-4">StaySphere</h1>
+            <!-- Reservation Form on the Right -->
+            <div class="bg-dark p-4 rounded shadow-lg" style="width: 300px;">
+                <h4 class="text-center">Reserve Your Stay</h4>
+                <form>
+                    <div class="mb-2">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" placeholder="Enter your name">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Check-in Date</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Check-out Date</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-warning w-100">Book Now</button>
+                    </div>
+                </form>
+            </div>
           </div>
       </div>
       <!-- Third Slide -->
       <div class="carousel-item " data-bs-interval="2000">
           <img src="{{ asset('build/assets/images/slider4.jpg') }}" class="d-block w-100" alt="Third slide">
-          <div class="carousel-caption d-none d-md-block text-center">
+          {{-- <div class="carousel-caption d-none d-md-block text-center">
               <h1>StaySphere</h1>
               <h4>"Your Stay, Our Priority"</h4>
+          </div> --}}
+          <div class="carousel-caption d-flex justify-content-between align-items-start" style="top: 2%;    left: 10%; right: 10%;">      
+            <!-- StaySphere Text on the Left -->
+            <h1 class="text-light fw-bold display-4">StaySphere</h1>
+            <!-- Reservation Form on the Right -->
+            <div class="bg-dark p-4 rounded shadow-lg" style="width: 300px;">
+                <h4 class="text-center">Reserve Your Stay</h4>
+                <form>
+                    <div class="mb-2">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" placeholder="Enter your name">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Check-in Date</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Check-out Date</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-warning w-100">Book Now</button>
+                    </div>
+                </form>
+            </div>
           </div>
       </div>
       
@@ -241,7 +317,7 @@
   </button>
 
   <!-- Reservation Form -->
-  <div class="reservation-form position-absolute">
+  {{-- <div class="reservation-form position-absolute">
       <form class="d-flex justify-content-center align-items-center">
           <label for="date" class="me-2">Date</label>
           <input type="date" class="form-control me-2" placeholder="Choose Date">
@@ -251,12 +327,13 @@
           <input type="number" class="form-control me-2" placeholder="Children" min="0" value="0">
           <a href="{{ route('rooms') }}" class="btn btn-lg btn-warning">Check Availability</a>
       </form>
-  </div>
+  </div> --}}
 </div>
 
 
 {{-- Exceptional Hospitality --}}
-<div class=" text-center py-5" style="background-image: url('{{asset('build/assets/images/bg2.jpg')}}'); background-size: cover; background-position: center; background-repeat: no-repeat; color: white;">
+<div class="py-3">
+  <div class=" text-center " style="background: linear-gradient(135deg, #F1C40F, #1ABC9C);">
     <div class="row align-items-center">
       <!-- Left Image -->
       <div class="col-md-4 d-flex justify-content-center">
@@ -279,7 +356,9 @@
           </div>
       </div>
   </div>
+ </div>
 </div>
+
 
 
 <!-- Hotel Services Section -->
@@ -595,7 +674,7 @@
 
 
 {{-- video --}}
-<div class=" py-5">
+{{-- <div class=" py-5">
     <div class="position-relative" style="height: 100vh; overflow: hidden;">
         <!-- Background Video -->
         <video autoplay loop muted playsinline class="position-absolute w-100 h-100" style="object-fit: cover;">
@@ -615,7 +694,7 @@
         </div>
         
      </div>
-</div>
+</div> --}}
 
 {{--local animities --}}
 <div class="bg-white py-5">

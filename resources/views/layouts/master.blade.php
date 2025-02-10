@@ -25,6 +25,9 @@
     .navbar {
       background-color: #2C3E50; /* Midnight Blue */
     }
+    .dropdown {
+      background-color: #2C3E50; /* Midnight Blue */
+    }
     .navbar .navbar-brand,
     .navbar .nav-link {
       color: white ;
@@ -120,13 +123,10 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg shadow margin-down">
     <div class="container-fluid">
-        <a class="navbar-brand fw-bold " href="#">
-            <img src="{{ asset('build/assets/images/logo.jpg')}}" alt="Stay Sphere Logo" width="40" height="40" style="border-radius: 50%;">
-
-          </a>
-
-      <!-- Logo -->
-      <a class="navbar-brand fw-bold" href="#">Stay Sphere</a>
+        <a class="navbar-brand fw-bold align-items-center me-auto" href="#" style="margin-left: 30px;">
+            <img  src="{{ asset('build/assets/images/logo.jpg')}}" alt="Stay Sphere Logo"  style="height: 50px; width: 50px; margin-right: 10px;"></a>
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold font-size: 1.5rem; font-weight: bold;" href="#">Stay Sphere</a>
 
       <!-- Toggler for Mobile -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" >
@@ -134,17 +134,30 @@
       </button>
 
       <!-- Navbar Links -->
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
         <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('reservations.create') }}" >Book Now</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('rooms') }}">Rooms</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('events') }}">Events</a></li>
+            {{-- <li class="nav-item"><a class="nav-link" href="{{ route('blogs') }}">blogs</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('menu') }}">menu</a></li> --}}
 
+                
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="extraMenu" role="button" data-bs-toggle="dropdown">
+                  Other pages
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                  <li><a class="dropdown-item" href="{{ route('menu') }}">Menu of the Day</a></li>
+                  <li><a class="dropdown-item" href="{{ route('blogs') }}">Blogs</a></li>
+                  <li><a class="dropdown-item" href="{{ route('about') }}">About Us</a></li>
+                  <li><a class="dropdown-item" href="{{ route('events') }}">Events</a></li>
+
+              </ul>
+            </li>
            
 
             <li class="nav-item"><a class="nav-link" href="{{ route('contact.index') }}">Contact Us</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">About Us</a></li>
 
             @yield('nav-content')
 

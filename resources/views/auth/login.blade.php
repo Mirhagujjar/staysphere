@@ -206,8 +206,8 @@
     <div class="right-section ">
         <h3>Login to Your Account</h3>
         <div class="social-login">
-            <a href="#" title="Login with Facebook"><i class="bi bi-facebook-fill"></i></a>
-            <a href="#" title="Login with Google"><i class="bi bi-google-fill"></i></a>
+            <a href="#" title="Login with Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" title="Login with Google"><i class="bi bi-google"></i></a>
             <a href="#" title="Login with Twitter"><i class="bi bi-twitter"></i></a>
         </div>
         <div >
