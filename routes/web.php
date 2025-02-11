@@ -6,6 +6,8 @@ use App\Http\Controllers\EventsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\FAQController;
 use App\Http\Controllers\MenuController;
 
 use Illuminate\Support\Facades\Route;
@@ -49,6 +51,15 @@ Route::get('/blogs', [BlogController::class, 'showBlogs'])->name('blogs');
 // menu of the day 
 Route::get('/menu-of-the-day', [MenuController::class, 'showMenu'])->name('menu');
 
+// services
+Route::prefix('services')->group(function(){
+    Route::get('/', [ServicesController::class, 'showServices'])->name('services');
+    Route::get('/services/{id}', [ServicesController::class, 'showServiceDetails'])->name('services.details');
+});
+
+
+// FAQ
+Route::get('/faq', [FAQController::class, 'showFAQ'])->name('faq');
 
 
 

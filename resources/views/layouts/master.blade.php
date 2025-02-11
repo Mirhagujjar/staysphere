@@ -152,6 +152,10 @@
                   <li><a class="dropdown-item" href="{{ route('blogs') }}">Blogs</a></li>
                   <li><a class="dropdown-item" href="{{ route('about') }}">About Us</a></li>
                   <li><a class="dropdown-item" href="{{ route('events') }}">Events</a></li>
+                  <li><a class="dropdown-item" href="{{ route('services') }}">services</a></li>
+                  <li><a class="dropdown-item" href="{{ route('faq') }}">faq</a></li>
+
+
 
               </ul>
             </li>
@@ -239,7 +243,7 @@
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">Links</h6>
           <p><a href="{{ route('about') }}" class="text-light text-decoration-none">About Us</a></p>
-          <p><a href="#" class="text-light text-decoration-none">Services</a></p>
+          <p><a href="{{ route('services') }}" class="text-light text-decoration-none">Services</a></p>
           <p><a href="{{ route('reservations.index') }}" class="text-light text-decoration-none">Book Now</a></p>
           <p><a href="{{ route('reservations.index') }}" class="text-light text-decoration-none">Rooms</a></p>
           <p><a href="{{ route('events') }}" class="text-light text-decoration-none">Events</a></p>
@@ -249,8 +253,8 @@
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">Useful Links</h6>
           <p><a href="{{ route('home') }}" class="text-light text-decoration-none">Home</a></p>
-          <p><a href="#" class="text-light text-decoration-none">Blog</a></p>
-          <p><a href="#" class="text-light text-decoration-none">FAQ</a></p>
+          <p><a href="{{ route('blogs') }}" class="text-light text-decoration-none">Blog</a></p>
+          <p><a href="{{ route('faq') }}" class="text-light text-decoration-none">FAQ</a></p>
           <p><a href="#" class="text-light text-decoration-none">Testimonials</a></p>
           <p><a href="{{ route('contact.index') }}" class="text-light text-decoration-none">Contact Us</a></p>
         </div>
