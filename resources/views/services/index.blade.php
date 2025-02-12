@@ -2,26 +2,90 @@
 
 @section('content')
 
+
+<style>
+     
+    .half-screen-image {
+     position: relative;
+     height: 70vh;
+     background: url('{{ asset('build/assets/images/service4.jpg') }}')  center/cover no-repeat;
+    } 
+
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: rgb(232, 232, 238);
+}
+
+.overlay-text h1 {
+    font-size: 3rem;
+    margin: 0;
+}
+
+.breadcrumb-container {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #526b67;
+}
+
+.breadcrumb-container a {
+    text-decoration: none;
+    color: #546360;
+}
+
+.breadcrumb-container a:hover {
+    color: #d5f5ef;
+}
+ 
+  
+</style>    
+
+<div class="main">
+    <div class="half-screen-image">
+        <div class="half-screen-image">
+            <div class="overlay-text">
+                <h1>Services</h1>
+                <h3>"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</h3>
+                <div class="breadcrumb-container">
+                    <a href="{{asset('home')}}">Home</a> > services
+                </div>
+            </div>
+        </div>
+  </div>
+</div>
+
+
+{{-- 1 service  housekeeping--}}
 <div class="container my-5 py-5">
-    <div class="position-relative">
+    <div class="position-relative col-md-8">
+        <h2 class="text-center mb-4" style="color: #2C3E50;">Our Hotel Services</h2>
+
         <!-- Background Room Image -->
-        <img src="{{asset('build/assets/images/room20.jpg')}}" class="img-fluid w-100 rounded" alt="Room Image" style="max-height: 450px;  object-fit: cover;">
+        <div style="width: 500px; height: 400px; overflow: hidden;">
+            <img src="{{asset('build/assets/images/clean1.jpg')}}" class="img-fluid  rounded" alt="Example Image" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+        {{-- <img src="{{asset('build/assets/images/clean1.jpg')}}" class="img-fluid w-100 rounded" alt="Room Image" style="max-height: 450px;  object-fit: cover;"> --}}
 
         <!-- Floating Room Details Box (Overlapping Image) -->
         <div class="position-absolute start-50 p-4 shadow-lg rounded" 
             style="width: 90%; max-width: 500px; background: white; bottom: -50px;">
 
-            <small style="color: #b2956e; font-weight: bold;">FROM $260/NIGHT</small>
-            <h2 class="mt-2" style="color: #2C3E50;">Junior Suite</h2>
+            <small style="color: #b2956e; font-weight: bold;">FROM $260</small>
+            <h2 class="mt-2" style="color: #2C3E50;">  Housekeeping Servies</h2>
             <p class="text-muted">
-                Beautiful design with modern furnishings including a glamorous bay window with your own private view of Lucerne.
+                "A Spotless Stay, Every Day"
             </p>
 
             <!-- Facilities List -->
-            <div class="d-flex justify-content-start gap-3 mb-3">
-                <span><i class="bi bi-bed"></i> King Size Bed</span>
-                <span><i class="bi bi-wifi"></i> Free Wifi</span>
-                <span><i class="bi bi-tv"></i> 32 Inc TV</span>
+            <div class="d-flex justify-content-start gap-4 mb-4">
+                <h6>Facilities:</h6>
+                <span><i class="bi bi-stack"></i>  Daily cleaning, towel replacement.</span>
+                <span><i class="bi bi-house-door"></i> bed-making service.</span>
+                
             </div>
 
             <!-- Buttons -->
@@ -29,7 +93,7 @@
                 <a href="{{ route('reservations.create') }}" class="btn btn-warning rounded-pill">
                     <i class="bi bi-arrow-right-circle"></i> Book Now
                 </a>
-                <a href="#" class="text-decoration-none text-warning fw-bold">
+                <a href="{{ url('/services/housekeeping') }}" class="text-decoration-none text-warning fw-bold">
                     Read more →
                 </a>
             </div>
@@ -38,144 +102,78 @@
 </div>
 
 
+
+
+
+
+{{-- second services  Food & Dining--}}
 <div class="container my-5 py-5">
-    <h2 class="text-center mb-4" style="color: #2C3E50;">Our Hotel Services</h2>
+    <div class="position-relative col-md-8 ">
 
-    <div class="row g-5">
-        <!-- Food & Dining Services -->
-        <div class="col-md-12">
-            <div class="position-relative">
-                <img src="{{asset('build/assets/images/room16.jpg')}}" class="img-fluid w-100 rounded" alt="Food & Dining" 
-                     style="max-height: 450px; object-fit: cover;">
-                
-                <div class="position-absolute start-50 p-4 shadow-lg rounded"
-                     style="width: 90%; max-width: 500px; background: white; bottom: -50px;">
-                    <h4 style="color: #2C3E50;">Food & Dining</h4>
-                    <p class="text-muted">Enjoy delicious gourmet meals prepared by top chefs.</p>
-                    <a href="#" class="btn btn-warning rounded-pill"><i class="bi bi-arrow-right-circle"></i> View Details</a>
-                </div>
-            </div>
-        </div>
+        <!-- Background Room Image -->
+        <div style="width: 500px; height: 400px; overflow: hidden;">
+            <img src="{{asset('build/assets/images/food4.jpg')}}" class="img-fluid  rounded" alt="Example Image" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+        {{-- <img src="{{asset('build/assets/images/food4.jpg')}}" class="img-fluid w-100 rounded" alt="Room Image" style="max-height: 450px;  object-fit: cover;"> --}}
 
-        <!-- Wellness & Fitness Services -->
-        <div class="col-md-12">
-            <div class="position-relative">
-                <img src="{{asset('build/assets/images/room17.jpg')}}" class="img-fluid w-100 rounded" alt="Wellness & Fitness" 
-                     style="max-height: 450px; object-fit: cover;">
-                
-                <div class="position-absolute start-50 p-4 shadow-lg rounded"
-                     style="width: 90%; max-width: 500px; background: white; bottom: -50px;">
-                    <h4 style="color: #2C3E50;">Wellness & Fitness</h4>
-                    <p class="text-muted">Stay fit with our modern gym and wellness facilities.</p>
-                    <a href="#" class="btn btn-warning rounded-pill"><i class="bi bi-arrow-right-circle"></i> View Details</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Event & Conference Services -->
-        <div class="col-md-12">
-            <div class="position-relative">
-                <img src="{{asset('build/assets/images/room18.jpg')}}" class="img-fluid w-100 rounded" alt="Events & Conferences" 
-                     style="max-height: 450px; object-fit: cover;">
-                
-                <div class="position-absolute start-50 p-4 shadow-lg rounded"
-                     style="width: 90%; max-width: 500px; background: white; bottom: -50px;">
-                    <h4 style="color: #2C3E50;">Event & Conference</h4>
-                    <p class="text-muted">Book meeting rooms, event halls, and corporate spaces.</p>
-                    <a href="#" class="btn btn-warning rounded-pill"><i class="bi bi-arrow-right-circle"></i> View Details</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Parking Service -->
-        <div class="col-md-12">
-            <div class="position-relative">
-                <img src="{{asset('build/assets/images/room19.jpg')}}" class="img-fluid w-100 rounded" alt="Parking Service" 
-                     style="max-height: 450px; object-fit: cover;">
-                
-                <div class="position-absolute start-50 p-4 shadow-lg rounded"
-                     style="width: 90%; max-width: 500px; background: white; bottom: -50px;">
-                    <h4 style="color: #2C3E50;">Secure Parking</h4>
-                    <p class="text-muted">Safe and convenient parking for all our guests.</p>
-                    <a href="#" class="btn btn-warning rounded-pill"><i class="bi bi-arrow-right-circle"></i> View Details</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Entertainment & Leisure -->
-        <div class="col-md-12">
-            <div class="position-relative">
-                <img src="{{asset('build/assets/images/room20.jpg')}}" class="img-fluid w-100 rounded" alt="Entertainment & Leisure" 
-                     style="max-height: 450px; object-fit: cover;">
-                
-                <div class="position-absolute start-50 p-4 shadow-lg rounded"
-                     style="width: 90%; max-width: 500px; background: white; bottom: -50px;">
-                    <h4 style="color: #2C3E50;">Entertainment & Leisure</h4>
-                    <p class="text-muted">Enjoy live performances, games, and exclusive activities.</p>
-                    <a href="#" class="btn btn-warning rounded-pill"><i class="bi bi-arrow-right-circle"></i> View Details</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Guest Assistance & Security -->
-        <div class="col-md-12">
-            <div class="position-relative">
-                <img src="{{asset('build/assets/images/room16.jpg')}}" class="img-fluid w-100 rounded" alt="Guest Assistance & Security" 
-                     style="max-height: 450px; object-fit: cover;">
-                
-                <div class="position-absolute start-50 p-4 shadow-lg rounded"
-                     style="width: 90%; max-width: 500px; background: white; bottom: -50px;">
-                    <h4 style="color: #2C3E50;">Guest Assistance & Security</h4>
-                    <p class="text-muted">24/7 security and guest assistance for your comfort.</p>
-                    <a href="#" class="btn btn-warning rounded-pill"><i class="bi bi-arrow-right-circle"></i> View Details</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Housekeeping -->
-        <div class="col-md-12">
-            <div class="position-relative">
-                <img src="{{asset('build/assets/images/room15.jpg')}}" class="img-fluid w-100 rounded" alt="Housekeeping" 
-                     style="max-height: 450px; object-fit: cover;">
-                
-                <div class="position-absolute start-50 p-4 shadow-lg rounded"
-                     style="width: 90%; max-width: 500px; background: white; bottom: -50px;">
-                    <h4 style="color: #2C3E50;">Housekeeping</h4>
-                    <p class="text-muted">Daily cleaning, towel replacement, and bed-making services.</p>
-                    <a href="#" class="btn btn-warning rounded-pill"><i class="bi bi-arrow-right-circle"></i> View Details</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-<div class="container my-5 py-5">
-    <div class="position-relative">
-        <!-- Background Image -->
-        <img src="{{ asset('build/assets/images/room.jpg') }}" class="img-fluid w-100 rounded" alt="Services Image" style="max-height: 450px; object-fit: cover;">
-
-        <!-- Floating Services Details Box (Overlapping Image) -->
+        <!-- Floating Room Details Box (Overlapping Image) -->
         <div class="position-absolute start-50 p-4 shadow-lg rounded" 
             style="width: 90%; max-width: 500px; background: white; bottom: -50px;">
 
-            <small style="color: #b2956e; font-weight: bold;">OUR PREMIUM SERVICES</small>
-            <h2 class="mt-2" style="color: #2C3E50;">Experience Excellence</h2>
+            <small style="color: #b2956e; font-weight: bold;">FROM $260</small>
+            <h2 class="mt-2" style="color: #2C3E50;">Food & Dining</h2>
             <p class="text-muted">
-                Enjoy world-class amenities and top-notch hospitality, ensuring a luxurious and comfortable stay.
+               " Enjoy delicious gourmet meals prepared by top chefs"
             </p>
 
-            <!-- Services List -->
-            <div class="d-flex flex-column gap-2 mb-3">
-                <span><i class="bi bi-cone-striped"></i> Housekeeping – Daily cleaning & bed-making</span>
-                <span><i class="bi bi-cup-hot"></i> Food & Dining Services</span>
-                <span><i class="bi bi-heart-pulse"></i> Wellness & Fitness Services</span>
-                <span><i class="bi bi-calendar-event"></i> Event & Conference Services</span>
-                <span><i class="bi bi-car-front-fill"></i> Parking Service – Secure parking for guests</span>
-                <span><i class="bi bi-controller"></i> Entertainment & Leisure</span>
-                <span><i class="bi bi-shield-lock"></i> Guest Assistance & Security</span>
+            <!-- Facilities List -->
+            <div class="d-flex justify-content-start gap-4 mb-4">
+                <h6>Facilities:</h6>
+                <span><i class="bi bi-egg-fried"></i> Private dining in guest rooms.</span>
+                <span"><i class="bi bi-slash-circle"></i> Vegetarian, gluten-free, and halal options.</span>
+                
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{{ route('menu') }}" class="btn btn-warning rounded-pill">
+                    <i class="bi bi-arrow-right-circle"></i> Book Now
+                </a>
+                <a href="{{ url('/services/Dining') }}" class="text-decoration-none text-warning fw-bold">
+                    Read more →
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{-- third servies  Wellness & Fitness Services--}}
+<div class="container my-5 py-5">
+    <div class="position-relative col-md-8">
+
+        <!-- Background Room Image -->
+        <div style="width: 500px; height: 400px; overflow: hidden;">
+            <img src="{{asset('build/assets/images/gym1.jpg')}}" class="img-fluid  rounded" alt="Example Image" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+        {{-- <img src="{{asset('build/assets/images/gym1.jpg')}}" class="img-fluid w-100 rounded" alt="Room Image" style="max-height: 450px;  object-fit: cover;"> --}}
+
+        <!-- Floating Room Details Box (Overlapping Image) -->
+        <div class="position-absolute start-50 p-4 shadow-lg rounded" 
+            style="width: 90%; max-width: 500px; background: white; bottom: -50px;">
+
+            <small style="color: #b2956e; font-weight: bold;">FROM $260</small>
+            <h2 class="mt-2" style="color: #2C3E50;">Wellness & Fitness Services</h2>
+            <p class="text-muted">
+                "A Wellness Experience Beyond the Ordinary"
+            </p>
+
+            <!-- Facilities List -->
+            <div class="d-flex justify-content-start gap-4 mb-4">
+                <h6>Facilities:</h6>
+                <span><i class="bi bi-person-arms-up"></i>  Relaxing treatments for guests.</span>
+                <span><i class="bi bi-water"></i> Indoor or outdoor pool access.</span>
+                
             </div>
 
             <!-- Buttons -->
@@ -183,13 +181,101 @@
                 <a href="{{ route('reservations.create') }}" class="btn btn-warning rounded-pill">
                     <i class="bi bi-arrow-right-circle"></i> Book Now
                 </a>
-                <a href="#" class="text-decoration-none text-warning fw-bold">
+                <a href="{{ url('/services/Fitness') }}" class="text-decoration-none text-warning fw-bold">
                     Read more →
                 </a>
             </div>
         </div>
     </div>
 </div>
+
+
+{{-- fourth service Event & Conference Services --}}
+<div class="container my-5 py-5">
+    <div class="position-relative col-md-8">
+
+        <!-- Background Room Image -->
+        <div style="width: 500px; height: 400px; overflow: hidden;">
+            <img src="{{asset('build/assets/images/meeting1.jpg')}}" class="img-fluid  rounded" alt="Example Image" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+        {{-- <img src="{{asset('build/assets/images/meeting1.jpg')}}" class="img-fluid w-100 rounded" alt="Room Image" style="max-height: 450px;  object-fit: cover;"> --}}
+
+        <!-- Floating Room Details Box (Overlapping Image) -->
+        <div class="position-absolute start-50 p-4 shadow-lg rounded" 
+            style="width: 90%; max-width: 500px; background: white; bottom: -50px;">
+
+            <small style="color: #b2956e; font-weight: bold;">FROM $260</small>
+            <h2 class="mt-2" style="color: #2C3E50;"> Event & Conference Services</h2>
+            <p class="text-muted">
+                "Professional Spaces for Productive Meetings"
+            </p>
+
+            <!-- Facilities List -->
+            <div class="d-flex justify-content-start gap-4 mb-4">
+                <h6>Facilities:</h6>
+                <span><i class="bi bi-music-note-beamed"></i>  Venue for weddings, parties, and events.</span>
+                <span><i class="bi bi-gift"></i> Special celebrations with decorations.</span>
+                
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{{ route('reservations.create') }}" class="btn btn-warning rounded-pill">
+                    <i class="bi bi-arrow-right-circle"></i> Book Now
+                </a>
+                <a href="{{ url('/services/Conference') }}" class="text-decoration-none text-warning fw-bold">
+                    Read more →
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{-- fifth service  Guest Assistance & Security--}}
+<div class="container my-5 py-5">
+    <div class="position-relative col-md-8">
+
+        <!-- Background Room Image -->
+        <div style="width: 500px; height: 400px; overflow: hidden;">
+            <img src="{{asset('build/assets/images/security/se1.jpg')}}" class="img-fluid  rounded" alt="Example Image" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+        {{-- <img src="{{asset('build/assets/images/security/se1.jpg')}}" class="img-fluid w-100 rounded" alt="Room Image" style="max-height: 450px;  object-fit: cover;"> --}}
+
+        <!-- Floating Room Details Box (Overlapping Image) -->
+        <div class="position-absolute start-50 p-4 shadow-lg rounded" 
+            style="width: 90%; max-width: 500px; background: white; bottom: -50px;">
+
+            <small style="color: #b2956e; font-weight: bold;">FROM $260</small>
+            <h2 class="mt-2" style="color: #2C3E50;">  Guest Assistance & Security</h2>
+            <p class="text-muted">
+                "Advanced Safety for a Worry-Free Stay"
+            </p>
+
+            <!-- Facilities List -->
+            <div class="d-flex justify-content-start gap-4 mb-4">
+                <h6>Facilities:</h6>
+                <span><i class="bi bi-headset"></i> 24/7 Front Desk Service</span>
+                <span><i class="bi bi-shield-lock"></i> 24/7 security and CCTV monitoring.</span>
+                
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{{ route('reservations.create') }}" class="btn btn-warning rounded-pill">
+                    <i class="bi bi-arrow-right-circle"></i> Book Now
+                </a>
+                <a href="{{ url('/services/Security') }}" class="text-decoration-none text-warning fw-bold">
+                    Read more →
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 
 

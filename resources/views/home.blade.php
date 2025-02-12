@@ -141,8 +141,8 @@
     }
 
     .py-5 {
-      padding-top: 3rem;
-      padding-bottom: 3rem;
+      padding-top: 3.5rem;
+      padding-bottom: 3.5rem;
     }
 
     .text-muted {
@@ -194,6 +194,10 @@
         color: white;
     }
 
+    .img-hover-shadow:hover {
+      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
+      transition: 0.3s ease-in-out;
+     }
 
 </style>
 
@@ -210,10 +214,10 @@
       <!-- First Slide -->
       <div class="carousel-item  active" data-bs-interval="2000">
           <img src="{{ asset('build/assets/images/slider.jpg') }}" class="d-block w-100" alt="First slide">
-          {{-- <div class="carousel-caption d-none d-md-block text-center">
+          <div class="carousel-caption d-none d-md-block text-center">
               <h4>"Experience the Art of Hospitality"</h4>
-          </div> --}}
-          <div class="carousel-caption d-flex justify-content-between align-items-start" style="top: 2%;    left: 10%; right: 10%;">      
+          </div>
+          {{-- <div class="carousel-caption d-flex justify-content-between align-items-start" style="top: 2%;    left: 10%; right: 10%;">      
             <!-- StaySphere Text on the Left -->
             <h1 class="text-light fw-bold display-4">StaySphere</h1>
             <!-- Reservation Form on the Right -->
@@ -237,16 +241,16 @@
                     </div>
                 </form>
             </div>
-          </div>
+          </div> --}}
       </div>
       <!-- Second Slide -->
       <div class="carousel-item " data-bs-interval="2000">
           <img src="{{ asset('build/assets/images/slider3.jpg') }}" class="d-block w-100" alt="Second slide">
-          {{-- <div class="carousel-caption  d-none d-md-block text-center">
+          <div class="carousel-caption  d-none d-md-block text-center">
               <h1>StaySphere</h1>
               <h4>"Stay Easy, Live Luxuriously"</h4>
-          </div> --}}
-          <div class="carousel-caption d-flex justify-content-between align-items-start" style="top: 2%;    left: 10%; right: 10%;">      
+          </div>
+          {{-- <div class="carousel-caption d-flex justify-content-between align-items-start" style="top: 2%;    left: 10%; right: 10%;">      
             <!-- StaySphere Text on the Left -->
             <h1 class="text-light fw-bold display-4">StaySphere</h1>
             <!-- Reservation Form on the Right -->
@@ -270,16 +274,16 @@
                     </div>
                 </form>
             </div>
-          </div>
+          </div> --}}
       </div>
       <!-- Third Slide -->
       <div class="carousel-item " data-bs-interval="2000">
           <img src="{{ asset('build/assets/images/slider4.jpg') }}" class="d-block w-100" alt="Third slide">
-          {{-- <div class="carousel-caption d-none d-md-block text-center">
+          <div class="carousel-caption d-none d-md-block text-center">
               <h1>StaySphere</h1>
               <h4>"Your Stay, Our Priority"</h4>
-          </div> --}}
-          <div class="carousel-caption d-flex justify-content-between align-items-start" style="top: 2%;    left: 10%; right: 10%;">      
+          </div>
+          {{-- <div class="carousel-caption d-flex justify-content-between align-items-start" style="top: 2%;    left: 10%; right: 10%;">      
             <!-- StaySphere Text on the Left -->
             <h1 class="text-light fw-bold display-4">StaySphere</h1>
             <!-- Reservation Form on the Right -->
@@ -303,7 +307,7 @@
                     </div>
                 </form>
             </div>
-          </div>
+          </div> --}}
       </div>
       
   </div>
@@ -317,7 +321,7 @@
   </button>
 
   <!-- Reservation Form -->
-  {{-- <div class="reservation-form position-absolute">
+  <div class="reservation-form position-absolute">
       <form class="d-flex justify-content-center align-items-center">
           <label for="date" class="me-2">Date</label>
           <input type="date" class="form-control me-2" placeholder="Choose Date">
@@ -327,13 +331,13 @@
           <input type="number" class="form-control me-2" placeholder="Children" min="0" value="0">
           <a href="{{ route('rooms') }}" class="btn btn-lg btn-warning">Check Availability</a>
       </form>
-  </div> --}}
+  </div>
 </div>
 
 
 {{-- Exceptional Hospitality --}}
 <div class="py-3">
-  <div class=" text-center " style="background: linear-gradient(135deg, #F1C40F, #1ABC9C);">
+  <div class=" text-center " style="background: linear-gradient(#1ABC9C, #343A40, #F8F9FA,#2C3E50,#F1C40F);">
     <div class="row align-items-center">
       <!-- Left Image -->
       <div class="col-md-4 d-flex justify-content-center">
@@ -366,7 +370,7 @@
     <div class="position-relative" style="height: 100vh; overflow: hidden;">
         <!-- Background Video -->
         <video autoplay loop muted playsinline class="position-absolute w-100 h-100" style="object-fit: cover;">
-            <source src="{{asset('build/assets/vedio/video3.mp4')}}" type="video/mp4">
+            <source src="{{asset('build/assets/vedio/vedeo2.mp4')}}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
       
@@ -472,37 +476,38 @@
                 <div>
                     <small class="text-muted">StaySphere Hotel</small>
                     <h2>Our Rooms</h2>
+                    <h6>Your Comfort, Your Choice</h6>
                     <p>
-                        Choose from our range of luxurious rooms and suites, each designed to offer comfort, style, and tranquility. Whether you seek a cozy space for a quick getaway or a spacious suite for a longer stay, we have something for everyone.
+                        Stay in a room that feels just right for you! Whether it’s a quick getaway or a longer stay, we have the perfect space to make you feel at home.
 
                     </p>
                 </div>
                 <ul class="list-unstyled">
                     <li class="mb-4">
                         <h5>Superior Room</h5>
-                        <p>Designed for comfort, our Superior Rooms offer a relaxing stay with all the amenities you need for a perfect escape.</p>
+                        <p>Cozy and comfortable, with everything you need to relax.</p>
                     </li>
                     <li class="mb-4">
                         <h5>Junior Suite</h5>
-                        <p>Enjoy the luxury of extra space with our Junior Suites.</p>
+                        <p>More space, more comfort, and a touch of luxury.</p>
 
                     </li>
                     <li>
                         <h5>Deluxe Room</h5>
-                        <p>Our Deluxe Rooms provide a blend of luxury and comfort.</p>
+                        <p> A perfect mix of style and relaxation.</p>
                     </li>
                     <li>
                         <h5>Double Room</h5>
-                        <p>Perfect for couples or friends.</p>
+                        <p>Great for couples or friends looking for a comfortable stay.</p>
                     </li>
                 </ul>
             </div>
 
             <!-- Right Side: Moving Images Section -->
             <div class="col-lg-7">
-                <div class="scrollable-images h-100" style="overflow-y: auto;">
+                <div class="scrollable-images" style="overflow-y: auto;">
                     <!-- First Image -->
-                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room1.jpg'); height: 50vh;  width: 80%; background-size: cover; background-position: center; ">
+                    <div class="image mb-3 text-center position-relative rounded img-hover-shadow img-fluid" style="background-image: url('build/assets/images/room1.jpg'); height: 45vh;  width: 75%; background-size: cover; background-position: center; ">
                         <div class="position-absolute top-50 start-50 translate-middle">
                             <small class="text-color:#0b0f0e">From $250/night</small>
                             <h5 class="text-color:#0b0f0e">Junior Suite</h5>
@@ -513,7 +518,7 @@
                     </div>
 
                     <!-- Second Image -->
-                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room11.jpg'); height: 50vh; width: 80%; background-size: cover; background-position: center;">
+                    <div class="image mb-3 text-center position-relative rounded img-hover-shadow img-fluid" style="background-image: url('build/assets/images/room11.jpg'); height: 45vh; width: 75%; background-size: cover; background-position: center;">
                         <div class="position-absolute top-50 start-50 translate-middle">
                             <small class="text-color:#0b0f0e">From $250/night</small>
                             <h5 class="text-color:#0b0f0e">Junior Suite</h5>
@@ -523,7 +528,7 @@
                         </div>
                     </div>
                     <!-- Third Image -->
-                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room15.jpg'); height: 50vh; width: 80%; background-size: cover; background-position: center;">
+                    <div class="image mb-3 text-center position-relative rounded img-hover-shadow img-fluid" style="background-image: url('build/assets/images/room15.jpg'); height: 45vh; width: 75%; background-size: cover; background-position: center;">
                         <div class="position-absolute top-50 start-50 translate-middle">
                             <small class="text-color:#0b0f0e">From $250/night</small>
                             <h5 class="text-color:#0b0f0e">Junior Suite</h5>
@@ -533,7 +538,7 @@
                         </div>
                     </div>
                     {{-- fourth image --}}
-                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room17.jpg'); height: 50vh; width: 80%; background-size: cover; background-position: center;">
+                    <div class="image mb-3 text-center position-relative rounded img-hover-shadow img-fluid" style="background-image: url('build/assets/images/room17.jpg'); height: 45vh; width: 75%; background-size: cover; background-position: center;">
                         <div class="position-absolute top-50 start-50 translate-middle">
                             <small class="text-color:#0b0f0e">From $250/night</small>
                             <h5 class="text-color:#0b0f0e">Junior Suite</h5>
@@ -543,7 +548,7 @@
                         </div>
                     </div>
                     {{-- fifth image --}}
-                    <div class="image mb-3 text-center position-relative" style="background-image: url('build/assets/images/room18.jpg'); height: 50vh; width: 80%; background-size: cover; background-position: center;">
+                    <div class="image mb-3 text-center position-relative rounded img-hover-shadow img-fluid" style="background-image: url('build/assets/images/room18.jpg'); height: 45vh; width: 75%; background-size: cover; background-position: center; ">
                         <div class="position-absolute top-50 start-50 translate-middle ">
                             <small class="text-color:#0b0f0e">From $250/night</small>
                             <h5 class="text-color:#0b0f0e">Junior Suite</h5>
@@ -664,9 +669,9 @@
         <div>
           <small class="text-muted">About us</small>
           <h2 class="mt-2">Tailored services and the experience of unique holidays</h2>
-          <p >We live the life of a eros pulvinar, we want a laoreet, we are a lover of poverty and we have earned it.</p>
-          <p>But so that you may see where all this error of those who accuse pleasure and praise pain comes from, I will reveal the whole matter, and I will explain the very things that were said by that discoverer of truth and, as it were, the architect of a happy life.</p>
-          <p><em>Maria...the Owner</em></p>
+          <p >At STAYSPHERE, we offer comfort, great service, and a warm atmosphere. Whether you're here for work or relaxation, our cozy rooms, delicious food, and friendly staff ensure a wonderful stay. </p>
+          <p> our pool, gym, and event spaces, all designed for your comfort. Stay with us and experience hospitality with a heart!</p>
+          
         </div>
       </div>
     </div>
@@ -697,7 +702,7 @@
 </div> --}}
 
 {{--local animities --}}
-<div class="bg-white py-5">
+{{-- <div class="bg-white py-5">
     <div class="container">
         <div class="row">
           
@@ -738,7 +743,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 
 

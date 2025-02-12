@@ -137,12 +137,33 @@
       <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
         <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('reservations.create') }}" >Book Now</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('rooms') }}">Rooms</a></li>
-            {{-- <li class="nav-item"><a class="nav-link" href="{{ route('blogs') }}">blogs</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('menu') }}">menu</a></li> --}}
+            {{-- <li class="nav-item"><a class="nav-link" href="{{ route('reservations.create') }}" >Book Now</a></li> --}}
+             
+             {{-- services --}}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="extraMenu" role="button" data-bs-toggle="dropdown">
+                  Services
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                  <li><a class="dropdown-item" href="{{ route('rooms') }}">Rooms</a></li>
+                  <li><a class="dropdown-item" href="{{ route('events') }}">Events</a></li>
+                  <li><a class="dropdown-item" href="{{ route('services') }}">services</a></li>
+              </ul>
+            </li>
 
-                
+            {{-- aboutus --}}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="extraMenu" role="button" data-bs-toggle="dropdown">
+                  About Us
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                  <li><a class="dropdown-item" href="{{ route('about') }}">About Us</a></li>
+                  <li><a class="dropdown-item" href="{{ route('contact.index') }}">Contact Us</a></li>
+                  <li><a class="dropdown-item" href="{{ route('faq') }}">Reviews</a></li>
+              </ul>
+            </li>
+
+            {{-- otherpages --}}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="extraMenu" role="button" data-bs-toggle="dropdown">
                   Other pages
@@ -150,20 +171,27 @@
               <ul class="dropdown-menu dropdown-menu-dark">
                   <li><a class="dropdown-item" href="{{ route('menu') }}">Menu of the Day</a></li>
                   <li><a class="dropdown-item" href="{{ route('blogs') }}">Blogs</a></li>
+              </ul>
+            </li>
+
+                
+            {{-- <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="extraMenu" role="button" data-bs-toggle="dropdown">
+                 login
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                  <li><a class="dropdown-item" href="{{ route('menu') }}">Menu of the Day</a></li>
+                  <li><a class="dropdown-item" href="{{ route('blogs') }}">Blogs</a></li>
                   <li><a class="dropdown-item" href="{{ route('about') }}">About Us</a></li>
                   <li><a class="dropdown-item" href="{{ route('events') }}">Events</a></li>
                   <li><a class="dropdown-item" href="{{ route('services') }}">services</a></li>
-                  <li><a class="dropdown-item" href="{{ route('faq') }}">faq</a></li>
+                  <li><a class="dropdown-item" href="{{ route('faq') }}">FAQ</a></li>
 
 
 
               </ul>
-            </li>
-           
-
-            <li class="nav-item"><a class="nav-link" href="{{ route('contact.index') }}">Contact Us</a></li>
-
-            @yield('nav-content')
+            </li> --}}
+          @yield('nav-content')
 
         </ul>
        

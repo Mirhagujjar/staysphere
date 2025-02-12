@@ -1,11 +1,70 @@
-@extends('layouts.app')
+@extends('layouts.app
+')
 @section('content')
 
 
 <style>
-    /* four cards in one row*/
 
-  .card-container1 {
+    * {
+        font-family: Arial, sans-serif;
+    }
+
+.hero-section {
+        background: url('{{ asset('assets/images/event.jpg') }}')  no-repeat center center;
+        background-size: cover;
+        color: white;
+        text-align: center;
+        padding: 200px ;
+        height: 30vh;
+    }
+
+    .hero-section h1 {
+        font-size: 3rem;
+        font-weight: bold;
+    }
+
+
+    /* ------------------------------2nd section------------------------ */
+
+    .card-text-overlay {
+
+position: absolute;
+bottom: 10px;
+left: 10px;
+color: white;
+padding: 10px;
+border-radius: 5px;
+}
+
+.card-text-overlay button {
+background: transparent;
+border: none;
+color: rgb(12, 11, 11);
+font-size: 1.2rem;
+cursor: pointer;
+}
+
+.carousel-indicators {
+position: absolute;
+bottom: -50px;
+}
+
+.carousel-indicators [data-bs-target] {
+width: 12px;
+height: 12px;
+border-radius: 50%;
+background-color: rgb(3, 3, 3);
+}
+
+.section-title {
+font-size: 2rem;
+margin-bottom: 30px;
+text-align: center;
+font-weight: bold;
+}
+    /* four cards in one row*/
+/* ----------------------3rd section------------------ */
+.card-container1 {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -24,298 +83,124 @@
     width: 100%;
     height: 70vh;
     object-fit: cover;
-  }
+}
 
-  .custom-card1 .bottom-text1 {
-    position: absolute;
-    bottom: 10px; /* Adjust to move text closer to the bottom */
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-   }
-
-
+.custom-card1 .bottom-text1 {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
 
 
-
-   .event-card {
-     position: relative;
-     border-radius: 10px;
-     overflow: hidden;
-     height: 90vh;
-   }
-
+/* .event-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 90vh;
+  } */
 
 
-
-
-    body {
-        font-family: Arial, sans-serif;
-    }
-
-    .hero-section {
-        background: url('assets/images/hotel9.jpg') no-repeat center center;
-        background-size: cover;
-        color: white;
-        text-align: center;
-        padding: 250px 90px;
-        height: 30vh;
-    }
-
-    .hero-section h1 {
-        font-size: 3rem;
-        font-weight: bold;
-    }
-
-    .card-text-overlay {
-
-        position: absolute;
-        bottom: 10px;
-        left: 10px;
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
-    }
-
-    .card-text-overlay button {
-        background: transparent;
-        border: none;
-        color: rgb(12, 11, 11);
-        font-size: 1.2rem;
-        cursor: pointer;
-    }
-
-    .carousel-indicators {
-        position: absolute;
-        bottom: -50px;
-    }
-
-    .carousel-indicators [data-bs-target] {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background-color: rgb(3, 3, 3);
-    }
-
-    .section-title {
-        font-size: 2rem;
-        margin-bottom: 30px;
-        text-align: center;
-        font-weight: bold;
-    }
-
-  /* one sude image and other side text/ */
-
-    .image-section img {
-        width: 100%;
-      height: 600px;
-        border-radius: 15px; /* Rounded corners for images */
-        object-fit: cover;
-    }
-    .text-section {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 20px;
-    }
-    .text-section h2 {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-    }
-    .text-section p {
-        font-size: 1rem;
-        color: #555;
-    }
-
-    .btn {
-            border-radius: 30%;
-            background-color: rgb(14, 9, 9);
-            color: white;
-            padding: 10px;
-            margin: 10px;
-    }
-    .btn:hover {
-            background-color: gray;
-    }
-
-
-    /*two cards in one row */
-
-
-
-    .card-container {
-       display: flex;
-       justify-content: space-between;
-       flex-wrap: wrap;
-       gap: 10px; /* Spacing between cards */
-       margin-top: 50px;
-     }
-
-    .custom-card {
-      position: relative;
-      width: 48%; /* Two cards in one row */
-      border-radius: 10px;
-      overflow: hidden;
-     }
-
-    .custom-card img {
-      width: 100vh;
-      height: 60vh; /* Set image height */
-      object-fit: cover;
-     }
-
-  .card-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    color: white;
+/* -------------------------4th section---------------------- */
+.text-section {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-
-  .card-footer .text {
-    font-size: 16px;
-    font-weight: bold;
-  }
-
-  .card-footer .icon-btn {
-    display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    background: white;
-    color: black;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    padding: 20px;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
+}
 
-  .icon-btn:hover {
-    background: black;
-    color: white;
-    transition: 0.3s;
-  }
+.text-section h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.text-section p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+
+.image-section img {
+    width: 100%;
+    height: 400px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+
+.row:nth-child(even) .image-section {
+    order: 2;
+}
+
+.row:nth-child(even) .text-section {
+    order: 1;
+}
+
+.mb-5{
+margin-right: 10px;
+margin-left: 10px;
+}
+
+
+/* --------------------form section-------------- */
+.booking-form {
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.booking-form .form-control,
+.booking-form .form-select {
+    font-size: 14px;
+    padding: 8px;
+}
+
+.booking-form .btn {
+    background-color: #F1C40F;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.booking-form .btn:hover {
+    background-color: #148F77;
+}
+
+
+
+
 
 </style>
-</head>
-<body>
 
-
-
-
-
-    <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <!-- First Slide -->
-            <div class="carousel-item active">
-                <img src="{{asset('build/assets/images/room.jpg')}}" class="d-block w-100" alt="Hotel Image">
-                <div class="carousel-caption d-flex justify-content-between align-items-start" style="top: 10%; left: 5%; right: 5%;">
-                    
-                    <!-- StaySphere Text on the Left -->
-                    <h1 class="text-light fw-bold display-4">StaySphere</h1>
-                    
-                    <!-- Reservation Form on the Right -->
-                    <div class="bg-light p-4 rounded shadow-lg" style="width: 300px;">
-                        <h4 class="text-center">Reserve Your Stay</h4>
-                        <form>
-                            <div class="mb-2">
-                                <label class="form-label">Name</label>
-                                <input type="text" class="form-control" placeholder="Enter your name">
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">Check-in Date</label>
-                                <input type="date" class="form-control">
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">Check-out Date</label>
-                                <input type="date" class="form-control">
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary w-100">Book Now</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Add More Slides if Needed -->
-            <div class="carousel-item active">
-                <img src="{{asset('build/assets/images/room1.jpg')}}" class="d-block w-100" alt="Hotel Image">
-                <div class="carousel-caption d-flex justify-content-between align-items-start" style="top: 10%; left: 5%; right: 5%;">
-                    
-                    <!-- StaySphere Text on the Left -->
-                    <h1 class="text-light fw-bold display-4">StaySphere</h1>
-                    
-                    <!-- Reservation Form on the Right -->
-                    <div class="bg-light p-4 rounded shadow-lg" style="width: 300px;">
-                        <h4 class="text-center">Reserve Your Stay</h4>
-                        <form>
-                            <div class="mb-2">
-                                <label class="form-label">Name</label>
-                                <input type="text" class="form-control" placeholder="Enter your name">
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">Check-in Date</label>
-                                <input type="date" class="form-control">
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">Check-out Date</label>
-                                <input type="date" class="form-control">
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary w-100">Book Now</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-        <!-- Carousel Controls -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#hotelCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        </button>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-<!-- Hero Section -->
+<!----------------- Hero Section ------------->
 <div class="hero-section">
     <h1>Plan Your Events</h1>
     <p>Discover venues and services that make your events unforgettable.</p>
 </div>
 
-<!-- Event Section -->
+<!------------------2nd Section------------------------ -->
 <div class="container mt-5">
+    <div  class="text-section mt-3" >
     <h2 >Social Events</h2>
     <p>Celebrate special moments, big and small.</p>
+    </div>
     <div id="eventCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="assets/images/meeting.jpeg"  height="234vh" class="card-img-top" alt="Plan Your Meeting">
+                            <img src="{{ asset('assets/images/meeting.jpg') }} "  height="234vh" class="card-img-top" alt="Business Meetings">
                             <div class="card-text-overlay">
                                 <h5>Business Meetings</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
@@ -324,18 +209,18 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="assets/images/gather.jpeg" class="card-img-top" alt="Conferences">
+                            <img src="{{ asset('assets/images/seminar.jpg') }}" class="card-img-top" alt="Seminars">
                             <div class="card-text-overlay">
-                                <h5>Conferences</h5>
+                                <h5>Seminars</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="assets/images/food1.jpeg"  height="234vh" class="card-img-top" alt="Weddings">
+                            <img src="{{ asset('assets/images/parties.jpg') }}"  height="234vh" class="card-img-top" alt="gathring">
                             <div class="card-text-overlay">
-                                <h5>Weddings</h5>
+                                <h5>Private Gathering</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
                             </div>
                         </div>
@@ -346,25 +231,25 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="assets/images/12.jpeg"  height="234vh" class="card-img-top" alt="Team Building">
+                            <img src="{{ asset('assets/images/sufi.jpg') }}"  height="234vh" class="card-img-top" alt="sufi night">
                             <div class="card-text-overlay">
-                                <h5>Team Building</h5>
+                                <h5>Sufi Night</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="assets/images/food.jpeg" class="card-img-top" alt="Parties">
+                            <img src="{{ asset('assets/images/bayan.jpg') }}" class="card-img-top" alt="bayan">
                             <div class="card-text-overlay">
-                                <h5>Parties</h5>
+                                <h5>Islamic Conference</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="assets/images/6.jpeg" class="card-img-top" alt="Exhibitions">
+                            <img src="{{ asset('assets/images/exhi.jpg') }}" class="card-img-top" alt="Exhibitions">
                             <div class="card-text-overlay">
                                 <h5>Exhibitions</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
@@ -386,7 +271,7 @@
 
 
 
-<!--  ..............................................................................  -->
+<!--  .......................3rd section........................  -->
 
 <div class="py-5">
 <div class="container">
@@ -398,185 +283,123 @@
     <div class="card-container1">
       <!-- Card 1 -->
       <div class="custom-card1">
-        <img src="assets/images/tablet.jpeg" alt="Card Image 1">
-        <div class="bottom-text1">Sustainable Meetings</div>
+        <img src="{{ asset('assets/images/h1.jpg') }}" alt="Card Image 1">
+        <div class="bottom-text1">Manage Event</div>
       </div>
       <!-- Card 2 -->
       <div class="custom-card1">
-        <img src="assets/images/gre.jpeg" alt="Card Image 2">
-        <div class="bottom-text1">Business Travel</div>
+        <img src="{{ asset('assets/images/h2.jpg') }}" alt="Card Image 2">
+        <div class="bottom-text1">Meetings</div>
       </div>
       <!-- Card 3 -->
       <div class="custom-card1">
-        <img src="assets/images/bil.jpeg" alt="Card Image 3">
-        <div class="bottom-text1">Manage Event</div>
+        <img src="{{ asset('assets/images/h3.jpg') }}" alt="Card Image 3">
+        <div class="bottom-text1">Small Event</div>
       </div>
       <!-- Card 4 -->
       <div class="custom-card1">
-        <img src="assets/images/plan.jpeg" alt="Card Image 4">
-        <div class="bottom-text1">Plan Small Event</div>
+        <img src="{{ asset('assets/images/h4.jpg') }}" alt="Card Image 4">
+        <div class="bottom-text1">Exhibitions</div>
       </div>
     </div>
   </div>
 </div>
 
 
-<!--  ..............................................................................  -->
-<div class="container">
-  <div class="mt-3"><h1>How to Book Your Event</h1>
-     <p>Plan seamlessly with our innovative tools and resources.</p>
-  </div>
-   <div class="card-container1 ">
-      <!-- Card 1 -->
-      <div class="custom-card ">
-        <img src="assets/images/book.jpeg" alt="Card Image 1">
-        <div class="card-footer">
-          <span class="text">Submit A Request For Porposal</span>
-          <a href="#" class="icon-btn">
-            <span>&gt;</span> <!-- Icon: ">" -->
-          </a>
+
+
+<!--  ............................4th section............................  -->
+<div class="alternate py-6">
+    <div class="text-section text-center mb-5">
+        <h1 class="fw-bold">Exclusive Experiences</h1>
+        <p>Enhance your stay with our thoughtfully curated events and experiences.</p>
+    </div>
+
+    <!-- First Row -->
+    <div class="row align-items-center mb-5">
+        <div class="col-md-6 image-section">
+            <img src="{{ asset('assets/images/side1.jpg') }}" alt="Business Meetings" class="img-fluid rounded">
         </div>
-      </div>
-      <!-- Card 2 -->
-      <div class="custom-card ">
-        <img src="assets/images/com.jpeg" alt="Card Image 2">
-        <div class="card-footer">
-          <span class="text">Explore Tools And Resourses</span>
-          <a href="#" class="icon-btn">
-            <span>&gt;</span> <!-- Icon: ">" -->
-          </a>
+        <div class="col-md-6 text-section text-center">
+            <h2>Professional Conferences</h2>
+            <p>Host business meetings and corporate events with top-tier facilities, ensuring productive and impactful engagements.</p>
         </div>
-      </div>
+    </div>
+
+    <!-- Second Row -->
+    <div class="row align-items-center mb-5">
+        <div class="col-md-6 order-md-2 text-section text-center">
+            <h2>Luxury Gatherings</h2>
+            <p>Celebrate your special moments in a grand setting, designed for elegance and comfort.</p>
+        </div>
+        <div class="col-md-6 order-md-1 image-section">
+            <img src="{{ asset('assets/images/side2.jpg') }}" alt="Luxury Gatherings" class="img-fluid rounded">
+        </div>
+
+    </div>
+
+    <!-- Third Row -->
+    <div class="row align-items-center mb-5">
+        <div class="col-md-6 image-section">
+            <img src="{{ asset('assets/images/side4.jpg') }}" alt="Cultural Nights" class="img-fluid rounded">
+        </div>
+        <div class="col-md-6 text-section text-center">
+            <h2>Cultural Evenings</h2>
+            <p>Experience mesmerizing Sufi musical performances and explore rich cultural traditions.</p>
+        </div>
+    </div>
+
+    {{-- <!-- Fourth Row -->
+    <div class="row align-items-center mb-5">
+        <div class="col-md-6 order-md-2 text-section text-center">
+            <h2>Team Building Retreats</h2>
+            <p>Boost teamwork and collaboration with interactive and engaging activities designed for your team.</p>
+        </div>
+        <div class="col-md-6 order-md-1 image-section">
+            <img src="{{ asset('assets/images/meeting.jpg') }}" alt="Team Building" class="img-fluid rounded">
+        </div>
+
+    </div> --}}
+
+
+
+
+<!--  ....................form section....................................  -->
+<div class="container mt-5">
+    <div class="booking-form p-3">
+        <form class="row g-2 align-items-center">
+            <div class="col-md-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter name" required>
+            </div>
+            <div class="col-md-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+            </div>
+            <div class="col-md-2">
+                <label for="eventType" class="form-label">Event Type</label>
+                <select class="form-select" id="eventType">
+                    <option selected disabled>Type</option>
+                    <option>Wedding</option>
+                    <option>Conference</option>
+                    <option>Birthday</option>
+                    <option>Corporate</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="date" required>
+            </div>
+            <div class="col-md-2">
+                <label for="guests" class="form-label">Guests</label>
+                <input type="number" class="form-control" id="guests" placeholder="No. of Guests" required>
+            </div>
+            <div class="col-md-12 text-end mt-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
     </div>
 </div>
-
-
-
-<!--  ..............................................................................  -->
-
-<div class="container py-5">
-    <div class="text-section mt-3"><h1>Explore Curated Experiences</h1>
-    <p>Optimize your next meeting and event with a space and style that’s just right.
-
-    </p></div>
-<!-- First Row -->
-<div class="row align-items-center mb-5">
-    <div class="col-md-6 image-section">
-        <img src="{{asset('build/assets/images/mindfulmeeting.jpg')}}" class="img-fluid" alt="Hotel Image 1">
-    </div>
-    <div class="col-md-6 text-section">
-        <h2>Mindful Meetings & Events</h2>
-        <p>
-            Mindful Meetings & Events focus on creating purposeful, engaging, and memorable gatherings that prioritize wellness, sustainability, and meaningful connections. This approach is becoming increasingly popular in hotel management and event planning as organizations and individuals seek to balance productivity with mental well-being and environmental responsibility.
-
-
-        </p>
-    </div>
-</div>
-
-<!-- Second Row -->
-<div class="row align-items-center mb-5">
-    <div class="col-md-6 order-md-2 image-section">
-        <img src="{{asset('build/assets/images/conference.jpg')}}" class="img-fluid" alt="Hotel Image 2">
-    </div>
-    <div class="col-md-6 order-md-1 text-section">
-        <h2>Conferences</h2>
-        <p>
-            Conferences are formal gatherings organized to discuss specific topics, share knowledge, and foster collaboration among attendees. They bring together professionals, experts, and enthusiasts to exchange ideas, network, and stay updated on the latest trends and innovations in their respective fields.
-        </p>
-
-    </div>
-</div>
-<!-- third Row -->
-<div class="row align-items-center mb-5">
-    <div class="col-md-6 image-section">
-        <img src="{{asset('build/assets/images/sufi.jpg')}}" class="img-fluid" alt="Hotel Image 1">
-    </div>
-    <div class="col-md-6 text-section">
-        <h2>Sufi Musical Performance </h2>
-        <p>
-            Sufi Musical Performances are spiritual and artistic expressions rooted in the Sufi tradition of Islam. These performances use music as a way to bring people closer to the divine, focusing on love, devotion, and unity. Sufi music is performed in various styles around the world, with Qawwali being one of the most famous forms.
-        </p>
-    </div>
-</div>
-<!-- 4th row -->
-<div class="row align-items-center mb-5">
-    <div class="col-md-6 order-md-2 image-section">
-        <img src="{{asset('build/assets/images/haal.jpg')}}" class="img-fluid" alt="Hotel Image 2">
-    </div>
-    <div class="col-md-6 order-md-1 text-section">
-        <h2>Gather Together</h2>
-        <p>
-            Flexible meeting and public spaces designed for productivity and collaboration.
-        </p>
-
-    </div>
-</div>
-
-<!-- 5th row-->
-<div class="row align-items-center mb-5">
-    <div class="col-md-6 image-section">
-        <img src="{{asset('build/assets/images/multiproperty.jpg')}}" class="img-fluid" alt="Hotel Image 1">
-    </div>
-    <div class="col-md-6 text-section">
-        <h2>Multi-Property Hotel </h2>
-        <p>
-            Managing multiple properties can feel overwhelming and eat up a lot of your time.
-            However, our approach and cloud-based system make it easy.
-            You can oversee all your properties from a single platform, boosting your revenue and freeing up time for more valuable activities.
-        </p>
-    </div>
-</div>
-
-</div>
-
-
-
 
 
 @endsection
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{{-- @extends('layouts.master')
-
-@section('content')
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Upcoming Events</h2>
-
-    <div class="row">
-        @foreach($events as $event)
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-sm">
-                    <img src="{{ asset('images/' . $event['image']) }}" class="card-img-top" alt="{{ $event['title'] }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $event['title'] }}</h5>
-                        <p class="text-muted">{{ $event['date'] }}</p>
-                        <p class="card-text">{{ $event['description'] }}</p>
-                        <a href="#" class="btn btn-primary">Learn More</a>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    </div>
-</div>
-@endsection --}}

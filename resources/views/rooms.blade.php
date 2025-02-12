@@ -10,7 +10,7 @@
     .half-screen-image {
     position: relative;
     height: 70vh;
-    background: url('{{ asset('build/assets/images/room1.jpg') }}')  center/cover no-repeat;
+    background: url('{{ asset('build/assets/images/multiproperty1.jpg') }}')  center/cover no-repeat;
 }
 .overlay-text {
     position: absolute;
@@ -18,19 +18,20 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: #2C3E50;
+    color: #F8F9FA;
 }
 .overlay-text h1 {
     font-size: 3rem;
-    margin: 0;
+    font-weight: bold;
+
 }
-p.lead {
+/* p.lead {
     font-size: 18px;
     line-height: 32px;
     margin-top: 0;
     font-weight: 300;
 
-}
+} */
 
 .breadcrumb-container {
     margin-top: 10px;
@@ -146,7 +147,7 @@ p.lead {
         margin-top: 100px;
         margin-bottom: 100px;
         padding: 50px 20px;
-        background: url('{{ asset('build/assets/images/room6.jpg') }}') center/cover no-repeat;
+        background: url('{{ asset('build/assets/images/haal.jpg') }}') center/cover no-repeat;
         position: relative;
         color: #fff;
 
@@ -180,6 +181,56 @@ p.lead {
     .facility-item:hover {
         transform: scale(1.1);
     }
+
+/* -------------------last----------------- */
+.margin_120_95 {
+    padding-top: 120px;
+    padding-bottom: 95px;
+}
+
+.title small {
+    text-transform: uppercase;
+    color: #2C3E50;
+    letter-spacing: 3px;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+.title h2 {
+    font-weight: 700;
+    font-size: 2.375rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.phone_element a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #978667;
+}
+
+.phone_element a i {
+    margin-right: 15px;
+    font-size: 1.875rem;
+    color: #2C3E50;
+}
+
+.phone_element a span {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color:#2C3E50;
+}
+
+.booking_wrapper {
+    background-color: rgba(151, 134, 103, 0.05);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.rounded-pill{
+    background-color:#F1C40F;
+}
 </style>
 
 <!------------------------------- Top Banner ------------------------>
@@ -187,10 +238,11 @@ p.lead {
     <div class="half-screen-image">
         <div class="overlay-text">
             <h1>Rooms</h1>
-            <p class="mt-3 lead">Indulge in the ultimate blend of elegance and comfort in our meticulously designed rooms. Choose your room today.</p>
+            <p >Indulge in the ultimate blend of elegance and comfort in our meticulously designed rooms.</p>
             <div class="breadcrumb-container">
-                <a href="home">Home</a> > Rooms
+                <a href="/welcome">Home</a> > Rooms
             </div>
+            <a href="{{ route('reservations.create') }}" class="btn btn-warning">Book Now</a>
         </div>
     </div>
 </div>
@@ -205,9 +257,9 @@ p.lead {
     <div class="row g-4">
         <!-- Card 1 -->
         <div class="col-md-4">
-            <div class="card card-hover h-100">
+            <div class="card card-hover">
                 <span class="badge text-bg-success">NEW</span>
-                <img src="{{ asset('build/assets/images/room12.jpg') }}" class="card-img-top" alt="Luxury Room">
+                <img src="{{ asset('build/assets/images/rooms/room1.jpg') }}" class="card-img-top" alt="Luxury Room">
                 <div class="card-body">
                     <h5 class="card-title">Luxury Room</h5>
                     <p class="card-text">$320 / Per Night</p>
@@ -218,7 +270,7 @@ p.lead {
                         <p>70ft Room Size</p>
                         <p>$320 / Per Night</p>
                     </div>
-                    <a href="{{route('reservations.create')}}" class="btn-book">Book Now</a>
+                    <a href="{{ route('reservations.create') }}" class="btn-book">Book Now</a>
                 </div>
 
             </div>
@@ -226,9 +278,9 @@ p.lead {
 
         <!-- Card 2 -->
         <div class="col-md-4">
-            <div class="card card-hover  h-100">
+            <div class="card card-hover">
                 <span class="badge text-bg-danger">SALE</span>
-                <img src="{{ asset('build/assets/images/room22.jpg') }}" class="card-img-top" alt="Deluxe Room">
+                <img src="{{ asset('build/assets/images/rooms/room2.jpg') }}" class="card-img-top" alt="Deluxe Room">
                 <div class="card-body">
                     <h5 class="card-title">Deluxe Room</h5>
                     <p class="card-text">$280 / Per Night</p>
@@ -239,15 +291,15 @@ p.lead {
                         <p>35ft Room Size</p>
                         <p>$280 / Per Night</p>
                     </div>
-                    <a href="{{route('reservations.create')}}" class="btn-book">Book Now</a>
+                    <a href="{{ route('reservations.create') }}" class="btn-book">Book Now</a>
                 </div>
             </div>
         </div>
 
         <!-- Card 3 -->
         <div class="col-md-4">
-            <div class="card card-hover  h-100">
-                <img src="{{ asset('build/assets/images/room18.jpg') }}" class="card-img-top" alt="Standard Room">
+            <div class="card card-hover">
+                <img src="{{ asset('build/assets/images/rooms/room3.jpg') }}" class="card-img-top" alt="Standard Room">
                 <div class="card-body">
                     <h5 class="card-title">Family Suite</h5>
                     <p class="card-text">$200 / Per Night</p>
@@ -258,7 +310,7 @@ p.lead {
                         <p>60ft Room Size</p>
                         <p>$200 / Per Night</p>
                     </div>
-                    <a href="{{route('reservations.create')}}" class="btn-book">Book Now</a>
+                    <a href="{{ route('reservations.create') }}" class="btn-book">Book Now</a>
                 </div>
             </div>
         </div>
@@ -266,8 +318,8 @@ p.lead {
 
          <!-- Card 4 -->
         <div class="col-md-4">
-            <div class="card card-hover  h-100">
-                <img src="{{ asset('build/assets/images/room.jpg') }}" class="card-img-top" alt="Standard Room">
+            <div class="card card-hover">
+                <img src="{{ asset('build/assets/images/rooms/room4.jpg') }}" class="card-img-top" alt="Standard Room">
                 <div class="card-body">
                     <h5 class="card-title">Standard Room</h5>
                     <p class="card-text">$120 / Per Night</p>
@@ -279,7 +331,7 @@ p.lead {
                         <p>30ft Room Size</p>
                         <p>$120 / Per Night</p>
                     </div>
-                    <a href="{{route('reservations.create')}}" class="btn-book">Book Now</a>
+                    <a href="{{ route('reservations.create') }}" class="btn-book">Book Now</a>
                 </div>
             </div>
         </div>
@@ -288,8 +340,8 @@ p.lead {
          <!-- Card 5 -->
 
         <div class="col-md-4">
-            <div class="card card-hover  h-100">
-                <img src="{{ asset('build/assets/images/room17.jpg') }}" class="card-img-top" alt="Standard Room">
+            <div class="card card-hover">
+                <img src="{{ asset('build/assets/images/rooms/room5.jpg') }}" class="card-img-top" alt="Standard Room">
                 <div class="card-body">
                     <h5 class="card-title">Standard Room</h5>
                     <p class="card-text">$120 / Per Night</p>
@@ -300,15 +352,15 @@ p.lead {
                         <p>30ft Room Size</p>
                         <p>$120 / Per Night</p>
                     </div>
-                    <a href="{{route('reservations.create')}}" class="btn-book">Book Now</a>
+                    <a href="{{ route('reservations.create') }}" class="btn-book">Book Now</a>
                 </div>
             </div>
         </div>
 
          <!-- Card 6 -->
-        <div class="col-md-4 ">
-            <div class="card card-hover  h-100 ">
-                <img src="{{ asset('build/assets/images/room2.jpg') }}" class="card-img-top" alt="Standard Room">
+        <div class="col-md-4">
+            <div class="card card-hover">
+                <img src="{{ asset('build/assets/images/rooms/room6.jpg') }}" class="card-img-top" alt="Standard Room">
                 <div class="card-body">
                     <h5 class="card-title">Standard Room</h5>
                     <p class="card-text">$120 / Per Night</p>
@@ -320,7 +372,7 @@ p.lead {
                         <p>30ft Room Size</p>
                         <p>$120 / Per Night</p>
                     </div>
-                    <a href="{{route('reservations.create')}}" class="btn-book">Book Now</a>
+                    <a href="{{ route('reservations.create') }}" class="btn-book">Book Now</a>
                 </div>
             </div>
         </div>
@@ -364,6 +416,72 @@ p.lead {
         </div>
     </div>
 </div>
+
+{{-- -------------------------last---------------------- --}}
+
+<div class="container py-5" id="booking_section">
+    <div class="row justify-content-between align-items-center">
+        <!-- Left Section -->
+        <div class="col-xl-4 mb-4">
+            <div class="title">
+                <small>StaySphere Hotel</small>
+                <h2>Check Availability</h2>
+            </div>
+            <p>Discover the ultimate luxury experience. Book your stay with us for unforgettable memories.</p>
+            <p class="phone_element no_borders">
+                <a href="tel://423424234">
+                    <i class="bi bi-telephone-fill"></i>
+                    <span>
+                        <em>Info and bookings</em> <br>+92 123 456 7890
+                    </span>
+                </a>
+            </p>
+        </div>
+
+        <!-- Right Section -->
+        <div class="col-xl-7">
+            <div class="booking_wrapper bg-light p-4 rounded shadow">
+                <form>
+
+                    <div class="mb-3">
+                        <input type="date" class="form-control" id="date_booking" name="date_booking" placeholder="Select Date">
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-6 mb-3">
+                            <select class="form-select">
+                                <option>Select Room</option>
+                                <option>Double Room</option>
+                                <option>Deluxe Room</option>
+                                <option>Superior Room</option>
+                                <option>Junior Suite</option>
+                            </select>
+                        </div>
+
+
+                        <div class="col-lg-6 mb-3">
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="number" class="form-control" id="adults_booking" placeholder="Adults">
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" class="form-control" id="childs_booking" placeholder="Children">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="text-end">
+                        <button href="{{ route('reservations.create') }}" type="submit" class=" rounded-pill px-4 py-2">Book Now</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 @endsection

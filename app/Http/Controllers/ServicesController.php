@@ -8,13 +8,35 @@ class ServicesController extends Controller
 {
     public function showServices()
     {
-        $services = Services::all(); // Get all services from DB
-        return view('services.index', compact('services'));
+        return view('services.index');
     }
 
-    public function showServiceDetails($id)
+   
+    
+    public function showhousekeepingDetails()
     {
-        $services = Services::findOrFail($id);
-        return view('services.details', compact('services'));
+        return view('services.housekeeping');
+
+    }
+
+    public function showDiningDetails()
+    {
+        return view('services.Dining');
+
+    }
+    public function showFitnessDetails()
+    {
+        return view('services.Fitness');
+
+    }
+    public function showConferenceDetails()
+    {
+        return view('services.Conference');
+
+    }
+    public function showSecurityDetails()
+    {
+        return view('services.Security');
+
     }
 }
