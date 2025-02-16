@@ -10,7 +10,7 @@
     }
 
 .hero-section {
-        background: url('{{ asset('assets/images/event.jpg') }}')  no-repeat center center;
+        background: url('{{ asset('build/assets/images/events/1.jpg') }}')  no-repeat center center;
         background-size: cover;
         color: white;
         text-align: center;
@@ -200,7 +200,7 @@ margin-left: 10px;
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="{{ asset('assets/images/meeting.jpg') }} "  height="234vh" class="card-img-top" alt="Business Meetings">
+                            <img src="{{ asset('build/assets/images/events/2.jpg') }} "  height="234vh" class="card-img-top" alt="Business Meetings">
                             <div class="card-text-overlay">
                                 <h5>Business Meetings</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
@@ -209,7 +209,7 @@ margin-left: 10px;
                     </div>
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="{{ asset('assets/images/seminar.jpg') }}" class="card-img-top" alt="Seminars">
+                            <img src="{{ asset('build/assets/images/events/saminar.jpg') }}" class="card-img-top" alt="Seminars">
                             <div class="card-text-overlay">
                                 <h5>Seminars</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
@@ -218,7 +218,7 @@ margin-left: 10px;
                     </div>
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="{{ asset('assets/images/parties.jpg') }}"  height="234vh" class="card-img-top" alt="gathring">
+                            <img src="{{ asset('build/assets/images/events/private.jpg') }}"  height="234vh" class="card-img-top" alt="gathring">
                             <div class="card-text-overlay">
                                 <h5>Private Gathering</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
@@ -231,7 +231,7 @@ margin-left: 10px;
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="{{ asset('assets/images/sufi.jpg') }}"  height="234vh" class="card-img-top" alt="sufi night">
+                            <img src="{{ asset('build/assets/images/events/sufinight.jpg') }}"  height="234vh" class="card-img-top" alt="sufi night">
                             <div class="card-text-overlay">
                                 <h5>Sufi Night</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
@@ -240,7 +240,7 @@ margin-left: 10px;
                     </div>
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="{{ asset('assets/images/bayan.jpg') }}" class="card-img-top" alt="bayan">
+                            <img src="{{ asset('build/assets/images/events/bayan.jpg') }}" class="card-img-top" alt="bayan">
                             <div class="card-text-overlay">
                                 <h5>Islamic Conference</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
@@ -249,7 +249,7 @@ margin-left: 10px;
                     </div>
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="{{ asset('assets/images/exhi.jpg') }}" class="card-img-top" alt="Exhibitions">
+                            <img src="{{ asset('build/assets/images/events/exhibition.jpg') }}" class="card-img-top" alt="Exhibitions">
                             <div class="card-text-overlay">
                                 <h5>Exhibitions</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
@@ -283,22 +283,22 @@ margin-left: 10px;
     <div class="card-container1">
       <!-- Card 1 -->
       <div class="custom-card1">
-        <img src="{{ asset('assets/images/h1.jpg') }}" alt="Card Image 1">
+        <img src="{{ asset('build/assets/images/events/manageevents.jpg') }}" alt="Card Image 1">
         <div class="bottom-text1">Manage Event</div>
       </div>
       <!-- Card 2 -->
       <div class="custom-card1">
-        <img src="{{ asset('assets/images/h2.jpg') }}" alt="Card Image 2">
+        <img src="{{ asset('build/assets/images/events/meetings1.jpg') }}" alt="Card Image 2">
         <div class="bottom-text1">Meetings</div>
       </div>
       <!-- Card 3 -->
       <div class="custom-card1">
-        <img src="{{ asset('assets/images/h3.jpg') }}" alt="Card Image 3">
+        <img src="{{ asset('build/assets/images/events/smallevents.jpg') }}" alt="Card Image 3">
         <div class="bottom-text1">Small Event</div>
       </div>
       <!-- Card 4 -->
       <div class="custom-card1">
-        <img src="{{ asset('assets/images/h4.jpg') }}" alt="Card Image 4">
+        <img src="{{ asset('build/assets/images/events/Exhibition1.jpg') }}" alt="Card Image 4">
         <div class="bottom-text1">Exhibitions</div>
       </div>
     </div>
@@ -318,7 +318,7 @@ margin-left: 10px;
     <!-- First Row -->
     <div class="row align-items-center mb-5">
         <div class="col-md-6 image-section">
-            <img src="{{ asset('assets/images/side1.jpg') }}" alt="Business Meetings" class="img-fluid rounded">
+            <img src="{{ asset('build/assets/images/events/professionalconference.jpg') }}" alt="Business Meetings" class="img-fluid rounded">
         </div>
         <div class="col-md-6 text-section text-center">
             <h2>Professional Conferences</h2>
@@ -333,7 +333,7 @@ margin-left: 10px;
             <p>Celebrate your special moments in a grand setting, designed for elegance and comfort.</p>
         </div>
         <div class="col-md-6 order-md-1 image-section">
-            <img src="{{ asset('assets/images/side2.jpg') }}" alt="Luxury Gatherings" class="img-fluid rounded">
+            <img src="{{ asset('build/assets/images/events/luxurygathering.jpg') }}" alt="Luxury Gatherings" class="img-fluid rounded">
         </div>
 
     </div>
@@ -341,7 +341,7 @@ margin-left: 10px;
     <!-- Third Row -->
     <div class="row align-items-center mb-5">
         <div class="col-md-6 image-section">
-            <img src="{{ asset('assets/images/side4.jpg') }}" alt="Cultural Nights" class="img-fluid rounded">
+            <img src="{{ asset('build/assets/images/events/13.jpg') }}" alt="Cultural Nights" class="img-fluid rounded">
         </div>
         <div class="col-md-6 text-section text-center">
             <h2>Cultural Evenings</h2>

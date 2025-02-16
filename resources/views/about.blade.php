@@ -7,7 +7,7 @@
     } */
     /* <!------------------------------- Top Banner ------------------------> */
     .half-screen-image {
-    background: url('{{ asset('assets/images/img2.jpg') }}')  center/cover no-repeat;
+    background: url('{{ asset('build/assets/images/reception.jpg') }}')  center/cover no-repeat;
     position: relative;
     height: 75vh;
 
@@ -310,8 +310,8 @@ font-size: 0.95rem;
     <div class="row align-items-center">
         <!-- Left Column: Images -->
         <div class="col-lg-5 position-relative">
-            <img src="{{ asset('assets/images/img14.png') }}" alt="Main Image" class="img-fluid rounded-img">
-            <img src="{{ asset('assets/images/img16.jpg') }}" alt="Overlay Image" class="img-fluid rounded-img overlay-img">
+            <img src="{{ asset('build/assets/images/washroom.jpg') }}" alt="Main Image" class="img-fluid rounded-img">
+            <img src="{{ asset('build/assets/images/room34.jpg') }}" alt="Overlay Image" class="img-fluid rounded-img overlay-img">
         </div>
 
         <!-- Right Column: Content -->
@@ -336,7 +336,7 @@ font-size: 0.95rem;
 <div class="testimonial-section position-relative">
     <!-- Video Background -->
     <video autoplay muted loop class="video-background">
-        <source src="{{ asset('assets/videos/v1.mp4') }}" type="video/mp4">
+        <source src="{{ asset('build/assets/videos/v1.mp4') }}" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
@@ -352,7 +352,7 @@ font-size: 0.95rem;
                 <div class="carousel-item active">
                     <div class="testimonial-card mx-auto shadow-lg p-4 rounded">
                         <div class="d-flex align-items-center">
-                            <img src="{{ asset('assets/images/client1.png') }}" alt="Client 1" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover; margin-right: 15px;">
+                            <img src="{{ asset('build/assets/images/client1.jpg') }}" alt="Client 1" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover; margin-right: 15px;">
                             <div>
                                 <h5 class="mb-0">Roberta</h5>
                                 <small>12 Oct</small>
@@ -366,7 +366,7 @@ font-size: 0.95rem;
                 <div class="carousel-item">
                     <div class="testimonial-card mx-auto shadow-lg p-4 rounded">
                         <div class="d-flex align-items-center">
-                            <img src="{{ asset('assets/images/client2.png') }}" alt="Client 2" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover; margin-right: 15px;">
+                            <img src="{{ asset('build/assets/images/client2.jpg') }}" alt="Client 2" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover; margin-right: 15px;">
                             <div>
                                 <h5 class="mb-0">John</h5>
                                 <small>22 Nov</small>
@@ -380,7 +380,7 @@ font-size: 0.95rem;
                 <div class="carousel-item">
                     <div class="testimonial-card mx-auto shadow-lg p-4 rounded">
                         <div class="d-flex align-items-center">
-                            <img src="{{ asset('assets/images/client3.png') }}" alt="Client 3" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover; margin-right: 15px;">
+                            <img src="{{ asset('build/assets/images/client3.jpg') }}" alt="Client 3" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover; margin-right: 15px;">
                             <div>
                                 <h5 class="mb-0">Sarah</h5>
                                 <small>5 Dec</small>
@@ -394,7 +394,7 @@ font-size: 0.95rem;
                 <div class="carousel-item">
                     <div class="testimonial-card mx-auto shadow-lg p-4 rounded">
                         <div class="d-flex align-items-center">
-                            <img src="{{ asset('assets/images/client3.png') }}" alt="Client 4" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover; margin-right: 15px;">
+                            <img src="{{ asset('build/assets/images/client3.jpg') }}" alt="Client 4" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover; margin-right: 15px;">
                             <div>
                                 <h5 class="mb-0">Emily</h5>
                                 <small>18 Dec</small>
@@ -430,7 +430,7 @@ font-size: 0.95rem;
             <div class="col-md-4">
                 <div class="team-card text-center p-4 shadow rounded">
                     <div class="team-image">
-                        <img src="{{ asset('assets/images/team1.png') }}" alt="Team Member 1" class="img-fluid rounded-circle">
+                        <img src="{{ asset('build/assets/images/team1.jpg') }}" alt="Team Member 1" class="img-fluid rounded-circle">
                     </div>
                     <h5 class="mt-3">John Doe</h5>
                     <p >CEO & Founder</p>
@@ -447,7 +447,7 @@ font-size: 0.95rem;
             <div class="col-md-4">
                 <div class="team-card text-center p-4 shadow rounded">
                     <div class="team-image">
-                        <img src="{{ asset('assets/images/client2.png') }}" alt="Team Member 2" class="img-fluid rounded-circle">
+                        <img src="{{ asset('build/assets/images/team2.jpg') }}" alt="Team Member 2" class="img-fluid rounded-circle">
                     </div>
                     <h5 class="mt-3">Jane Smith</h5>
                     <p >General Manager</p>
@@ -464,7 +464,7 @@ font-size: 0.95rem;
             <div class="col-md-4">
                 <div class="team-card text-center p-4 shadow rounded">
                     <div class="team-image">
-                        <img src="{{ asset('assets/images/client3.png') }}" alt="Team Member 3" class="img-fluid rounded-circle">
+                        <img src="{{ asset('build/assets/images/team3.jpg') }}" alt="Team Member 3" class="img-fluid rounded-circle">
                     </div>
                     <h5 class="mt-3">Emily Rose</h5>
                     <p >Head of Marketing</p>

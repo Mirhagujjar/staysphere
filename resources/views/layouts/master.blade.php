@@ -66,7 +66,7 @@
 
     footer a:hover {
       color: #1ABC9C; 
-    }
+    } */
       
    .dropdown-menu {
          background-color: #2C3E50; 
@@ -78,7 +78,7 @@
     .dropdown-item:hover {
          background-color: #F1C40F; 
          color: #2C3E50; 
-      } */
+      }
        
     footer {
       font-size: 14px;
@@ -137,6 +137,8 @@
       <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
         <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('rooms') }}">Rooms</a></li>
+
             {{-- <li class="nav-item"><a class="nav-link" href="{{ route('reservations.create') }}" >Book Now</a></li> --}}
              
              {{-- services --}}
@@ -145,9 +147,10 @@
                   Services
               </a>
               <ul class="dropdown-menu dropdown-menu-dark">
-                  <li><a class="dropdown-item" href="{{ route('rooms') }}">Rooms</a></li>
+                <li><a class="dropdown-item" href="{{ route('services') }}">services</a></li>
+                  {{-- <li><a class="dropdown-item" href="{{ route('rooms') }}">Rooms</a></li> --}}
                   <li><a class="dropdown-item" href="{{ route('events') }}">Events</a></li>
-                  <li><a class="dropdown-item" href="{{ route('services') }}">services</a></li>
+
               </ul>
             </li>
 
@@ -159,7 +162,7 @@
               <ul class="dropdown-menu dropdown-menu-dark">
                   <li><a class="dropdown-item" href="{{ route('about') }}">About Us</a></li>
                   <li><a class="dropdown-item" href="{{ route('contact.index') }}">Contact Us</a></li>
-                  <li><a class="dropdown-item" href="{{ route('faq') }}">Reviews</a></li>
+                  <li><a class="dropdown-item" href="{{ route('reviews') }}">Reviews</a></li>
               </ul>
             </li>
 
@@ -170,8 +173,10 @@
               </a>
               <ul class="dropdown-menu dropdown-menu-dark">
                   <li><a class="dropdown-item" href="{{ route('menu') }}">Menu of the Day</a></li>
-                  <li><a class="dropdown-item" href="{{ route('blogs') }}">Blogs</a></li>
-              </ul>
+                  <li><a class="dropdown-item" href="{{ route('blog.blog') }}">Blog</a></li>
+                  <li><a class="dropdown-item" href="{{ route('packages') }}">Packages</a></li>
+
+                </ul>
             </li>
 
                 
@@ -247,8 +252,8 @@
        © {{ date('Y') }} Stay Sphere. All rights reserved.
     </div>
   </footer> --}}
-  <footer class="bg-dark text-light pt-5 pb-4 ">
-    <div class="container text-center text-md-start margin-top">
+  <footer class="bg-dark text-light pt-5 pb-4">
+    <div class="container text-center text-md-start margin-top py-5">
       <div class="row">
         <!-- Logo and Description -->
         <div class="col-md-4 col-lg-4 col-xl-3 mx-auto mt-3">
@@ -281,8 +286,8 @@
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">Useful Links</h6>
           <p><a href="{{ route('home') }}" class="text-light text-decoration-none">Home</a></p>
-          <p><a href="{{ route('blogs') }}" class="text-light text-decoration-none">Blog</a></p>
-          <p><a href="{{ route('faq') }}" class="text-light text-decoration-none">FAQ</a></p>
+          <p><a href="{{ route('blog.blog') }}" class="text-light text-decoration-none">Blog</a></p>
+          <p><a href="{{ route('reviews') }}" class="text-light text-decoration-none">Reviews</a></p>
           <p><a href="#" class="text-light text-decoration-none">Testimonials</a></p>
           <p><a href="{{ route('contact.index') }}" class="text-light text-decoration-none">Contact Us</a></p>
         </div>

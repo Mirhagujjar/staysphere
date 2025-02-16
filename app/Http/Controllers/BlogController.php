@@ -6,8 +6,28 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    public function showBlogs()
+    public function blog()
     {
-        return view('blogs'); // This will load the blogs.blade.php file
+        return view('blog.blog');
     }
+    public function topRoom()
+{
+    return view('blog.topRoom');
+}
+
+    public function chefSpecial()
+    {
+        return view('blog.chefSpecial');
+    }
+
+    public function guest()
+    {
+        return view('blog.guest');
+    }
+
+    public function hosting()
+    {
+        return view('blog.hosting');
+    }
+
 }

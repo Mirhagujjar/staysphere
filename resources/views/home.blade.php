@@ -1,6 +1,4 @@
 @extends('layouts.app')
-
-
 @section('content')
 
 <style>
@@ -130,6 +128,11 @@
          color: #f1c40f;
          background-color:#2C3E50; 
     }
+
+    .py-6 {
+      padding-top: 3rem;
+      padding-bottom: 12rem;
+    }
 </style>
 
 
@@ -141,8 +144,8 @@
     }
 
     .py-5 {
-      padding-top: 3.5rem;
-      padding-bottom: 3.5rem;
+      padding-top: 3rem;
+      padding-bottom: 3rem;
     }
 
     .text-muted {
@@ -200,8 +203,6 @@
      }
 
 </style>
-
-
 
 {{-- slider --}}
 <div id="carouselExampleDark" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -334,7 +335,6 @@
   </div>
 </div>
 
-
 {{-- Exceptional Hospitality --}}
 <div class="py-3">
   <div class=" text-center " style="background: linear-gradient(#1ABC9C, #343A40, #F8F9FA,#2C3E50,#F1C40F);">
@@ -362,8 +362,6 @@
   </div>
  </div>
 </div>
-
-
 
 <!-- Hotel Services Section -->
 <div class=" py-5">
@@ -464,8 +462,6 @@
         </div>
       </div>
 </div>
-
-
 
 {{-- rooms --}}
 <div class="bg-white py-5">
@@ -568,7 +564,6 @@
     </div>
 </div>
 
-
 {{-- text on pic --}}
 <section class="testimonial-section d-flex align-items-center justify-content-center" style="background-image: url('build/assets/images/mr6.jpg'); background-size: cover; height: 100vh;">
     <div class="py-5">
@@ -638,7 +633,6 @@
     </div>
 </section>
 
-
 <!-- Call to Action -->
 {{-- <div class="container text-center cta-section">
     <h2>Book Your Stay Now</h2>
@@ -646,37 +640,33 @@
     <a href="{{route('reservations.create')}}" class="btn btn-lg btn-primary">Book Now</a>
 </div> --}}
 
-
-
-
 {{-- Tailored services --}}
-<div class="container py-5">
+<div class="container py-6">
     <div class="row align-items-center justify-content-between flex-lg-row-reverse">
       <!-- Image Section -->
-      <div class="col-lg-5">
-        <div class="position-relative">
-          <img src="{{asset('build/assets/images/room6.jpg')}}" alt="Main Image" class="img-fluid rounded">
-          <img src="{{asset('build/assets/images/slider2.jpg')}}" alt="Overlay Image" 
+      <div class="col-lg-5 p-3">
+          <div class="position-relative">
+            <img src="{{asset('build/assets/images/room6.jpg')}}" alt="Main Image" class="img-fluid rounded">
+            <img src="{{asset('build/assets/images/slider2.jpg')}}" alt="Overlay Image" 
                class="img-fluid rounded position-absolute" 
-               {{-- style="top: 20px; left: 20px; width: 80%; z-index: 1;"> --}}
-               style="top: 30%; right: 70%; width: 75%; z-index: 1; border: 2px solid white;">
+               {{-- style="top: 20px; left: 70px; width: 80%; z-index: 1;"> --}}
+               style="top: 30%; right: 70%; width: 75%; hight: 100%; z-index: 1; border: 2px solid white;">
 
-        </div>
+          </div>
       </div>
   
       <!-- Text Section -->
       <div class="col-lg-5">
-        <div>
-          <small class="text-muted">About us</small>
-          <h2 class="mt-2">Tailored services and the experience of unique holidays</h2>
-          <p >At STAYSPHERE, we offer comfort, great service, and a warm atmosphere. Whether you're here for work or relaxation, our cozy rooms, delicious food, and friendly staff ensure a wonderful stay. </p>
-          <p> our pool, gym, and event spaces, all designed for your comfort. Stay with us and experience hospitality with a heart!</p>
+         <div>
+           <small class="text-muted">About us</small>
+           <h2 class="mt-2">Personalized services and the experience of special vacations.</h2>
+           <p >At STAYSPHERE, we offer comfort, great service, and a warm atmosphere. Whether you're here for work or relaxation, our cozy rooms, delicious food, and friendly staff ensure a wonderful stay. </p>
+           <p> our pool, gym, and event spaces, all designed for your comfort. Stay with us and experience hospitality with a heart!</p>
           
-        </div>
+         </div>
       </div>
     </div>
 </div>
-
 
 {{-- video --}}
 {{-- <div class=" py-5">
@@ -744,7 +734,5 @@
         </div>
     </div>
 </div> --}}
-
-
 
 @endsection

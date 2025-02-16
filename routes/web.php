@@ -7,8 +7,11 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ServicesController;
-use App\Http\Controllers\FAQController;
+use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PackageController;
+
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -46,7 +49,13 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 
 // blogs
-Route::get('/blogs', [BlogController::class, 'showBlogs'])->name('blogs');
+Route::prefix('blog')->group(function(){
+    Route::get('/', [BlogController::class, 'blog'])->name('blog.blog');
+    Route::get('/topRoom', [BlogController::class, 'topRoom'])->name('blog.topRoom');
+    Route::get('/chefSpecial', [BlogController::class, 'chefSpecial'])->name('blog.chefSpecial');
+    Route::get('/guest', [BlogController::class, 'guest'])->name('blog.guest');
+    Route::get('/hosting', [BlogController::class, 'hosting'])->name('blog.hosting');
+});
 
 // menu of the day 
 Route::get('/menu-of-the-day', [MenuController::class, 'showMenu'])->name('menu');
@@ -64,8 +73,12 @@ Route::prefix('services')->group(function(){
 });
 
 
-// FAQ
-Route::get('/faq', [FAQController::class, 'showFAQ'])->name('faq');
+// reviews
+Route::get('/reviews', [ReviewsController::class, 'showreviews'])->name('reviews');
+
+// pakages
+Route::get('/packages', [PackageController::class, 'showPackages'])->name('packages');
+
 
 
 
