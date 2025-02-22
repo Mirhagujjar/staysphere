@@ -6,7 +6,7 @@
     @guest
         <li class="nav-item dropdown">
             <a id="authDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ __('Login/Register') }}
+                {{ __('Login') }}
             </a>
 
             <div class="dropdown-menu custom-dropdown" aria-labelledby="authDropdown">

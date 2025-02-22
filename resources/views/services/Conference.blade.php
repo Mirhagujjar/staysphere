@@ -69,12 +69,13 @@
             <h1>Event & Conference Services</h1>
             <h3>"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</h3>
             <div class="breadcrumb-container">
-                <a href="{{ route('services') }}">Home</a> > services
+                <a href="{{ route('services') }}">services</a> > Event & Conference
             </div>
         </div>
     </div>
 </div>
 
+{{-- deccription --}}
 <div class="container mt-4 py-5">
     <div class="row justify-content-center">
         <h2 class="text-center mb-4" style="color: #2C3E50;">Our Hotel Services</h2>
@@ -122,7 +123,7 @@
         </div>
     </div>
 </div>
-
+{{-- pic cards --}}
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-4">
@@ -143,6 +144,7 @@
     </div>
 </div>
 
+{{-- card --}}
 <div class="container my-5 py-5">
     <div class="position-relative col-md-8">
         <div style="width: 500px; height: 400px; overflow: hidden;">

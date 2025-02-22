@@ -276,7 +276,7 @@
          
         </div>
         <div class="signup-section">
-            <p>New here? <a href="#">login </a></p>
+            <p>New here? <a href="{{ route('register') }}">Register </a></p>
         </div>
     </div>
 </div>

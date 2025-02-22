@@ -15,7 +15,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         text-align: center;
-        color: rgb(9, 9, 41);
+        color: rgb(230, 230, 236);
     }
 
     .overlay-text h1 {
@@ -27,16 +27,16 @@
         margin-top: 10px;
         font-size: 18px;
         font-weight: 500;
-        color: #021411;
+        color: #f0f7f6;
     }
 
     .breadcrumb-container a {
         text-decoration: none;
-        color: #05362d;
+        color: #f5f5f5;
     }
 
     .breadcrumb-container a:hover {
-        color: #1ABC9C;
+        color: #0a4136;
     }
 
     .hover-effect:hover {
@@ -58,10 +58,10 @@
 <div class="main">
     <div class="half-screen-image">
         <div class="overlay-text">
-            <h1>Services</h1>
+            <h1>Food & Dining Services</h1>
             <h3>"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</h3>
             <div class="breadcrumb-container">
-                <a href="{{ route('services') }}">Home</a> > services
+                <a href="{{ route('services') }}">Services</a> > Food & Dining
             </div>
         </div>
     </div>
@@ -151,7 +151,7 @@
             </div>
             <div class="d-flex justify-content-between align-items-center">
                 <a href="{{ route('menu') }}" class="btn btn-warning rounded-pill">
-                    <i class="bi bi-arrow-right-circle"></i> Book Now
+                    <i class="bi bi-arrow-right-circle"></i> Menu Card
                 </a>
             </div>
         </div>

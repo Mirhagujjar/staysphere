@@ -5,17 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stay Sphere</title>
   <!-- Bootstrap CSS -->
-  {{-- <link rel="stylesheet" href="{{asset ('css/bootstrap.min.css') }}"> --}}
-  {{-- <script src="{{ asset('js/bootstrap.bundle.min.js')}}"></script> --}}
-  {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
-  {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
   <link rel="stylesheet" href="{{ asset('build/assets/css/bootstrap.min.css') }}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/icofont/1.0.1/css/icofont.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
   <script src="{{ asset('build/assets/js/bootstrap.bundle.min.js')}}"></script>
 
 
@@ -113,15 +106,12 @@
     #scrollToTop {
         background: conic-gradient(#F1C40F 0%, transparent 0%);
     }
-
-
 </style>
-
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg shadow margin-down">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg shadow margin-down">
     <div class="container-fluid">
         <a class="navbar-brand fw-bold align-items-center me-auto" href="#" style="margin-left: 30px;">
             <img  src="{{ asset('build/assets/images/logo.jpg')}}" alt="Stay Sphere Logo"  style="height: 50px; width: 50px; margin-right: 10px;"></a>
@@ -175,84 +165,17 @@
                   <li><a class="dropdown-item" href="{{ route('menu') }}">Menu of the Day</a></li>
                   <li><a class="dropdown-item" href="{{ route('blog.blog') }}">Blog</a></li>
                   <li><a class="dropdown-item" href="{{ route('packages') }}">Packages</a></li>
-
                 </ul>
             </li>
-
-                
-            {{-- <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="extraMenu" role="button" data-bs-toggle="dropdown">
-                 login
-              </a>
-              <ul class="dropdown-menu dropdown-menu-dark">
-                  <li><a class="dropdown-item" href="{{ route('menu') }}">Menu of the Day</a></li>
-                  <li><a class="dropdown-item" href="{{ route('blogs') }}">Blogs</a></li>
-                  <li><a class="dropdown-item" href="{{ route('about') }}">About Us</a></li>
-                  <li><a class="dropdown-item" href="{{ route('events') }}">Events</a></li>
-                  <li><a class="dropdown-item" href="{{ route('services') }}">services</a></li>
-                  <li><a class="dropdown-item" href="{{ route('faq') }}">FAQ</a></li>
-
-
-
-              </ul>
-            </li> --}}
           @yield('nav-content')
-
         </ul>
-       
       </div>
     </div>
-  </nav>
+</nav>
 
- 
-
- 
-
-
-
-  @yield('content') 
-  <!-- Footer -->
-  {{-- <footer class="text-center text-lg-start shadow margin-top">
-    <div class="container p-4">
-      <div class="row">
-
-        <div class="col-lg-6 col-md-12 mb-4">
-          <h5 class="text-uppercase fw-bold">Stay Sphere</h5>
-          <p>
-            Providing a seamless platform for booking the best hotel rooms with comfort, ease, and luxury.
-          </p>
-        </div>
-
-
-        <div class="col-lg-3 col-md-6 mb-4">
-          <h5 class="text-uppercase fw-bold">Quick Links</h5>
-          <ul class="list-unstyled mb-0">
-            <li><a href="#">start of the page</a></li>
-            <li><a href="{{ route('home') }}">Home</a></li>
-            <li><a href="{{ route('reservations.index') }}">Book now</a></li>
-            <li><a href="{{ route('reservations.index') }}">Rooms</a></li>
-            <li><a href="{{ route('events') }}">Events</a></li>
-            <li><a href="{{ route('about') }}">About Us</a></li>
-            <li><a href="{{ route('contact.index') }}">Contact Us</a></li>
-          </ul>
-        </div>
-
-
-        <div class="col-lg-3 col-md-6 mb-4">
-          <h5 class="text-uppercase fw-bold">Contact Us</h5>
-          <ul class="list-unstyled mb-0">
-            <li><i class="bi bi-telephone-fill"></i> +92 123 456 7890</li>
-            <li><i class="bi bi-envelope-fill"></i> info@staysphere.com</li>
-            <li><i class="bi bi-geo-alt-fill"></i> Lahore, Pakistan</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="text-center p-3" style="background-color: var(--text-color); color: white;">
-       © {{ date('Y') }} Stay Sphere. All rights reserved.
-    </div>
-  </footer> --}}
-  <footer class="bg-dark text-light pt-5 pb-4">
+{{-------------------footer------------------------------}}
+@yield('content') 
+<footer class="bg-dark text-light pt-5 pb-4">
     <div class="container text-center text-md-start margin-top py-5">
       <div class="row">
         <!-- Logo and Description -->
@@ -312,28 +235,29 @@
     <div class="text-center p-3" style="background-color: var(--text-color); color: white;">
       © {{ date('Y') }} Stay Sphere. All rights reserved.
    </div>
-  </footer>
-  
-  
+</footer>
 
-  {{-- <a href="#" class="btn btn-primary position-fixed bottom-0 end-0 m-3">
-    ↑ Top
- </a> --}}
+{{-------------------scroll to top ------------------- --}}
+<a href="#"
+id="scrollToTop"
+class="btn position-fixed bottom-0 end-0 m-3"
+style="background-color: transparent; color: #F1C40F; width: 60px; height: 60px; border-radius: 50%; border: 4px solid #F1C40F; display: flex; align-items: center; justify-content: center; font-weight: bold; transition: background-color 0.3s;background-color:#2C3E50">
+ ↑
+</a>
 
- {{-- <a href="#" 
-   class="btn position-fixed bottom-0 end-0 m-3" 
-   style="background-color: #F1C40F; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.2s ease;">
-    ↑
- </a> --}}
+<script>
+  let scrollBtn = document.getElementById("scrollToTop");
 
- <a href="#" 
-   id="scrollToTop" 
-   class="btn position-fixed bottom-0 end-0 m-3" 
-   style="background-color: transparent; color: #F1C40F; width: 60px; height: 60px; border-radius: 50%; border: 4px solid #F1C40F; display: flex; align-items: center; justify-content: center; font-weight: bold; transition: background-color 0.3s;background-color:#2C3E50">
-    ↑
- </a>
+  window.onscroll = function () {
+      let scrollTop = document.documentElement.scrollTop;
+      let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      let scrollPercentage = (scrollTop / scrollHeight) * 100;
 
+      scrollBtn.style.display = scrollPercentage > 10 ? "flex" : "none";
 
+  };
+
+</script>
 
 
 </body>

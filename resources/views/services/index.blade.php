@@ -85,10 +85,8 @@
 
             <!-- Buttons -->
             <div class="d-flex justify-content-between align-items-center">
-                {{-- <a href="{{ route('reservations.create') }}" class="btn btn-warning rounded-pill">
-                    <i class="bi bi-arrow-right-circle"></i> Get services
-                </a> --}}
-                {{-- <button class="btn btn-warning mt-3 bi bi-arrow-right-circle" data-bs-toggle="modal" data-bs-target="#housekeeping">Get services</button> --}}
+                <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#housekeeping">Get services Now</button>
+                
 
                 <a href="{{ url('/services/housekeeping') }}" class="text-decoration-none text-warning fw-bold">
                     Read more →
@@ -97,6 +95,62 @@
         </div>
     </div>
 </div>
+{{-- form --}}
+<div class="modal fade" id="housekeeping">
+    <div class="modal-dialog">
+        <div class="modal-content p-4">
+            <h4 class="mb-2">Form for housekeeping</h4>
+            <form>
+                @csrf
+                <!-- Name -->
+                <div class="mb-2">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-2">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+
+                <!-- Phone -->
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                </div>
+
+                <!-- Room Number -->
+                <div class="mb-3">
+                    <label for="room_number" class="form-label">Room Number</label>
+                    <input type="text" class="form-control" id="room_number" name="room_number" required>
+                </div>
+
+                <!-- Service Type -->
+                <div class="mb-3">
+                    <label for="service_type" class="form-label">Select Service Type</label>
+                    <select class="form-control" id="service_type" name="service_type" required>
+                        <option value="Daily Cleaning">Daily Cleaning</option>
+                        <option value="Deep Cleaning">Deep Cleaning</option>
+                        <option value="Laundry Service">Laundry Service</option>
+                        <option value="Room Sanitization">Room Sanitization</option>
+                    </select>
+                </div>
+
+                <!-- Additional Requests -->
+                <div class="mb-3">
+                    <label for="requests" class="form-label">Additional Requests</label>
+                    <textarea class="form-control" id="requests" name="requests" rows="3"></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-warning w-100">Submit Request</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
 {{-- second services  Food & Dining--}}
 <div class="container my-5 py-5">
@@ -125,9 +179,9 @@
 
             <!-- Buttons -->
             <div class="d-flex justify-content-between align-items-center">
-                {{-- <a href="{{ route('menu') }}" class="btn btn-warning rounded-pill">
-                    <i class="bi bi-arrow-right-circle"></i> Book Now
-                </a> --}}
+                <a href="{{ route('menu') }}" class="btn btn-warning">
+                     Menu card
+                </a>
                 <a href="{{ url('/services/Dining') }}" class="text-decoration-none text-warning fw-bold">
                     Read more →
                 </a>
@@ -163,13 +217,47 @@
 
             <!-- Buttons -->
             <div class="d-flex justify-content-between align-items-center">
-                {{-- <a href="{{ route('reservations.create') }}" class="btn btn-warning rounded-pill">
-                    <i class="bi bi-arrow-right-circle"></i> Book Now
-                </a> --}}
+                <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#fitness">Get services Now</button>
                 <a href="{{ url('/services/Fitness') }}" class="text-decoration-none text-warning fw-bold">
                     Read more →
                 </a>
             </div>
+        </div>
+    </div>
+</div>
+{{-- form --}}
+<div class="modal fade" id="fitness">
+    <div class="modal-dialog">
+        <div class="modal-content p-4">
+            <h4 class="mb-3">Write a Review</h4>
+            <form>
+                @csrf
+                <!-- Name -->
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+            
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+            
+                <!-- Select Service -->
+                <div class="mb-3">
+                    <label for="service_type" class="form-label">Select Service</label>
+                    <select class="form-control" id="service_type" name="service_type" required>
+                        <option value="Gym Access">Gym Access</option>
+                        <option value="Personal Training">Personal Training</option>
+                        <option value="Yoga Session">Yoga Session</option>
+                        <option value="Spa & Massage">Spa & Massage</option>
+                    </select>
+                </div>
+            
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-warning w-100">Submit Request</button>
+            </form>
         </div>
     </div>
 </div>
@@ -201,9 +289,9 @@
 
             <!-- Buttons -->
             <div class="d-flex justify-content-between align-items-center">
-                {{-- <a href="{{ route('reservations.create') }}" class="btn btn-warning rounded-pill">
-                    <i class="bi bi-arrow-right-circle"></i> Book Now
-                </a> --}}
+                <a href="{{ route('events') }}" class="btn btn-warning">
+                     Book Now
+                </a>
                 <a href="{{ url('/services/Conference') }}" class="text-decoration-none text-warning fw-bold">
                     Read more →
                 </a>
@@ -239,9 +327,7 @@
 
             <!-- Buttons -->
             <div class="d-flex justify-content-between align-items-center">
-                {{-- <a href="{{ route('reservations.create') }}" class="btn btn-warning rounded-pill">
-                    <i class="bi bi-arrow-right-circle"></i> Book Now
-                </a> --}}
+                <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#security">Get services Now</button>
                 <a href="{{ url('/services/Security') }}" class="text-decoration-none text-warning fw-bold">
                     Read more →
                 </a>
@@ -249,6 +335,43 @@
         </div>
     </div>
 </div>
+{{-- form --}}
+<div class="modal fade" id="security">
+    <div class="modal-dialog">
+        <div class="modal-content p-4">
+            <h4 class="mb-3">Get services</h4>
+            <form>
+                @csrf
+                <!-- Name -->
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+            
+                <!-- Room Number -->
+                <div class="mb-3">
+                    <label for="room_number" class="form-label">Room Number</label>
+                    <input type="text" class="form-control" id="room_number" name="room_number" required>
+                </div>
+            
+                <!-- Select Service -->
+                <div class="mb-3">
+                    <label for="service_type" class="form-label">Select Service</label>
+                    <select class="form-control" id="service_type" name="service_type" required>
+                        <option value="Personal Assistance">Personal Assistance</option>
+                        <option value="Security Escort">Security Escort</option>
+                        <option value="Lost & Found">Lost & Found</option>
+                        <option value="Emergency Assistance">Emergency Assistance</option>
+                    </select>
+                </div>
+            
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-warning w-100">Request Service</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 @endsection
 
