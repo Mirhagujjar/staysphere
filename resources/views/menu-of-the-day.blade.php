@@ -1,104 +1,107 @@
 @extends('layouts.app')
 @section('content')
+
 <style>
 
     .half-screen-image {
-    position: relative;
-    height: 70vh;
-    background: url('{{ asset('build/assets/images/menu/1.jpg') }}')  center/cover no-repeat;
-}
-.overlay-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: #2C3E50;
-}
-.overlay-text h1 {
-    font-size: 3rem;
-    font-weight: bold;
+        position: relative;
+        height: 70vh;
+        background: url('{{ asset('build/assets/images/menu/1.jpg') }}')  center/cover no-repeat;
+    }
+    .overlay-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #2C3E50;
+    }
+    .overlay-text h1 {
+        font-size: 3rem;
+        font-weight: bold;
 
-}
-.link-container {
-    margin-top: 10px;
-    font-size: 20px;
-    font-weight: 500;
-    color: #F8F9FA;
-}
+    }
+    .link-container {
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: 500;
+        color: #F8F9FA;
+    }
 
-.link-container a {
-    text-decoration: none;
-    color: #F1C40F;
-}
+    .link-container a {
+        text-decoration: none;
+        color: #F1C40F;
+    }
 
-.link-container a:hover {
-    color: #1ABC9C;
-}
+    .link-container a:hover {
+        color: #1ABC9C;
+    }
 
-/* General Styling */
-.container {
-    max-width: 1100px;
-}
+    /* General Styling */
+    .container {
+        max-width: 1100px;
+    }
 
-/* -- Search and Filter Section - */
-.box1{
-    background-color: #ecebe6;
-}
-.box2{
-    background-color: #ecebe6;
-}
-/* Menu Categories */
-.nav-tabs .nav-link {
-    color: #333;
-    font-weight: bold;
-    padding: 10px 20px;
-    transition: 0.3s ease;
-}
+    /* -- Search and Filter Section - */
+    .box1{
+        background-color: #ecebe6;
+    }
+    .box2{
+        background-color: #ecebe6;
+    }
+    /* Menu Categories */
+    .nav-tabs .nav-link {
+        color: #333;
+        font-weight: bold;
+        padding: 10px 20px;
+        transition: 0.3s ease;
+    }
 
-.nav-tabs .nav-link.active {
-    background-color: #F1C40F;
-    color: white;
-    border-radius: 5px;
-}
+    .nav-tabs .nav-link.active {
+        background-color: #F1C40F;
+        color: white;
+        border-radius: 5px;
+    }
 
-/* Menu Cards */
-.card {
-    border: none;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    margin-bottom: 2.5rem;
-}
+    /* Menu Cards */
+    .card {
+        border: none;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        margin-bottom: 2.5rem;
+    }
 
-.card:hover {
-    transform: scale(1.05);
-}
+    .card:hover {
+        transform: scale(1.05);
+    }
 
-.card-img-top {
-    height: 250px;
-    object-fit: cover;
-}
+    .card-img-top {
+        height: 250px;
+        object-fit: cover;
+    }
 
 
-.button {
-    background-color:#F1C40F;
-    color: white;
-    width: 100%;
-    border: none;
-    font-size: 16px;
-    border-radius: 8px;
-    padding: 10px;
+    .button {
+        background-color:#F1C40F;
+        color: white;
+        width: 100%;
+        border: none;
+        font-size: 16px;
+        border-radius: 8px;
+        padding: 10px;
 
-}
+    }
 
-.button:hover {
-    background-color: #1ABC9C ;
-    color: white ;
-}
+    .button:hover {
+        background-color: #1ABC9C ;
+        color: white ;
+    }
 
 
 
 </style>
+
+{{-- starting image --}}
 <div class="half-screen-image">
     <div class="half-screen-image">
         <div class="overlay-text">
@@ -134,15 +137,11 @@
         <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#desserts">Desserts</a></li>
     </ul>
 
-
-
-
-<!-------------------------- menu--------------------- -->
-
+   <!-------------------------- menu----------------------->
     <div class="tab-content mt-4">
+       <!-------------breakfast-------------------->
         <div class="tab-pane fade show active" id="breakfast">
             <div class="row">
-
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <img src="{{ asset('build/assets/images/menu/breakfast/2.jpg') }}" class="card-img-top" alt="Breakfast Item">
@@ -150,7 +149,6 @@
                             <h5 class="card-title">Pancakes & Syrup</h5>
                             <p class="card-text">Soft, fluffy, and sweet perfection!</p>
                             <p class="text-danger fw-bold">$10</p>
-                            {{-- <button class="button">Add to Cart</button> --}}
                         </div>
                     </div>
                 </div>
@@ -166,6 +164,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <img src="{{ asset('build/assets/images/menu/breakfast/4.jpg') }}" class="card-img-top" alt="Breakfast Item">
@@ -189,6 +188,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <img src="{{ asset('build/assets/images/menu/breakfast/6.jpg') }}" class="card-img-top" alt="Breakfast Item">
@@ -513,56 +513,4 @@
     </div>
 </div>
 
-
-<!-- Cart Section -->
-{{-- <div class="cart-section mt-5">
-    <h2 class="text-center">🛒 Your Cart</h2>
-
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card p-3">
-                <h5>Items in Cart:</h5>
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between">
-                        Mixed Item Breakfast - $30
-                        <button class="btn btn-sm btn-danger">❌</button>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        Lasagna - $33
-                        <button class="btn btn-sm btn-danger">❌</button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card p-3">
-                <h4>Total: <span class="text-danger">$63</span></h4>
-                <button class="button">Confirm Order</button>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
-
-
-{{-- <div class="container mt-4">
-    <h2 class="text-center">🛒 Your Cart</h2>
-
-    <div class="row">
-        <div class="col-md-8">
-            <div class="cart-items">
-                <!-- Cart Items Will Be Added Here -->
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card p-3">
-                <h4>Total Amount: <span class="text-danger" id="total-price">$0</span></h4>
-                <button class="btn btn-primary w-100 mt-3" id="checkout-btn">Proceed to Checkout</button>
-
-            </div>
-        </div>
-    </div>
-</div> --}}
 @endsection

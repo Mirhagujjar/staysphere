@@ -1,101 +1,91 @@
 @extends('layouts.app')
 @section('content')
+
 <style>
     /* ------------- 1. Header Section ----------- */
     .review-header {
-    background: url('{{ asset('build/assets/images/reviews/1.jpg') }}')center/cover;
-}
+       background: url('{{ asset('build/assets/images/reviews/1.jpg') }}')center/cover;
+    }
+    .review-card {
+        padding: 10px;
+        background-color:#343A40;
+        /* background-color: rgb(232, 235, 235); */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    /* ------------- 3. Filters & Search Bar------------- - */
+    .box1{
+        background-color: #ecebe6;
+    }
+    .box2{
+        background-color: #ecebe6;
+    }
+    /* --------------- 2. Rating------------------ -- */
+    .rating-circle {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background-color: #ffcc00;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        margin: 0 auto;
+    }
+    .rating-circle h2 {
+        margin-bottom: 5px;
+    }
+    .progress {
+        height: 12px;
+        border-radius: 6px;
+        background-color: #f8f9fa;
+    }
+    .progress-bar {
+        border-radius: 6px;
+    }
+    /* ------------------5. Featured Section---------- */
+    .feature-card {
+        position: relative;
+        width: 100%;
+        height: 350px;
+        border-radius: 15px;
+        overflow: hidden;
+    }
+    .feature-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+    .feature-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white;
+        width: 80%;
+        z-index: 2;
+    }
+    .feature-overlay h3 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    .feature-overlay p {
 
-.review-card {
-    padding: 10px;
-    background-color:#343A40;
-    /* background-color: rgb(232, 235, 235); */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* ------------- 3. Filters & Search Bar------------- - */
-.box1{
-    background-color: #ecebe6;
-}
-.box2{
-    background-color: #ecebe6;
-}
-/* --------------- 2. Rating------------------ -- */
-.rating-circle {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background-color: #ffcc00;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    margin: 0 auto;
-}
-
-.rating-circle h2 {
-    margin-bottom: 5px;
-}
-
-.progress {
-    height: 12px;
-    border-radius: 6px;
-    background-color: #f8f9fa;
-}
-
-.progress-bar {
-    border-radius: 6px;
-}
-
-/* ------------------5. Featured Section---------- */
-.feature-card {
-    position: relative;
-    width: 100%;
-    height: 350px;
-    border-radius: 15px;
-    overflow: hidden;
-}
-
-.feature-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-.feature-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: white;
-    width: 80%;
-    z-index: 2;
-}
-
-.feature-overlay h3 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-}
-
-.feature-overlay p {
-
-    font-size: 16px;
-    font-weight: 400;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-}
+        font-size: 16px;
+        font-weight: 400;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
 
 </style>
-
 
 <!------------- 1. Header Section ----------->
 <div class="review-header text-center text-white py-5">
@@ -103,7 +93,6 @@
     <p>Real experiences from our valued guests.</p>
     <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#reviewModal">Write a Review</button>
 </div>
-
 
 <!--------------- 2. Rating------------------ -->
 <div class="container my-5">
@@ -161,7 +150,6 @@
     </div>
 </div>
 
-
 <!------------- 3. Filters & Search Bar------------- -->
 <div class="container my-4">
     <div class="d-flex justify-content-between">
@@ -200,10 +188,7 @@
     </div>
 </div>
 
-
-
 <!----------------------5. Featured Section-------------------->
-
 <div class="container my-5">
     <h2 class="text-center fw-bold mb-4">🏆 Why Guests Love Stay Sphere</h2>
     <p class="text-center text-muted mb-4">Our commitment to excellence makes every stay memorable.</p>
@@ -269,10 +254,6 @@
         </button>
     </div>
 </div>
-
-
-
-
 
 <!------------6. Write a Review Form---------------->
 <div class="modal fade" id="reviewModal">

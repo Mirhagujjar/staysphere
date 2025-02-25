@@ -102,8 +102,7 @@
             <a href="#" title="Login with Google"><i class="bi bi-google"></i></a>
             <a href="#" title="Login with Twitter"><i class="bi bi-twitter"></i></a>
         </div>
-        <div >
-          <div class="card-body">
+        <div class="card-body">
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="row mb-3">
@@ -158,7 +157,6 @@
                     </div>
                 </div>
             </form>
-          </div>
         </div>
         <div class="signup-section">
             <p>New here? <a href="{{ route('register') }}">Register </a></p>

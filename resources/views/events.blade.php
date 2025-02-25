@@ -1,5 +1,4 @@
-@extends('layouts.app
-')
+@extends('layouts.app')
 @section('content')
 
 
@@ -9,7 +8,7 @@
         font-family: Arial, sans-serif;
     }
 
-.hero-section {
+    .hero-section {
         background: url('{{ asset('build/assets/images/events/1.jpg') }}')  no-repeat center center;
         background-size: cover;
         color: white;
@@ -24,162 +23,134 @@
     }
 
 
-    /* ------------------------------2nd section------------------------ */
-
+     /* ------------------------------2nd section------------------------ */
     .card-text-overlay {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .card-text-overlay button {
+        background: transparent;
+        border: none;
+        color: rgb(12, 11, 11);
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+    .carousel-indicators {
+        position: absolute;
+        bottom: -50px;
+    }
+    .carousel-indicators [data-bs-target] {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: rgb(3, 3, 3);
+    }
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 30px;
+        text-align: center;
+        font-weight: bold;
+    }
+     /* four cards in one row*/
+    /* ----------------------3rd section------------------ */
+    .card-container1 {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 50px;
+    }
 
-position: absolute;
-bottom: 10px;
-left: 10px;
-color: white;
-padding: 10px;
-border-radius: 5px;
-}
+    .custom-card1 {
+        position: relative;
+        width: 23%; /* 4 cards in a row with space */
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-.card-text-overlay button {
-background: transparent;
-border: none;
-color: rgb(12, 11, 11);
-font-size: 1.2rem;
-cursor: pointer;
-}
+    .custom-card1 img {
+        width: 100%;
+        height: 70vh;
+        object-fit: cover;
+    }
 
-.carousel-indicators {
-position: absolute;
-bottom: -50px;
-}
+    .custom-card1 .bottom-text1 {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+    }
+    /* -------------------------4th section---------------------- */
+    .text-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+    }
 
-.carousel-indicators [data-bs-target] {
-width: 12px;
-height: 12px;
-border-radius: 50%;
-background-color: rgb(3, 3, 3);
-}
+    .text-section h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
 
-.section-title {
-font-size: 2rem;
-margin-bottom: 30px;
-text-align: center;
-font-weight: bold;
-}
-    /* four cards in one row*/
-/* ----------------------3rd section------------------ */
-.card-container1 {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-top: 50px;
-  }
+    .text-section p {
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.6;
+    }
+    .image-section img {
+        width: 100%;
+        height: 400px;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+    .row:nth-child(even) .image-section {
+        order: 2;
+    }
+    .row:nth-child(even) .text-section {
+        order: 1;
+    }
+    .mb-5{
+    margin-right: 10px;
+    margin-left: 10px;
+    }
 
-  .custom-card1 {
-    position: relative;
-    width: 23%; /* 4 cards in a row with space */
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+    /* --------------------form section-------------- */
+    .booking-form {
+        background: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
 
-  .custom-card1 img {
-    width: 100%;
-    height: 70vh;
-    object-fit: cover;
-}
+    .booking-form .form-control,
+    .booking-form .form-select {
+        font-size: 14px;
+        padding: 8px;
+    }
 
-.custom-card1 .bottom-text1 {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-}
+    .booking-form .btn {
+        background-color: #F1C40F;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+    }
 
-
-/* .event-card {
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    height: 90vh;
-  } */
-
-
-/* -------------------------4th section---------------------- */
-.text-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 20px;
-    text-align: center;
-}
-
-.text-section h2 {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-}
-
-.text-section p {
-    font-size: 1rem;
-    color: #555;
-    line-height: 1.6;
-}
-
-
-.image-section img {
-    width: 100%;
-    height: 400px;
-    border-radius: 10px;
-    object-fit: cover;
-}
-
-
-.row:nth-child(even) .image-section {
-    order: 2;
-}
-
-.row:nth-child(even) .text-section {
-    order: 1;
-}
-
-.mb-5{
-margin-right: 10px;
-margin-left: 10px;
-}
-
-
-/* --------------------form section-------------- */
-.booking-form {
-    background: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-.booking-form .form-control,
-.booking-form .form-select {
-    font-size: 14px;
-    padding: 8px;
-}
-
-.booking-form .btn {
-    background-color: #F1C40F;
-    border: none;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.booking-form .btn:hover {
-    background-color: #148F77;
-}
-
-
-
-
-
+    .booking-form .btn:hover {
+        background-color: #148F77;
+    }
 </style>
 
 <!----------------- Hero Section ------------->
@@ -268,13 +239,8 @@ margin-left: 10px;
     </div>
 </div>
 
-
-
-
 <!--  .......................3rd section........................  -->
-
-<div class="py-5">
-<div class="container">
+<div class="container py-5">
     <div  class="text-section mt-3" >
         <h1>Trends & Highlights</h1>
         <p>Get inspired: Trends, tips and more.
@@ -302,11 +268,7 @@ margin-left: 10px;
         <div class="bottom-text1">Exhibitions</div>
       </div>
     </div>
-  </div>
 </div>
-
-
-
 
 <!--  ............................4th section............................  -->
 <div class="alternate py-6">
@@ -348,21 +310,7 @@ margin-left: 10px;
             <p>Experience mesmerizing Sufi musical performances and explore rich cultural traditions.</p>
         </div>
     </div>
-
-    {{-- <!-- Fourth Row -->
-    <div class="row align-items-center mb-5">
-        <div class="col-md-6 order-md-2 text-section text-center">
-            <h2>Team Building Retreats</h2>
-            <p>Boost teamwork and collaboration with interactive and engaging activities designed for your team.</p>
-        </div>
-        <div class="col-md-6 order-md-1 image-section">
-            <img src="{{ asset('assets/images/meeting.jpg') }}" alt="Team Building" class="img-fluid rounded">
-        </div>
-
-    </div> --}}
-
-
-
+</div>
 
 <!--  ....................form section....................................  -->
 <div class="container mt-5">
@@ -400,6 +348,5 @@ margin-left: 10px;
         </form>
     </div>
 </div>
-
 
 @endsection
