@@ -59,7 +59,7 @@
 
 {{-- 1 service  housekeeping--}}
 <div class="container my-5 py-5">
-    <div class="position-relative col-md-8">
+    <div class="position-relative col-md-8 justify-content-end">
         <h2 class="text-center mb-4" style="color: #2C3E50;">Our Hotel Services</h2>
 
         <!-- Background Room Image -->
@@ -374,4 +374,27 @@
 
 
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

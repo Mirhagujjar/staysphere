@@ -106,44 +106,6 @@
 </div>
 
 {{-- Packages Section --}}
-{{-- <div class="container mt-5 py-5">
-    <h2 class="text-center mb-4">Our Exclusive Packages</h2>
-    <div class="row">
-
-        @php
-            $packages = [
-                ["Luxury Stay (2 Persons)", "King-size suite with private spa<br> Airport pickup <br> Gourmet meals.", "l1.jpg", "75,000", "60,000"],
-                ["Honeymoon Special (Couple)", "Romantic suite with jacuzzi<br> Candlelight dinner<br> Flower decor.", "co3.jpg", "90,000", "72,000"],
-                ["Family Fun (4 Persons)", "Spacious family suite with fun activities<br> Amusement park tickets<br> Meals.", "fa1.jpg", "65,000", "50,000"],
-                ["Adventure Getaway (2 Persons)", "Hiking<br> Snorkeling, zip-lining<br> A special adventure suite.", "ad1.jpg", "70,000", "55,000"],
-                ["Wellness Escape (1 Person)", "Spa treatments<br> Yoga sessions<br> All-day wellness center access.", "m1.jpg", "80,000", "65,000"],
-                ["Corporate Retreat (10 Persons)", "Conference rooms<br> Team activities<br> High-speed internet.", "c2.jpg", "150,000", "120,000"],
-            ];
-        @endphp
-
-        @foreach ($packages as $package)
-            <div class="col-6 mb-4">
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-6">
-                            <img src="{{ asset('build/assets/images/pakages/' . $package[2]) }}" class="img-fluid rounded-start" alt="{{ $package[0] }}">
-                        </div>
-                        <div class="col-6">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $package[0] }}</h5>
-                                <p class="card-text">{!! $package[1] !!}</p>
-                                <p class="card-text">
-                                    💰 Regular Price: <del>PKR {{ $package[3] }}/night</del> | Package Price: <strong>PKR {{ $package[4] }}/night</strong>
-                                </p>
-                                <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-
-    </div>
-</div> --}}
 <div class="container mt-5 py-5">
     <h2 class="text-center mb-4">Our Exclusive Packages</h2>
     <div class="row">
@@ -161,8 +123,7 @@
                             <p class="card-text">
                                 💰 Regular Price: <del>PKR 75,000/night</del> | Package Price: <strong>PKR 60,000/night</strong>
                             </p>
-                            <a href="#" class="btn btn-warning mt-3">Book Now</a>
-                        </div>
+                            <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>                        </div>
                     </div>
                 </div>
             </div>
@@ -173,7 +134,7 @@
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-6">
-                        <img src="{{ asset('build/assets/images/pakages/co1.jpg') }}" class="img-fluid rounded-start" alt="Honeymoon Special">
+                        <img src="{{ asset('build/assets/images/pakages/co3.jpg') }}" class="img-fluid rounded-start" alt="Honeymoon Special">
                     </div>
                     <div class="col-6">
                         <div class="card-body">
@@ -182,8 +143,7 @@
                             <p class="card-text">
                                 💰 Regular Price: <del>PKR 90,000/night</del> | Package Price: <strong>PKR 72,000/night</strong>
                             </p>
-                            <a href="#" class="btn btn-warning mt-3">Book Now</a>
-                        </div>
+                            <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>                        </div>
                     </div>
                 </div>
             </div>
@@ -203,8 +163,8 @@
                             <p class="card-text">
                                 💰 Regular Price: <del>PKR 65,000/night</del> | Package Price: <strong>PKR 50,000/night</strong>
                             </p>
-                            <a href="#" class="btn btn-warning mt-3">Book Now</a>
-                        </div>
+                            <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>   
+                         </div>
                     </div>
                 </div>
             </div>
@@ -224,7 +184,7 @@
                             <p class="card-text">
                                 💰 Regular Price: <del>PKR 70,000/night</del> | Package Price: <strong>PKR 55,000/night</strong>
                             </p>
-                            <a href="#" class="btn btn-warning mt-3">Book Now</a>
+                            <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>
                         </div>
                     </div>
                 </div>
@@ -245,7 +205,7 @@
                             <p class="card-text">
                                 💰 Regular Price: <del>PKR 80,000/night</del> | Package Price: <strong>PKR 65,000/night</strong>
                             </p>
-                            <a href="#" class="btn btn-warning mt-3">Book Now</a>
+                            <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>
                         </div>
                     </div>
                 </div>
@@ -266,7 +226,7 @@
                             <p class="card-text">
                                 💰 Regular Price: <del>PKR 150,000/night</del> | Package Price: <strong>PKR 120,000/night</strong>
                             </p>
-                            <a href="#" class="btn btn-warning mt-3">Book Now</a>
+                            <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>
                         </div>
                     </div>
                 </div>
@@ -325,10 +285,10 @@
             
                 <div class="mb-3">
                     <label for="specialRequests" class="form-label">Special Requests</label>
-                    <textarea class="form-control" id="specialRequests" rows="3" placeholder="Any special requests or requirements"></textarea>
+                    <textarea class="form-control" id="specialRequests" rows="2" placeholder="Any special requests or requirements"></textarea>
                 </div>
             
-                <div class="text-center">
+                <div class="text-center col-mb-6">
                     <button type="submit" class="btn btn-book">Submit Booking</button>
                 </div>
             </form>
