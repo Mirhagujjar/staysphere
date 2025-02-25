@@ -3,19 +3,16 @@
 @section('content')
 
 <style>
-    .half-screen-image {
-        position: relative;
-        height: 70vh;
-        background: url('{{ asset('build/assets/images/security/se1.jpg') }}') center/cover no-repeat;
-    } 
-
-    .overlay-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+     .hero-section {
+        background: url('{{ asset('build/assets/images/security/se1.jpg') }}') no-repeat center center;
+        background-size: cover;
+        color: white;
         text-align: center;
-        color: rgb(9, 9, 41);
+        padding: 100px 20px; /* Adjusted padding for smaller screens */
+        height: auto; /* Changed to auto for better responsiveness */
+    }
+    .hero-section h1 {
+        font-size: 2.5rem; /* Adjusted font size for smaller screens */
     }
 
     .overlay-text h1 {
@@ -49,20 +46,32 @@
         background: white;
         bottom: -50px;
     }
+     /* responsive */
+     @media (max-width: 576px) {
+        .position-absolute {
+            position: static !important; /* Absolute position hatane ke liye */
+            transform: none !important; 
+            margin-top: -50px; /* Card ko neeche shift karne ke liye */
+            z-index: 10 !important; 
+            background: white; /* Ensure karein ke transparent na ho */
+            padding: 20px; /* Spacing improve karne ke liye */
+        }
+        h2 {
+            font-size: 1.5rem; /* Adjust font size for mobile */
+        }
+        .btn {
+            width: 75%; /* Make button full width on mobile */
+        }
+    }
 </style>    
 
-<div class="main">
-    <div class="half-screen-image">
-        <div class="overlay-text">
-            <h1>Guest Assistance & Security services</h1>
-            <h3>"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</h3>
-            <div class="breadcrumb-container">
-                <a href="{{ route('services') }}">Home</a> > services
-            </div>
-            <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#security">Get services Now</button>
-
-        </div>
+<div class="main hero-section">
+    <h1>Guest Assistance & Security services</h1>
+    <h3>"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</h3>
+    <div class="breadcrumb-container">
+        <a href="{{ route('services') }}">services</a> > Security services
     </div>
+    <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#security">Get services Now</button>
 </div>
 
 {{-- description --}}
@@ -99,13 +108,7 @@
                         <a href="{{ url('/services/housekeeping') }}" class="text-warning text-decoration-none fw-bold hover-effect">Housekeeping Services</a>
                     </li>
                     <li class="list-group-item">
-                        <a href="{{ url('/services/Dining') }}" class="text-warning text-decoration-none fw-bold hover-effect">Food & Dining</a>
-                    </li>
-                    <li class="list-group-item">
                         <a href="{{ url('/services/Fitness') }}" class="text-warning text-decoration-none fw-bold hover-effect">Wellness & Fitness Services</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="{{ url('/services/Conference') }}" class="text-warning text-decoration-none fw-bold hover-effect">Event & Conference Services</a>
                     </li>
                     <li class="list-group-item">
                         <a href="{{ url('/services/Security') }}" class="text-warning text-decoration-none fw-bold hover-effect">Guest Assistance & Security</a>
@@ -116,6 +119,7 @@
     </div>
 </div>
 
+{{-- images --}}
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-4">
@@ -136,6 +140,7 @@
     </div>
 </div>
 
+{{-- service card --}}
 <div class="container my-5 py-5">
     <div class="position-relative col-md-8">
         <img src="{{asset('build/assets/images/security/se2.jpg')}}" class="img-fluid w-100 rounded" alt="Room Image" style="max-height: 450px; object-fit: cover;">
@@ -155,8 +160,6 @@
         </div>
     </div>
 </div>
-
-
 {{-- form --}}
 <div class="modal fade" id="security">
     <div class="modal-dialog">

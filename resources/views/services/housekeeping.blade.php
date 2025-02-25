@@ -6,95 +6,113 @@
 {{-- <link rel="stylesheet" href="{{ asset('build/assets/css/services.css') }}"> --}}
 <style>
     /* General Styles */
-.half-screen-image {
-    position: relative;
-    height: 70vh;
-    background: url('{{asset('build/assets/images/clean1.jpg')}}') top/cover no-repeat;
-}
+    .half-screen-image {
+        position: relative;
+        height: 70vh;
+        background: url('{{asset('build/assets/images/clean1.jpg')}}') top/cover no-repeat;
+    }
 
-.overlay-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: rgb(211, 211, 226);
-}
+    .overlay-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: rgb(211, 211, 226);
+    }
 
-.overlay-text h1 {
-    font-size: 3rem;
-    margin: 0;
-}
+    .overlay-text h1 {
+        font-size: 3rem;
+        margin: 0;
+    }
 
-.breadcrumb-container {
-    margin-top: 10px;
-    font-size: 18px;
-    font-weight: 500;
-    color: white;
-}
+    .breadcrumb-container {
+        margin-top: 10px;
+        font-size: 18px;
+        font-weight: 500;
+        color: white;
+    }
 
-.breadcrumb-container a {
-    text-decoration: none;
-    color: #1ddab7;
-}
+    .breadcrumb-container a {
+        text-decoration: none;
+        color: #1ddab7;
+    }
 
-.breadcrumb-container a:hover {
-    color: #1ABC9C;
-}
+    .breadcrumb-container a:hover {
+        color: #1ABC9C;
+    }
 
-/* Sidebar Links */
-.service-link {
-    color: #ffbb00;
-    text-decoration: none;
-    font-weight: bold;
-}
+    /* Sidebar Links */
+    .service-link {
+        color: #ffbb00;
+        text-decoration: none;
+        font-weight: bold;
+    }
 
-.service-link:hover {
-    color: #cc8800;
-}
+    .service-link:hover {
+        color: #cc8800;
+    }
 
-/* Service Images */
-.service-img {
-    width: 100%;
-    border-radius: 8px;
-}
+    /* Service Images */
+    .service-img {
+        width: 100%;
+        border-radius: 8px;
+    }
 
-/* Floating Service Card */
-.image-container {
-    width: 500px;
-    height: 400px;
-    overflow: hidden;
-}
+    /* Floating Service Card */
+    .image-container {
+        width: 450px;
+        height: 400px;
+        overflow: hidden;
+    }
 
-.image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+    .image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-.floating-card {
-    position: absolute;
-    start: 50%;
-    transform: translateX(50%);
-    padding: 20px;
-    background: white;
-    bottom: -50px;
-    width: 90%;
-    max-width: 500px;
-}
+    .floating-card {
+        position: absolute;
+        start: 50%;
+        transform: translateX(50%);
+        padding: 20px;
+        background: white;
+        bottom: -50px;
+        width: 90%;
+        max-width: 450px;
+    }
 
-.price-tag {
-    color: #b2956e;
-    font-weight: bold;
-}
+    .price-tag {
+        color: #b2956e;
+        font-weight: bold;
+    }
 
-.service-title {
-    color: #2C3E50;
-}
+    .service-title {
+        color: #2C3E50;
+    }
 
-.py-6 {
-      padding-top: 3rem;
-      padding-bottom: 4rem;
+    .py-6 {
+        padding-top: 3rem;
+        padding-bottom: 4rem;
+    }
+
+     /* responsive */
+     @media (max-width: 576px) {
+        .floating-card {
+            position: static !important; /* Absolute position hatane ke liye */
+            transform: none !important; 
+            margin-top: -10px; /* Card ko neeche shift karne ke liye */
+            z-index: 10 !important; 
+            background: white; /* Ensure karein ke transparent na ho */
+            padding: 20px; /* Spacing improve karne ke liye */
+        }
+        h2 {
+            font-size: 1.5rem; /* Adjust font size for mobile */
+        }
+        .btn {
+            width: 75%; /* Make button full width on mobile */
+        }
     }
 
 </style>
@@ -105,7 +123,7 @@
             <h1> Housekeeping Services</h1>
             <h3>"A Spotless Stay, Every Day"</h3>
             <div class="breadcrumb-container">
-                <a href="{{ route('services') }}">Home</a> > services
+                <a href="{{ route('services') }}">services</a> >Housekeeping services
             </div>
             <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#housekeeping">Get services Now</button>
         </div>
@@ -147,13 +165,7 @@
                         <a href="{{ url('/services/housekeeping') }}" class="service-link">Housekeeping Services</a>
                     </li>
                     <li class="list-group-item">
-                        <a href="{{ url('/services/Dining') }}" class="service-link">Food & Dining</a>
-                    </li>
-                    <li class="list-group-item">
                         <a href="{{ url('/services/Fitness') }}" class="service-link">Wellness & Fitness Services</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="{{ url('/services/Conference') }}" class="service-link">Event & Conference Services</a>
                     </li>
                     <li class="list-group-item">
                         <a href="{{ url('/services/Security') }}" class="service-link">Guest Assistance & Security</a>

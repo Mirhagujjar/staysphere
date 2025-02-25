@@ -3,22 +3,19 @@
 @section('content')
 
 <style>
-    .half-screen-image {
-        position: relative;
-        height: 70vh;
-        background: url('{{ asset('build/assets/images/gym1.jpg') }}') center/cover no-repeat;
-    }
-
-    .overlay-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    .hero-section {
+        background: url('{{ asset('build/assets/images/gym1.jpg') }}') no-repeat center center;
+        background-size: cover;
+        color: white;
         text-align: center;
-        color: rgb(9, 9, 41);
+        padding: 100px 20px; /* Adjusted padding for smaller screens */
+        height: auto; /* Changed to auto for better responsiveness */
     }
 
-    .overlay-text h1 {
+    .hero-section h1 {
+        font-size: 2.5rem; /* Adjusted font size for smaller screens */
+    }
+     .overlay-text h1 {
         font-size: 3rem;
         margin: 0;
     }
@@ -49,22 +46,36 @@
         background: white;
         bottom: -50px;
     }
+     /* responsive */
+     @media (max-width: 576px) {
+        .position-absolute {
+            position: static !important; /* Absolute position hatane ke liye */
+            transform: none !important; 
+            margin-top: -10px; /* Card ko neeche shift karne ke liye */
+            z-index: 10 !important; 
+            background: white; /* Ensure karein ke transparent na ho */
+            padding: 20px; /* Spacing improve karne ke liye */
+        }
+        h2 {
+            font-size: 1.5rem; /* Adjust font size for mobile */
+        }
+        .btn {
+            width: 75%; /* Make button full width on mobile */
+        }
+    }
 </style>
 
-<div class="main">
-    <div class="half-screen-image">
-        <div class="overlay-text">
-            <h1>Wellness & Fitness Services</h1>
-            <h3>"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</h3>
-            <div class="breadcrumb-container">
-                <a href="{{ route('services') }}">Home</a> > services
-            </div>
-            <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#fitness">Get services Now</button>
-
-        </div>
+{{-- main --}}
+<div class="main hero-section">
+    <h1>Wellness & Fitness Services</h1>
+    <h3>"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</h3>
+    <div class="breadcrumb-container">
+        <a href="{{ route('services') }}">Home</a> > services
     </div>
+    <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#fitness">Get services Now</button>
 </div>
 
+{{-- short links --}}
 <div class="container mt-4 py-5">
     <div class="row justify-content-center">
         <h2 class="text-center mb-4" style="color: #2C3E50;">Our Hotel Services</h2>
@@ -98,13 +109,7 @@
                         <a href="{{ url('/services/housekeeping') }}" class="text-warning text-decoration-none fw-bold hover-effect">Housekeeping Services</a>
                     </li>
                     <li class="list-group-item">
-                        <a href="{{ url('/services/Dining') }}" class="text-warning text-decoration-none fw-bold hover-effect">Food & Dining</a>
-                    </li>
-                    <li class="list-group-item">
                         <a href="{{ url('/services/Fitness') }}" class="text-warning text-decoration-none fw-bold hover-effect">Wellness & Fitness Services</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="{{ url('/services/Conference') }}" class="text-warning text-decoration-none fw-bold hover-effect">Event & Conference Services</a>
                     </li>
                     <li class="list-group-item">
                         <a href="{{ url('/services/Security') }}" class="text-warning text-decoration-none fw-bold hover-effect">Guest Assistance & Security</a>
@@ -115,6 +120,7 @@
     </div>
 </div>
 
+{{-- images in card form --}}
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-4">
@@ -135,9 +141,10 @@
     </div>
 </div>
 
+{{-- card --}}
 <div class="container my-5 py-5 ">
     <div class="position-relative col-md-8">
-        <div style="width: 500px; height: 400px; overflow: hidden;">
+        <div style="width: 450px; height: 400px; overflow: hidden;">
             <img src="{{asset('build/assets/images/gym6.png')}}" class="img-fluid rounded" alt="Example Image" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
 
@@ -157,8 +164,6 @@
         </div>
     </div>
 </div>
-
-
 {{-- form --}}
 <div class="modal fade" id="fitness">
     <div class="modal-dialog">

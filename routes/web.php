@@ -64,9 +64,9 @@ Route::get('/menu-of-the-day', [MenuController::class, 'showMenu'])->name('menu'
 Route::prefix('services')->group(function(){
     Route::get('/', [ServicesController::class, 'showServices'])->name('services');
     Route::get('/housekeeping', [ServicesController::class, 'showhousekeepingDetails'])->name('services.housekeeping');
-    Route::get('/Dining', [ServicesController::class, 'showDiningDetails'])->name('services.Dining');
+    // Route::get('/Dining', [ServicesController::class, 'showDiningDetails'])->name('services.Dining');
     Route::get('/Fitness', [ServicesController::class, 'showFitnessDetails'])->name('services.Fitness');
-    Route::get('/Conference', [ServicesController::class, 'showConferenceDetails'])->name('services.Conference');
+    // Route::get('/Conference', [ServicesController::class, 'showConferenceDetails'])->name('services.Conference');
     Route::get('/Security', [ServicesController::class, 'showSecurityDetails'])->name('services.Security');
 
     // Route::get('/services/{id}', [ServicesController::class, 'showServiceDetails'])->name('services.details');

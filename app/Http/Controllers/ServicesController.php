@@ -19,21 +19,21 @@ class ServicesController extends Controller
 
     }
 
-    public function showDiningDetails()
-    {
-        return view('services.Dining');
+    // public function showDiningDetails()
+    // {
+    //     return view('services.Dining');
 
-    }
+    // }
     public function showFitnessDetails()
     {
         return view('services.Fitness');
 
     }
-    public function showConferenceDetails()
-    {
-        return view('services.Conference');
+    // public function showConferenceDetails()
+    // {
+    //     return view('services.Conference');
 
-    }
+    // }
     public function showSecurityDetails()
     {
         return view('services.Security');
