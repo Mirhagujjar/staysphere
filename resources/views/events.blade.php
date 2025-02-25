@@ -1,29 +1,25 @@
 @extends('layouts.app')
 @section('content')
 
-
 <style>
-
     * {
         font-family: Arial, sans-serif;
     }
 
     .hero-section {
-        background: url('{{ asset('build/assets/images/events/1.jpg') }}')  no-repeat center center;
+        background: url('{{ asset('build/assets/images/events/1.jpg') }}') no-repeat center center;
         background-size: cover;
         color: white;
         text-align: center;
-        padding: 200px ;
-        height: 30vh;
+        padding: 100px 20px; /* Adjusted padding for smaller screens */
+        height: auto; /* Changed to auto for better responsiveness */
     }
 
     .hero-section h1 {
-        font-size: 3rem;
-        font-weight: bold;
+        font-size: 2.5rem; /* Adjusted font size for smaller screens */
     }
 
-
-     /* ------------------------------2nd section------------------------ */
+    /* ------------------------------2nd section------------------------ */
     .card-text-overlay {
         position: absolute;
         bottom: 10px;
@@ -32,6 +28,7 @@
         padding: 10px;
         border-radius: 5px;
     }
+
     .card-text-overlay button {
         background: transparent;
         border: none;
@@ -39,23 +36,26 @@
         font-size: 1.2rem;
         cursor: pointer;
     }
+
     .carousel-indicators {
         position: absolute;
         bottom: -50px;
     }
+
     .carousel-indicators [data-bs-target] {
         width: 12px;
         height: 12px;
         border-radius: 50%;
         background-color: rgb(3, 3, 3);
     }
+
     .section-title {
         font-size: 2rem;
         margin-bottom: 30px;
         text-align: center;
         font-weight: bold;
     }
-     /* four cards in one row*/
+
     /* ----------------------3rd section------------------ */
     .card-container1 {
         display: flex;
@@ -70,11 +70,12 @@
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px; /* Added margin for spacing */
     }
 
     .custom-card1 img {
         width: 100%;
-        height: 70vh;
+        height: auto; /* Changed to auto for better responsiveness */
         object-fit: cover;
     }
 
@@ -90,6 +91,7 @@
         font-weight: bold;
         text-align: center;
     }
+
     /* -------------------------4th section---------------------- */
     .text-section {
         display: flex;
@@ -110,21 +112,25 @@
         color: #555;
         line-height: 1.6;
     }
+
     .image-section img {
         width: 100%;
-        height: 400px;
+        height: auto; /* Changed to auto for better responsiveness */
         border-radius: 10px;
         object-fit: cover;
     }
+
     .row:nth-child(even) .image-section {
         order: 2;
     }
+
     .row:nth-child(even) .text-section {
         order: 1;
     }
-    .mb-5{
-    margin-right: 10px;
-    margin-left: 10px;
+
+    .mb-5 {
+        margin-right: 10px;
+        margin-left: 10px;
     }
 
     /* --------------------form section-------------- */
@@ -151,6 +157,35 @@
     .booking-form .btn:hover {
         background-color: #148F77;
     }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 100px 10px; /* Adjust padding for smaller screens */
+        }
+
+        .hero-section h1 {
+            font-size: 2rem; /* Adjust font size for smaller screens */
+        }
+
+        .custom-card1 {
+            width: 48%; /* Two cards in a row on smaller screens */
+        }
+
+        .text-section h2 {
+            font-size: 1.5rem; /* Adjust heading size for smaller screens */
+        }
+
+        .text-section p {
+            font-size: 0.9rem; /* Adjust paragraph size for smaller screens */
+        }
+    }
+
+    @media (max-width: 576px) {
+        .custom-card1 {
+            width: 100%; /* Stack cards on extra small screens */
+        }
+    }
 </style>
 
 <!----------------- Hero Section ------------->
@@ -161,9 +196,9 @@
 
 <!------------------2nd Section------------------------ -->
 <div class="container mt-5">
-    <div  class="text-section mt-3" >
-    <h2 >Social Events</h2>
-    <p>Celebrate special moments, big and small.</p>
+    <div class="text-section mt-3">
+        <h2>Social Events</h2>
+        <p>Celebrate special moments, big and small.</p>
     </div>
     <div id="eventCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -171,7 +206,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="{{ asset('build/assets/images/events/2.jpg') }} "  height="234vh" class="card-img-top" alt="Business Meetings">
+                            <img src="{{ asset('build/assets/images/events/2.jpg') }}" height="234vh" class="card-img-top" alt="Business Meetings">
                             <div class="card-text-overlay">
                                 <h5>Business Meetings</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
@@ -189,7 +224,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="{{ asset('build/assets/images/events/private.jpg') }}"  height="234vh" class="card-img-top" alt="gathring">
+                            <img src="{{ asset('build/assets/images/events/private.jpg') }}" height="234vh" class="card-img-top" alt="gathring">
                             <div class="card-text-overlay">
                                 <h5>Private Gathering</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
@@ -202,7 +237,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="{{ asset('build/assets/images/events/sufinight.jpg') }}"  height="234vh" class="card-img-top" alt="sufi night">
+                            <img src="{{ asset('build/assets/images/events/sufinight.jpg') }}" height="234vh" class="card-img-top" alt="sufi night">
                             <div class="card-text-overlay">
                                 <h5>Sufi Night</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
@@ -227,7 +262,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -241,32 +275,31 @@
 
 <!--  .......................3rd section........................  -->
 <div class="container py-5">
-    <div  class="text-section mt-3" >
+    <div class="text-section mt-3">
         <h1>Trends & Highlights</h1>
-        <p>Get inspired: Trends, tips and more.
-        </p>
+        <p>Get inspired: Trends, tips and more.</p>
     </div>
     <div class="card-container1">
-      <!-- Card 1 -->
-      <div class="custom-card1">
-        <img src="{{ asset('build/assets/images/events/manageevents.jpg') }}" alt="Card Image 1">
-        <div class="bottom-text1">Manage Event</div>
-      </div>
-      <!-- Card 2 -->
-      <div class="custom-card1">
-        <img src="{{ asset('build/assets/images/events/meetings1.jpg') }}" alt="Card Image 2">
-        <div class="bottom-text1">Meetings</div>
-      </div>
-      <!-- Card 3 -->
-      <div class="custom-card1">
-        <img src="{{ asset('build/assets/images/events/smallevents.jpg') }}" alt="Card Image 3">
-        <div class="bottom-text1">Small Event</div>
-      </div>
-      <!-- Card 4 -->
-      <div class="custom-card1">
-        <img src="{{ asset('build/assets/images/events/Exhibition1.jpg') }}" alt="Card Image 4">
-        <div class="bottom-text1">Exhibitions</div>
-      </div>
+        <!-- Card 1 -->
+        <div class="custom-card1">
+            <img src="{{ asset('build/assets/images/events/manageevents.jpg') }}" alt="Card Image 1">
+            <div class="bottom-text1">Manage Event</div>
+        </div>
+        <!-- Card 2 -->
+        <div class="custom-card1">
+            <img src="{{ asset('build/assets/images/events/meetings1.jpg') }}" alt="Card Image 2">
+            <div class="bottom-text1">Meetings</div>
+        </div>
+        <!-- Card 3 -->
+        <div class="custom-card1">
+            <img src="{{ asset('build/assets/images/events/smallevents.jpg') }}" alt="Card Image 3">
+            <div class="bottom-text1">Small Event</div>
+        </div>
+        <!-- Card 4 -->
+        <div class="custom-card1">
+            <img src="{{ asset('build/assets/images/events/Exhibition1.jpg') }}" alt="Card Image 4">
+            <div class="bottom-text1">Exhibitions</div>
+        </div>
     </div>
 </div>
 
@@ -297,7 +330,6 @@
         <div class="col-md-6 order-md-1 image-section">
             <img src="{{ asset('build/assets/images/events/luxurygathering.jpg') }}" alt="Luxury Gatherings" class="img-fluid rounded">
         </div>
-
     </div>
 
     <!-- Third Row -->
