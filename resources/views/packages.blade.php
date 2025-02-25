@@ -1,18 +1,18 @@
 @extends('layouts.app')
 @section('content')
 <style>
-    .half-screen-image {
-        position: relative;
-        height: 70vh;
-        background: url('{{ asset('build/assets/images/pakages/1.png') }}') top/cover no-repeat;
-    }
-    .overlay-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    /*------------------section 1------------------->
+    /* hero section */
+    .hero-section {
+        background: url('{{ asset('build/assets/images/pakages/1.png') }}') no-repeat center center;
+        background-size: cover;
+        color: black;
         text-align: center;
-        color: rgb(6, 6, 8);
+        padding: 100px 20px; /* Adjusted padding for smaller screens */
+        height: auto; /* Changed to auto for better responsiveness */
+    }
+    .hero-section h1 {
+        font-size: 2.5rem; /* Adjusted font size for smaller screens */
     }
     .overlay-text h1 {
         font-size: 3rem;
@@ -22,23 +22,20 @@
         margin-top: 10px;
         font-size: 18px;
         font-weight: 500;
-        color: rgb(69, 201, 135);
+        color: #0d0d4d ;
     }
     .breadcrumb-container a {
         text-decoration: none;
-        color: #1ddab7;
+        color: #45c987 ;
     }
     .breadcrumb-container a:hover {
-        color: #1ABC9C;
+        color: #45c987;
     }
     body {
         background-color: #F8F9FA;
         color: #343A40;
     }
     .package-card {
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         overflow: hidden;
         transition: transform 0.3s ease-in-out;
     }
@@ -52,7 +49,8 @@
         border-radius: 8px;
     }
     .btn-book:hover {
-        background-color: #D4AC0D;
+        background-color: #F1C40F;
+        transform: scale(1.03);
     }
 
      /* -----------------------Facilities----------------------------- */
@@ -89,20 +87,26 @@
     .facility-item:hover {
         transform: scale(1.1);
     }
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 100px 10px; /* Adjust padding for smaller screens */
+        }
+
+        .hero-section h1 {
+            font-size: 2rem; /* Adjust font size for smaller screens */
+        }
+    }
 </style>
 
 {{-- Header Section --}}
-<div class="main">
-    <div class="half-screen-image">
-        <div class="overlay-text">
-            <h1>Exclusive Packages</h1>
-            <h3>"Unforgettable Stays, Unbeatable Prices <br> Find Your Perfect Getaway Today!"</h3>
-            <div class="breadcrumb-container">
-                <a href="{{ route('services') }}">Home</a> > Packages
-            </div>                 
-            <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>
-        </div>
-    </div>
+<div class="main hero-section">
+    <h1>Exclusive Packages</h1>
+    <h3>"Unforgettable Stays, Unbeatable Prices <br> Find Your Perfect Getaway Today!"</h3>
+    <div class="breadcrumb-container">
+        <a href="{{ route('services') }}">Home</a> > Packages
+    </div>                 
+    <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>  
 </div>
 
 {{-- Packages Section --}}
@@ -110,7 +114,7 @@
     <h2 class="text-center mb-4">Our Exclusive Packages</h2>
     <div class="row">
         <!-- Package 1 -->
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-4 package-card">
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-6">
@@ -123,14 +127,14 @@
                             <p class="card-text">
                                 💰 Regular Price: <del>PKR 75,000/night</del> | Package Price: <strong>PKR 60,000/night</strong>
                             </p>
-                            <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>                        </div>
+                            <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Package 2 -->
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-4 package-card">
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-6">
@@ -143,14 +147,14 @@
                             <p class="card-text">
                                 💰 Regular Price: <del>PKR 90,000/night</del> | Package Price: <strong>PKR 72,000/night</strong>
                             </p>
-                            <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>                        </div>
+                            <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Package 3 -->
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-4 package-card">
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-6">
@@ -163,7 +167,7 @@
                             <p class="card-text">
                                 💰 Regular Price: <del>PKR 65,000/night</del> | Package Price: <strong>PKR 50,000/night</strong>
                             </p>
-                            <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>   
+                            <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>   
                          </div>
                     </div>
                 </div>
@@ -171,7 +175,7 @@
         </div>
 
         <!-- Package 4 -->
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-4 package-card">
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-6">
@@ -184,7 +188,7 @@
                             <p class="card-text">
                                 💰 Regular Price: <del>PKR 70,000/night</del> | Package Price: <strong>PKR 55,000/night</strong>
                             </p>
-                            <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>
+                            <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>
                         </div>
                     </div>
                 </div>
@@ -192,7 +196,7 @@
         </div>
 
         <!-- Package 5 -->
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-4 package-card">
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-6">
@@ -205,7 +209,7 @@
                             <p class="card-text">
                                 💰 Regular Price: <del>PKR 80,000/night</del> | Package Price: <strong>PKR 65,000/night</strong>
                             </p>
-                            <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>
+                            <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>
                         </div>
                     </div>
                 </div>
@@ -213,7 +217,7 @@
         </div>
 
         <!-- Package 6 -->
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-4 package-card">
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-6">
@@ -226,7 +230,7 @@
                             <p class="card-text">
                                 💰 Regular Price: <del>PKR 150,000/night</del> | Package Price: <strong>PKR 120,000/night</strong>
                             </p>
-                            <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>
+                            <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>
                         </div>
                     </div>
                 </div>
