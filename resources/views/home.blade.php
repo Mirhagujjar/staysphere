@@ -2,397 +2,428 @@
 @section('content')
 
 <style>
-      .carousel-inner img {
-      width: 100%;
-      height: 470px; /* Set the height as per your requirement */
-      object-fit: cover;
+     /* -----------------slider-------------- */
+     .carousel-inner img {
+        width: 100%;
+        height: 90vh;
+        object-fit: cover;
     }
-   
+
 
     .carousel-caption {
-        transform: translateY(20%);
-        bottom: 40%; /* Adjust caption position */
-     }
-
-     .carousel-indicators .active {
-         background-color: #0b0f0e; /* Light Teal */
+        bottom: 40%;
     }
 
-     .carousel-indicators button {
-       width: 15px;
-       height: 15px;
-       border-radius: 50%; /* Make buttons circular */
-       background-color: #f1c40f; /* Soft Gold */
-       border: none; /* Remove default borders */
-       margin: 5px;
-     }
+    @media (max-width: 768px) {
+        .carousel-caption {
+            bottom: 15%;
+            font-size: 14px;
+        }
+    }
 
+
+    .carousel-indicators button {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #f1c40f;
+        border: none;
+        margin: 5px;
+    }
     .reservation-form {
-       position: relative;
-       bottom: 0;
-       left: 50%;
-       transform: translate(-50%, 50%); /* Center and overlap */
-       background-color:  white; /* light teal background */
-       padding: 20px;
-       border-radius: 10px;
-       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for better visibility */
-       width: 80%;
-       z-index: 10; /*  `the form stays above the carousel */
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 15px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 800px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        z-index: 10;
     }
-    
-     /* img set window like shap */
-     img {
-        border-radius: 5px; 
-     }
 
-    .custom-image-container {
-        width: 350px;
-        height: 550px;
-        overflow: hidden;
-        border-radius: 150px 150px 0 0; 
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-      }
-
-    .custom-image-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; 
-        display: block;
+    .reservation-form form {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
     }
-    
-   
-    .img-fluid {
-      max-width: 100%;
-      height: auto;
-    }
-      
-    .card {
-      background: #fff;
-      border-radius: 8px;
-       overflow: hidden;
-    } 
 
-    .card-body img {
-       border-radius: 50%;
-       background-color: #e9e6dc; 
-       padding: 10px;
-    } 
-    .icon-wrapper {
+    .reservation-form input {
+        flex: 1;
+        min-width: 100px;
+    }
+
+    @media (max-width: 768px) {
+        .reservation-form {
+            width: 90%;
+            padding: 10px;
+        }
+        .reservation-form form {
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+
+    /* {{------------------rooms---------------------}} */
+
+  .card-hover {
+    position: relative;
+    overflow: hidden;
+  }
+
+   .card-hover .card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .card-hover:hover .card-overlay {
+    opacity: 1;
+  }
+
+  .card-overlay .details {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    text-align: center;
+   }
+
+   .card-overlay .btn-book {
+    background-color: #F1C40F;
+    color: white;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+   }
+
+  .section-heading {
+      text-align: left;
+      font-weight: bold;
+      font-size: 28px;
+
+  }
+
+  .room-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      height: 400px;
+  }
+
+  .room-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+      transition: transform 0.3s ease-in-out;
+  }
+
+  .room-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 15px;
+      color: white;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+      border-radius: 0 0 15px 15px;
+  }
+
+  .room-card:hover img {
+      transform: scale(1.05);
+  }
+
+  .room-info p {
+      margin: 0;
+      font-size: 14px;
+  }
+
+  .room-info h3 {
+      font-size: 20px;
+      font-weight: bold;
+  }
+
+
+
+   /*---------------------- Hotel Services----------------------*/
+  .hotel-services {
+      padding: 5rem 0;
+      background-color: white;
+  }
+
+  .service-container {
+      position: relative;
+      z-index: 1;
+      color: white;
+      text-align: center;
+  }
+
+  .service-container h2 {
+      margin-bottom: 2rem;
+      font-weight: bold;
+      color: black;
+  }
+
+
+  .service-card {
+      border: none;
+      background:#343A40;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      transition: transform 0.3s ease-in-out;
+      height: 100%;
+      color:white;
+  }
+
+  .service-card:hover {
+      transform: translateY(-5px);
+  }
+
+
+  .icon-wrapper2 {
       width: 70px;
       height: 70px;
+      margin: 0 auto 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 10px;
-      font-size: 1.5rem;
-    }
+      color: #f1c40f;
+  }
 
-    .card-body h4 {
-      margin-top: 15px;
-      font-weight: bold;
-    }
 
-    .card-body p {
-      color: #6c757d;
-    }
+        /* ------------------reviews---------------- */
 
-       /* Testimonial Section */
-    .testimonial-section {
-         
-         height: 110vh; 
-         width: 100%;
-         background-image: url('build/assets/images/mr6.jpg'); 
-         background-size: cover;
-         background-position: center;
-         position: relative;
-    }
-
-      /* Semi-circular overlay */
-    .testimonial-overlay {
-         background-color: rgba(245, 238, 238, 0.7); /* Dark semi-transparent overlay */
-         border-radius: 110px 110px 0 0; /* Semi-circular top */
-         box-shadow: 0 4px 6px rgba(245, 243, 243, 0.2);
-         color: black;
-    }
-
-       /* Blockquote Style */
-    .blockquote {
-         font-size: 1.5rem;
-         font-style: italic;
-         line-height: 1.3;
-    }  
-
-   .blockquote-footer {
-         font-size: 1rem;
-         font-weight: bold;
-         color: #f1c40f;
-         background-color:#2C3E50; 
-    }
-
-    .py-6 {
-      padding-top: 3rem;
-      padding-bottom: 12rem;
-    }
-    /* -------------------------2------------------------ */
-    .section-container {
-        padding: 120px 0 95px;
-    }
-
-    .rounded-img {
-        border-radius: 10px;
-    }
-
-    .position-relative .overlay-img {
-        position: absolute;
-        width: 50%;
-        top: 50%;
-        right: -115px;
-        transform: translateY(-50%);
-        border: 5px solid white;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .history-title{
-      font-family: "Montserrat", Helvetica, sans-serif;
-
-    }
-    .history-title small {
-        color: #000000;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    .history-title h2 {
-        margin-top: 10px;
-        font-size: 2rem;
-        font-weight: bold;
-    }
-
-    .history-text {
-        line-height: 1.8;
-        color: #000000;
-    }
-
-    .row.align-items-center {
-        gap: 150px;
-    }
-
-    /* ---------------------------------3------------------------------ */
-    .testimonials-section {
-      position: relative;
-      padding: 100px 0;
-      color: rgb(3, 3, 3);
-      overflow: hidden;
-    }
-
-    .video-background {
-      position: absolute;
-      top: 0;
-      left: 0;
+          .testimonial-section {
+      height: 75vh;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
+      background: url('build/assets/images/home/R1.jpg') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 50px;
+      margin-top: 50px;
+  }
 
-    .video-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: -1;
-    }
 
-    .section-clients {
+      .testimonial-overlay {
+          background-color: rgba(245, 238, 238, 0.7);
+          border-radius: 110px 110px 0 0;
+          box-shadow: 0 4px 6px rgba(245, 243, 243, 0.2);
+          color: black;
+      }
 
+
+      .blockquote {
+          font-size: 1.5rem;
+          font-style: italic;
+          line-height: 1.3;
+      }
+
+    .blockquote-footer {
+          font-size: 1rem;
+          font-weight: bold;
+          color: #f1c40f;
+          background-color:#2C3E50;
+      }
+
+      .py-6 {
+        padding-top: 3rem;
+        padding-bottom: 12rem;
+      }
+  /* --------------our team---------------- */
+  .our-team-section {
+      background-color: #ecf0f5;
+      color:#ffffff;
+  }
+
+  .section-title {
       font-size: 2rem;
       font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
+      color: #050505;
+  }
 
-   .testimonial-card {
-      background-color: rgba(0, 0, 0, 0.8);
-      color: #fff;
-      max-width: 600px;
-      border-radius: 10px;
-    }
+  .section-subtitle {
+      font-size: 1.2rem;
+      color: #000000;
+      margin-top: 10px;
+  }
 
-    .comment {
-      font-style: italic;
-      color: #ddd;
+  .team-card {
+      background-color:white;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #ddd;
+      height: 100%;
+  }
+
+  .team-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .team-image img {
+      width: 120px;
+      height: 120px;
+      border: 5px solid #1ABC9C;
+      padding: 5px;
+  }
+
+  .team-description {
       font-size: 0.9rem;
-    }
-    .dot {
-      width: 12px;
-      height: 12px;
-      margin: 5px;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.5);
-      border: none;
-      display: inline-block;
-      cursor: pointer;
-    }
+      color:black;
+  }
 
-    .dot.active {
-       background-color: white;
-    }
+  .social-links a {
+      color:black;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+  }
 
-</style>
+  .social-links a:hover {
+      color: #1ABC9C;
+  }
 
+  /* -------------------form----------------- */
+  .margin_120_95 {
+      padding-top: 120px;
+      padding-bottom: 95px;
+  }
 
-{{-- scrollable imges style --}}
-<style>
-    /* General Styles */
-    .bg-white {
-      background-color: #fff;
-    }
+  .title small {
+      text-transform: uppercase;
+      color: #2C3E50;
+      letter-spacing: 3px;
+      font-weight: 600;
+      font-size: 0.75rem;
+  }
 
-    .py-5 {
-      padding-top: 3rem;
-      padding-bottom: 3rem;
-    }
+  .title h2 {
+      font-weight: 700;
+      font-size: 2.375rem;
+      color: #333;
+      margin-bottom: 15px;
+  }
 
-    .text-muted {
-       color: #6c757d;
-    }
+  .phone_element a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #978667;
+  }
 
-    .position-sticky {
-      position: sticky;
-      top: 0;
-    }
+  .phone_element a i {
+      margin-right: 15px;
+      font-size: 1.875rem;
+      color: #2C3E50;
+  }
 
-    .list-unstyleds li {
-      margin-bottom: 1.5rem;
-    }
+  .phone_element a span {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color:#2C3E50;
+  }
 
-    /* Right Side: Scrollable Images Section */
-    .scrollable-images {
-      scroll-behavior: smooth;
-    }
-
-   .image {
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      position: relative;  /*new*/
-    }
-
-   .image.mb-3 {
-    margin-bottom: 1rem; /* Add spacing between images */
-    }
-   
-
-    .card-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .details {
-        text-align: center;
-    }
-    .btn-book {
-        background-color: #1ABC9C;
-        color: white;
-    }
-
-    .img-hover-shadow:hover {
-      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
-      transition: 0.3s ease-in-out;
-     }
+  .booking_wrapper {
+      background-color: rgba(151, 134, 103, 0.05);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
 
 </style>
 
-{{-- slider --}}
+
+{{------------------------- slider------------------}}
 <div id="carouselExampleDark" class="carousel slide carousel-fade" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
     <div class="carousel-inner">
-        <!-- First Slide -->
         <div class="carousel-item active" data-bs-interval="2000">
-            <img src="{{ asset('build/assets/images/slider.jpg') }}" class="d-block w-100 img-fluid" alt="First slide" style="height: 100vh; object-fit: cover;">
-            <div class="carousel-caption d-md-block">
-                <h4 class="display-6">"Experience the Art of Hospitality"</h4>
+            <img src="{{ asset('build/assets/images/home/slide1.jpg') }}" class="d-block w-100" alt="First slide">
+            <div class="carousel-caption d-none d-md-block">
+                <h1>StaySphere</h1>
+                <h4>"Experience the Art of Hospitality"</h4>
             </div>
         </div>
-        <!-- Second Slide -->
+
         <div class="carousel-item" data-bs-interval="2000">
-            <img src="{{ asset('build/assets/images/slider3.jpg') }}" class="d-block w-100 img-fluid" alt="Second slide" style="height: 100vh; object-fit: cover;">
-            <div class="carousel-caption d-md-block">
-                <h1 class="display-4">StaySphere</h1>
-                <h4 class="display-6">"Stay Easy, Live Luxuriously"</h4>
+            <img src="{{ asset('build/assets/images/home/slide2.jpg') }}" class="d-block w-100" alt="Second slide">
+            <div class="carousel-caption d-none d-md-block">
+                <h1>StaySphere</h1>
+                <h4>"Stay Easy, Live Luxuriously"</h4>
             </div>
         </div>
-        <!-- Third Slide -->
+
         <div class="carousel-item" data-bs-interval="2000">
-            <img src="{{ asset('build/assets/images/slider4.jpg') }}" class="d-block w-100 img-fluid" alt="Third slide" style="height: 100vh; object-fit: cover;">
-            <div class="carousel-caption d-md-block">
-                <h1 class="display-4">StaySphere</h1>
-                <h4 class="display-6">"Your Stay, Our Priority"</h4>
+            <img src="{{ asset('build/assets/images/home/slide3.jpg') }}" class="d-block w-100" alt="Third slide">
+            <div class="carousel-caption d-none d-md-block">
+                <h1>StaySphere</h1>
+                <h4>"Your Stay, Our Priority"</h4>
             </div>
         </div>
+    </div>
+
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"></button>
     </div>
 
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="carousel-control-prev-icon"></span>
         <span class="visually-hidden">Previous</span>
     </button>
     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="carousel-control-next-icon"></span>
         <span class="visually-hidden">Next</span>
     </button>
 
     <!-- Reservation Form -->
-    <div class="container position-absolute top-100 start-50 translate-middle" style="z-index: 10; width: 90%;">
-        <form class="row g-2 bg-dark p-4 rounded shadow-lg text-white">
-            <div class="col-12 col-md-6 col-lg-3">
-                <label for="date" class="form-label">Date</label>
-                <input type="date" class="form-control">
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <label for="number" class="form-label">Adults</label>
-                <input type="number" class="form-control" min="1" value="1">
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <label for="number" class="form-label">Children</label>
-                <input type="number" class="form-control" min="0" value="0">
-            </div>
-            <div class="col-12 col-md-6 col-lg-3 d-grid">
-                <a href="{{ route('rooms') }}" class="btn btn-warning btn-lg">Check Availability</a>
-            </div>
+    <div class="reservation-form">
+        <form>
+            <label for="date" class="me-2">Date</label>
+            <input type="date" class="form-control me-2">
+
+            <label for="adults" class="me-2">Adults</label>
+            <input type="number" class="form-control me-2" min="1" value="1">
+
+            <label for="children" class="me-2">Children</label>
+            <input type="number" class="form-control me-2" min="0" value="0">
+
+            <a href="{{ route('rooms') }}" class="btn btn-warning">Check Availability</a>
         </form>
     </div>
 </div>
 
-
-{{-- aboutus --}}
-<div class="container py-6">
+{{------------------------ about us----------------}}
+<div class="container py-5">
     <div class="row align-items-center justify-content-between flex-lg-row-reverse">
-        <!-- Image Section -->
-        <div class="col-lg-5 col-md-6 col-sm-12 p-3 d-flex justify-content-center">
-            <div class="position-relative w-100">
-                <img src="{{asset('build/assets/images/room6.jpg')}}" alt="Main Image" class="img-fluid rounded w-100">
-                <img src="{{asset('build/assets/images/slider2.jpg')}}" alt="Overlay Image" 
-                     class="img-fluid rounded position-absolute border border-white shadow-lg"
-                     style="top: 30%; right: 55%; width: 75%; z-index: 1;">
+
+        <div class="col-lg-5 p-3 text-center">
+            <div class="position-relative d-inline-block">
+                <img src="{{asset('build/assets/images/home/A1.jpg')}}" alt="Main Image" class="img-fluid rounded">
+                <img src="{{asset('build/assets/images/home/A2.jpg')}}" alt="Overlay Image"
+                    class="img-fluid rounded position-absolute d-none d-md-block"
+                    style="top: 40%; right: 70%; width: 75%; height: auto; z-index: 1; border: 6px solid white;">
             </div>
         </div>
 
-        <!-- Text Section -->
-        <div class="col-lg-5 col-md-6 col-sm-12 text-center text-lg-start">
+
+        <div class="col-lg-5 text-center text-lg-start">
             <div>
-                <small class="text-muted text-uppercase">About Us</small>
+                <h5>About us</h5>
                 <h2 class="mt-2">Personalized services and the experience of special vacations.</h2>
                 <p>At STAYSPHERE, we offer comfort, great service, and a warm atmosphere. Whether you're here for work or relaxation, our cozy rooms, delicious food, and friendly staff ensure a wonderful stay.</p>
                 <p>Enjoy our pool, gym, and event spaces, all designed for your comfort. Stay with us and experience hospitality with a heart!</p>
@@ -401,488 +432,356 @@
     </div>
 </div>
 
-
-{{-- --------------------2------------------------- --}}
-
-{{-- <div class="container section-container">
-    <div class="row align-items-center">
-        <!-- Left Column: Images -->
-        <div class="col-lg-5 position-relative">
-            <img src="{{ asset('build/assets/images/washroom.jpg') }}" alt="Main Image" class="img-fluid rounded-img">
-            <img src="{{ asset('build/assets/images/room34.jpg') }}" alt="Overlay Image" class="img-fluid rounded-img overlay-img">
+{{------------------------rooms=-----------------------}}
+<div class="container py-5">
+    <h2 class="section-heading">Rooms & Suites</h2>
+    <div class="row">
+         <div class="col-lg-6 col-md-12 mb-3">
+            <div class="room-card  card-hover">
+                <img src="{{ asset('build/assets/images/home/R-1.jpg') }}" class="card-img-top" alt="Standard Room">
+                <div class="room-info">
+                    <h5 class="card-title">Luxury Room</h5>
+                    <p class="card-text">30000 / Per Night</p>
+                </div>
+                <div class="card-overlay">
+                    <div class="details">
+                        <p>4 Guests</p>
+                        <p>70ft Room Size</p>
+                        <p>30000 / Per Night</p>
+                    </div>
+                    <a href="{{route('reservations.create')}}" class="btn-book">Book Now</a>
+                </div>
+            </div>
         </div>
 
-        <!-- Right Column: Content -->
-        <div class="col-lg-5">
-            <div class="history-title">
-                <small>StaySphere Hotel</small>
-                <h2>Our History</h2>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="room-card  card-hover">
+                <img src="{{ asset('build/assets/images/room12.jpg') }}" class="card-img-top" alt="Standard Room">
+                <div class="room-info">
+                    <h5 class="card-title">Deluxe Room</h5>
+                    <p class="card-text">25000/ Per Night</p>
+                </div>
+                <div class="card-overlay">
+                    <div class="details">
+                        <p>2 Guests</p>
+                        <p>35ft Room Size</p>
+                        <p>25000 / Per Night</p>
+                    </div>
+                    <a href="{{route('reservations.create')}}" class="btn-book">Book Now</a>
+                </div>
             </div>
-            <p class="history-text">"Where comfort meets luxury" – Stay Sphere has been a sanctuary for travelers seeking warmth and elegance.</p>
-            <p class="history-text">Since its inception, the hotel has embraced a rich tradition of hospitality, blending modern amenities with timeless charm. Designed to offer unforgettable experiences, every detail reflects our commitment to excellence, ensuring a stay that feels like home.</p>
-            <p class="history-text">Creating memories through unparalleled service and exceptional comfort.</p>
+        </div>
+
+
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="room-card  card-hover">
+                <img src="{{ asset('build/assets/images/room14.jpg') }}" class="card-img-top" alt="Standard Room">
+                <div class="room-info">
+                    <h5 class="card-title">Family Suite</h5>
+                    <p class="card-text">20000 / Per Night</p>
+                </div>
+                <div class="card-overlay">
+                    <div class="details">
+                        <p>4 Guests</p>
+                        <p>60ft Room Size</p>
+                        <p>20000/ Per Night</p>
+                    </div>
+                    <a href="{{route('reservations.create')}}" class="btn-book">Book Now</a>
+                </div>
+            </div>
         </div>
     </div>
-</div> --}}
+    <div class="text-center mt-4">
+        <a href="{{ route('rooms') }}" class="btn btn-warning">View all Rooms</a>
+    </div>
+</div>
 
+{{-------------------- Hotel Services--------------------}}
+<div class="hotel-services py-2">
+    <div class="position-relative ">
 
-{{-- Exceptional Hospitality --}}
-{{-- <div class="py-3">
-  <div class=" text-center " style="background: linear-gradient(#1ABC9C, #343A40, #F8F9FA,#2C3E50,#F1C40F);">
-    <div class="row align-items-center">
-      <!-- Left Image -->
-      <div class="col-md-4 d-flex justify-content-center">
-          <div class="custom-image-container">
-              <img src="{{asset('build/assets/images/room.jpg')}}" class="img-fluid" alt="Hotel Lobby">
-          </div>
-      </div>
-
-      <!-- Center Text -->
-      <div class="col-md-4 d-flex flex-column justify-content-center">
-          <h2 class="fw-bold">Exceptional Hospitality</h2>
-          <p class="text-muted">and Unmatched Relaxation</p>
-          <p class="fs-4">4.9 out of 5</p>
-      </div>
-
-      <!-- Right Image -->
-      <div class="col-md-4 d-flex justify-content-center">
-          <div class="custom-image-container">
-              <img src="{{asset('build/assets/images/mr.jpg')}}" class="img-fluid" alt="Dining Area">
-          </div>
-      </div>
-  </div>
- </div>
-</div> --}}
-
-<!-- Hotel Services Section -->
-<div class=" py-5">
-    <div class="position-relative" style="height: 100vh; overflow: hidden;">
-        <!-- Background Video -->
-        <video autoplay loop muted playsinline class="position-absolute w-100 h-100" style="object-fit: cover;">
-            <source src="{{asset('build/assets/videos/v1.mp4')}}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-      
-        <!-- Content Overlay -->
-        <div class="container position-relative my-5 text-white" style="z-index: 1;">
+        <div class="container position-relative service-container">
+            <h2 class="text-center">Main Facilities</h2>
             <div class="row g-4">
-                <!-- Card 1 -->
+
                 <div class="col-lg-4 col-md-6">
-                    <div class="card border-0 shadow h-100 text-center">
-                        <div class="card-body">
-                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="color:#f1c40f;"> 
-                                 {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
-                                <i class="fas fa-bed fs-1"></i>
+                    <div class="card service-card">
+                        <div class="card-body text-center">
+                            <div class="icon-wrapper2">
+                                <i class="bi bi-house-door fs-1"></i>
                             </div>
                             <h4 class="mt-3">Luxurious Rooms</h4>
                             <p>Comfortable, spacious rooms with breathtaking views.</p>
                         </div>
                     </div>
                 </div>
-      
+
                 <!-- Card 2 -->
                 <div class="col-lg-4 col-md-6">
-                    <div class="card border-0 shadow h-100 text-center">
-                        <div class="card-body">
-                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center " style="color:#f1c40f;" >
-                                 {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
-                                <i class="fas fa-swimmer fs-1"></i>
+                    <div class="card service-card">
+                        <div class="card-body text-center">
+                            <div class="icon-wrapper2">
+                                <i class="bi bi-water fs-1"></i>
                             </div>
                             <h4 class="mt-3">Swimming Pool</h4>
                             <p>Relax and rejuvenate in our luxurious pool area.</p>
                         </div>
                     </div>
                 </div>
-      
+
                 <!-- Card 3 -->
                 <div class="col-lg-4 col-md-6">
-                    <div class="card border-0 shadow h-100 text-center">
-                        <div class="card-body">
-                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="color:#f1c40f;">
-                                 {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
-                                <i class="fas fa-dumbbell fs-1"></i>
+                    <div class="card service-card">
+                        <div class="card-body text-center">
+                            <div class="icon-wrapper2">
+                                <i class="bi bi-bar-chart fs-1"></i>
                             </div>
                             <h4 class="mt-3">Fitness Center</h4>
                             <p>Stay active with state-of-the-art fitness equipment.</p>
                         </div>
                     </div>
                 </div>
-      
+
                 <!-- Card 4 -->
                 <div class="col-lg-4 col-md-6">
-                    <div class="card border-0 shadow h-100 text-center">
-                        <div class="card-body">
-                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="color:#f1c40f;"> 
-                                 {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
-                                <i class="fas fa-headset fs-1"></i>
+                    <div class="card service-card">
+                        <div class="card-body text-center">
+                            <div class="icon-wrapper2">
+                                <i class="bi bi-headset fs-1"></i>
                             </div>
                             <h4 class="mt-3">24/7 Customer Service</h4>
                             <p>We're here to assist you at all times.</p>
                         </div>
                     </div>
                 </div>
-      
+
                 <!-- Card 5 -->
                 <div class="col-lg-4 col-md-6">
-                    <div class="card border-0 shadow h-100 text-center">
-                        <div class="card-body">
-                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="color:#f1c40f;"> 
-                                 {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
-                                <i class="fas fa-users fs-1"></i>
+                    <div class="card service-card">
+                        <div class="card-body text-center">
+                            <div class="icon-wrapper2">
+                                <i class="bi bi-briefcase fs-1"></i>
                             </div>
                             <h4 class="mt-3">Meeting Room</h4>
                             <p>Host professional meetings with state-of-the-art facilities.</p>
                         </div>
                     </div>
                 </div>
-      
+
                 <!-- Card 6 -->
                 <div class="col-lg-4 col-md-6">
-                    <div class="card border-0 shadow h-100 text-center">
-                        <div class="card-body">
-                            <div class="icon-wrapper text-center mx-auto mb-3 d-flex align-items-center justify-content-center" style="color:#f1c40f;">
-                                 {{-- style="width: 70px; height: 70px; background-color: #1ABC9C; color: #ffffff; border-radius: 50%;"> --}}
-                                <i class="fas fa-calendar-alt fs-1" ></i>
+                    <div class="card service-card">
+                        <div class="card-body text-center">
+                            <div class="icon-wrapper2">
+                                <i class="bi bi-calendar-event fs-1"></i>
                             </div>
                             <h4 class="mt-3">Event Management</h4>
                             <p>Manage events like conferences, weddings, and parties.</p>
                         </div>
                     </div>
                 </div>
+
             </div>
-        </div>
-      </div>
-</div>
-
-{{-- rooms --}}
-<div class="bg-white py-5">
-    <div class="container">
-        <div class="row">
-            <!-- Left Side: Static Text Section -->
-            <div class="col-lg-5 position-sticky top-0" style="height: 100vh; overflow-y: auto;">
-                <div>
-                    <small class="text-muted">StaySphere Hotel</small>
-                    <h2>Our Rooms</h2>
-                    <h6>Your Comfort, Your Choice</h6>
-                    <p>
-                        Stay in a room that feels just right for you! Whether it’s a quick getaway or a longer stay, we have the perfect space to make you feel at home.
-
-                    </p>
-                </div>
-                <ul class="list-unstyled">
-                    <li class="mb-4">
-                        <h5>Superior Room</h5>
-                        <p>Cozy and comfortable, with everything you need to relax.</p>
-                    </li>
-                    <li class="mb-4">
-                        <h5>Junior Suite</h5>
-                        <p>More space, more comfort, and a touch of luxury.</p>
-
-                    </li>
-                    <li>
-                        <h5>Deluxe Room</h5>
-                        <p> A perfect mix of style and relaxation.</p>
-                    </li>
-                    <li>
-                        <h5>Double Room</h5>
-                        <p>Great for couples or friends looking for a comfortable stay.</p>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Right Side: Moving Images Section -->
-            <div class="col-lg-7">
-                <div class="scrollable-images" style="overflow-y: auto;">
-                    <!-- First Image -->
-                    <div class="image mb-3 text-center position-relative rounded img-hover-shadow img-fluid" style="background-image: url('build/assets/images/room1.jpg'); height: 45vh;  width: 75%; background-size: cover; background-position: center; ">
-                        <div class="position-absolute top-50 start-50 translate-middle">
-                            <small class="text-color:#0b0f0e">From $250/night</small>
-                            <h5 class="text-color:#0b0f0e">Junior Suite</h5>
-                            <a href="{{ route('about') }}" class="btn btn-outline-warning">Read More</a>
-                            <a href="{{route('reservations.create')}}"  class="btn btn-warning">book Now</a>
-
-                        </div>
-                    </div>
-
-                    <!-- Second Image -->
-                    <div class="image mb-3 text-center position-relative rounded img-hover-shadow img-fluid" style="background-image: url('build/assets/images/room11.jpg'); height: 45vh; width: 75%; background-size: cover; background-position: center;">
-                        <div class="position-absolute top-50 start-50 translate-middle">
-                            <small class="text-color:#0b0f0e">From $250/night</small>
-                            <h5 class="text-color:#0b0f0e">Junior Suite</h5>
-                            <a href="{{ route('about') }}" class="btn btn-outline-warning">Read More</a>
-                            <a href="{{route('reservations.create')}}" class="btn btn-warning">book Now</a>
-
-                        </div>
-                    </div>
-                    <!-- Third Image -->
-                    <div class="image mb-3 text-center position-relative rounded img-hover-shadow img-fluid" style="background-image: url('build/assets/images/room15.jpg'); height: 45vh; width: 75%; background-size: cover; background-position: center;">
-                        <div class="position-absolute top-50 start-50 translate-middle">
-                            <small class="text-color:#0b0f0e">From $250/night</small>
-                            <h5 class="text-color:#0b0f0e">Junior Suite</h5>
-                            <a href="{{ route('about') }}" class="btn btn-outline-warning">Read More</a>
-                            <a href="{{route('reservations.create')}}" class="btn btn-warning">book Now</a>
-
-                        </div>
-                    </div>
-                    {{-- fourth image --}}
-                    <div class="image mb-3 text-center position-relative rounded img-hover-shadow img-fluid" style="background-image: url('build/assets/images/room17.jpg'); height: 45vh; width: 75%; background-size: cover; background-position: center;">
-                        <div class="position-absolute top-50 start-50 translate-middle">
-                            <small class="text-color:#0b0f0e">From $250/night</small>
-                            <h5 class="text-color:#0b0f0e">Junior Suite</h5>
-                            <a href="{{ route('about') }}" class="btn btn-outline-warning">Read More</a>
-                            <a href="{{route('reservations.create')}}" class="btn btn-warning">book Now</a>
-
-                        </div>
-                    </div>
-                    {{-- fifth image --}}
-                    <div class="image mb-3 text-center position-relative rounded img-hover-shadow img-fluid" style="background-image: url('build/assets/images/room18.jpg'); height: 45vh; width: 75%; background-size: cover; background-position: center; ">
-                        <div class="position-absolute top-50 start-50 translate-middle ">
-                            <small class="text-color:#0b0f0e">From $250/night</small>
-                            <h5 class="text-color:#0b0f0e">Junior Suite</h5>
-                            <a href="{{ route('about') }}" class="btn btn-outline-warning">Read More</a>
-                            <a href="{{route('reservations.create')}}" class="btn btn-warning">book Now</a>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- View All Rooms Button -->
-        <div class="text-end mt-3">
-            <a href="{{ route('rooms') }}" class="btn btn-outline-dark">View All Rooms</a>
         </div>
     </div>
 </div>
 
-{{-- text on pic --}}
-<section class="testimonial-section d-flex align-items-center justify-content-center" style="background-image: url('build/assets/images/mr6.jpg'); background-size: cover; height: 100vh;">
-    <div class="py-5">
-      <div class="container position-relative">
+{{----------------------- reviews------------------ --}}
+<section class="testimonial-section">
+    <div class="container text-center text-light">
+        <div class="text-center mb-5">
+            <h2>Reviews</h2>
+        </div>
+
         <div id="testimonialsCarousel" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="2000">
-              <div class="row justify-content-center">
-                <div class="col-12 col-md-10 col-lg-8">
-                  <div class="testimonial-overlay text-center p-4">
-                    <blockquote class="blockquote">
-                      "Experience unparalleled luxury and personalized service at our Hotel, where every stay is a journey into sophistication, comfort, and unforgettable memories."
-                    </blockquote>
-                    <footer class="blockquote-footer text-warning mt-3">
-                      Donette Fondren
-                    </footer>
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="2000">
+                    <div class="row justify-content-center">
+                      <div class="col-12 col-md-10 col-lg-8">
+                        <div class="testimonial-overlay text-center p-4">
+                          <blockquote class="blockquote">
+                            "Experience unparalleled luxury and personalized service at our Hotel, where every stay is a journey into sophistication, comfort, and unforgettable memories."
+                          </blockquote>
+                          <footer class="blockquote-footer text-warning mt-3">
+                            Donette Fondren
+                          </footer>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item" data-bs-interval="2000">
-              <div class="row justify-content-center">
-                <div class="col-12 col-md-10 col-lg-8">
-                  <div class="testimonial-overlay text-center p-4">
-                    <blockquote class="blockquote">
-                      "The staff was incredibly attentive and made our stay truly special. Highly recommend!"
-                    </blockquote>
-                    <footer class="blockquote-footer text-warning mt-3">
-                      John Doe
-                    </footer>
+
+                  <div class="carousel-item" data-bs-interval="2000">
+                    <div class="row justify-content-center">
+                      <div class="col-12 col-md-10 col-lg-8">
+                        <div class="testimonial-overlay text-center p-4">
+                          <blockquote class="blockquote">
+                            "The staff was incredibly attentive and made our stay truly special. Highly recommend!"
+                          </blockquote>
+                          <footer class="blockquote-footer text-warning mt-3">
+                            John Doe
+                          </footer>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item" data-bs-interval="2000">
-              <div class="row justify-content-center">
-                <div class="col-12 col-md-10 col-lg-8">
-                  <div class="testimonial-overlay text-center p-4">
-                    <blockquote class="blockquote">
-                      "A perfect getaway! The amenities were top-notch and the ambiance was relaxing."
-                    </blockquote>
-                    <footer class="blockquote-footer text-warning mt-3">
-                      Jane Smith
-                    </footer>
+
+                  <div class="carousel-item" data-bs-interval="2000">
+                    <div class="row justify-content-center">
+                      <div class="col-12 col-md-10 col-lg-8">
+                        <div class="testimonial-overlay text-center p-4">
+                          <blockquote class="blockquote">
+                            "A perfect getaway! The amenities were top-notch and the ambiance was relaxing."
+                          </blockquote>
+                          <footer class="blockquote-footer text-warning mt-3">
+                            Jane Smith
+                          </footer>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
             </div>
-          </div>
-          <!-- Carousel Controls -->
-          <button class="carousel-control-prev" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-          <!-- Carousel Indicators -->
+
+            <!-- Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+
+            <!-- Carousel Indicators -->
           <div class="carousel-indicators">
             <button type="button" data-bs-target="#testimonialsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#testimonialsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#testimonialsCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
           </div>
         </div>
-      </div>
     </div>
 </section>
 
-
-{{-- -----------------------3-------------------- --}}
-<div class="testimonials-section position-relative">
-    <!-- Video Background -->
-    {{-- <video autoplay muted loop class="video-background">
-        <source src="{{ asset('build/assets/videos/v2.mp4') }}" type="video/mp4">
-        Your browser does not support the video tag.
-    </video> --}}
-
-    <!-- Overlay to darken video -->
-    <div class="video-overlay"></div>
-
-    <div class="container text-center">
-        <h3 class="section-clients">What Clients Say</h3>
-
-        <!-- Carousel -->
-        <div id="testimonialCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="testimonial-card mx-auto shadow-lg p-4 rounded">
-                        <div class="d-flex align-items-center">
-                            <img src="{{ asset('build/assets/images/client1.jpg') }}" alt="Client 1" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover; margin-right: 15px;">
-                            <div>
-                                <h5 class="mb-0">Roberta</h5>
-                                <small>12 Oct</small>
-                            </div>
-                        </div>
-                        <p class="comment mt-3">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam."</p>
+{{------------------------our team----------------- --}}
+<div class="our-team-section py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Meet Our Team</h2>
+            <p class="section-subtitle">A dedicated team of professionals bringing luxury and comfort to your stay.</p>
+        </div>
+        <div class="row gy-4  text-dark">
+            {{-- --1 -- --}}
+            <div class="col-md-4">
+                <div class="team-card text-center p-4 shadow rounded">
+                    <div class="team-image">
+                        <img src="{{ asset('build/assets/images/client2.jpg') }}" alt="Team Member 1" class="img-fluid rounded-circle">
                     </div>
-                </div>
-
-                <!-- Testimonial 2 -->
-                <div class="carousel-item">
-                    <div class="testimonial-card mx-auto shadow-lg p-4 rounded">
-                        <div class="d-flex align-items-center">
-                            <img src="{{ asset('build/assets/images/client2.jpg') }}" alt="Client 2" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover; margin-right: 15px;">
-                            <div>
-                                <h5 class="mb-0">John</h5>
-                                <small>22 Nov</small>
-                            </div>
-                        </div>
-                        <p class="comment mt-3">"Curabitur blandit tempus porttitor. Praesent commodo cursus magna."</p>
-                    </div>
-                </div>
-
-                <!-- Testimonial 3 -->
-                <div class="carousel-item">
-                    <div class="testimonial-card mx-auto shadow-lg p-4 rounded">
-                        <div class="d-flex align-items-center">
-                            <img src="{{ asset('build/assets/images/client3.jpg') }}" alt="Client 3" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover; margin-right: 15px;">
-                            <div>
-                                <h5 class="mb-0">Sarah</h5>
-                                <small>5 Dec</small>
-                            </div>
-                        </div>
-                        <p class="comment mt-3">"Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor."</p>
-                    </div>
-                </div>
-
-                <!-- Testimonial 4 -->
-                <div class="carousel-item">
-                    <div class="testimonial-card mx-auto shadow-lg p-4 rounded">
-                        <div class="d-flex align-items-center">
-                            <img src="{{ asset('build/assets/images/client3.jpg') }}" alt="Client 4" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover; margin-right: 15px;">
-                            <div>
-                                <h5 class="mb-0">Emily</h5>
-                                <small>18 Dec</small>
-                            </div>
-                        </div>
-                        <p class="comment mt-3">"Aenean lacinia bibendum nulla sed consectetur. Nulla vitae elit libero."</p>
+                    <h5 class="mt-3">John Doe</h5>
+                    <p >CEO & Founder</p>
+                    <p class="team-description">John has 15+ years of experience in hospitality, ensuring top-notch service and luxury for every guest.</p>
+                    <div class="social-links mt-3">
+                        <a href="#" class="me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="me-3"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- Carousel Indicators -->
-            <div class="testimonial-dots mt-4">
-                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="dot" aria-current="true"></button>
-                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1" class="dot"></button>
-                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2" class="dot"></button>
-                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="3" class="dot"></button>
+            {{-- -- 2 -- --}}
+            <div class="col-md-4">
+                <div class="team-card text-center p-4 shadow rounded">
+                    <div class="team-image">
+                        <img src="{{ asset('build/assets/images/client3.jpg') }}" alt="Team Member 2" class="img-fluid rounded-circle">
+                    </div>
+                    <h5 class="mt-3">Jane Smith</h5>
+                    <p >General Manager</p>
+                    <p class="team-description">Jane is an expert in managing operations and ensuring a smooth experience for all our guests.</p>
+                    <div class="social-links mt-3">
+                        <a href="#" class="me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="me-3"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+           {{-- -- 3 -- --}}
+            <div class="col-md-4">
+                <div class="team-card text-center p-4 shadow rounded">
+                    <div class="team-image">
+                        <img src="{{ asset('build/assets/images/client1.jpg') }}" alt="Team Member 3" class="img-fluid rounded-circle">
+                    </div>
+                    <h5 class="mt-3">Emily Rose</h5>
+                    <p >Head of Marketing</p>
+                    <p class="team-description">Emily crafts exceptional marketing strategies that bring the Stay Sphere experience to the world.</p>
+                    <div class="social-links mt-3">
+                        <a href="#" class="me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="me-3"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Call to Action -->
-{{-- <div class="container text-center cta-section">
-    <h2>Book Your Stay Now</h2>
-    <p class="lead">Don't wait. Reserve your room today and experience the finest hospitality at Stay Sphere.</p>
-    <a href="{{route('reservations.create')}}" class="btn btn-lg btn-primary">Book Now</a>
-</div> --}}
+{{-- -------------------------form---------------------- --}}
+<div class="container py-5" id="booking_section">
+    <div class="row justify-content-between align-items-center">
 
-
-
-{{-- video --}}
-{{-- <div class=" py-5">
-    <div class="position-relative" style="height: 100vh; overflow: hidden;">
-        <!-- Background Video -->
-        <video autoplay loop muted playsinline class="position-absolute w-100 h-100" style="object-fit: cover;">
-            <source src="{{asset('build/assets/vedio/vedeo2.mp4')}}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        
-       
-        <div class="container position-relative my-5 " style="z-index: 1;">
-             <h4>Luxurious Rooms</h4>
-             <p>Comfortable, spacious rooms with breathtaking views.</p>
-             
-        </div>
-        <div class="text-center container position-relative my-5 text-white" style="z-index: 1;" >
-            <h1>StaySphere</h1>
-            <h4>"Experience the Art of Hospitality"</h4>
-        </div>
-        
-     </div>
-</div> --}}
-
-{{--local animities --}}
-{{-- <div class="bg-white py-5">
-    <div class="container">
-        <div class="row">
-          
-
-            <!-- Right Side: Moving Images Section -->
-            <div class="col-lg-6">
-                <div class="scrollable-images h-100" style="overflow-y: auto;">
-                    <div class="image mb-3" style="background-image: url('build/assets/images/restu.jpg');  width: 80%; background-size: cover; height:60vh;"></div>
-                    <div class="image mb-3" style="background-image: url('build/assets/images/natur1.jpg'); width: 80%; background-size: cover; height:60vh;"></div>
-                    <div class="image mb-3" style="background-image: url('build/assets/images/art1.jpg'); width: 80%; background-size: cover; height:60vh;"></div>
-                    
-                </div>
+        <div class="col-xl-4 mb-4">
+            <div class="title">
+                <small>StaySphere Hotel</small>
+                <h2>Check Availability</h2>
             </div>
+            <p>Discover the ultimate luxury experience. Book your stay with us for unforgettable memories.</p>
+            <p class="phone_element no_borders">
+                <a href="tel://423424234">
+                    <i class="bi bi-telephone-fill"></i>
+                    <span>
+                        <em>Info and bookings</em> <br>+92 123 456 7890
+                    </span>
+                </a>
+            </p>
+        </div>
 
-              <!-- Left Side: Static Text Section -->
-              <div class="col-lg-6 position-sticky top-0" style="height: 100vh; overflow-y: auto;">
-                <div>
-                    <small class="text-muted">Paradise Hotel</small>
-                    <h2>Local Amenities</h2>
-                    <p>
-                        But so that you may see where all this error of those who accuse pleasure and praise pain comes from, I will reveal the whole matter, and I will explain the very things that were said by that discoverer of truth and, as it were, the architect of a happy life.
-                    </p>
-                </div>
-                <ul class="list-unstyleds">
-                    <li class="mb-4">
-                        <h5>Local Restaurants</h5>
-                        <p>Nor is there anyone who does not love pain itself because it is pain.</p>
-                    </li>
-                    <li class="mb-4">
-                        <h5>Nature</h5>
-                        <p>But who would rightly blame even him who wishes to be in that pleasure which results in no discomfort?</p>
-                    </li>
-                    <li class="mb-4">
-                        <h5>Art and Culture</h5>
-                        <p>For no one despises, hates, or flees pleasure itself because it is pleasure.</p>
-                    </li>
-                </ul>
+        
+        <div class="col-xl-7">
+            <div class="booking_wrapper bg-light p-4 rounded shadow">
+                <form>
+
+                    <div class="mb-3">
+                        <input type="date" class="form-control" id="date_booking" name="date_booking" placeholder="Select Date">
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-6 mb-3">
+                            <select class="form-select">
+                                <option>Select Room</option>
+                                <option>Double Room</option>
+                                <option>Deluxe Room</option>
+                                <option>Superior Room</option>
+                                <option>Junior Suite</option>
+                            </select>
+                        </div>
+
+
+                        <div class="col-lg-6 mb-3">
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="number" class="form-control" id="adults_booking" placeholder="Adults">
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" class="form-control" id="childs_booking" placeholder="Children">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="text-end">
+                        <button type="submit" class=" rounded-pill px-4 py-2">Book Now</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 
 @endsection

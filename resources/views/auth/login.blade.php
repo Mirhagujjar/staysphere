@@ -51,6 +51,16 @@
         margin-bottom: 20px;
     }
 
+    /* social links */
+    .social-links a {
+      color:black;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+    .social-links a:hover {
+        color: #1ABC9C;
+    }
+
     /* Responsive Adjustments */
     @media (max-width: 768px) {
         .containerbox {
@@ -97,10 +107,10 @@
     <!-- Right Section -->
     <div class="right-section ">
         <h3>Login to Your Account</h3>
-        <div class="social-login d-flex justify-content-center gap-2" style="padding: 5%;">
-            <a href="#" title="Login with Facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" title="Login with Google"><i class="bi bi-google"></i></a>
-            <a href="#" title="Login with Twitter"><i class="bi bi-twitter"></i></a>
+        <div class="social-links mt-3 d-flex justify-content-center">
+            <a href="#" class="me-3"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="me-3"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('login') }}">
