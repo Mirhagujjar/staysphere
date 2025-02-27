@@ -98,7 +98,7 @@
     }
 
      /* responsive */
-     @media (max-width: 576px) {
+     @media (max-width: 769px) {
         .floating-card {
             position: static !important; /* Absolute position hatane ke liye */
             transform: none !important; 

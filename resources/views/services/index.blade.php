@@ -81,7 +81,7 @@
 <div class="main hero-section">   
     <div class="overlay-text">
         <h1>Services</h1>
-        <h3>"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</h3>
+        <p>"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</p>
         <div class="breadcrumb-container">
             <a href="{{asset('home')}}">Home</a> > services
         </div>
@@ -93,7 +93,7 @@
     <div class="position-relative col-md-8 justify-content-end">
         <h2 class="text-center mb-4" style="color: #2C3E50;">Our Hotel Services</h2>
 
-        <!-- Background Room Image -->
+         {{-- Background Room Image  --}}
         <div class="image">
             <img src="{{asset('build/assets/images/clean1.jpg')}}" class="img-fluid  rounded" alt="Example Image">
         </div>
@@ -103,14 +103,14 @@
             <h2 class="mt-2" style="color: #2C3E50;">  Housekeeping Servies</h2>
             <p class="text-muted">"A Spotless Stay, Every Day"</p>
 
-            <!-- Facilities List -->
+             {{-- Facilities List --}}
             <div class="d-flex justify-content-start gap-4 mb-4">
                 <h6>Facilities:</h6>
                 <span><i class="bi bi-stack"></i>  Daily cleaning, towel replacement.</span>
                 <span><i class="bi bi-house-door"></i> bed-making service.</span>    
             </div>
 
-            <!-- Buttons -->
+            {{--  Buttons --}}
             <div class="d-flex justify-content-between align-items-center">
                 <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#housekeeping">Get services Now</button>
                 <a href="{{ url('/services/housekeeping') }}" class="text-decoration-none text-warning fw-bold">
@@ -178,9 +178,9 @@
 {{-- second servies  Wellness & Fitness Services--}}
 <div class="container my-5 py-5">
     <div class="position-relative col-md-8 justify-content-end">
-        <!-- Background Room Image -->
+        {{--  Background Room Image  --}}
         <div class="image">
-            <img src="{{asset('build/assets/images/gym1.jpg')}}" class="img-fluid  rounded" alt="Example Image">
+            <img src="{{asset('build/assets/images/gym10.jpg')}}" class="img-fluid  rounded" alt="Example Image">
         </div>
                 {{-- card descrition --}}
         <div class="position-absolute start-50 p-4 shadow-lg rounded cardstyle">
@@ -246,7 +246,7 @@
 <div class="container my-5 py-5">
     <div class="position-relative col-md-8 justify-content-end">
 
-        <!-- Background Room Image -->
+         {{-- Background Room Image  --}}
         <div class="image">
             <img src="{{asset('build/assets/images/security/se1.jpg')}}" class="img-fluid  rounded" alt="Example Image" >
           </div>

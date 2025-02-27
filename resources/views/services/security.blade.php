@@ -46,12 +46,12 @@
         background: white;
         bottom: -50px;
     }
-     /* responsive */
-     @media (max-width: 768px) {
+        /* responsive */
+     @media (max-width: 769px) {
         .position-absolute {
             position: static !important; /* Absolute position hatane ke liye */
             transform: none !important; 
-            margin-top: -50px; /* Card ko neeche shift karne ke liye */
+            margin-top: -10px; /* Card ko neeche shift karne ke liye */
             z-index: 10 !important; 
             background: white; /* Ensure karein ke transparent na ho */
             padding: 20px; /* Spacing improve karne ke liye */
@@ -63,6 +63,7 @@
             width: 75%; /* Make button full width on mobile */
         }
     }
+    
 </style>    
 
 <div class="main hero-section">

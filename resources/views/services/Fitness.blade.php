@@ -47,7 +47,7 @@
         bottom: -50px;
     }
      /* responsive */
-     @media (max-width: 576px) {
+     @media (max-width: 769px) {
         .position-absolute {
             position: static !important; /* Absolute position hatane ke liye */
             transform: none !important; 

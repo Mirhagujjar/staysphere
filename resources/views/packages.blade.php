@@ -89,7 +89,18 @@
     .facility-item:hover {
         transform: scale(1.1);
     }
-    
+    /* responsive */
+    @media(max-width: 1195px){
+        .package-card {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out;
+    }
+    .package-card:hover {
+        transform: scale(1.03);
+    }
+    }
 </style>
 
 {{-- Header Section --}}

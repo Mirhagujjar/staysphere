@@ -66,7 +66,7 @@
             gap: 10px;
         }
     }
-    /* about us section */
+    /* --------------about us section------------------ */
        /* Section Container */
     .section-container {
      padding: 120px 0 95px;
@@ -159,12 +159,12 @@
         right: 0;
         transform: translateY(0);
     }
-    .section-container {
+    /* .section-container {
         padding: 60px 0;
     }
     .row.align-items-center {
         gap: 30px;
-    }
+    } */
    }
 
 
@@ -309,7 +309,7 @@
 
         /* ------------------reviews---------------- */
 
-          .testimonial-section {
+     .testimonial-section {
       height: 75vh;
       width: 100%;
       background: url('build/assets/images/home/R1.jpg') center/cover no-repeat;
@@ -318,7 +318,7 @@
       justify-content: center;
       margin-bottom: 50px;
       margin-top: 50px;
-  }
+    }
 
 
       .testimonial-overlay {
@@ -905,3 +905,160 @@
 </div>
 
 @endsection
+
+
+
+
+
+
+<style>
+    .bg-white {
+        background-color: #fff;
+        padding: 50px 0;
+    }
+    
+    .col-lg-5.position-sticky {
+        position: sticky;
+        top: 10px;
+        height: 100vh;
+        overflow-y: auto;
+    }
+    
+    .scrollable-images {
+        height: 100vh;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border:4px solid white;
+    }
+    
+    .image {
+        width: 75%;
+        height: 100vh;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        margin-bottom: 20px;
+    
+    }
+    
+    .overlay-content {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        border-radius: 10px;
+    }
+    
+    @media (min-width: 992px) {
+        .sticky-text {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+    }
+    
+    @media (max-width: 768px) {
+    
+        .col-lg-5.position-sticky {
+            position: static;
+            height: auto;
+            width: 100%;
+            text-align: center;
+     }
+    
+        .scrollable-images {
+            height: auto;
+            overflow-y: visible;
+        }
+    
+        .image {
+            width: 100%;
+            height: 40vh;
+        }
+    }
+</style>
+
+    
+    
+{{--     
+<div class="bg-white py-5">
+    <div class="container">
+       <div class="row">
+
+       <div class="col-lg-5 position-sticky top-0" style="height: 100vh; overflow-y: auto;">
+    <div>
+                    <small class="text-muted">StaySphere Hotel</small>
+                    <h2>Our Rooms</h2>
+                    <h6>Your Comfort, Your Choice</h6>
+                    <p>
+                        Stay in a room that feels just right for you! Whether it’s a quick getaway or a longer stay, we have the perfect space to make you feel at home.
+
+                    </p>
+                </div>
+
+            </div>
+                   <div class="text-end mt-3">
+                      <a href="{{ route('room.index') }}" class="btn btn-outline-dark">View All Rooms</a>
+                   </div>
+
+            <div class="col-lg-7">
+                <div class="scrollable-images" style="overflow-y: auto;">
+
+                    <div class="image mb-3 text-center position-relative rounded img-hover-shadow img-fluid" style="background-image: url('assets/images/room1.png'); height: 45vh;  width: 75%; background-size: cover; background-position: center; ">
+                        <div class="position-absolute top-50 start-50 translate-middle">
+                            <small class="text-color:#0b0f0e">From $250/night</small>
+                            <h5 class="text-color:#0b0f0e">Junior Suite</h5>
+                            <a href="{{ route('about.us') }}" class="btn btn-outline-warning">Read More</a>
+                            <a href="{{route('room_booking.create')}}"  class="btn btn-warning">book Now</a>
+
+                        </div>
+                    </div>
+
+                    <div class="image mb-3 text-center position-relative rounded img-hover-shadow img-fluid" style="background-image: url('assets/images/room2.png'); height: 45vh; width: 75%; background-size: cover; background-position: center;">
+                        <div class="position-absolute top-50 start-50 translate-middle">
+                            <small class="text-color:#0b0f0e">From $250/night</small>
+                            <h5 class="text-color:#0b0f0e">Junior Suite</h5>
+                            <a href="{{ route('about.us') }}" class="btn btn-outline-warning">Read More</a>
+                            <a href="{{route('room_booking.create')}}" class="btn btn-warning">book Now</a>
+
+                        </div>
+                    </div>
+
+                    <div class="image mb-3 text-center position-relative rounded img-hover-shadow img-fluid" style="background-image: url('assets/images/room3.png'); height: 45vh; width: 75%; background-size: cover; background-position: center;">
+                        <div class="position-absolute top-50 start-50 translate-middle">
+                            <small class="text-color:#0b0f0e">From $250/night</small>
+                            <h5 class="text-color:#0b0f0e">Junior Suite</h5>
+                            <a href="{{ route('about.us') }}" class="btn btn-outline-warning">Read More</a>
+                            <a href="{{route('room_booking.create')}}" class="btn btn-warning">book Now</a>
+
+                        </div>
+                    </div>
+
+                    <div class="image mb-3 text-center position-relative rounded img-hover-shadow img-fluid" style="background-image: url('assets/images/room4.png'); height: 45vh; width: 75%; background-size: cover; background-position: center;">
+                        <div class="position-absolute top-50 start-50 translate-middle">
+                            <small class="text-color:#0b0f0e">From $250/night</small>
+                            <h5 class="text-color:#0b0f0e">Junior Suite</h5>
+                            <a href="{{ route('about.us') }}" class="btn btn-outline-warning">Read More</a>
+                            <a href="{{route('room_booking.create')}}" class="btn btn-warning">book Now</a>
+
+                        </div>
+                    </div>
+
+                    <div class="image mb-3 text-center position-relative rounded img-hover-shadow img-fluid" style="background-image: url('assets/images/room5.png'); height: 45vh; width: 75%; background-size: cover; background-position: center; ">
+                        <div class="position-absolute top-50 start-50 translate-middle ">
+                            <small class="text-color:#0b0f0e">From $250/night</small>
+                            <h5 class="text-color:#0b0f0e">Junior Suite</h5>
+                            <a href="{{ route('about.us') }}" class="btn btn-outline-warning">Read More</a>
+                            <a href="{{route('room_booking.create')}}" class="btn btn-warning">book Now</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div> --}}
