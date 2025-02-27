@@ -143,7 +143,7 @@
                         <img src="{{ asset('build/assets/images/blog/2.jpg') }}" class="card-img-top" alt="Blog">
                         <div class="card-body">
                             <h5 class="card-title">Ultimate Comfort: Top Room Picks</h5>
-                            <p class="text-muted small">📅 Feb 09, 2025 | ✍ By Admin</p>
+                            <p class="text-muted small">Feb 09, 2025 | By Admin</p>
                             <p class="card-text">Stay Sphere offers premium rooms with breathtaking views, modern amenities, and ultimate comfort for a memorable stay.</p>
                             <a href="{{ route('blog.topRoom') }}" class="btn btn-custom w-100">Read More</a>
                         </div>
@@ -154,8 +154,8 @@
                     <div class="card shadow-sm">
                         <img src="{{ asset('build/assets/images/blog/3.jpg') }}" class="card-img-top" alt="Blog">
                         <div class="card-body">
-                            <h5 class="card-title">🍽️ Chef’s Special: Must-Try Dishes at Stay Sphere</h5>
-                            <p class="text-muted small">📅 Feb 04, 2025 | ✍ By Admin</p>
+                            <h5 class="card-title">Chef’s Special: Must-Try Dishes at Stay Sphere</h5>
+                            <p class="text-muted small"> Feb 04, 2025 |  By Admin</p>
                             <p class="card-text">Indulge in our chef’s finest creations, from signature gourmet dishes to local favorites, at our luxury dining experience.</p>
                             <a href="{{ route('blog.chefSpecial') }}" class="btn btn-custom w-100">Read More</a>
                         </div>
@@ -165,8 +165,8 @@
                     <div class="card shadow-sm">
                         <img src="{{ asset('build/assets/images/blog/6.jpg') }}" class="card-img-top" alt="Blog">
                         <div class="card-body">
-                            <h5 class="card-title">⭐Guest Experiences: Real Stories from Our Visitors</h5>
-                            <p class="text-muted small">📅 Feb 04, 2025 | ✍ By Admin</p>
+                            <h5 class="card-title">Guest Experiences: Real Stories from Our Visitors</h5>
+                            <p class="text-muted small"> Feb 04, 2025 | By Admin</p>
                             <p class="card-text">Read what our guests experience and how we make their stay unforgettable.</p>
                             <a href="{{ route('blog.guest') }}" class="btn btn-custom w-100">Read More</a>
                         </div>
@@ -176,8 +176,8 @@
                     <div class="card shadow-sm">
                         <img src="{{ asset('build/assets/images/blog/7.jpg') }}" class="card-img-top" alt="Blog">
                         <div class="card-body">
-                            <h5 class="card-title">🎉 Hosting an Event? Book a Hall at Stay Sphere</h5>
-                            <p class="text-muted small">📅 Feb 04, 2025 | ✍ By Admin</p>
+                            <h5 class="card-title"> Hosting an Event? Book a Hall at Stay Sphere</h5>
+                            <p class="text-muted small"> Feb 04, 2025 | By Admin</p>
                             <p class="card-text">Need a venue for your next event? Our halls and meeting rooms are available for booking.</p>
                             <a href="{{ route('blog.hosting') }}" class="btn btn-custom w-100">Read More</a>
                         </div>

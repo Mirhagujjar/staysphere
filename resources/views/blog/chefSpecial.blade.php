@@ -163,7 +163,7 @@
 <div class="hero-section">
     <div class="hero-overlay">
         <h1 class="fw-bold">Chef’s Special: Must-Try Dishes at Stay Sphere</h1>
-        <p class="mb-0">By Stay Sphere | Published on 📅 Feb 09, 2025</p>
+        <p class="mb-0">By Stay Sphere | Published on  Feb 09, 2025</p>
         <div class="link-container">
             <a href="{{ route('blog.blog') }}">Blog</a> >chefSpecial
         </div>
@@ -179,11 +179,11 @@
             <p>"Experience a fusion of taste and tradition with our handpicked specialties."</p>
             <h4>Top Must-Try Dishes</h4>
             <ul>
-                <p>👨‍🍳 Signature Stay Sphere Platter – A perfect mix of grilled meats, seafood, and veggies.</p>
-                <p>🥘 Royal Biryani – Fragrant basmati rice layered with aromatic spices and tender meat.</p>
-                <p>🍝 Creamy Alfredo Pasta – A rich, cheesy delight with a touch of garlic and herbs.</p>
-                <p>🥩 Sizzling Steak – Juicy, perfectly grilled steak served with signature sauce.</p>
-                <p>🍰 Chocolate Lava Cake – A sweet ending with warm, gooey chocolate indulgence.</p></p>
+                <p> Signature Stay Sphere Platter – A perfect mix of grilled meats, seafood, and veggies.</p>
+                <p> Royal Biryani – Fragrant basmati rice layered with aromatic spices and tender meat.</p>
+                <p> Creamy Alfredo Pasta – A rich, cheesy delight with a touch of garlic and herbs.</p>
+                <p> Sizzling Steak – Juicy, perfectly grilled steak served with signature sauce.</p>
+                <p> Chocolate Lava Cake – A sweet ending with warm, gooey chocolate indulgence.</p></p>
             </ul>
 
             <!-- Hotel Promotion Section -->
@@ -200,9 +200,9 @@
             <div class="sidebar-section mb-4">
                 <h4>Related Blogs</h4>
                 <ul class="list-unstyled">
-                    <li><a href="{{ route('blog.topRoom') }}">🛏️ Ultimate Comfort</a></li>
-                    <li><a href="{{ route('blog.guest') }}">⭐Guest Experiences</a></li>
-                    <li><a href="{{ route('blog.hosting') }}">🎉 Hosting an Event?</a></li>
+                    <li><a href="{{ route('blog.topRoom') }}"> Ultimate Comfort</a></li>
+                    <li><a href="{{ route('blog.guest') }}">Guest Experiences</a></li>
+                    <li><a href="{{ route('blog.hosting') }}"> Hosting an Event?</a></li>
                 </ul>
             </div>
 

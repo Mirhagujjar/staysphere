@@ -4,7 +4,7 @@
 
 <style>
     .hero-section {
-        background: url('{{ asset('build/assets/images/gym1.jpg') }}') no-repeat center center;
+        background: url('{{ asset('build/assets/images/gym10.jpg') }}') no-repeat center center;
         background-size: cover;
         color: white;
         text-align: center;
@@ -22,14 +22,14 @@
 
     .breadcrumb-container {
         margin-top: 10px;
-        font-size: 18px;
+        font-size: 25px;
         font-weight: 500;
-        color: #021411;
+        color: #f8fcfb;
     }
 
     .breadcrumb-container a {
         text-decoration: none;
-        color: #05362d;
+        color: #e8f3f1;
     }
 
     .breadcrumb-container a:hover {
@@ -68,9 +68,9 @@
 {{-- main --}}
 <div class="main hero-section">
     <h1>Wellness & Fitness Services</h1>
-    <h3>"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</h3>
+    <p>"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</p>
     <div class="breadcrumb-container">
-        <a href="{{ route('services') }}">Home</a> > services
+        <a href="{{ route('services') }}">services</a> > Wellness & Fitness
     </div>
     <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#fitness">Get services Now</button>
 </div>

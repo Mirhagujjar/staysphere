@@ -22,14 +22,14 @@
 
     .breadcrumb-container {
         margin-top: 10px;
-        font-size: 18px;
+        font-size: 25px;
         font-weight: 500;
         color: #021411;
     }
 
     .breadcrumb-container a {
         text-decoration: none;
-        color: #05362d;
+        color: #fcffff;
     }
 
     .breadcrumb-container a:hover {
@@ -66,9 +66,10 @@
     
 </style>    
 
+{{-- main --}}
 <div class="main hero-section">
     <h1>Guest Assistance & Security services</h1>
-    <h3>"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</h3>
+    <p>"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</p>
     <div class="breadcrumb-container">
         <a href="{{ route('services') }}">services</a> > Security services
     </div>

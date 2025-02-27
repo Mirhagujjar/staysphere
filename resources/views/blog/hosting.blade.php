@@ -149,7 +149,7 @@
 <div class="hero-section">
     <div class="hero-overlay">
         <h1 class="fw-bold">Hosting an Event? Book a Hall at Stay Sphere</h1>
-        <p class="mb-0">By Stay Sphere | Published on 📅 Feb 09, 2025</p>
+        <p class="mb-0">By Stay Sphere | Published on  Feb 09, 2025</p>
         <div class="link-container">
             <a href="{{ route('blog.blog') }}">Blog</a> >Hosting
         </div>
@@ -165,11 +165,11 @@
             <p>"Celebrate in style with our spacious, well-equipped event halls!"</p>
             <h4>Book a Hall at Stay Sphere</h4>
             <ul>
-                <p>🏛 Perfect for weddings, corporate meetings, and private gatherings.</p>
-                <p>🎤 Equipped with sound systems, projectors, and comfortable seating.</p>
-                <p>🍽 Enjoy delicious meals and refreshments for your guests.</p>
-                <p>💼 Whether it's a business conference or a birthday bash, we've got you covered.</p>
-                <p>✨ Book Your Event Space Today! Contact us to customize your booking as per your needs.</p></p>
+                <p> Perfect for weddings, corporate meetings, and private gatherings.</p>
+                <p> Equipped with sound systems, projectors, and comfortable seating.</p>
+                <p> Enjoy delicious meals and refreshments for your guests.</p>
+                <p> Whether it's a business conference or a birthday bash, we've got you covered.</p>
+                <p> Book Your Event Space Today! Contact us to customize your booking as per your needs.</p></p>
             </ul>
 
             <!-- Hotel Promotion Section -->
@@ -185,9 +185,9 @@
             <div class="sidebar-section mb-4">
                 <h4>Related Blogs</h4>
                 <ul class="list-unstyled">
-                    <li><a href="{{ route('blog.topRoom') }}">🛏️ Ultimate Comfort</a></li>
-                    <li><a href="{{ route('blog.guest') }}">⭐Guest Experiences</a></li>
-                    <li><a href="{{ route('blog.chefSpecial') }}">🍽️ Chef’s Special</a></li>
+                    <li><a href="{{ route('blog.topRoom') }}"> Ultimate Comfort</a></li>
+                    <li><a href="{{ route('blog.guest') }}">Guest Experiences</a></li>
+                    <li><a href="{{ route('blog.chefSpecial') }}"> Chef’s Special</a></li>
                 </ul>
             </div>
 

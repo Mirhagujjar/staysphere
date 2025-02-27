@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('content') 
+@section('content')
 
 <style>
     .containerbox {
@@ -19,7 +19,7 @@
 
    .left-section {
        flex: 1;
-       background: url('{{asset("build/assets/images/logo.jpg")}}') no-repeat center center/cover;
+       background: url('{{asset('build/assets/images/slider5.jpg')}}') no-repeat center center/cover;
        display: flex;
        flex-direction: column;
        justify-content: center;
@@ -47,6 +47,26 @@
        text-align: center;
        margin-bottom: 20px;
    }
+   .social-login {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .social-login a {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #ddd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+        color: #555;
+        text-decoration: none;
+    }
 
    /* Responsive Adjustments */
    @media (max-width: 768px) {
@@ -90,28 +110,28 @@
    </div>
    <!-- Right Section -->
    <div class="right-section ">
-       <h3>Reset Password</h3>
-       <div class="social-login d-flex justify-content-center gap-2" style="padding: 5%;">
-           <a href="#" title="Login with Facebook"><i class="bi bi-facebook"></i></a>
-           <a href="#" title="Login with Google"><i class="bi bi-google"></i></a>
-           <a href="#" title="Login with Twitter"><i class="bi bi-twitter"></i></a>
-       </div>
+    <h3>Reset Password</h3>
+    <div class="social-login">
+        <a href="#" title="Login with Facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" title="Login with Google"><i class="bi bi-google"></i></a>
+        <a href="#" title="Login with Twitter"><i class="bi bi-twitter"></i></a>
+    </div>
        <div class="card-body">
         @if (session('status'))
             <div class="alert alert-success" role="alert">
                 {{ session('status') }}
             </div>
         @endif
-    
+
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
-    
+
             <div class="row mb-3">
                 <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-    
+
                 <div class="col-md-6">
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-    
+
                     @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -119,10 +139,10 @@
                     @enderror
                 </div>
             </div>
-    
+
             <div class="row mb-0">
                 <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-warning">
                         {{ __('Send Password Reset Link') }}
                     </button>
                 </div>
@@ -130,6 +150,6 @@
         </form>
        </div>
    </div>
-  
-</div>      
+
+</div>
 @endsection

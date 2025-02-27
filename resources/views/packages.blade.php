@@ -129,7 +129,7 @@
                             <h5 class="card-title">Luxury Stay (2 Persons)</h5>
                             <p class="card-text">King-size suite with private spa<br> Airport pickup <br> Gourmet meals.</p>
                             <p class="card-text">
-                                💰 Regular Price: <del>PKR 75,000/night</del> | Package Price: <strong>PKR 60,000/night</strong>
+                                 Regular Price: <del>PKR 75,000/night</del> | Package Price: <strong>PKR 60,000/night</strong>
                             </p>
                             <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>                        </div>
                     </div>
@@ -149,7 +149,7 @@
                             <h5 class="card-title">Honeymoon Special (Couple)</h5>
                             <p class="card-text">Romantic suite with jacuzzi<br> Candlelight dinner<br> Flower decor.</p>
                             <p class="card-text">
-                                💰 Regular Price: <del>PKR 90,000/night</del> | Package Price: <strong>PKR 72,000/night</strong>
+                                 Regular Price: <del>PKR 90,000/night</del> | Package Price: <strong>PKR 72,000/night</strong>
                             </p>
                             <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>                     
                          </div>
@@ -170,7 +170,7 @@
                             <h5 class="card-title">Family Fun (4 Persons)</h5>
                             <p class="card-text">Spacious family suite with fun activities<br> Amusement park tickets<br> Meals.</p>
                             <p class="card-text">
-                                💰 Regular Price: <del>PKR 65,000/night</del> | Package Price: <strong>PKR 50,000/night</strong>
+                                 Regular Price: <del>PKR 65,000/night</del> | Package Price: <strong>PKR 50,000/night</strong>
                             </p>
                             <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>   
                          </div>
@@ -191,7 +191,7 @@
                             <h5 class="card-title">Adventure Getaway (2 Persons)</h5>
                             <p class="card-text">Hiking<br> Snorkeling, zip-lining<br> A special adventure suite.</p>
                             <p class="card-text">
-                                💰 Regular Price: <del>PKR 70,000/night</del> | Package Price: <strong>PKR 55,000/night</strong>
+                                 Regular Price: <del>PKR 70,000/night</del> | Package Price: <strong>PKR 55,000/night</strong>
                             </p>
                             <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>
                         </div>
@@ -212,7 +212,7 @@
                             <h5 class="card-title">Wellness Escape (1 Person)</h5>
                             <p class="card-text">Spa treatments<br> Yoga sessions<br> All-day wellness center access.</p>
                             <p class="card-text">
-                                💰 Regular Price: <del>PKR 80,000/night</del> | Package Price: <strong>PKR 65,000/night</strong>
+                                 Regular Price: <del>PKR 80,000/night</del> | Package Price: <strong>PKR 65,000/night</strong>
                             </p>
                             <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>
                         </div>
@@ -233,7 +233,7 @@
                             <h5 class="card-title">Corporate Retreat (10 Persons)</h5>
                             <p class="card-text">Conference rooms<br> Team activities<br> High-speed internet.</p>
                             <p class="card-text">
-                                💰 Regular Price: <del>PKR 150,000/night</del> | Package Price: <strong>PKR 120,000/night</strong>
+                                 Regular Price: <del>PKR 150,000/night</del> | Package Price: <strong>PKR 120,000/night</strong>
                             </p>
                             <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>
                         </div>

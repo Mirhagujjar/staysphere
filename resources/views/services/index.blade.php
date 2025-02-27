@@ -21,7 +21,8 @@
 
     .breadcrumb-container {
       margin-top: 10px;
-      font-size: 18px;
+      font-size: 25px;
+      font-style: bold;
       font-weight: 500;
       color: #f5f116;
     }

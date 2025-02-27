@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 
 <style>
@@ -149,7 +148,7 @@
 <div class="hero-section">
     <div class="hero-overlay">
         <h1 class="fw-bold"> Guest Experiences: From Our Visitors</h1>
-        <p class="mb-0">By Stay Sphere | Published on 📅 Feb 09, 2025</p>
+        <p class="mb-0">By Stay Sphere | Published on Feb 09, 2025</p>
         <div class="link-container">
             <a href="{{ route('blog.blog') }}">Blog</a> >Guest
         </div>
@@ -167,11 +166,11 @@
 
                 <h4>What Our Guests Say</h4>
                 <ul>
-                    <p>🏨"The comfort and hospitality at Stay Sphere made my trip perfect. Highly recommended!" – Sarah</p>
-                    <p>🌟"The staff went above and beyond to ensure our stay was smooth and stress-free." – Daoud R.</p>
-                    <p>🍽️"Loved the in-house dining experience! The flavors were incredible." – Ayesha M.</p>
-                    <p>🛏️"The rooms were cozy, quiet, and super clean. I had the best rest after long travels!" – Muhammad</p>
-                    <p>📍"Easily accessible and close to major attractions. I’ll definitely visit again." – Imran K</p>
+                    <p>"The comfort and hospitality at Stay Sphere made my trip perfect. Highly recommended!" – Sarah</p>
+                    <p>"The staff went above and beyond to ensure our stay was smooth and stress-free." – Daoud R.</p>
+                    <p>"Loved the in-house dining experience! The flavors were incredible." – Ayesha M.</p>
+                    <p>"The rooms were cozy, quiet, and super clean. I had the best rest after long travels!" – Muhammad</p>
+                    <p>"Easily accessible and close to major attractions. I’ll definitely visit again." – Imran K</p>
                 </ul>
 
                 <!-- Hotel Promotion Section -->
@@ -189,9 +188,9 @@
             <div class="sidebar-section mb-4">
                 <h4>Related Blogs</h4>
                 <ul class="list-unstyled">
-                    <li><a href="{{ route('blog.topRoom') }}">🛏️ Ultimate Comfort</a></li>
-                    <li><a href="{{ route('blog.chefSpecial') }}">🍽️ Chef’s Special</a></li>
-                    <li><a href="{{ route('blog.hosting') }}">🎉 Hosting an Event?</a></li>
+                    <li><a href="{{ route('blog.topRoom') }}"> Ultimate Comfort</a></li>
+                    <li><a href="{{ route('blog.chefSpecial') }}"> Chef’s Special</a></li>
+                    <li><a href="{{ route('blog.hosting') }}">Hosting an Event?</a></li>
                 </ul>
             </div>
 

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('content') 
+@section('content')
 
 <style>
      .containerbox {
@@ -19,7 +19,7 @@
 
     .left-section {
         flex: 1;
-        background: url('build/assets/images/natur1.jpg') no-repeat center center/cover;
+        background: url('build/assets/images/slider5.jpg') no-repeat center center/cover;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -50,15 +50,25 @@
         text-align: center;
         margin-bottom: 20px;
     }
-
-    /* social links */
-    .social-links a {
-      color:black;
-      font-size: 1.2rem;
-      transition: color 0.3s ease;
+    .social-login {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 20px;
     }
-    .social-links a:hover {
-        color: #1ABC9C;
+
+    .social-login a {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #ddd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+        color: #555;
+        text-decoration: none;
     }
 
     /* Responsive Adjustments */
@@ -107,10 +117,10 @@
     <!-- Right Section -->
     <div class="right-section ">
         <h3>Login to Your Account</h3>
-        <div class="social-links mt-3 d-flex justify-content-center">
-            <a href="#" class="me-3"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="me-3"><i class="bi bi-twitter"></i></a>
-            <a href="#"><i class="bi bi-linkedin"></i></a>
+        <div class="social-login">
+            <a href="#" title="Login with Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" title="Login with Google"><i class="bi bi-google"></i></a>
+            <a href="#" title="Login with Twitter"><i class="bi bi-twitter"></i></a>
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('login') }}">
@@ -164,13 +174,16 @@
                                 {{ __('Forgot Your Password?') }}
                             </a>
                         @endif
+                        <div class="signup-section">
+                            <p>  New here? <a href="{{ route('register') }}">Register </a></p>
+                        </div>
                     </div>
+                    
                 </div>
+                
             </form>
         </div>
-        <div class="signup-section">
-            <p>New here? <a href="{{ route('register') }}">Register </a></p>
-        </div>
+        
     </div>
 </div>
 @endsection

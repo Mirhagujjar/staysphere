@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('content') 
+@section('content')
 
 <style>
      .containerbox {
@@ -50,6 +50,26 @@
         text-align: center;
         margin-bottom: 20px;
     }
+    .social-login {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .social-login a {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #ddd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+        color: #555;
+        text-decoration: none;
+    }
 
     /* Responsive Adjustments */
     @media (max-width: 768px) {
@@ -90,14 +110,14 @@
 <div class="containerbox">
     <!-- Left Section -->
     <div class="left-section">
-        <h2>Welcome Back!</h2>
-        <p>Login to your account and continue exploring amazing features.</p>
+        <h2>Welcome!</h2>
+
     </div>
 
     <!-- Right Section -->
     <div class="right-section ">
         <h3>Register to Your Account</h3>
-        <div class="social-login d-flex justify-content-center gap-2" style="padding: 5%;">
+        <div class="social-login">
             <a href="#" title="Login with Facebook"><i class="bi bi-facebook"></i></a>
             <a href="#" title="Login with Google"><i class="bi bi-google"></i></a>
             <a href="#" title="Login with Twitter"><i class="bi bi-twitter"></i></a>
@@ -158,7 +178,7 @@
 
                 <div class="row mb-0">
                     <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-warning">
                             {{ __('Register') }}
                         </button>
                     </div>

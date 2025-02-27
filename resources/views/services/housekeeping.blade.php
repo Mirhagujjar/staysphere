@@ -2,7 +2,6 @@
 
 @section('content')
 
-<!-- External CSS -->
 {{-- <link rel="stylesheet" href="{{ asset('build/assets/css/services.css') }}"> --}}
 <style>
     /* General Styles */
@@ -28,7 +27,7 @@
 
     .breadcrumb-container {
         margin-top: 10px;
-        font-size: 18px;
+        font-size: 25px;
         font-weight: 500;
         color: white;
     }
@@ -121,7 +120,7 @@
     <div class="half-screen-image">
         <div class="overlay-text">
             <h1> Housekeeping Services</h1>
-            <h3>"A Spotless Stay, Every Day"</h3>
+            <p>"A Spotless Stay, Every Day"</p>
             <div class="breadcrumb-container">
                 <a href="{{ route('services') }}">services</a> >Housekeeping services
             </div>
