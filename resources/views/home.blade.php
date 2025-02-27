@@ -66,6 +66,107 @@
             gap: 10px;
         }
     }
+    /* about us section */
+       /* Section Container */
+    .section-container {
+     padding: 120px 0 95px;
+    }
+    /* Image Styling */
+    .rounded-img {
+     border-radius: 10px;
+     max-width: 100%;
+     height: 460px;
+    }
+
+    .position-relative .overlay-img {
+     position: absolute;
+     width: 50%;
+     height: 350px;
+     top: 70%;
+     right: -115px;
+     transform: translateY(-50%);
+     border: 5px solid white;
+     border-radius: 10px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+   /* History Title */
+    .margin{
+     margin-right: 1em;
+     margin-left: 1em;
+    }
+    .history-title {
+      font-family: "Montserrat", Helvetica, sans-serif;
+    }
+    .history-title small {
+     color: #000000;
+     font-weight: bold;
+     text-transform: uppercase;
+    }
+    .history-title h2 {
+     margin-top: 10px;
+     margin-left: 5px;
+     font-size: 2rem;
+     font-weight: bold;
+    }
+    /* History Text */
+    .history-text {
+     line-height: 1.8;
+     color: #000000;
+    }
+    /* Row Alignment */
+    .row.align-items-center {
+     gap: 150px;
+    } 
+   /* Responsive Adjustments */
+    @media (max-width: 1200px)
+   {
+    .row.align-items-center {
+        gap: 100px;
+    }
+    .position-relative .overlay-img {
+        right: -90px;
+    }
+   }
+
+    @media (max-width: 992px) {
+    .row.align-items-center {
+        gap: 50px;
+    }
+    .position-relative .overlay-img {
+        width: 45%;
+        right: -60px;
+    }
+   }
+
+   @media (max-width: 768px) {
+    .position-relative {
+        text-align: center;
+    }
+    .overlay-img {
+        width: 40%;
+        right: -30px;
+    }
+    .text-md-start {
+        text-align: center !important;
+    }
+    }
+
+    @media (max-width: 576px) {
+    .position-relative .overlay-img {
+        position: relative;
+        width: 70%;
+        margin-top: 15px;
+        right: 0;
+        transform: translateY(0);
+    }
+    .section-container {
+        padding: 60px 0;
+    }
+    .row.align-items-center {
+        gap: 30px;
+    }
+   }
+
 
     /* {{------------------rooms---------------------}} */
 
@@ -408,7 +509,7 @@
 </div>
 
 {{------------------------ about us----------------}}
-<div class="container py-5">
+{{-- <div class="container py-5">
     <div class="row align-items-center justify-content-between flex-lg-row-reverse">
 
         <div class="col-lg-5 p-3 text-center">
@@ -428,6 +529,25 @@
                 <p>At STAYSPHERE, we offer comfort, great service, and a warm atmosphere. Whether you're here for work or relaxation, our cozy rooms, delicious food, and friendly staff ensure a wonderful stay.</p>
                 <p>Enjoy our pool, gym, and event spaces, all designed for your comfort. Stay with us and experience hospitality with a heart!</p>
             </div>
+        </div>
+    </div>
+</div> --}}
+<div class="container section-container">
+    <div class="row align-items-center">
+        <!-- Left Column: Images -->
+        <div class="col-lg-5 col-md-6 position-relative text-center ">
+            <img src="{{ asset('build/assets/images/home/A1.jpg') }}" alt="Main Image" class="img-fluid rounded-img main-img">
+            <img src="{{ asset('build/assets/images/home/A2.jpg') }}" alt="Overlay Image" class="img-fluid rounded-img overlay-img">
+        </div>
+        <!-- Right Column: Content -->
+        <div class="col-lg-5 col-md-6 margin">
+            <div class="history-title">
+                <small>StaySphere Hotel</small>
+                <h2>Our History</h2>
+            </div>
+            <p class="history-text"> "Where comfort meets luxury" – Stay Sphere has been a sanctuary for travelers seeking warmth and elegance.</p>
+            <p class="history-text"> Since its inception, the hotel has embraced a rich tradition of hospitality, blending modern amenities with timeless charm. Designed to offer unforgettable experiences, every detail reflects our commitment to excellence, ensuring a stay that feels like home.</p>
+            <p class="history-text"> Creating memories through unparalleled service and exceptional comfort.</p>
         </div>
     </div>
 </div>

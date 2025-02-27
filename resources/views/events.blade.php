@@ -201,7 +201,7 @@
         <p>Celebrate special moments, big and small.</p>
     </div>
     <div id="eventCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
+        <div class="carousel-inner mb-5">
             <div class="carousel-item active">
                 <div class="row">
                     <div class="col-md-4">
@@ -215,7 +215,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="{{ asset('build/assets/images/events/saminar.jpg') }}" class="card-img-top" alt="Seminars">
+                            <img src="{{ asset('build/assets/images/events/saminar.jpg') }}" height="234vh" class="card-img-top" alt="Seminars">
                             <div class="card-text-overlay">
                                 <h5>Seminars</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
@@ -246,7 +246,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="{{ asset('build/assets/images/events/bayan.jpg') }}" class="card-img-top" alt="bayan">
+                            <img src="{{ asset('build/assets/images/events/bayan.jpg') }}" height="234vh" class="card-img-top" alt="bayan">
                             <div class="card-text-overlay">
                                 <h5>Islamic Conference</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>
@@ -255,7 +255,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card position-relative">
-                            <img src="{{ asset('build/assets/images/events/exhibition.jpg') }}" class="card-img-top" alt="Exhibitions">
+                            <img src="{{ asset('build/assets/images/events/exhibition.jpg') }}" height="234vh" class="card-img-top" alt="Exhibitions">
                             <div class="card-text-overlay">
                                 <h5>Exhibitions</h5>
                                 <button><i class="bi bi-arrow-right-circle"></i></button>

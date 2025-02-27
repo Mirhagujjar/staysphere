@@ -49,14 +49,21 @@
     }
     
     /* responsive */
-    @media (max-width: 576px) {
+    @media (max-width: 768px) {
         .position-absolute {
             position: static !important; /* Absolute position hatane ke liye */
             transform: none !important; 
-            margin-top: -50px; /* Card ko neeche shift karne ke liye */
+            margin-top: -110px; /* Card ko neeche shift karne ke liye */
             z-index: 10 !important; 
             background: white; /* Ensure karein ke transparent na ho */
             padding: 20px; /* Spacing improve karne ke liye */
+        }
+        .cardstyle{
+            width: 90%; 
+            max-width: 500px; 
+            background: white; 
+            bottom: -70px;
+            margin-right:100%;
         }
         h2 {
             font-size: 1.5rem; /* Adjust font size for mobile */
@@ -88,29 +95,24 @@
 
         <!-- Background Room Image -->
         <div class="image">
-            <img src="{{asset('build/assets/images/clean1.jpg')}}" class="img-fluid  rounded" alt="Example Image" ">
+            <img src="{{asset('build/assets/images/clean1.jpg')}}" class="img-fluid  rounded" alt="Example Image">
         </div>
         {{-- card descrition --}}
         <div class="position-absolute start-50 p-4 shadow-lg rounded cardstyle">
             <small style="color: #b2956e; font-weight: bold;">FROM $260</small>
             <h2 class="mt-2" style="color: #2C3E50;">  Housekeeping Servies</h2>
-            <p class="text-muted">
-                "A Spotless Stay, Every Day"
-            </p>
+            <p class="text-muted">"A Spotless Stay, Every Day"</p>
 
             <!-- Facilities List -->
             <div class="d-flex justify-content-start gap-4 mb-4">
                 <h6>Facilities:</h6>
                 <span><i class="bi bi-stack"></i>  Daily cleaning, towel replacement.</span>
-                <span><i class="bi bi-house-door"></i> bed-making service.</span>
-                
+                <span><i class="bi bi-house-door"></i> bed-making service.</span>    
             </div>
 
             <!-- Buttons -->
             <div class="d-flex justify-content-between align-items-center">
                 <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#housekeeping">Get services Now</button>
-                
-
                 <a href="{{ url('/services/housekeeping') }}" class="text-decoration-none text-warning fw-bold">
                     Read more →
                 </a>
@@ -118,7 +120,6 @@
         </div>
     </div>
 </div>
-
 {{-- form --}}
 <div class="modal fade" id="housekeeping">
     <div class="modal-dialog">
@@ -176,25 +177,21 @@
 
 {{-- second servies  Wellness & Fitness Services--}}
 <div class="container my-5 py-5">
-    <div class="position-relative col-md-8">
-
+    <div class="position-relative col-md-8 justify-content-end">
         <!-- Background Room Image -->
         <div class="image">
-            <img src="{{asset('build/assets/images/gym1.jpg')}}" class="img-fluid  rounded" alt="Example Image" ">
+            <img src="{{asset('build/assets/images/gym1.jpg')}}" class="img-fluid  rounded" alt="Example Image">
         </div>
+                {{-- card descrition --}}
         <div class="position-absolute start-50 p-4 shadow-lg rounded cardstyle">
             <small style="color: #b2956e; font-weight: bold;">FROM $260</small>
             <h2 class="mt-2" style="color: #2C3E50;">Wellness & Fitness Services</h2>
-            <p class="text-muted">
-                "A Wellness Experience Beyond the Ordinary"
-            </p>
-
+            <p class="text-muted">"A Wellness Experience Beyond the Ordinary"</p>
             <!-- Facilities List -->
             <div class="d-flex justify-content-start gap-4 mb-4">
                 <h6>Facilities:</h6>
                 <span><i class="bi bi-person-arms-up"></i>  Relaxing treatments for guests.</span>
-                <span><i class="bi bi-water"></i> Indoor or outdoor pool access.</span>
-                
+                <span><i class="bi bi-water"></i> Indoor or outdoor pool access.</span>    
             </div>
 
             <!-- Buttons -->
@@ -247,18 +244,17 @@
 
 {{-- third service  Guest Assistance & Security--}}
 <div class="container my-5 py-5">
-    <div class="position-relative col-md-8">
+    <div class="position-relative col-md-8 justify-content-end">
 
         <!-- Background Room Image -->
         <div class="image">
             <img src="{{asset('build/assets/images/security/se1.jpg')}}" class="img-fluid  rounded" alt="Example Image" >
           </div>
+        {{-- card description --}}
         <div class="position-absolute start-50 p-4 shadow-lg rounded cardstyle">
             <small style="color: #b2956e; font-weight: bold;">FROM $260</small>
             <h2 class="mt-2" style="color: #2C3E50;">  Guest Assistance & Security</h2>
-            <p class="text-muted">
-                "Advanced Safety for a Worry-Free Stay"
-            </p>
+            <p class="text-muted">"Advanced Safety for a Worry-Free Stay"</p>
 
             <!-- Facilities List -->
             <div class="d-flex justify-content-start gap-4 mb-4">

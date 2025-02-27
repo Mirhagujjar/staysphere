@@ -19,7 +19,7 @@
 
     .left-section {
         flex: 1;
-        background: url('build/assets/images/slider5.jpg') no-repeat center center/cover;
+        background: url('build/assets/images/natur1.jpg') no-repeat center center/cover;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -155,7 +155,7 @@
 
                 <div class="row mb-0">
                     <div class="col-md-8 offset-md-4">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-warning">
                             {{ __('Login') }}
                         </button>
 

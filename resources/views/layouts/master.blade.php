@@ -5,75 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stay Sphere</title>
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="{{ asset('build/assets/css/bootstrap.min.css') }}">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/icofont/1.0.1/css/icofont.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset ('build/assets/css/bootstrap.min.css') }}">
   <script src="{{ asset('build/assets/js/bootstrap.bundle.min.js')}}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-
-
-<style>
-    /* Navbar Styling */
-    .navbar {
-      background-color: #2C3E50; /* Midnight Blue */
+  <style>
+    * {
+        font-family: Arial, sans-serif;
     }
-    .dropdown {
-      background-color: #2C3E50; /* Midnight Blue */
+    .navbar {
+      background-color: #2C3E50;
+      padding: 0.3rem 1rem;
     }
     .navbar .navbar-brand,
     .navbar .nav-link {
       color: white ;
     }
     .navbar .nav-link:hover {
-      color: #1ABC9C ; /* Light Teal */
-    }
-    .navbar a {
-      color: white !important;
-       }
-   .navbar-brand img {
-        border-radius: 20%;
-        width: 50px;
-     }
-   .navbar-toggler {
-      border-color: white;
-    }
-   .navbar-toggler-icon {
-     background-color: white; 
-    }
-    .navbar-toggler:hover,
-    .navbar-toggler:focus {
-       background-color: #1ABC9C; 
-     }
-      
-    /* Footer Styling */
-    /* footer {
-      background-color: #2C3E50; 
-      color: white;
+      color: #1ABC9C ;
     }
 
-    footer a {
-      color: #F1C40F;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      color: #1ABC9C; 
-    } */
-      
-   .dropdown-menu {
-         background-color: #2C3E50; 
-    }
-
-   .dropdown-item {
-         color: #FFFFFF; 
-    }
-    .dropdown-item:hover {
-         background-color: #F1C40F; 
-         color: #2C3E50; 
-      }
-       
     footer {
+        background-color: #2C3E50;
       font-size: 14px;
      line-height: 1.6;
     }
@@ -83,100 +36,108 @@
      font-size: 16px;
      font-weight: bold;
     }
+    footer a {
 
-    footer .btn-warning {
-     background-color: #F1C40F;
-     border: none;
-     color: #fff;
+      text-decoration: none;
+      color: white;
+    }
+    footer a:hover {
+        color: #F1C40F;
+    }
+    .btn-custom {
+      background-color: #F1C40F;
+      color: #2C3E50;
+    }
+    .btn-custom:hover {
+      background-color: #1ABC9C;
+      color: white;
     }
 
-    footer .btn-warning:hover {
-      background-color: #e5b700;
-    }
-
-    
-
-      /* for button */
-    html {
-        scroll-behavior: smooth;
-    }
-    a:hover {
-        transform: scale(1.1); /* Slightly enlarges the button on hover */
-    }
-    #scrollToTop {
-        background: conic-gradient(#F1C40F 0%, transparent 0%);
-    }
-</style>
+  </style>
 </head>
 <body>
-
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg shadow margin-down">
-    <div class="container-fluid">
-        <a class="navbar-brand fw-bold align-items-center me-auto" href="#" style="margin-left: 30px;">
-            <img  src="{{ asset('build/assets/images/logo.jpg')}}" alt="Stay Sphere Logo"  style="height: 50px; width: 50px; margin-right: 10px;"></a>
+<nav class="navbar navbar-expand-lg shadow sticky-top">
+    <div class="container">
         <!-- Logo -->
-        <a class="navbar-brand fw-bold font-size: 1.5rem; font-weight: bold;" href="#">Stay Sphere</a>
+        <a class="navbar-brand fw-bold" href="#">
+            <img src="{{ asset('build/assets/images/logo.jpg') }}" alt="Stay Sphere Logo" width="40" height="40" style="border-radius: 50%;">
+        </a>
+        <a class="navbar-brand fw-bold" href="#">Stay Sphere</a>
 
-      <!-- Toggler for Mobile -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <!-- Toggler for Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <!-- Navbar Links -->
-      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('rooms') }}">Rooms</a></li>
+        <!-- Navbar Links -->
 
-            {{-- <li class="nav-item"><a class="nav-link" href="{{ route('reservations.create') }}" >Book Now</a></li> --}}
-             
-             {{-- services --}}
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="extraMenu" role="button" data-bs-toggle="dropdown">
-                  Services
-              </a>
-              <ul class="dropdown-menu dropdown-menu-dark">
-                <li><a class="dropdown-item" href="{{ route('services') }}">services</a></li>
-                  {{-- <li><a class="dropdown-item" href="{{ route('rooms') }}">Rooms</a></li> --}}
-                  <li><a class="dropdown-item" href="{{ route('events') }}">Events</a></li>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/">Home</a>
+                </li>
 
-              </ul>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('rooms')}}">Rooms</a>
+                </li>
 
-            {{-- aboutus --}}
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="extraMenu" role="button" data-bs-toggle="dropdown">
-                  About Us
-              </a>
-              <ul class="dropdown-menu dropdown-menu-dark">
-                  <li><a class="dropdown-item" href="{{ route('about') }}">About Us</a></li>
-                  <li><a class="dropdown-item" href="{{ route('contact.index') }}">Contact Us</a></li>
-                  <li><a class="dropdown-item" href="{{ route('reviews') }}">Reviews</a></li>
-              </ul>
-            </li>
 
-            {{-- otherpages --}}
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="extraMenu" role="button" data-bs-toggle="dropdown">
-                  Other pages
-              </a>
-              <ul class="dropdown-menu dropdown-menu-dark">
-                  <li><a class="dropdown-item" href="{{ route('menu') }}">Menu of the Day</a></li>
-                  <li><a class="dropdown-item" href="{{ route('blog.blog') }}">Blog</a></li>
-                  <li><a class="dropdown-item" href="{{ route('packages') }}">Packages</a></li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="extraMenu" role="button" data-bs-toggle="dropdown">
+                       Services
+                    </a>
+                <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="dropdown-item" href="{{route('services')}}">Services</a></li>
+                    <li><a class="dropdown-item" href="{{ route('events') }}">Events</a></li>
+
                 </ul>
             </li>
-          @yield('nav-content')
-        </ul>
-      </div>
+
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="extraMenu" role="button" data-bs-toggle="dropdown">
+                       About
+                    </a>
+                <ul class="dropdown-menu dropdown-menu-dark">
+                    <li class="nav-item">
+                        <a class="dropdown-item" href="{{route('contact.index')}}">Contact Us</a>
+                    </li>
+                    <li><a class="dropdown-item" href="{{ route('about') }}">About Us</a></li>
+                    <li><a class="dropdown-item" href="{{ route('reviews') }}">Reviews</a></li>
+
+                </ul>
+               </li>
+
+
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="extraMenu" role="button" data-bs-toggle="dropdown">
+                        Other pages
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="{{route('menu')}}">Menu of the Day</a></li>
+                        <li><a class="dropdown-item" href="{{ route('blog.blog') }}">Blog</a></li>
+                        <li><a class="dropdown-item" href="{{ route('packages') }}">Packages</a></li>
+                    </ul>
+                  </li>
+
+
+                @yield('nav-content')
+
+            </ul>
+        </div>
     </div>
 </nav>
 
-{{-------------------footer------------------------------}}
-@yield('content') 
-<footer class="bg-dark text-light pt-5 pb-4">
-    <div class="container text-center text-md-start margin-top py-5">
+
+  @yield('content')
+
+  <footer class=" text-light pt-5 pb-4 ">
+    <div class="container text-center text-md-start margin-top">
       <div class="row">
         <!-- Logo and Description -->
         <div class="col-md-4 col-lg-4 col-xl-3 mx-auto mt-3">
@@ -194,71 +155,169 @@
             </ul>
           </div>
         </div>
-  
+
         <!-- Useful Links -->
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">Links</h6>
-          <p><a href="{{ route('about') }}" class="text-light text-decoration-none">About Us</a></p>
-          <p><a href="{{ route('services') }}" class="text-light text-decoration-none">Services</a></p>
-          <p><a href="{{ route('reservations.index') }}" class="text-light text-decoration-none">Book Now</a></p>
-          <p><a href="{{ route('reservations.index') }}" class="text-light text-decoration-none">Rooms</a></p>
-          <p><a href="{{ route('events') }}" class="text-light text-decoration-none">Events</a></p>
+          <p><a href="{{ route('about') }}">About Us</a></p>
+          <p><a href="{{route('services')}}">Services</a></p>
+          <p><a href="{{route('reservations.create')}}" >Book Now</a></p>
+          <p><a href="{{route('rooms')}}">Rooms</a></p>
+          <p><a href="{{ route('events') }}">Events</a></p>
         </div>
-  
+
         <!-- More Links -->
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">Useful Links</h6>
-          <p><a href="{{ route('home') }}" class="text-light text-decoration-none">Home</a></p>
-          <p><a href="{{ route('blog.blog') }}" class="text-light text-decoration-none">Blog</a></p>
-          <p><a href="{{ route('reviews') }}" class="text-light text-decoration-none">Reviews</a></p>
-          <p><a href="#" class="text-light text-decoration-none">Testimonials</a></p>
-          <p><a href="{{ route('contact.index') }}" class="text-light text-decoration-none">Contact Us</a></p>
+          <p><a href="/">Home</a></p>
+          <p><a href="{{ route('blog.blog') }}">Blog</a></p>
+          <p><a href="{{ route('reviews') }}">Reviews</a></p>
+          <p><a href="{{ route('packages') }}">Packages</a></p>
+          <p><a href="{{route('contact.index')}}">Contact Us</a></p>
         </div>
-  
+
         <!-- Newsletter -->
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">Newsletter</h6>
           <p class=" mb-4 font-weight-bold">
-            "Stay updated with the latest offers, exclusive discounts, and upcoming events at our hotel. Be the first to know about special packages and exciting services tailored just for you. Subscribe to our newsletter and let us bring the best of comfort and luxury right to your inbox!
+            Get exclusive discounts, special offers, and hotel updates. Subscribe to our newsletter for the best deals and services delivered to your inbox!
           </p>
           <form>
             <div class="mb-3">
               <input type="email" class="form-control" placeholder="Your Email*" />
             </div>
-            <button type="submit" class="btn btn-warning w-100">Subscribe Now</button>
+            <button type="submit" class="btn btn-custom w-100">Subscribe Now</button>
           </form>
         </div>
       </div>
     </div>
-  
-    
+
+
     <div class="text-center p-3" style="background-color: var(--text-color); color: white;">
       © {{ date('Y') }} Stay Sphere. All rights reserved.
    </div>
-</footer>
+  </footer>
 
 {{-------------------scroll to top ------------------- --}}
-<a href="#"
-id="scrollToTop"
-class="btn position-fixed bottom-0 end-0 m-3"
-style="background-color: transparent; color: #F1C40F; width: 60px; height: 60px; border-radius: 50%; border: 4px solid #F1C40F; display: flex; align-items: center; justify-content: center; font-weight: bold; transition: background-color 0.3s;background-color:#2C3E50">
- ↑
+  <a href="#"
+  id="scrollToTop"
+  class="btn position-fixed bottom-0 end-0 m-3"
+  style="background-color: transparent; color: #F1C40F; width: 60px; height: 60px; border-radius: 50%; border: 4px solid #F1C40F; display: flex; align-items: center; justify-content: center; font-weight: bold; transition: background-color 0.3s;background-color:#2C3E50">
+   ↑
 </a>
 
 <script>
-  let scrollBtn = document.getElementById("scrollToTop");
+    let scrollBtn = document.getElementById("scrollToTop");
 
-  window.onscroll = function () {
-      let scrollTop = document.documentElement.scrollTop;
-      let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      let scrollPercentage = (scrollTop / scrollHeight) * 100;
+    window.onscroll = function () {
+        let scrollTop = document.documentElement.scrollTop;
+        let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        let scrollPercentage = (scrollTop / scrollHeight) * 100;
 
-      scrollBtn.style.display = scrollPercentage > 10 ? "flex" : "none";
+        scrollBtn.style.display = scrollPercentage > 10 ? "flex" : "none";
 
-  };
+    };
 
 </script>
 
-
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

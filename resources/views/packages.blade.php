@@ -36,6 +36,8 @@
         color: #343A40;
     }
     .package-card {
+        /* height: 50%;
+        width: 450px; */
         overflow: hidden;
         transition: transform 0.3s ease-in-out;
     }
@@ -87,16 +89,7 @@
     .facility-item:hover {
         transform: scale(1.1);
     }
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .hero-section {
-            padding: 100px 10px; /* Adjust padding for smaller screens */
-        }
-
-        .hero-section h1 {
-            font-size: 2rem; /* Adjust font size for smaller screens */
-        }
-    }
+    
 </style>
 
 {{-- Header Section --}}
@@ -121,7 +114,7 @@
                         <img src="{{ asset('build/assets/images/pakages/l1.jpg') }}" class="img-fluid rounded-start" alt="Luxury Stay">
                     </div>
                     <div class="col-6">
-                        <div class="card-body">
+                        <div class="card-body h-100">
                             <h5 class="card-title">Luxury Stay (2 Persons)</h5>
                             <p class="card-text">King-size suite with private spa<br> Airport pickup <br> Gourmet meals.</p>
                             <p class="card-text">
@@ -141,13 +134,14 @@
                         <img src="{{ asset('build/assets/images/pakages/co3.jpg') }}" class="img-fluid rounded-start" alt="Honeymoon Special">
                     </div>
                     <div class="col-6">
-                        <div class="card-body">
+                        <div class="card-body h-100">
                             <h5 class="card-title">Honeymoon Special (Couple)</h5>
                             <p class="card-text">Romantic suite with jacuzzi<br> Candlelight dinner<br> Flower decor.</p>
                             <p class="card-text">
                                 💰 Regular Price: <del>PKR 90,000/night</del> | Package Price: <strong>PKR 72,000/night</strong>
                             </p>
-                            <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>                        </div>
+                            <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>                     
+                         </div>
                     </div>
                 </div>
             </div>
@@ -161,7 +155,7 @@
                         <img src="{{ asset('build/assets/images/pakages/fa1.jpg') }}" class="img-fluid rounded-start" alt="Family Fun">
                     </div>
                     <div class="col-6">
-                        <div class="card-body">
+                        <div class="card-body h-100">
                             <h5 class="card-title">Family Fun (4 Persons)</h5>
                             <p class="card-text">Spacious family suite with fun activities<br> Amusement park tickets<br> Meals.</p>
                             <p class="card-text">
@@ -182,7 +176,7 @@
                         <img src="{{ asset('build/assets/images/pakages/ad1.jpg') }}" class="img-fluid rounded-start" alt="Adventure Getaway">
                     </div>
                     <div class="col-6">
-                        <div class="card-body">
+                        <div class="card-body h-100">
                             <h5 class="card-title">Adventure Getaway (2 Persons)</h5>
                             <p class="card-text">Hiking<br> Snorkeling, zip-lining<br> A special adventure suite.</p>
                             <p class="card-text">
@@ -203,7 +197,7 @@
                         <img src="{{ asset('build/assets/images/pakages/m1.jpg') }}" class="img-fluid rounded-start" alt="Wellness Escape">
                     </div>
                     <div class="col-6">
-                        <div class="card-body">
+                        <div class="card-body h-100">
                             <h5 class="card-title">Wellness Escape (1 Person)</h5>
                             <p class="card-text">Spa treatments<br> Yoga sessions<br> All-day wellness center access.</p>
                             <p class="card-text">
@@ -217,14 +211,14 @@
         </div>
 
         <!-- Package 6 -->
-        <div class="col-md-6 mb-4 package-card">
+        <div class="col-md-6 mb-4 package-card ">
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-6">
                         <img src="{{ asset('build/assets/images/pakages/c2.jpg') }}" class="img-fluid rounded-start" alt="Corporate Retreat">
                     </div>
                     <div class="col-6">
-                        <div class="card-body">
+                        <div class="card-body h-100">
                             <h5 class="card-title">Corporate Retreat (10 Persons)</h5>
                             <p class="card-text">Conference rooms<br> Team activities<br> High-speed internet.</p>
                             <p class="card-text">

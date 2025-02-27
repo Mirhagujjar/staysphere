@@ -1,5 +1,4 @@
 @extends('layouts.master')
-
 @section('nav-content')
 <ul class="navbar-nav ms-auto">
     <!-- Authentication Links -->
