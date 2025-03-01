@@ -127,7 +127,16 @@
     }
 
     /* Responsive Adjustments */
-    @media (max-width: 1200px) {
+    @media(max-width: 1200px){
+        .position-relative .overlay-img {
+            position: relative;
+            width: 70%;
+            margin-top: 15px;
+            right: 0;
+            transform: translateY(0);
+        }
+    }
+    /* @media (max-width: 1200px) {
         .row.align-items-center {
             gap: 100px;
         }
@@ -137,7 +146,7 @@
         }
     }
 
-    @media (max-width: 992px) {
+    @media (max-width: 1010px) {
         .row.align-items-center {
             gap: 50px;
         }
@@ -148,7 +157,7 @@
         }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 778px) {
         .position-relative {
             text-align: center;
         }
@@ -161,9 +170,9 @@
         .text-md-start {
             text-align: center !important;
         }
-    }
+    }*/
 
-    @media (max-width: 576px) {
+    @media (max-width: 676px) {
         .position-relative .overlay-img {
             position: relative;
             width: 70%;
@@ -171,7 +180,7 @@
             right: 0;
             transform: translateY(0);
         }
-    }
+    } 
 
     /* {{------------------rooms---------------------}} */
     .card-hover {

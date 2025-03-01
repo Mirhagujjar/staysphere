@@ -174,8 +174,36 @@
                                 {{ __('Forgot Your Password?') }}
                             </a>
                         @endif
+                        <style>
+                            .signup-section {
+                                background-color: rgb(247, 211, 8); /* Light background color */
+                                padding: 20px; /* Add padding */
+                                border-radius: 8px; /* Rounded corners */
+                                text-align: center; /* Center the text */
+                                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+                                margin-top: 20px; /* Space above the section */
+                            }
+                        
+                            .signup-text {
+                                font-size: 1.2rem; /* Increase font size */
+                                color: #333; /* Dark text color */
+                            }
+                        
+                            .signup-link {
+                                color: rgb(6, 6, 56); /* Bootstrap primary color */
+                                text-decoration: none; /* Remove underline */
+                                font-weight: bold; /* Bold text */
+                                transition: color 0.3s; /* Smooth transition for hover effect */
+                            }
+                        
+                            .signup-link:hover {
+                                color: midnightblue; /* Darker shade on hover */
+                                text-decoration: underline; /* Underline on hover */
+                            }
+                        </style>
+                        
                         <div class="signup-section">
-                            <p>  New here? <a href="{{ route('register') }}">Register </a></p>
+                            <p class="signup-text">New here? <a href="{{ route('register') }}" class="signup-link">Register</a></p>
                         </div>
                     </div>
                     

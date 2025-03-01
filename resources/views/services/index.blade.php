@@ -54,7 +54,7 @@
         .position-absolute {
             position: static !important; /* Absolute position hatane ke liye */
             transform: none !important; 
-            margin-top: -110px; /* Card ko neeche shift karne ke liye */
+            margin-top: -70px; /* Card ko neeche shift karne ke liye */
             z-index: 10 !important; 
             background: white; /* Ensure karein ke transparent na ho */
             padding: 20px; /* Spacing improve karne ke liye */
@@ -70,7 +70,7 @@
             font-size: 1.5rem; /* Adjust font size for mobile */
         }
         .btn {
-            width: 75%; /* Make button full width on mobile */
+            width: 50%; /* Make button full width on mobile */
         }
     }
   

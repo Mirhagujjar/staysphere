@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{{asset ('build/assets/css/bootstrap.min.css') }}">
   <script src="{{ asset('build/assets/js/bootstrap.bundle.min.js')}}"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
+  <link rel="icon" type="image/x-icon" href="{{ asset('build/assets/images/SSlogo2.png') }}">
   <style>
     * {
         font-family: Arial, sans-serif;
@@ -61,7 +61,7 @@
     <div class="container">
         <!-- Logo -->
         <a class="navbar-brand fw-bold" href="#">
-            <img src="{{ asset('build/assets/images/logo.jpg') }}" alt="Stay Sphere Logo" width="40" height="40" style="border-radius: 50%;">
+            <img src="{{ asset('build/assets/images/SSlogo2.png') }}" alt="Stay Sphere Logo" width="40" height="40" style="border-radius: 50%;">
         </a>
         <a class="navbar-brand fw-bold" href="#">Stay Sphere</a>
 
