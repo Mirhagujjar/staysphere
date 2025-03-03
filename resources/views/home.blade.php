@@ -137,7 +137,7 @@
         }
     }
 
-    @media (max-width: 1010px) {
+    /* @media (max-width: 1010px) {
         .row.align-items-center {
             gap: 50px;
         }
@@ -146,9 +146,9 @@
             width: 45%;
             right: -60px;
         }
-    }
+    } */
 
-    @media (max-width: 778px) {
+    /* @media (max-width: 778px) {
         .position-relative {
             text-align: center;
         }
@@ -161,7 +161,7 @@
         .text-md-start {
             text-align: center !important;
         }
-    }
+    } */
 
     @media (max-width: 574px) {
         .position-relative .overlay-img {
