@@ -2,277 +2,311 @@
 
 @section('content')
 <style>
-      *{
+    * {
         font-family: "Montserrat", Helvetica, sans-serif;
+        box-sizing: border-box; /* Ensure consistent box sizing */
     }
+
+    html, body {
+        overflow-x: hidden; /* Prevent horizontal overflow */
+        margin: 0; /* Reset default margin */
+        padding: 0; /* Reset default padding */
+    }
+
     /* <!------------------------------- Top Banner ------------------------> */
     .half-screen-image {
-    background: url('{{ asset('build/assets/images/reception.jpg') }}')  center/cover no-repeat;
-    position: relative;
-    height: 75vh;
+        background: url('{{ asset('build/assets/images/reception.jpg') }}') center/cover no-repeat;
+        position: relative;
+        height: 75vh;
+    }
 
-    }
     .overlay-text {
-     font-family: "Montserrat", Helvetica, sans-serif;
-     position: absolute;
-     top: 50%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-     text-align: center;
-     color: #F8F9FA;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #F8F9FA;
     }
+
     .overlay-text h1 {
-     font-size: 4rem;
-     margin: 0;
+        font-size: 4rem;
+        margin: 0;
     }
+
     p.lead {
-     font-size: 18px;
-     line-height: 32px;
-     margin-top: 0;
-     font-weight: 300;
-   }
+        font-size: 18px;
+        line-height: 32px;
+        margin-top: 0;
+        font-weight: 300;
+    }
 
     .breadcrumb-container {
-     margin-top: 10px;
-     font-size: 20px;
-     font-weight: 500;
-     color: #F8F9FA;
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: 500;
+        color: #F8F9FA;
     }
 
     .breadcrumb-container a {
-     text-decoration: none;
-     color: #F1C40F;
+        text-decoration: none;
+        color: #F1C40F;
     }
+
     .breadcrumb-container a:hover {
-     color: #1ABC9C; 
+        color: #1ABC9C; 
     }
 
-
-  /* -------------------------2------------------------ */
-  /* Section Container */
+    /* -------------------------2------------------------ */
+    /* Section Container */
     .section-container {
-     padding: 120px 0 95px;
+        padding: 120px 0 95px;
     }
+
     /* Image Styling */
     .rounded-img {
-     border-radius: 10px;
-     max-width: 100%;
-     height: auto;
+        border-radius: 10px;
+        max-width: 100%;
+        height: auto;
     }
 
     .position-relative .overlay-img {
-     position: absolute;
-     width: 50%;
-     top: 50%;
-     right: -115px;
-     transform: translateY(-50%);
-     border: 5px solid white;
-     border-radius: 10px;
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        width: 50%;
+        top: 50%;
+        right: -115px;
+        transform: translateY(-50%);
+        border: 5px solid white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-   /* History Title */
-    .margin{
-     margin-right: 1em;
-     margin-left: 1em;
+
+    /* History Title */
+    .margin {
+        margin-right: 1em;
+        margin-left: 1em;
     }
+
     .history-title {
-      font-family: "Montserrat", Helvetica, sans-serif;
+        font-family: "Montserrat", Helvetica, sans-serif;
     }
+
     .history-title small {
-     color: #000000;
-     font-weight: bold;
-     text-transform: uppercase;
+        color: #000000;
+        font-weight: bold;
+        text-transform: uppercase;
     }
+
     .history-title h2 {
-     margin-top: 10px;
-     margin-left: 5px;
-     font-size: 2rem;
-     font-weight: bold;
+        margin-top: 10px;
+        margin-left: 5px;
+        font-size: 2rem;
+        font-weight: bold;
     }
+
     /* History Text */
     .history-text {
-     line-height: 1.8;
-     color: #000000;
+        line-height: 1.8;
+        color: #000000;
     }
+
     /* Row Alignment */
     .row.align-items-center {
-     gap: 150px;
+        gap: 150px;
     } 
-   /* Responsive Adjustments */
-    @media (max-width: 1200px)
-   {
-    .row.align-items-center {
-        gap: 100px;
+
+    /* Responsive Adjustments */
+    @media (max-width: 1200px) {
+        .row.align-items-center {
+            gap: 100px;
+        }
+
+        .position-relative .overlay-img {
+            right: -90px;
+        }
     }
-    .position-relative .overlay-img {
-        right: -90px;
-    }
-   }
 
     @media (max-width: 992px) {
-    .row.align-items-center {
-        gap: 50px;
-    }
-    .position-relative .overlay-img {
-        width: 45%;
-        right: -60px;
-    }
-   }
+        .row.align-items-center {
+            gap: 50px;
+        }
 
-   @media (max-width: 768px) {
-    .position-relative {
-        text-align: center;
+        .position-relative .overlay-img {
+            width: 45%;
+            right: -60px;
+        }
     }
-    .overlay-img {
-        width: 40%;
-        right: -30px;
-    }
-    .text-md-start {
-        text-align: center !important;
-    }
+
+    @media (max-width: 768px) {
+        .position-relative {
+            text-align: center;
+        }
+
+        .overlay-img {
+            width: 40%;
+            right: -30px;
+        }
+
+        .text-md-start {
+            text-align: center !important;
+        }
     }
 
     @media (max-width: 576px) {
-    .position-relative .overlay-img {
-        position: relative;
-        width: 70%;
-        margin-top: 15px;
-        right: 0;
-        transform: translateY(0);
-    }
-    .section-container {
-        padding: 60px 0;
-    }
-    .row.align-items-center {
-        gap: 30px;
-    }
-   }
+        .position-relative .overlay-img {
+            position: relative;
+            width: 70%;
+            margin-top: 15px;
+            right: 0;
+            transform: translateY(0);
+        }
 
-   /* ---------------------------------3------------------------------ */
-    .testimonial-section {
-     position: relative;
-     padding: 100px 0;
-     color: white;
-     overflow: hidden;
+        .section-container {
+            padding: 60px 0;
+        }
+
+        .row.align-items-center {
+            gap: 30px;
+        }
     }
+
+    /* ---------------------------------3------------------------------ */
+    .testimonial-section {
+        position: relative;
+        padding: 100px 0;
+        color: white;
+        overflow: hidden;
+    }
+
     .video-background {
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     object-fit: cover;
-     z-index: -1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
     }
 
     .video-overlay {
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     background: rgba(0, 0, 0, 0.6);
-     z-index: -1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: -1;
     } 
+
     .section-clients {
-     font-size: 2rem;
-     font-weight: bold;
-     text-transform: uppercase;
-     letter-spacing: 2px;
+        font-size: 2rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
     }
 
     .testimonial-card {
-     background-color: rgba(0, 0, 0, 0.8);
-     color: #fff;
-     max-width: 600px;
-     border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        max-width: 600px;
+        border-radius: 10px;
     }
 
     .comment {
-     font-style: italic;
-     color: #ddd;
-     font-size: 0.9rem;
+        font-style: italic;
+        color: #ddd;
+        font-size: 0.9rem;
     }
 
     .dot {
-     width: 12px;
-     height: 12px;
-     margin: 5px;
-     border-radius: 50%;
-     background-color: rgba(255, 255, 255, 0.5);
-     border: none;
-     display: inline-block;
-     cursor: pointer;
+        width: 12px;
+        height: 12px;
+        margin: 5px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.5);
+        border: none;
+        display: inline-block;
+        cursor: pointer;
     }
 
     .dot.active {
-     background-color: white;
+        background-color: white;
     }
 
     /* ----------------------------4------------------------ */
     .our-team-section {
-     background-color: #f8f9fa;
-     color:#ffffff;
+        background-color: #f8f9fa;
+        color: #ffffff;
     }
+
     .section-title {
-     font-size: 2rem;
-     font-weight: bold;
-     color: #050505;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #050505;
     }
+
     .section-subtitle {
-     font-size: 1.2rem;
-     color: #000000;
-     margin-top: 10px;
+        font-size: 1.2rem;
+        color: #000000;
+        margin-top: 10px;
     }
+
     .team-card {
-     background-color:#343A40;
-     transition: transform 0.3s ease, box-shadow 0.3s ease;
-     border: 1px solid #ddd;
-     height: 100%;
-     }
+        background-color: #343A40;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #ddd;
+        height: 100%;
+    }
+
     .team-card:hover {
-     transform: scale(1.05);
-     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+        transform: scale(1.05);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
     }
+
     .team-image img {
-     width: 120px;
-     height: 120px;
-     border: 5px solid #1ABC9C;
-     padding: 5px;
+        width: 120px;
+        height: 120px;
+        border: 5px solid #1ABC9C;
+        padding: 5px;
     }
+
     .team-description {
-     font-size: 0.9rem;
-     color: #ffffff;
+        font-size: 0.9rem;
+        color: #ffffff;
     }
 
     .social-links a {
-     color: #ffffff;
-     font-size: 1.2rem;
-     transition: color 0.3s ease;
+        color: #ffffff;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
     }
+
     .social-links a:hover {
-     color: #1ABC9C;
+        color: #1ABC9C;
     }
 
     /* ------------------------------------5---------------------------- */
+    .faq-section {
+        margin-top: 50px;
+        background-color: #343A40;
+        padding: 50px 0;
+    }
 
-   .faq-section {
-     margin-top: 50px;
-     background-color: #343A40;
-     padding: 50px 0;
+    .title small {
+        color: #ffffff;
+        font-size: 0.9rem;
     }
-   .title small {
-     color: #ffffff;
-     font-size: 0.9rem;
-     }
+
     .title h3 {
-     font-size: 1.8rem;
-     font-weight: bold;
-     color: #ffffff;
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #ffffff;
     }
-    .title p{
-       color:#ffffff;
+
+    .title p {
+        color: #ffffff;
     }
+
     .accordion .card {
         border: none;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -295,15 +329,15 @@
     }
 
     .accordion .btn-link i {
-       transition: transform 0.3s ease;
+        transition: transform 0.3s ease;
     }
 
     .accordion .btn-link.collapsed i {
-       transform: rotate(0deg);
+        transform: rotate(0deg);
     }
 
     .accordion .btn-link:not(.collapsed) i {
-       transform: rotate(45deg);
+        transform: rotate(45deg);
     }
 
     .accordion .card-body {
@@ -312,27 +346,21 @@
         padding: 20px;
         font-size: 0.95rem;
     }
-
-
 </style>
 
 {{-- main start --}}
- <div class="half-screen-image">
-    <div class="half-screen-image">
-        <div class="overlay-text">
-            <p class="mt-3 lead">Luxury Hotel Experience</p>
-            <h1>ABOUT US</h1>
+<div class="half-screen-image">
+    <div class="overlay-text">
+        <p class="mt-3 lead">Luxury Hotel Experience</p>
+        <h1>ABOUT US</h1>
 
-            <div class="breadcrumb-container">
-                <a href="/welcome">Home</a> > AboutUs
-            </div>
+        <div class="breadcrumb-container">
+            <a href="/welcome">Home</a> > About Us
         </div>
     </div>
 </div>
 
-
 {{-- --------------------2------------------------- --}}
-
 <div class="container section-container">
     <div class="row align-items-center">
         <!-- Left Column: Images -->
@@ -452,7 +480,7 @@
                         <img src="{{ asset('build/assets/images/team1.jpg') }}" alt="Team Member 1" class="img-fluid rounded-circle">
                     </div>
                     <h5 class="mt-3">John Doe</h5>
-                    <p >CEO & Founder</p>
+                    <p>CEO & Founder</p>
                     <p class="team-description">John has 15+ years of experience in hospitality, ensuring top-notch service and luxury for every guest.</p>
                     <div class="social-links mt-3">
                         <a href="#" class="me-3"><i class="bi bi-facebook"></i></a>
@@ -469,7 +497,7 @@
                         <img src="{{ asset('build/assets/images/team2.jpg') }}" alt="Team Member 2" class="img-fluid rounded-circle">
                     </div>
                     <h5 class="mt-3">Jane Smith</h5>
-                    <p >General Manager</p>
+                    <p>General Manager</p>
                     <p class="team-description">Jane is an expert in managing operations and ensuring a smooth experience for all our guests.</p>
                     <div class="social-links mt-3">
                         <a href="#" class="me-3"><i class="bi bi-facebook"></i></a>
@@ -486,7 +514,7 @@
                         <img src="{{ asset('build/assets/images/team3.jpg') }}" alt="Team Member 3" class="img-fluid rounded-circle">
                     </div>
                     <h5 class="mt-3">Emily Rose</h5>
-                    <p >Head of Marketing</p>
+                    <p>Head of Marketing</p>
                     <p class="team-description">Emily crafts exceptional marketing strategies that bring the Stay Sphere experience to the world.</p>
                     <div class="social-links mt-3">
                         <a href="#" class="me-3"><i class="bi bi-facebook"></i></a>
@@ -500,7 +528,6 @@
 </div>
 
 {{-- -----------------------5--------------------------- --}}
-
 <div class="faq-section py-5">
     <div class="container">
         <div class="row justify-content-between">
