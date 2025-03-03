@@ -111,7 +111,9 @@
         }
         .btn {
             width: 75%; /* Make button full width on mobile */
+        
         }
+        
     }
 
 </style>
@@ -176,7 +178,7 @@
 </div>
 
 <!-- Service Images -->
-<div class="container mt-5">
+<div class="container mt-5 ">
     <div class="row">
         <div class="col-md-4"><img src="{{ asset('build/assets/images/clean3.jpg') }}" class="service-img"></div>
         <div class="col-md-4"><img src="{{ asset('build/assets/images/clean4.jpg') }}" class="service-img"></div>

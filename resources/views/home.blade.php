@@ -2,6 +2,17 @@
 @section('content')
 
 <style>
+    /* General Reset */
+    html, body {
+        overflow-x: hidden; /* Prevent horizontal overflow */
+        margin: 0; /* Reset default margin */
+        padding: 0; /* Reset default padding */
+    }
+
+    *, *::before, *::after {
+        box-sizing: border-box; /* Ensure consistent box sizing */
+    }
+
     /* -----------------slider-------------- */
     .carousel-inner img {
         width: 100%;
@@ -68,34 +79,26 @@
     }
 
     /* --------------about us section------------------ */
-    /* Section Container */
     .section-container {
         padding: 120px 0 95px;
     }
 
-    /* Image Styling */
     .rounded-img {
         border-radius: 10px;
         max-width: 100%;
-        height: 460px;
+        height: auto; /* Make height auto for responsiveness */
     }
 
     .position-relative .overlay-img {
         position: absolute;
         width: 50%;
-        height: 350px;
+        height: auto; /* Make height auto for responsiveness */
         top: 70%;
         right: -115px;
         transform: translateY(-50%);
         border: 5px solid white;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    /* History Title */
-    .margin {
-        margin-right: 1em;
-        margin-left: 1em;
     }
 
     .history-title {
@@ -115,28 +118,16 @@
         font-weight: bold;
     }
 
-    /* History Text */
     .history-text {
         line-height: 1.8;
         color: #000000;
     }
 
-    /* Row Alignment */
     .row.align-items-center {
         gap: 150px;
     }
 
-    /* Responsive Adjustments */
-    @media(max-width: 1200px){
-        .position-relative .overlay-img {
-            position: relative;
-            width: 70%;
-            margin-top: 15px;
-            right: 0;
-            transform: translateY(0);
-        }
-    }
-    /* @media (max-width: 1200px) {
+    @media (max-width: 1200px) {
         .row.align-items-center {
             gap: 100px;
         }
@@ -170,9 +161,9 @@
         .text-md-start {
             text-align: center !important;
         }
-    }*/
+    }
 
-    @media (max-width: 676px) {
+    @media (max-width: 574px) {
         .position-relative .overlay-img {
             position: relative;
             width: 70%;
@@ -180,9 +171,15 @@
             right: 0;
             transform: translateY(0);
         }
-    } 
 
-    /* {{------------------rooms---------------------}} */
+        .row.align-items-center {
+            gap: 100px;
+            margin-left: 3px;
+            margin-right: 3px;
+        }
+    }
+
+    /* ------------------rooms--------------------- */
     .card-hover {
         position: relative;
         overflow: hidden;
@@ -449,6 +446,7 @@
         padding: 20px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+
     #booking_section .row {
         margin: 0; /* Reset margin if needed */
     }

@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stay Sphere</title>
+  <title>StaySphere</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="{{asset ('build/assets/css/bootstrap.min.css') }}">
   <script src="{{ asset('build/assets/js/bootstrap.bundle.min.js')}}"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="icon" type="image/x-icon" href="{{ asset('build/assets/images/SSlogo2.png') }}">
+  <link rel="icon" type="image/x-icon" href="{{ asset('build/assets/images/SSlogo8.png')}}">
   <style>
     * {
         font-family: Arial, sans-serif;
@@ -61,9 +61,9 @@
     <div class="container">
         <!-- Logo -->
         <a class="navbar-brand fw-bold" href="#">
-            <img src="{{ asset('build/assets/images/SSlogo2.png') }}" alt="Stay Sphere Logo" width="40" height="40" style="border-radius: 50%;">
+            <img src="{{ asset('build/assets/images/SSlogo8.png') }}" alt="Stay Sphere Logo" width="50" height="50" style="border-radius: 50%;">
         </a>
-        <a class="navbar-brand fw-bold" href="#">Stay Sphere</a>
+        <a class="navbar-brand fw-bold" style="color: #F1C40F ;font-size: 20"  width="50" height="50" href="#">StaySphere</a>
 
         <!-- Toggler for Mobile -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
