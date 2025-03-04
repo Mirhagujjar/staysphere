@@ -696,7 +696,7 @@
                         <div class="col-12 col-md-10 col-lg-8">
                             <div class="testimonial-overlay text-center p-4">
                                 <blockquote class="blockquote">
-                                    "Experience unparalleled luxury and personalized service at our Hotel, where every stay is a journey into sophistication, comfort, and unforgettable memories."
+                                    "The hotel exceeded our expectations with its exceptional service and cozy ambiance. A perfect stay!"
                                 </blockquote>
                                 <footer class="blockquote-footer text-warning mt-3">
                                     Donette Fondren

@@ -21,6 +21,11 @@ use App\Http\Controllers\RoomController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get("/admin/dashboard", function(){
+    return view("admin.dashboard");
+});
+
+
 // reservation
 Route::prefix('reservations')->group(function () {
     Route::get('/', [ReservationController::class, 'index'])->name('reservations.index'); // List reservations
