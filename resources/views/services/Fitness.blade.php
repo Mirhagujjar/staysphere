@@ -8,12 +8,12 @@
         background-size: cover;
         color: white;
         text-align: center;
-        padding: 100px 20px; /* Adjusted padding for smaller screens */
-        height: auto; /* Changed to auto for better responsiveness */
+        padding: 100px 20px;
+        height: auto;
     }
 
     .hero-section h1 {
-        font-size: 2.5rem; /* Adjusted font size for smaller screens */
+        font-size: 2.5rem;
     }
 
     .overlay-text h1 {
@@ -52,94 +52,12 @@
     body {
         overflow-x: hidden;
     }
-
-    /* Responsive styles */
-    @media (max-width: 769px) {
-        .position-absolute {
-            position: static !important; /* Absolute position hatane ke liye */
-            transform: none !important; 
-            margin-top: -10px; /* Card ko neeche shift karne ke liye */
-            z-index: 10 !important; 
-            background: white; /* Ensure karein ke transparent na ho */
-            padding: 20px; /* Spacing improve karne ke liye */
-        }
-        h2 {
-            font-size: 1.5rem; /* Adjust font size for mobile */
-        }
-        .btn {
-            width: 75%; /* Make button full width on mobile */
-        }
-    }
-
-    /* Medium screen styles */
-    @media (min-width: 770px) and (max-width: 996px) {
-        .hero-section {
-            padding: 80px 15px; /* Adjust padding for medium screens */
-        }
-
-        .hero-section h1 {
-            font-size: 2rem; /* Adjust font size for medium screens */
-        }
-
-        .breadcrumb-container {
-            font-size: 20px; /* Adjust font size for medium screens */
-        }
-
-        .card {
-            margin: 10px; /* Add margin to cards for better spacing */
-        }
-
-        .floating-box {
-            width: 80%; /* Adjust width for medium screens */
-        }
-
-        .btn {
-            width: 60%; /* Adjust button width for medium screens */
-        }
-    }
-
-    /* Styles for screens 788px to 996px */
-    @media (min-width: 788px) and (max-width: 996px) {
-        .container-fluid {
-            padding-left: 0; /* Remove left padding */
-            padding-right: 0; /* Remove right padding */
-        }
-
-        .hero-section {
-            padding: 60px 10px; /* Further adjust padding */
-        }
-
-        .hero-section h1 {
-            font-size: 1.8rem; /* Smaller font size for better fit */
-        }
-
-        .breadcrumb-container {
-            font-size: 18px; /* Smaller font size for breadcrumbs */
-        }
-
-        .card {
-            margin: 5px; /* Reduce margin for tighter spacing */
-        }
-
-        .floating-box {
-            width: 90%; /* Ensure floating box fits well */
-        }
-
-        .btn {
-            width: 100%; /* Full width buttons for easier tapping */
-        }
-
-        img {
-            max-width: 100%; /* Responsive images */
-            height: auto; /* Maintain aspect ratio */
-        }
-    }
 </style>
 
 {{-- main --}}
 <div class="main hero-section">
-    <h1>Wellness & Fitness Services</h1>
-    <p>"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</p>
+    <h1 class="display-4">Wellness & Fitness Services</h1>
+    <p class="lead">"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</p>
     <div class="breadcrumb-container">
         <a href="{{ route('services') }}">services</a> > Wellness & Fitness
     </div>
@@ -149,9 +67,9 @@
 {{-- short links --}}
 <div class="container-fluid mt-4 py-5">
     <div class="row justify-content-center">
-        <h2 class="text-center mb-4" style="color: #2C3E50;">Our Hotel Services</h2>
+        <h2 class="text-center mb-4 text-dark">Our Hotel Services</h2>
 
-        <div class="col-lg-7 p-2">
+        <div class="col-lg-7 col-md-12 p-2">
             <div class="card shadow-lg p-2">
                 <img src="{{asset('build/assets/images/gym2.jpg')}}" class="card-img-top" alt="Hotel Service">
                 <div class="card-body p-2">
@@ -172,7 +90,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-md-12">
             <div class="card shadow-lg p-3">
                 <h4 class="text-center">Other Services</h4>
                 <ul class="list-group list-group-flush">
@@ -194,17 +112,17 @@
 {{-- images in card form --}}
 <div class="container-fluid mt-5">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 col-12 mb-4">
             <div class="card">
                 <img src="{{ asset('build/assets/images/gym8.jpg') }}" class="card-img-top" alt="Service 1">
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-12 mb-4">
             <div class="card">
                 <img src="{{ asset('build/assets/images/gym9.jpg') }}" class="card-img-top" alt="Service 2">
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-12 mb-4">
             <div class="card">
                 <img src="{{ asset('build/assets/images/gym7.jpg') }}" class="card-img-top" alt="Service 3">
             </div>
@@ -213,15 +131,15 @@
 </div>
 
 {{-- card --}}
-<div class="container-fluid my-5 py-5 ">
+<div class="container-fluid my-5 py-5">
     <div class="position-relative col-md-8 mx-auto">
         <div style="width: 100%; height: 400px; overflow: hidden;">
             <img src="{{asset('build/assets/images/gym6.png')}}" class="img-fluid rounded" alt="Example Image" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
 
-        <div class="position-absolute start-50 p-4 shadow-lg rounded floating-box">
+        <div class="position-absolute start-50 translate-middle-x p-4 shadow-lg rounded floating-box">
             <small style="color: #b2956e; font-weight: bold;">FROM $260</small>
-            <h2 class="mt-2" style="color: #2C3E50;">Wellness & Fitness Services</h2>
+            <h2 class="mt-2 text-dark">Wellness & Fitness Services</h2>
             <p class="text-muted">"A Wellness Experience Beyond the Ordinary"</p>
             <div class="d-flex justify-content-start gap-4 mb-4">
                 <h6>Facilities:</h6>
