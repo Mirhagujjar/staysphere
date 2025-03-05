@@ -15,15 +15,13 @@ use App\Http\Controllers\PackageController;
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\HotelController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\RoomController;
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get("/admin/dashboard", function(){
     return view("admin.dashboard");
-});
+} );
 
 
 // reservation
@@ -89,4 +87,3 @@ Route::get('/packages', [PackageController::class, 'showPackages'])->name('packa
 
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-

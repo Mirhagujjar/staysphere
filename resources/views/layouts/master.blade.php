@@ -63,11 +63,11 @@
         <a class="navbar-brand fw-bold" href="#">
           <img src="{{ asset('build/assets/images/SSlogo8.png') }}" alt="Stay Sphere Logo" width="50" height="50" style="border-radius: 50%;">
         </a>
-        <a class="navbar-brand fw-bold" style="color: #F1C40F; font-size: 40px;" href="#">StaySphere</a>
+        <a class="navbar-brand fw-bold" style="color: #F1C40F; font-size: 30px;" href="#">StaySphere</a>
 
         <!-- Toggler for Mobile -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"style="color: white">
+            <span class="navbar-toggler-icon" style="color: white"></span>
         </button>
 
         <!-- Navbar Links -->

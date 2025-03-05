@@ -15,7 +15,8 @@
     .hero-section h1 {
         font-size: 2.5rem; /* Adjusted font size for smaller screens */
     }
-     .overlay-text h1 {
+
+    .overlay-text h1 {
         font-size: 3rem;
         margin: 0;
     }
@@ -46,8 +47,14 @@
         background: white;
         bottom: -50px;
     }
-     /* responsive */
-     @media (max-width: 769px) {
+
+    /* Prevent horizontal overflow */
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 769px) {
         .position-absolute {
             position: static !important; /* Absolute position hatane ke liye */
             transform: none !important; 
@@ -63,6 +70,70 @@
             width: 75%; /* Make button full width on mobile */
         }
     }
+
+    /* Medium screen styles */
+    @media (min-width: 770px) and (max-width: 996px) {
+        .hero-section {
+            padding: 80px 15px; /* Adjust padding for medium screens */
+        }
+
+        .hero-section h1 {
+            font-size: 2rem; /* Adjust font size for medium screens */
+        }
+
+        .breadcrumb-container {
+            font-size: 20px; /* Adjust font size for medium screens */
+        }
+
+        .card {
+            margin: 10px; /* Add margin to cards for better spacing */
+        }
+
+        .floating-box {
+            width: 80%; /* Adjust width for medium screens */
+        }
+
+        .btn {
+            width: 60%; /* Adjust button width for medium screens */
+        }
+    }
+
+    /* Styles for screens 788px to 996px */
+    @media (min-width: 788px) and (max-width: 996px) {
+        .container-fluid {
+            padding-left: 0; /* Remove left padding */
+            padding-right: 0; /* Remove right padding */
+        }
+
+        .hero-section {
+            padding: 60px 10px; /* Further adjust padding */
+        }
+
+        .hero-section h1 {
+            font-size: 1.8rem; /* Smaller font size for better fit */
+        }
+
+        .breadcrumb-container {
+            font-size: 18px; /* Smaller font size for breadcrumbs */
+        }
+
+        .card {
+            margin: 5px; /* Reduce margin for tighter spacing */
+        }
+
+        .floating-box {
+            width: 90%; /* Ensure floating box fits well */
+        }
+
+        .btn {
+            width: 100%; /* Full width buttons for easier tapping */
+        }
+
+        img {
+            max-width: 100%; /* Responsive images */
+            height: auto; /* Maintain aspect ratio */
+        }
+    }
 </style>
 
 {{-- main --}}
@@ -76,7 +147,7 @@
 </div>
 
 {{-- short links --}}
-<div class="container mt-4 py-5">
+<div class="container-fluid mt-4 py-5">
     <div class="row justify-content-center">
         <h2 class="text-center mb-4" style="color: #2C3E50;">Our Hotel Services</h2>
 
@@ -121,7 +192,7 @@
 </div>
 
 {{-- images in card form --}}
-<div class="container mt-5">
+<div class="container-fluid mt-5">
     <div class="row">
         <div class="col-md-4">
             <div class="card">
@@ -142,9 +213,9 @@
 </div>
 
 {{-- card --}}
-<div class="container my-5 py-5 ">
-    <div class="position-relative col-md-8">
-        <div style="width: 450px; height: 400px; overflow: hidden;">
+<div class="container-fluid my-5 py-5 ">
+    <div class="position-relative col-md-8 mx-auto">
+        <div style="width: 100%; height: 400px; overflow: hidden;">
             <img src="{{asset('build/assets/images/gym6.png')}}" class="img-fluid rounded" alt="Example Image" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
 
@@ -158,12 +229,12 @@
                 <span><i class="bi bi-water"></i> Indoor/Outdoor pool access</span>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-                <button class="btn btn-warning mt-3  bi-arrow-right-circle rounded-pill" data-bs-toggle="modal" data-bs-target="#fitness">Get services Now</button>
-
+                <button class="btn btn-warning mt-3 bi-arrow-right-circle rounded-pill" data-bs-toggle="modal" data-bs-target="#fitness">Get services Now</button>
             </div>
         </div>
     </div>
 </div>
+
 {{-- form --}}
 <div class="modal fade" id="fitness">
     <div class="modal-dialog">
@@ -202,5 +273,3 @@
 </div>
 
 @endsection
-
-
