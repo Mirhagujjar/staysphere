@@ -66,10 +66,10 @@
                         </ul>
                     </li> --}}
                     
-                    {{-- hotel --}}
+                    {{-- amangement --}}
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon bi bi-building text-warning"></i>
+                            <i class="nav-icon bi bi-door-closed text-warning"></i>
                             <p>
                                 Room Management
                                 <i class="nav-arrow bi bi-chevron-right text-warning"></i>
@@ -78,7 +78,7 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a class='nav-link' href='/dist/pages/widgets/small-box'>
-                                    <i class="nav-icon bi bi-map text-warning"></i>
+                                    <i class="nav-icon bi bi-door-closed text-warning"></i>
                                     <p>Manage Rooms
                                         <i class="nav-arrow bi bi-chevron-right text-warning"></i>
                                     </p>
@@ -117,7 +117,7 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a class='nav-link' href='/dist/pages/widgets/small-box'>
-                                    <i class="nav-icon bi bi-people text-warning"></i>
+                                    <i class="nav-icon bi bi-calendar-check text-warning"></i>
                                     <p>Bookings Management
                                         <i class="nav-arrow bi bi-chevron-right text-warning"></i>
                                     </p>
@@ -159,7 +159,7 @@
                     {{-- Users Management --}}
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon bi bi-boxes text-warning"></i>
+                            <i class="nav-icon bi bi-person text-warning"></i>
                             <p>
                                 Users Management
                                 <i class="nav-arrow bi bi-chevron-right text-warning"></i>
@@ -185,7 +185,7 @@
                       {{-- Blog Management --}}
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon bi bi-cart text-warning"></i>
+                            <i class="nav-icon bi bi-pencil-square text-warning"></i>
                             <p>
                                 Blog Management
                                 <i class="nav-arrow bi bi-chevron-right text-warning"></i>
@@ -216,7 +216,7 @@
                     {{-- Contact Management --}}
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon bi bi-cart text-warning"></i>
+                            <i class="nav-icon bi bi-envelope text-warning"></i>
                             <p>
                                 contact Management
                                 <i class="nav-arrow bi bi-chevron-right text-warning"></i>
