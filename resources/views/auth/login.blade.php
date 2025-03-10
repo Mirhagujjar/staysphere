@@ -27,7 +27,7 @@
         text-align: center;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         border: 2px solid rgba(255, 255, 255, 0.2); /* Light border */
-        animation: wipeIn 1s ease-out; /* Wipe animation */
+        animation: wipeIn 6s ease-in-out; /* Wipe animation */
         overflow: hidden; /* Ensure content stays within the circle */
     }
 
