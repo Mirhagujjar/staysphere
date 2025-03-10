@@ -9,7 +9,7 @@
         justify-content: center;
         align-items: center;
         height: 100vh; /* Full viewport height */
-        background: url('{{ asset('build/assets/images/slider5.jpg') }}') no-repeat center center/cover; /* Add your background image */
+        background: url('{{ asset('build/assets/images/login.jpg') }}') no-repeat center center/cover; /* Add your background image */
     }
 
     /* Transparent circular reset box */

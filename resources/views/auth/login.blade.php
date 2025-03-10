@@ -9,7 +9,7 @@
         justify-content: center;
         align-items: center;
         height: 100vh; /* Full viewport height */
-        background: url('build/assets/images/slider5.jpg') no-repeat center center/cover; /* Add your background image */
+        background: url('build/assets/images/login1.jpg') no-repeat center center/cover; /* Add your background image */
     }
 
     /* Transparent circular login box */
