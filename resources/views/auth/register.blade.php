@@ -1,60 +1,94 @@
 @extends('layouts.app')
+
 @section('content')
 
 <style>
-     .containerbox {
-        width: 70%;
-        max-width: 1200px;
-        height: auto;
+    /* Background and overall layout */
+    .registration-container {
         display: flex;
-        flex-wrap: wrap;
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        overflow: hidden;
         justify-content: center;
-        margin: 3% auto;
-        padding: 20px;
+        align-items: center;
+        height: 100vh; /* Full viewport height */
+        background: url('build/assets/images/Slider5.jpg') no-repeat center center/cover; /* Add your background image */
     }
 
-    .left-section {
-        flex: 1;
-        background: url('build/assets/images/slider5.jpg') no-repeat center center/cover;
+    /* Transparent circular registration box */
+    .registration-box {
+        background: rgba(255, 255, 255, 0.1); /* Transparent white background */
+        backdrop-filter: blur(10px); /* Blur effect */
+        border-radius: 50%; /* Circular shape */
+        padding: 40px; /* Reduced padding */
+        width: 500px; /* Increased width */
+        height: 500px; /* Increased height */
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
-        color: white;
-        padding: 40px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.2); /* Light border */
+        animation: wipeIn 1s ease-out; /* Wipe animation */
+        overflow: hidden; /* Ensure content stays within the circle */
     }
 
-    .left-section h2 {
-        font-size: 2rem;
-        margin-bottom: 10px;
+    /* Wipe animation */
+    @keyframes wipeIn {
+        from {
+            clip-path: circle(0% at 50% 50%);
+        }
+        to {
+            clip-path: circle(100% at 50% 50%);
+        }
     }
 
-    .left-section p {
-        font-size: 1rem;
-        line-height: 1.5;
+    /* Heading */
+    .registration-box h2 {
+        margin-bottom: 15px; /* Reduced margin */
+        font-size: 24px;
+        color: #343A40; /* Dark Gray */
     }
 
-    .right-section {
-        flex: 1;
-        padding: 50px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+    /* Form inputs */
+    .form-control {
+        width: 90%; /* Adjusted width for circular form */
+        padding: 10px; /* Reduced padding */
+        margin-bottom: 15px; /* Reduced spacing */
+        border: 1px solid rgba(44, 62, 80, 0.3); /* Midnight Blue with transparency */
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+        font-size: 14px; /* Reduced font size */
+        color: #343A40; /* Dark Gray */
+        transition: border-color 0.3s ease;
     }
-    .right-section h3 {
-        text-align: center;
-        margin-bottom: 20px;
+
+    .form-control:focus {
+        border-color: #1ABC9C; /* Light Teal */
+        outline: none;
     }
+
+    /* Register button */
+    .btn-primary {
+        width: 90%; /* Adjusted width for circular form */
+        padding: 10px; /* Reduced padding */
+        background-color: #F1C40F; /* Soft Gold */
+        border: none;
+        border-radius: 5px;
+        color: #2C3E50; /* Midnight Blue */
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+        background-color: #F39C12; /* Darker Gold on hover */
+    }
+
+    /* Social login buttons */
     .social-login {
         display: flex;
         justify-content: center;
         gap: 15px;
-        margin-bottom: 20px;
+        margin-bottom: 15px; /* Reduced margin */
     }
 
     .social-login a {
@@ -62,129 +96,92 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background: #ddd;
+        background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 1.2rem;
         color: #555;
         text-decoration: none;
+        transition: background 0.3s ease;
     }
 
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-        .containerbox {
-            flex-direction: column;
-            text-align: center;
-            padding: 10px;
-        }
-
-        .left-section {
-            flex: none;
-            height: 200px;
-            background-size: cover;
-            padding: 20px;
-        }
-
-        .right-section {
-            padding: 30px;
-        }
+    .social-login a:hover {
+        background: rgba(255, 255, 255, 0.3); /* Lighter on hover */
     }
 
-    @media (max-width: 480px) {
-        .left-section h2 {
-            font-size: 1.5rem;
-        }
-
-        .left-section p {
-            font-size: 0.9rem;
-        }
-
-        .right-section {
-            padding: 20px;
-        }
+    /* Error messages */
+    .invalid-feedback {
+        color: #ff6b6b; /* Light red for errors */
+        font-size: 12px; /* Reduced font size */
+        margin-top: 5px;
     }
-
 </style>
 
-<div class="containerbox">
-    <!-- Left Section -->
-    <div class="left-section">
-        <h2>Welcome!</h2>
-
-    </div>
-
-    <!-- Right Section -->
-    <div class="right-section ">
-        <h3>Register to Your Account</h3>
+<div class="registration-container">
+    <div class="registration-box">
+        <h2>Register</h2>
         <div class="social-login">
-            <a href="#" title="Login with Facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" title="Login with Google"><i class="bi bi-google"></i></a>
-            <a href="#" title="Login with Twitter"><i class="bi bi-twitter"></i></a>
+            <a href="#" title="Register with Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" title="Register with Google"><i class="bi bi-google"></i></a>
+            <a href="#" title="Register with Twitter"><i class="bi bi-twitter"></i></a>
         </div>
-        <div class="card-body">
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
 
-                <div class="row mb-3">
-                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                        @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
+            <!-- Name Field -->
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Name">
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
+            </div>
 
-                <div class="row mb-3">
-                    <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
+            <!-- Email Field -->
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email Address">
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
+            </div>
 
-                <div class="row mb-3">
-                    <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
+            <!-- Password Field -->
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
+            </div>
 
-                <div class="row mb-3">
-                    <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                    </div>
+            <!-- Confirm Password Field -->
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password">
                 </div>
+            </div>
 
-                <div class="row mb-0">
-                    <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-warning">
-                            {{ __('Register') }}
-                        </button>
-                    </div>
+            <!-- Register Button -->
+            <div class="row mb-0">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary">
+                        {{ __('Register') }}
+                    </button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
+
 @endsection

@@ -1,6 +1,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>StaySphere | Dashboard</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('build/assets/images/SSlogo8.png')}}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('build/assets/images/SSlogo9.png')}}">
 
     <!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

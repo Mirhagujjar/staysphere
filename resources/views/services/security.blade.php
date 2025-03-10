@@ -3,7 +3,7 @@
 @section('content')
 
 <style>
-     .hero-section {
+    .hero-section {
         background: url('{{ asset('build/assets/images/security/se1.jpg') }}') no-repeat center center;
         background-size: cover;
         color: white;
@@ -11,6 +11,7 @@
         padding: 100px 20px; /* Adjusted padding for smaller screens */
         height: auto; /* Changed to auto for better responsiveness */
     }
+
     .hero-section h1 {
         font-size: 2.5rem; /* Adjusted font size for smaller screens */
     }
@@ -46,29 +47,16 @@
         background: white;
         bottom: -50px;
     }
-        /* responsive */
-     @media (max-width: 769px) {
-        .position-absolute {
-            position: static !important; /* Absolute position hatane ke liye */
-            transform: none !important; 
-            margin-top: -10px; /* Card ko neeche shift karne ke liye */
-            z-index: 10 !important; 
-            background: white; /* Ensure karein ke transparent na ho */
-            padding: 20px; /* Spacing improve karne ke liye */
-        }
-        h2 {
-            font-size: 1.5rem; /* Adjust font size for mobile */
-        }
-        .btn {
-            width: 75%; /* Make button full width on mobile */
-        }
+
+    /* Prevent horizontal overflow */
+    body {
+        overflow-x: hidden;
     }
-    
 </style>    
 
 {{-- main --}}
 <div class="main hero-section">
-    <h1>Guest Assistance & Security services</h1>
+    <h1>Guest Assistance & Security Services</h1>
     <p>"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</p>
     <div class="breadcrumb-container">
         <a href="{{ route('services') }}">services</a> > Security services
@@ -85,7 +73,7 @@
             <div class="card shadow-lg p-2">
                 <img src="{{asset('build/assets/images/security/se3.jpg')}}" class="card-img-top" alt="Hotel Service">
                 <div class="card-body p-2">
-                    <h2 class="card-title">Guest Assistance & Security services</h2>
+                    <h2 class="card-title">Guest Assistance & Security Services</h2>
                     <p>Guest Assistance & Security services ensure a safe, comfortable, and hassle-free experience for all guests...</p>
                     <blockquote class="blockquote">
                         <p>"Your Safety, Our Priority – Assistance Anytime, Anywhere."</p>
@@ -124,17 +112,17 @@
 {{-- images --}}
 <div class="container mt-5">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 col-12 mb-4">
             <div class="card">
                 <img src="{{ asset('build/assets/images/security/se4.png') }}" class="card-img-top" alt="Service 1">
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-12 mb-4">
             <div class="card">
                 <img src="{{ asset('build/assets/images/security/se5.jpg') }}" class="card-img-top" alt="Service 2">
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-12 mb-4">
             <div class="card">
                 <img src="{{ asset('build/assets/images/security/se6.jpg') }}" class="card-img-top" alt="Service 3">
             </div>
@@ -144,9 +132,9 @@
 
 {{-- service card --}}
 <div class="container my-5 py-5">
-    <div class="position-relative col-md-8">
+    <div class="position-relative col-md-8 mx-auto">
         <img src="{{asset('build/assets/images/security/se2.jpg')}}" class="img-fluid w-100 rounded" alt="Room Image" style="max-height: 450px; object-fit: cover;">
-        <div class="position-absolute start-50 p-4 shadow-lg rounded floating-box">
+        <div class="position-absolute start-50 translate-middle-x p-4 shadow-lg rounded floating-box">
             <small style="color: #b2956e; font-weight: bold;">FROM $260</small>
             <h2 class="mt-2" style="color: #2C3E50;"> Guest Assistance & Security</h2>
             <p class="text-muted">"Advanced Safety for a Worry-Free Stay"</p>
@@ -157,11 +145,11 @@
             </div>
             <div class="d-flex justify-content-between align-items-center">
                 <button class="btn btn-warning mt-3 rounded-pill bi-arrow-right-circle" data-bs-toggle="modal" data-bs-target="#security">Get services Now</button>
-
             </div>
         </div>
     </div>
 </div>
+
 {{-- form --}}
 <div class="modal fade" id="security">
     <div class="modal-dialog">
@@ -200,6 +188,3 @@
 </div>
 
 @endsection
-
-
-

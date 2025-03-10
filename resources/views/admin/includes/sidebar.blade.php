@@ -5,7 +5,7 @@
             <!--begin::Brand Link-->
             <a class='brand-link' href='/dist/pages/'>
                 <!--begin::Brand Image-->
-                <img src="{{ asset('build/assets/images/SSlogo8.png') }}" alt="AdminLTE Logo"
+                <img src="{{ asset('build/assets/images/SSlogo9.png') }}" alt="AdminLTE Logo"
                     class="brand-image opacity-75 shadow" />
                 <!--end::Brand Image-->
                 <!--begin::Brand Text-->
@@ -22,7 +22,7 @@
                 <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
                     {{--  Dashboard --}}
                     <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
+                        <a href="{{route('admin.dashboard')}}" class="nav-link active">
                             <i class="nav-icon bi bi-speedometer text-warning"></i>
                             <p>
                                 Dashboard
@@ -66,7 +66,7 @@
                         </ul>
                     </li> --}}
                     
-                    {{-- amangement --}}
+                    {{-- Room mangement --}}
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon bi bi-door-closed text-warning"></i>
@@ -78,83 +78,74 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a class='nav-link' href='/dist/pages/widgets/small-box'>
-                                    <i class="nav-icon bi bi-door-closed text-warning"></i>
-                                    <p>Manage Rooms
-                                        <i class="nav-arrow bi bi-chevron-right text-warning"></i>
+                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
+                                    <p>Add New Room</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class='nav-link' href='/dist/pages/widgets/info-box'>
+                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
+                                    <p>Edit Room Details</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class='nav-link' href='/dist/pages/widgets/cards'>
+                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
+                                    <p> Remove Room</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class='nav-link' href='/dist/pages/widgets/cards'>
+                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
+                                    <p>Room Categories
+                                        {{-- (Single, Double, Suite) --}}
                                     </p>
                                 </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a class='nav-link' href='/dist/pages/widgets/small-box'>
-                                            <i class="nav-icon bi bi-arrow-right text-warning"></i>
-                                            <p>Add New Room</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class='nav-link' href='/dist/pages/widgets/info-box'>
-                                            <i class="nav-icon bi bi-arrow-right text-warning"></i>
-                                            <p>Edit Room Details</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class='nav-link' href='/dist/pages/widgets/cards'>
-                                            <i class="nav-icon bi bi-arrow-right text-warning"></i>
-                                            <p> Remove Room</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class='nav-link' href='/dist/pages/widgets/cards'>
-                                            <i class="nav-icon bi bi-arrow-right text-warning"></i>
-                                            <p>Room Categories
-                                                {{-- (Single, Double, Suite) --}}
-                                            </p>
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
-                        </ul>
-                    
+                        </ul>       
+                    </li>
+
+                    {{-- booking management --}}
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon bi bi-door-closed text-warning"></i>
+                            <p>
+                                Bookings Management
+                                <i class="nav-arrow bi bi-chevron-right text-warning"></i>
+                            </p>
+                        </a>      
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a class='nav-link' href='/dist/pages/widgets/small-box'>
-                                    <i class="nav-icon bi bi-calendar-check text-warning"></i>
-                                    <p>Bookings Management
-                                        <i class="nav-arrow bi bi-chevron-right text-warning"></i>
+                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
+                                    <p> Approve Bookings</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class='nav-link' href='/dist/pages/widgets/info-box'>
+                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
+                                    <p>Reject Bookings </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class='nav-link' href='/dist/pages/widgets/cards'>
+                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
+                                    <p> Check Booking Status
+                                        {{-- (Pending, Confirmed, Cancelled) --}}
                                     </p>
                                 </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a class='nav-link' href='/dist/pages/widgets/small-box'>
-                                            <i class="nav-icon bi bi-arrow-right text-warning"></i>
-                                            <p> Approve Bookings</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class='nav-link' href='/dist/pages/widgets/info-box'>
-                                            <i class="nav-icon bi bi-arrow-right text-warning"></i>
-                                            <p>Reject Bookings </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class='nav-link' href='/dist/pages/widgets/cards'>
-                                            <i class="nav-icon bi bi-arrow-right text-warning"></i>
-                                            <p> Check Booking Status
-                                                {{-- (Pending, Confirmed, Cancelled) --}}
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class='nav-link' href='/dist/pages/widgets/cards'>
-                                            <i class="nav-icon bi bi-arrow-right text-warning"></i>
-                                            <p> Search / Filter Bookings
-                                                {{-- (Date, Room Type, Status) --}}
-                                            </p>
-                                        </a>
-                                    </li>
-                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class='nav-link' href='/dist/pages/widgets/cards'>
+                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
+                                    <p> Search / Filter Bookings
+                                        {{-- (Date, Room Type, Status) --}}
+                                    </p>
+                                </a>
                             </li>
                         </ul>
                     </li>
+                   
 
                     {{-- Users Management --}}
                     <li class="nav-item">
@@ -214,7 +205,7 @@
                     </li>
 
                     {{-- Contact Management --}}
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon bi bi-envelope text-warning"></i>
                             <p>
@@ -232,7 +223,7 @@
                             <li class="nav-item">
                                 <a class='nav-link' href='/dist/pages/widgets/info-box'>
                                     <i class="nav-icon bi bi-arrow-right text-wrning"></i>
-                                    <p>Replay the contactor</p>
+                                    <p>replay the contactor</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -242,14 +233,14 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
                     {{-- break line --}}
                     <div>
                         <ul class="nav flex-column" style="color:aliceblue">
                             <hr>
                             {{-- site and mobile app --}}
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon bi bi-globe text-warning"></i>
                                     <p>
@@ -298,7 +289,7 @@
                                             <p>Mobile app</p>
                                         </a>
                                     </li>
-                                    {{-- <li class="nav-item">
+                                    <li class="nav-item">
                                         <a class='nav-link' href='/dist/pages/widgets/info-box'>
                                             <i class="nav-icon bi bi-tag text-warning"></i>
                                             <p>Logo & Brand</p>
@@ -309,9 +300,9 @@
                                             <i class="nav-icon bi bi-server text-warning"></i>
                                             <p>Hopp- Link in Bio</p>
                                         </a>
-                                    </li> --}}
+                                    </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             {{-- inbox --}}
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
@@ -364,7 +355,7 @@
                             </li> --}}
 
                             {{-- Marteking  --}}
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon bi bi-bar-chart-line text-warning"></i>
                                     <p>
@@ -401,10 +392,10 @@
                                         <a class='nav-link' href='/dist/pages/widgets/info-box'>
                                             <i class="nav-icon bi bi-arrow-right text-warning"></i>
                                             <p>Social Media Marketing</p>
-                                            {{-- bage adding id panding --}}
+                                            bage adding id panding
                                         </a>
                                     </li>
-                                    {{-- <li class="nav-item">
+                                    <li class="nav-item">
                                         <a class='nav-link' href='/dist/pages/widgets/info-box'>
                                             <i class="nav-icon bi bi-arrow-right text-warning"></i>
                                             <p>Referral Program</p>
@@ -415,9 +406,9 @@
                                             <i class="nav-icon bi bi-arrow-right text-warning"></i>
                                             <p>Coupons</p>
                                         </a>
-                                    </li> --}}
+                                    </li>
                                 </ul>
-                            </li>
+                            </li> --}}
 
                             {{-- Analyics  --}}
                             <li class="nav-item">

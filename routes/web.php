@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoomsController;
@@ -19,9 +20,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get("/admin/dashboard", function(){
-    return view("admin.dashboard");
-} );
+Route::prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/reservation', [AdminController::class, 'index'])->name('admin.reservations.reservations_list');
+
+
+    // Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+    // Route::get('/bookings', [AdminController::class, 'bookings'])->name('admin.bookings');
+});
 
 
 // reservation

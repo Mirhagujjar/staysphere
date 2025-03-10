@@ -2,22 +2,18 @@
 
 @section('content')
 
-{{-- <link rel="stylesheet" href="{{ asset('build/assets/css/services.css') }}"> --}}
 <style>
-    /* General Styles */
-    .half-screen-image {
-        position: relative;
-        height: 70vh;
-        background: url('{{asset('build/assets/images/clean1.jpg')}}') top/cover no-repeat;
+    .hero-section {
+        background: url('{{ asset('build/assets/images/clean1.jpg') }}') no-repeat center center;
+        background-size: cover;
+        color: white;
+        text-align: center;
+        padding: 100px 20px;
+        height: auto;
     }
 
-    .overlay-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        color: rgb(211, 211, 226);
+    .hero-section h1 {
+        font-size: 2.5rem;
     }
 
     .overlay-text h1 {
@@ -29,121 +25,58 @@
         margin-top: 10px;
         font-size: 25px;
         font-weight: 500;
-        color: white;
+        color: #f8fcfb;
     }
 
     .breadcrumb-container a {
         text-decoration: none;
-        color: #1ddab7;
+        color: #e8f3f1;
     }
 
     .breadcrumb-container a:hover {
         color: #1ABC9C;
     }
 
-    /* Sidebar Links */
-    .service-link {
-        color: #ffbb00;
-        text-decoration: none;
-        font-weight: bold;
+    .hover-effect:hover {
+        color: #cc8800 !important;
     }
 
-    .service-link:hover {
-        color: #cc8800;
-    }
-
-    /* Service Images */
-    .service-img {
-        width: 100%;
-        border-radius: 8px;
-    }
-
-    /* Floating Service Card */
-    .image-container {
-        width: 450px;
-        height: 400px;
-        overflow: hidden;
-    }
-
-    .image-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .floating-card {
-        position: absolute;
-        start: 50%;
-        transform: translateX(50%);
-        padding: 20px;
+    .floating-box {
+        width: 90%;
+        max-width: 500px;
         background: white;
         bottom: -50px;
-        width: 90%;
-        max-width: 450px;
     }
 
-    .price-tag {
-        color: #b2956e;
-        font-weight: bold;
+    /* Prevent horizontal overflow */
+    body {
+        overflow-x: hidden;
     }
-
-    .service-title {
-        color: #2C3E50;
-    }
-
-    .py-6 {
-        padding-top: 3rem;
-        padding-bottom: 4rem;
-    }
-
-     /* responsive */
-     @media (max-width: 769px) {
-        .floating-card {
-            position: static !important; /* Absolute position hatane ke liye */
-            transform: none !important; 
-            margin-top: -10px; /* Card ko neeche shift karne ke liye */
-            z-index: 10 !important; 
-            background: white; /* Ensure karein ke transparent na ho */
-            padding: 20px; /* Spacing improve karne ke liye */
-        }
-        h2 {
-            font-size: 1.5rem; /* Adjust font size for mobile */
-        }
-        .btn {
-            width: 75%; /* Make button full width on mobile */
-        
-        }
-        
-    }
-
 </style>
 
-<div class="main">
-    <div class="half-screen-image">
-        <div class="overlay-text">
-            <h1> Housekeeping Services</h1>
-            <p>"A Spotless Stay, Every Day"</p>
-            <div class="breadcrumb-container">
-                <a href="{{ route('services') }}">services</a> >Housekeeping services
-            </div>
-            <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#housekeeping">Get services Now</button>
-        </div>
-    </div>   
+{{-- main --}}
+<div class="main hero-section">
+    <h1 class="display-4">Housekeeping Services</h1>
+    <p class="lead">"A Spotless Stay, Every Day"</p>
+    <div class="breadcrumb-container">
+        <a href="{{ route('services') }}">services</a> > Housekeeping Services
+    </div>
+    <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#housekeeping">Get services Now</button>
 </div>
 
-<!-- Service Description -->
-<div class="container mt-4">
-    <div class="row justify-content-center" >
-        <h2 class="text-center mb-4 section-title">Our Hotel Services</h2>
+{{-- short links --}}
+<div class="container-fluid mt-4 py-5">
+    <div class="row justify-content-center">
+        <h2 class="text-center mb-4 text-dark">Our Hotel Services</h2>
 
-        <div class="col-lg-7 p-2">
+        <div class="col-lg-7 col-md-12 p-2">
             <div class="card shadow-lg p-2">
                 <img src="{{ asset('build/assets/images/clean2.jpg') }}" class="card-img-top" alt="Hotel Service">
                 <div class="card-body p-2">
                     <h2 class="card-title">Housekeeping Services</h2>
                     <p>Housekeeping services ensure a clean, comfortable, and hygienic stay for guests. Daily room cleaning includes dusting, vacuuming, and sanitizing to maintain a fresh environment.</p>
                     <blockquote class="blockquote">
-                        <p>"Awesome experience with top-notch services and hospitality!"</p>
+                        <h4>"Awesome experience with top-notch services and hospitality!"</h4>
                     </blockquote>
                     <h4>Our Facilities</h4>
                     <ul class="list-unstyled">
@@ -157,19 +90,18 @@
             </div>
         </div>
 
-        <!-- Sidebar -->
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-md-12">
             <div class="card shadow-lg p-3">
                 <h4 class="text-center">Other Services</h4>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <a href="{{ url('/services/housekeeping') }}" class="service-link">Housekeeping Services</a>
+                        <a href="{{ url('/services/housekeeping') }}" class="text-warning text-decoration-none fw-bold hover-effect">Housekeeping Services</a>
                     </li>
                     <li class="list-group-item">
-                        <a href="{{ url('/services/Fitness') }}" class="service-link">Wellness & Fitness Services</a>
+                        <a href="{{ url('/services/Fitness') }}" class="text-warning text-decoration-none fw-bold hover-effect">Wellness & Fitness Services</a>
                     </li>
                     <li class="list-group-item">
-                        <a href="{{ url('/services/Security') }}" class="service-link">Guest Assistance & Security</a>
+                        <a href="{{ url('/services/Security') }}" class="text-warning text-decoration-none fw-bold hover-effect">Guest Assistance & Security</a>
                     </li>
                 </ul>
             </div>
@@ -177,24 +109,37 @@
     </div>
 </div>
 
-<!-- Service Images -->
-<div class="container mt-5 ">
+{{-- images in card form --}}
+<div class="container-fluid mt-5">
     <div class="row">
-        <div class="col-md-4"><img src="{{ asset('build/assets/images/clean3.jpg') }}" class="service-img"></div>
-        <div class="col-md-4"><img src="{{ asset('build/assets/images/clean4.jpg') }}" class="service-img"></div>
-        <div class="col-md-4"><img src="{{ asset('build/assets/images/clean.jpg') }}" class="service-img"></div>
+        <div class="col-md-4 col-12 mb-4">
+            <div class="card">
+                <img src="{{ asset('build/assets/images/clean3.jpg') }}" class="card-img-top" alt="Service 1">
+            </div>
+        </div>
+        <div class="col-md-4 col-12 mb-4">
+            <div class="card">
+                <img src="{{ asset('build/assets/images/clean4.jpg') }}" class="card-img-top" alt="Service 2">
+            </div>
+        </div>
+        <div class="col-md-4 col-12 mb-4">
+            <div class="card">
+                <img src="{{ asset('build/assets/images/clean.jpg') }}" class="card-img-top" alt="Service 3">
+            </div>
+        </div>
     </div>
 </div>
 
-<!-- Floating Service Card -->
-<div class="container py-6">
-    <div class="position-relative col-md-8">
-        <div class="image-container">
-            <img src="{{ asset('build/assets/images/clean5.jpg') }}" class="img-fluid rounded">
+{{-- card --}}
+<div class="container-fluid my-5 py-5">
+    <div class="position-relative col-md-8 mx-auto">
+        <div style="width: 100%; height: 400px; overflow: hidden;">
+            <img src="{{ asset('build/assets/images/clean5.jpg') }}" class="img-fluid rounded" alt="Example Image" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
-        <div class="floating-card shadow-lg rounded">
-            <small class="price-tag">FROM $260</small>
-            <h2 class="service-title">Housekeeping Services</h2>
+
+        <div class="position-absolute start-50 translate-middle-x p-4 shadow-lg rounded floating-box">
+            <small style="color: #b2956e; font-weight: bold;">FROM $260</small>
+            <h2 class="mt-2 text-dark">Housekeeping Services</h2>
             <p class="text-muted">"A Spotless Stay, Every Day"</p>
             <div class="d-flex justify-content-start gap-4 mb-4">
                 <h6>Facilities:</h6>
@@ -202,32 +147,31 @@
                 <span><i class="bi bi-house-door"></i> Bed-making service.</span>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-                <button class="btn btn-warning mt-3 bi bi-arrow-right-circle" data-bs-toggle="modal" data-bs-target="#housekeeping">Get services</button>
+                <button class="btn btn-warning mt-3 bi-arrow-right-circle rounded-pill" data-bs-toggle="modal" data-bs-target="#housekeeping">Get services Now</button>
             </div>
         </div>
     </div>
 </div>
 
-
 {{-- form --}}
 <div class="modal fade" id="housekeeping">
     <div class="modal-dialog">
         <div class="modal-content p-4">
-            <h4 class="mb-2">Form for housekeeping</h4>
+            <h4 class="mb-3">Request Housekeeping Services</h4>
             <form>
                 @csrf
                 <!-- Name -->
-                <div class="mb-2">
+                <div class="mb-3">
                     <label for="name" class="form-label">Full Name</label>
                     <input type="text" class="form-control" id="name" name="name" required>
                 </div>
-
+            
                 <!-- Email -->
-                <div class="mb-2">
+                <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" name="email" required>
                 </div>
-
+            
                 <!-- Phone -->
                 <div class="mb-3">
                     <label for="phone" class="form-label">Phone Number</label>
@@ -250,17 +194,12 @@
                         <option value="Room Sanitization">Room Sanitization</option>
                     </select>
                 </div>
-
-                <!-- Additional Requests -->
-                <div class="mb-3">
-                    <label for="requests" class="form-label">Additional Requests</label>
-                    <textarea class="form-control" id="requests" name="requests" rows="3"></textarea>
-                </div>
-
+            
                 <!-- Submit Button -->
-                <button type="submit" class="btn btn-primary w-100">Submit Request</button>
+                <button type="submit" class="btn btn-warning w-100">Submit Request</button>
             </form>
         </div>
     </div>
 </div>
+
 @endsection
