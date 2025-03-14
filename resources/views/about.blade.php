@@ -3,29 +3,27 @@
 @section('content')
     <style>
         * {
-            /* font-family: "Montserrat", Helvetica, sans-serif; */
+
             box-sizing: border-box;
-            /* Ensure consistent box sizing */
         }
 
         html,
         body {
             overflow-x: hidden;
-            /* Prevent horizontal overflow */
             margin: 0;
-            /* Reset default margin */
             padding: 0;
-            /* Reset default padding */
         }
 
-        /* <!------------------------------- Top Banner ------------------------> */
+        /* ------------------------------- Top Banner ------------------------ */
         .half-screen-image {
-            background: url('{{ asset('build/assets/images/reception.jpg') }}') center/cover no-repeat;
+            background: url('{{ asset('build/assets/images/about1.jpg') }}') center/cover no-repeat;
             position: relative;
             height: 75vh;
+
         }
 
         .overlay-text {
+
             position: absolute;
             top: 50%;
             left: 50%;
@@ -62,13 +60,13 @@
             color: #1ABC9C;
         }
 
+
         /* -------------------------2------------------------ */
-        /* Section Container */
+
         .section-container {
             padding: 120px 0 95px;
         }
 
-        /* Image Styling */
         .rounded-img {
             border-radius: 10px;
             max-width: 100%;
@@ -86,7 +84,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        /* History Title */
         .margin {
             margin-right: 1em;
             margin-left: 1em;
@@ -109,18 +106,16 @@
             font-weight: bold;
         }
 
-        /* History Text */
         .history-text {
             line-height: 1.8;
             color: #000000;
         }
 
-        /* Row Alignment */
         .row.align-items-center {
             gap: 150px;
         }
 
-        /* Responsive Adjustments */
+        /* Responsiveness*/
         @media (max-width: 1200px) {
             .row.align-items-center {
                 gap: 100px;
@@ -146,6 +141,7 @@
                 margin-right: 3px;
             }
         }
+
 
         /* ---------------------------------3------------------------------ */
         .testimonial-section {
@@ -263,6 +259,7 @@
         }
 
         /* ------------------------------------5---------------------------- */
+
         .faq-section {
             margin-top: 50px;
             background-color: #343A40;
@@ -325,29 +322,32 @@
         }
     </style>
 
-    {{-- main start --}}
+    {{-- Top Banner --}}
     <div class="half-screen-image">
-        <div class="overlay-text">
-            <p class="mt-3 lead">Luxury Hotel Experience</p>
-            <h1>ABOUT US</h1>
+        <div class="half-screen-image">
+            <div class="overlay-text">
+                <p class="mt-3 lead">Luxury Hotel Experience</p>
+                <h1>ABOUT US</h1>
 
-            <div class="breadcrumb-container">
-                <a href="/welcome">Home</a> > About Us
+                <div class="breadcrumb-container">
+                    <a href="/">Home</a> > AboutUs
+                </div>
             </div>
         </div>
     </div>
 
+
     {{-- --------------------2------------------------- --}}
+
     <div class="container section-container">
         <div class="row align-items-center">
-            <!-- Left Column: Images -->
+            {{-- -- Left---- --}}
             <div class="col-lg-5 col-md-6 position-relative text-center ">
-                <img src="{{ asset('build/assets/images/washroom.jpg') }}" alt="Main Image"
-                    class="img-fluid rounded-img main-img">
-                <img src="{{ asset('build/assets/images/room34.jpg') }}" alt="Overlay Image"
+                <img src="{{ asset('build/assets/images/about3.jpg') }}" alt="Main Image" class="img-fluid rounded-img main-img">
+                <img src="{{ asset('build/assets/images/about2.jpg') }}" alt="Overlay Image"
                     class="img-fluid rounded-img overlay-img">
             </div>
-            <!-- Right Column: Content -->
+            {{-- ------- Right----- --}}
             <div class="col-lg-5 col-md-6 margin">
                 <div class="history-title">
                     <small>StaySphere Hotel</small>
@@ -365,26 +365,24 @@
 
     {{-- -----------------------3-------------------- --}}
     <div class="testimonial-section position-relative">
-        <!-- Video Background -->
+        {{-- - Video Background -- --}}
         <video autoplay muted loop class="video-background">
             <source src="{{ asset('build/assets/videos/v1.mp4') }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
 
-        <!-- Overlay to darken video -->
-        <div class="video-overlay"></div>
+
 
         <div class="container text-center">
             <h3 class="section-clients">What Clients Say</h3>
 
-            <!-- Carousel -->
+
             <div id="testimonialCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="testimonial-card mx-auto shadow-lg p-4 rounded">
                             <div class="d-flex align-items-center">
-                                <img src="{{ asset('build/assets/images/client1.jpg') }}" alt="Client 1"
-                                    class="rounded-circle"
+                                <img src="{{ asset('build/assets/images/client1.jpg') }}" alt="Client 1" class="rounded-circle"
                                     style="width: 70px; height: 70px; object-fit: cover; margin-right: 15px;">
                                 <div>
                                     <h5 class="mb-0">Roberta</h5>
@@ -396,12 +394,11 @@
                         </div>
                     </div>
 
-                    <!-- Testimonial 2 -->
+
                     <div class="carousel-item">
                         <div class="testimonial-card mx-auto shadow-lg p-4 rounded">
                             <div class="d-flex align-items-center">
-                                <img src="{{ asset('build/assets/images/client2.jpg') }}" alt="Client 2"
-                                    class="rounded-circle"
+                                <img src="{{ asset('build/assets/images/client2.jpg') }}" alt="Client 2" class="rounded-circle"
                                     style="width: 70px; height: 70px; object-fit: cover; margin-right: 15px;">
                                 <div>
                                     <h5 class="mb-0">John</h5>
@@ -412,12 +409,10 @@
                         </div>
                     </div>
 
-                    <!-- Testimonial 3 -->
                     <div class="carousel-item">
                         <div class="testimonial-card mx-auto shadow-lg p-4 rounded">
                             <div class="d-flex align-items-center">
-                                <img src="{{ asset('build/assets/images/client3.jpg') }}" alt="Client 3"
-                                    class="rounded-circle"
+                                <img src="{{ asset('build/assets/images/client3.jpg') }}" alt="Client 3" class="rounded-circle"
                                     style="width: 70px; height: 70px; object-fit: cover; margin-right: 15px;">
                                 <div>
                                     <h5 class="mb-0">Sarah</h5>
@@ -429,7 +424,7 @@
                         </div>
                     </div>
 
-                    <!-- Testimonial 4 -->
+
                     <div class="carousel-item">
                         <div class="testimonial-card mx-auto shadow-lg p-4 rounded">
                             <div class="d-flex align-items-center">
@@ -447,7 +442,7 @@
                     </div>
                 </div>
 
-                <!-- Carousel Indicators -->
+
                 <div class="testimonial-dots mt-4">
                     <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="dot"
                         aria-current="true"></button>
@@ -470,11 +465,12 @@
                 <p class="section-subtitle">A dedicated team of professionals bringing luxury and comfort to your stay.</p>
             </div>
             <div class="row gy-4">
-                <!-- Team Member 1 -->
+
+
                 <div class="col-md-4">
                     <div class="team-card text-center p-4 shadow rounded">
                         <div class="team-image">
-                            <img src="{{ asset('build/assets/images/team1.jpg') }}" alt="Team Member 1"
+                            <img src="{{ asset('build/assets/images/team2.jpg') }}" alt="Team Member 1"
                                 class="img-fluid rounded-circle">
                         </div>
                         <h5 class="mt-3">John Doe</h5>
@@ -489,11 +485,11 @@
                     </div>
                 </div>
 
-                <!-- Team Member 2 -->
+
                 <div class="col-md-4">
                     <div class="team-card text-center p-4 shadow rounded">
                         <div class="team-image">
-                            <img src="{{ asset('build/assets/images/team2.jpg') }}" alt="Team Member 2"
+                            <img src="{{ asset('build/assets/images/team3.jpg') }}" alt="Team Member 2"
                                 class="img-fluid rounded-circle">
                         </div>
                         <h5 class="mt-3">Jane Smith</h5>
@@ -508,11 +504,11 @@
                     </div>
                 </div>
 
-                <!-- Team Member 3 -->
+
                 <div class="col-md-4">
                     <div class="team-card text-center p-4 shadow rounded">
                         <div class="team-image">
-                            <img src="{{ asset('build/assets/images/team3.jpg') }}" alt="Team Member 3"
+                            <img src="{{ asset('build/assets/images/client1.jpg') }}" alt="Team Member 3"
                                 class="img-fluid rounded-circle">
                         </div>
                         <h5 class="mt-3">Emily Rose</h5>
@@ -531,10 +527,11 @@
     </div>
 
     {{-- -----------------------5--------------------------- --}}
+
     <div class="faq-section py-5">
         <div class="container">
             <div class="row justify-content-between">
-                <!-- Left Content -->
+
                 <div class="col-lg-4">
                     <div class="title mb-4">
                         <small>StaySphere FAQ</small>
@@ -544,10 +541,10 @@
                     </div>
                 </div>
 
-                <!-- FAQ Accordion -->
+
                 <div class="col-lg-7">
                     <div class="accordion" id="faqAccordion">
-                        <!-- Question 1 -->
+
                         <div class="card mb-3">
                             <div class="card-header" id="headingOne">
                                 <h5 class="mb-0">
@@ -566,7 +563,7 @@
                             </div>
                         </div>
 
-                        <!-- Question 2 -->
+
                         <div class="card mb-3">
                             <div class="card-header" id="headingTwo">
                                 <h5 class="mb-0">
@@ -585,7 +582,7 @@
                             </div>
                         </div>
 
-                        <!-- Question 3 -->
+
                         <div class="card mb-3">
                             <div class="card-header" id="headingThree">
                                 <h5 class="mb-0">
@@ -605,7 +602,7 @@
                             </div>
                         </div>
 
-                        <!-- Question 4 -->
+
                         <div class="card mb-3">
                             <div class="card-header" id="headingFour">
                                 <h5 class="mb-0">

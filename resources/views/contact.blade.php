@@ -13,7 +13,7 @@
         .half-screen-image {
             position: relative;
             height: 70vh;
-            background: url('{{ asset('build/assets/images/mr.jpg') }}') center/cover no-repeat;
+            background: url('{{ asset('build/assets/images/contact.jpg') }}') center/cover no-repeat;
         }
 
         .overlay-text {
@@ -39,7 +39,7 @@
 
         .breadcrumb-container a {
             text-decoration: none;
-            color: #F8F9FA;
+            color: #F1C40F;
         }
 
         .breadcrumb-container a:hover {
@@ -233,7 +233,7 @@
                 <div class="overlay-text">
                     <h1>Contact Us</h1>
                     <div class="breadcrumb-container">
-                        <a href="/welcome">Home</a> > Contact Us
+                        <a href="/">Home</a> > Contact Us
                     </div>
                 </div>
             </div>
@@ -245,7 +245,7 @@
                 <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center text-center ">
                     <h3 class="mb-3 contact-heading" style="color: midnightblue">Let's Start to Give Us a Message and Contact
                         With Us</h3>
-                    <img src="{{ asset('build/assets/images/mr1.jpg') }}" alt="Contact Image" class="img-fluid contact-img">
+                    {{-- <img src="{{ asset('build/assets/images/mr1.jpg') }}" alt="Contact Image" class="img-fluid contact-img"> --}}
                 </div>
 
                 <!-- Right Column: Form -->
@@ -287,6 +287,12 @@
         <div class="container my-5 position-relative">
             <div class="row justify-content-center align-items-center">
                 <!-- Left Column: Contact Info Box -->
+                <div class="col-lg-6 col-md-8 col-sm-10 d-flex justify-content-center align-items-center">
+                    <img src="{{ asset('build/assets/images/contact1.jpg') }}" alt="Contact Image"
+                        class="contact-image img-fluid">
+                </div>
+               
+                <!-- Right Column: Image -->
                 <div class="col-lg-6 col-md-8 col-sm-10 d-flex justify-content-center">
                     <div class="info-box p-4">
                         <h3 class="contact-heading mb-4">Contact Info</h3>
@@ -303,12 +309,6 @@
                             <span>info@staysphere.com</span>
                         </div>
                     </div>
-                </div>
-
-                <!-- Right Column: Image -->
-                <div class="col-lg-6 col-md-8 col-sm-10 d-flex justify-content-center align-items-center">
-                    <img src="{{ asset('build/assets/images/mr3.jpg') }}" alt="Contact Image"
-                        class="contact-image img-fluid">
                 </div>
             </div>
         </div>

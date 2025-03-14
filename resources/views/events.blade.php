@@ -17,6 +17,7 @@
 
     .hero-section h1 {
         font-size: 2.5rem; /* Adjusted font size for smaller screens */
+        font-weight: bold;
     }
 
     /* ------------------------------2nd section------------------------ */
@@ -192,6 +193,9 @@
 <div class="hero-section">
     <h1>Plan Your Events</h1>
     <p>Discover venues and services that make your events unforgettable.</p>
+    <div class="breadcrumb-container">
+        <a href="/">Home</a> > Events
+    </div>
 </div>
 
 <!------------------2nd Section------------------------ -->
