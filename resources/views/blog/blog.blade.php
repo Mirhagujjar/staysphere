@@ -3,10 +3,10 @@
 @section('content')
 
 <style>
-    /* Blog Page Styling */
+/* ---------------hero section------------- */
     .hero-section {
         position: relative;
-        background: url('{{ asset('build/assets/images/blog/blog1.jpg') }}') no-repeat center center;
+        background: url('{{ asset('build/assets/images/blog/blog.jpg') }}') no-repeat center center;
         background-size: cover;
         height: 400px;
         display: flex;
@@ -23,7 +23,7 @@
     }
     .link-container a {
         text-decoration: none;
-        color:rgb(247, 240, 240) ;
+        color:white ;
     }
     .link-container a:hover {
         color:#1ABC9C ;
@@ -87,7 +87,7 @@
             font-size: 1.8rem;
         }
     }
-    /* Gallery Section */
+
     .gallery-section {
         text-align: center;
         margin: 40px 0;
@@ -98,14 +98,14 @@
         color: #333;
         margin-bottom: 20px;
     }
-    /* Grid Layout */
+
     .gallery-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 15px;
         padding: 20px;
     }
-    /* Gallery Images */
+   
     .gallery-item {
         overflow: hidden;
         border-radius: 10px;
@@ -120,10 +120,10 @@
     }
 </style>
 
-<!-- Hero Section -->
+{{-- -- Hero Section -- --}}
 <div class="hero-section">
     <div class="hero-content">
-        <h1 class="fw-bold">Stay Sphere Blog</h1>
+        <h1 class="fw-bold">Blog</h1>
         <p class="mb-0">Latest travel tips, exclusive offers & hotel updates.</p>
         <div class="link-container">
             <a href="/">Home</a> >Blog
@@ -131,19 +131,19 @@
     </div>
 </div>
 
-<!-- Blog Content Section -->
+{{-- -- Blog Content Section -- --}}
 <div class="container my-5">
     <div class="row">
-        <!-- Blog Posts (Main Section) -->
+
         <div class="col-lg-8">
             <h3 class="fw-bold mb-4">Latest Articles</h3>
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <div class="card shadow-sm">
-                        <img src="{{ asset('build/assets/images/blog/2.jpg') }}" class="card-img-top" alt="Blog">
+                        <img src="{{ asset('build/assets/images/blog/R0.jpg') }}" class="card-img-top" alt="Blog">
                         <div class="card-body">
                             <h5 class="card-title">Ultimate Comfort: Top Room Picks</h5>
-                            <p class="text-muted small">Feb 09, 2025 | By Admin</p>
+                            <p class="text-muted small">Feb 09, 2025 |  By Admin</p>
                             <p class="card-text">Stay Sphere offers premium rooms with breathtaking views, modern amenities, and ultimate comfort for a memorable stay.</p>
                             <a href="{{ route('blog.topRoom') }}" class="btn btn-custom w-100">Read More</a>
                         </div>
@@ -152,9 +152,9 @@
 
                 <div class="col-md-6 mb-4">
                     <div class="card shadow-sm">
-                        <img src="{{ asset('build/assets/images/blog/3.jpg') }}" class="card-img-top" alt="Blog">
+                        <img src="{{ asset('build/assets/images/blog/M0.jpg') }}" class="card-img-top" alt="Blog">
                         <div class="card-body">
-                            <h5 class="card-title">Chef’s Special: Must-Try Dishes at Stay Sphere</h5>
+                            <h5 class="card-title"> Chef’s Special: Must-Try Dishes at Stay Sphere</h5>
                             <p class="text-muted small"> Feb 04, 2025 |  By Admin</p>
                             <p class="card-text">Indulge in our chef’s finest creations, from signature gourmet dishes to local favorites, at our luxury dining experience.</p>
                             <a href="{{ route('blog.chefSpecial') }}" class="btn btn-custom w-100">Read More</a>
@@ -163,10 +163,10 @@
                 </div>
                 <div class="col-md-6 mb-4">
                     <div class="card shadow-sm">
-                        <img src="{{ asset('build/assets/images/blog/6.jpg') }}" class="card-img-top" alt="Blog">
+                        <img src="{{ asset('build/assets/images/blog/G0.jpg') }}" class="card-img-top" alt="Blog">
                         <div class="card-body">
                             <h5 class="card-title">Guest Experiences: Real Stories from Our Visitors</h5>
-                            <p class="text-muted small"> Feb 04, 2025 | By Admin</p>
+                            <p class="text-muted small"> Feb 04, 2025 |  By Admin</p>
                             <p class="card-text">Read what our guests experience and how we make their stay unforgettable.</p>
                             <a href="{{ route('blog.guest') }}" class="btn btn-custom w-100">Read More</a>
                         </div>
@@ -174,10 +174,10 @@
                 </div>
                 <div class="col-md-6 mb-4">
                     <div class="card shadow-sm">
-                        <img src="{{ asset('build/assets/images/blog/7.jpg') }}" class="card-img-top" alt="Blog">
+                        <img src="{{ asset('build/assets/images/blog/H0.jpg') }}" class="card-img-top" alt="Blog">
                         <div class="card-body">
                             <h5 class="card-title"> Hosting an Event? Book a Hall at Stay Sphere</h5>
-                            <p class="text-muted small"> Feb 04, 2025 | By Admin</p>
+                            <p class="text-muted small"> Feb 04, 2025 |  By Admin</p>
                             <p class="card-text">Need a venue for your next event? Our halls and meeting rooms are available for booking.</p>
                             <a href="{{ route('blog.hosting') }}" class="btn btn-custom w-100">Read More</a>
                         </div>
@@ -185,9 +185,9 @@
                 </div>
             </div>
         </div>
-        <!-- Sidebar -->
+        {{-- -- Sidebar -- --}}
         <div class="col-lg-4">
-            <!-- Search Bar -->
+
             <div class="sidebar-section mb-4">
                 <h4>Search Blog</h4>
                 <div class="input-group">
@@ -195,7 +195,7 @@
                     <button class="btn btn-custom"><i class="bi bi-search"></i></button>
                 </div>
             </div>
-            <!-- Popular Posts -->
+
             <div class="sidebar-section mb-4">
                 <h4>Popular Posts</h4>
                 <ul class="list-unstyled">
@@ -205,7 +205,7 @@
                 </ul>
             </div>
 
-            <!-- Hotel Offers -->
+
             <div class="sidebar-section text-light">
                 <h4>Special Offers</h4>
                 <p>Get 20% off on your first booking. Limited time only!</p>
@@ -213,19 +213,20 @@
             </div>
         </div>
 
-                <!-- Image Gallery Section -->
+               {{-- ------- Image Gallery--------- --}}
         <section class="gallery-section">
             <h2>Gallery</h2>
             <div class="gallery-grid">
-                <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/r1.jpg') }}" alt="room 1"></div>
-                <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/r2.jpg') }}" alt="room 2"></div>
-                <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/r3.jpg') }}" alt="room 3"></div>
-                <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/r4.jpg') }}" alt="room 4"></div>
-                <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/r5.jpg') }}" alt="room 5"></div>
-                <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/r6.jpg') }}" alt="room 6"></div>
+                <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/R1.jpg') }}" alt="room 1"></div>
+                <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/H1.jpg') }}" alt="room 2"></div>
+                <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/G2.jpg') }}" alt="room 3"></div>
+                <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/H3.jpg') }}" alt="room 4"></div>
+                <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/G1.jpg') }}" alt="room 5"></div>
+                <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/R6.jpg') }}" alt="room 6"></div>
             </div>
         </section>
     </div>
 </div>
 
 @endsection
+

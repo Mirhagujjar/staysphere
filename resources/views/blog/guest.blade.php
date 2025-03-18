@@ -1,150 +1,164 @@
 @extends('layouts.app')
+
 @section('content')
 
 <style>
-    /* Hero Section */
+/*------------- Hero Section------------ */
+.hero-section {
+    position: relative;
+    background: url('{{ asset('build/assets/images/blog/G0.jpg') }}') no-repeat center center;
+    background-size: cover;
+    height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 30px 50px;
+    border-radius: 10px;
+}
+.link-container {
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 300;
+    color: #F8F9FA;
+}
+
+.link-container a {
+    text-decoration: none;
+    color: #F1C40F;
+}
+.link-container a:hover {
+    color: #1ABC9C;
+}
+/*------------ Blog Content -------------*/
+.blog-content {
+    line-height: 1.8;
+    color: #444;
+}
+
+.blog-content h4 {
+    font-weight: bold;
+    color: #2C3E50;
+    margin-top: 20px;
+}
+
+.blog-content ul {
+    padding-left: 20px;
+}
+
+.blog-content ul li {
+    margin-bottom: 8px;
+}
+
+/* ------------Sidebar----------- */
+.sidebar-section {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-section h4 {
+    font-weight: bold;
+    color: #2C3E50;
+}
+
+.sidebar-section a {
+    text-decoration: none;
+    color: #F1C40F;
+
+}
+
+.sidebar-section a:hover {
+    color:#1ABC9C;
+}
+
+/*-------------Action Box------------- */
+.cta-box {
+    background: #FFF3CD;
+    padding: 15px;
+    border-left: 5px solid #F1C40F;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.cta-box h5 {
+    font-weight: bold;
+    color: #2C3E50;
+}
+
+.cta-box p {
+    color: #666;
+}
+
+
+
+.gallery-section {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.gallery-section h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 20px;
+}
+
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.comment-section {
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.comment-section h4 {
+    color: #2C3E50;
+    font-weight: bold;
+}
+
+/* ----------Responsive------------- */
+@media (max-width: 768px) {
     .hero-section {
-        position: relative;
-        background: url('{{ asset('build/assets/images/blog/6.jpg') }}') no-repeat center center;
-        background-size: cover;
-        height: 450px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        text-align: center;
+        height: 300px;
     }
-
     .hero-overlay {
-        background: rgba(0, 0, 0, 0.6);
-        padding: 30px 50px;
-        border-radius: 10px;
+        padding: 20px 30px;
     }
-    .link-container {
-        margin-top: 10px;
-        font-size: 15px;
-        font-weight: 300;
-        color: #F8F9FA;
+    .hero-overlay h1 {
+        font-size: 1.8rem;
     }
-
-    .link-container a {
-        text-decoration: none;
-        color: #F1C40F;
-    }
-    .link-container a:hover {
-        color: #1ABC9C;
-    }
-    /* Blog Content */
-    .blog-content {
-        line-height: 1.8;
-        color: #444;
-    }
-    .blog-content h4 {
-        font-weight: bold;
-        color: #2C3E50;
-        margin-top: 20px;
-    }
-    .blog-content ul {
-        padding-left: 20px;
-    }
-    .blog-content ul li {
-        margin-bottom: 8px;
-    }
-
-    /* Sidebar */
-    .sidebar-section {
-        background: #f9f9f9;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-    }
-    .sidebar-section h4 {
-        font-weight: bold;
-        color: #2C3E50;
-    }
-    .sidebar-section a {
-        text-decoration: none;
-        color: #F1C40F;
-    }
-    .sidebar-section a:hover {
-        color:#1ABC9C;
-    }
-
-    /* Call-to-Action Box */
-    .cta-box {
-        background: #FFF3CD;
-        padding: 15px;
-        border-left: 5px solid #F1C40F;
-        border-radius: 10px;
-        text-align: center;
-    }
-    .cta-box h5 {
-        font-weight: bold;
-        color: #2C3E50;
-    }
-    .cta-box p {
-        color: #666;
-    }
-
-    /* Gallery Section */
-    .gallery-section {
-        text-align: center;
-        margin: 40px 0;
-    }
-    .gallery-section h2 {
-        font-size: 24px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 20px;
-    }
-
-    /* Grid Layout */
-    .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 15px;
-        padding: 20px;
-    }
-
-    /* Gallery Images */
-    .gallery-item {
-        overflow: hidden;
-        border-radius: 10px;
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
-    .gallery-item img {
-        width: 100%;
-        height: 250px;
-        object-fit: cover;
-        border-radius: 10px;
-        transition: transform 0.3s ease-in-out;
-    }
-    /* Comments Section */
-    .comment-section {
-        background: #f8f8f8;
-        padding: 20px;
-        border-radius: 10px;
-    }
-    .comment-section h4 {
-        color: #2C3E50;
-        font-weight: bold;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        .hero-section {
-            height: 300px;
-        }
-        .hero-overlay {
-            padding: 20px 30px;
-        }
-        .hero-overlay h1 {
-            font-size: 1.8rem;
-        }
-    }
+}
 </style>
 
-<!-- Hero Section -->
+{{-- ------- Hero Section ---------- --}}
 <div class="hero-section">
     <div class="hero-overlay">
         <h1 class="fw-bold"> Guest Experiences: From Our Visitors</h1>
@@ -155,7 +169,7 @@
     </div>
 </div>
 
-<!-- Blog Content Section -->
+{{-- ------------ Blog Content Section ---- --}}
 <div class="container my-5">
     <div class="row">
         <!-- Blog Main Content -->
@@ -173,24 +187,23 @@
                     <p>"Easily accessible and close to major attractions. I’ll definitely visit again." – Imran K</p>
                 </ul>
 
-                <!-- Hotel Promotion Section -->
+
                 <div class="cta-box mt-4">
                     <h5>Exclusive Offer: 20% Off on Deluxe Rooms!</h5>
                     <p>Book now and enjoy a luxurious stay with us.</p>
                     <a href="{{ route('reservations.create') }}" class="btn btn-warning">Book Now</a>
                 </div>
             </div>
-
         </div>
 
-        <!-- Sidebar Section -->
+        {{-- ------------ Sidebar Section ----------- --}}
         <div class="col-lg-4">
             <div class="sidebar-section mb-4">
                 <h4>Related Blogs</h4>
                 <ul class="list-unstyled">
                     <li><a href="{{ route('blog.topRoom') }}"> Ultimate Comfort</a></li>
                     <li><a href="{{ route('blog.chefSpecial') }}"> Chef’s Special</a></li>
-                    <li><a href="{{ route('blog.hosting') }}">Hosting an Event?</a></li>
+                    <li><a href="{{ route('blog.hosting') }}"> Hosting an Event</a></li>
                 </ul>
             </div>
 
@@ -200,23 +213,21 @@
                 <a href="{{ route('reviews') }}" class="btn btn-warning text-dark">Learn More</a>
             </div>
         </div>
-
     </div>
 
-    <!-- Image Gallery Section -->
-    <section class="gallery-section">
-        <h2>Guest Experiences</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/g1.jpg') }}" alt="guest 1"></div>
-            <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/g2.jpg') }}" alt="guest 2"></div>
-            <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/g3.jpg') }}" alt="guest 3"></div>
-            <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/g4.jpg') }}" alt="guest 4"></div>
-            <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/g5.jpg') }}" alt="guest 5"></div>
-            <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/g6.jpg') }}" alt="guest 6"></div>
-        </div>
-    </section>
-
-    <!-- Comments Section -->
+{{-- ------- Image Gallery Section ----------- --}}
+<section class="gallery-section">
+    <h2>Guest Experiences</h2>
+    <div class="gallery-grid">
+        <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/G1.jpg') }}" alt="guest 1"></div>
+        <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/G2.jpg') }}" alt="guest 2"></div>
+        <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/G3.jpg') }}" alt="guest 3"></div>
+        <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/G4.jpg') }}" alt="guest 4"></div>
+        <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/G5.png') }}" alt="guest 5"></div>
+        <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/G6.jpg') }}" alt="guest 6"></div>
+    </div>
+</section>
+    {{-- ------------- Comments Section ----------- --}}
     <div class="comment-section mt-5">
         <h4>Leave a Comment</h4>
         <form>
@@ -227,7 +238,9 @@
             <button type="submit" class="btn btn-warning">Submit</button>
         </form>
     </div>
-
 </div>
 
 @endsection
+
+
+
