@@ -79,7 +79,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('rooms')}}">Rooms</a>
+                    <a class="nav-link" href="{{route('user.rooms.index')}}">Rooms</a>
                 </li>
 
 
@@ -162,7 +162,7 @@
           <p><a href="{{ route('about') }}">About Us</a></p>
           <p><a href="{{route('services')}}">Services</a></p>
           <p><a href="{{route('reservations.create')}}" >Book Now</a></p>
-          <p><a href="{{route('rooms')}}">Rooms</a></p>
+          <p><a href="{{route('user.rooms.index')}}">Rooms</a></p>
           <p><a href="{{ route('events') }}">Events</a></p>
         </div>
 

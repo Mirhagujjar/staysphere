@@ -77,31 +77,17 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a class='nav-link' href='/dist/pages/widgets/small-box'>
+                                <a class='nav-link' href="{{ route('admin.rooms.index') }}">
+                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
+                                    <p>View All Rooms</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class='nav-link' href="{{ route('admin.rooms.create') }}">
                                     <i class="nav-icon bi bi-arrow-right text-warning"></i>
                                     <p>Add New Room</p>
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class='nav-link' href='/dist/pages/widgets/info-box'>
-                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
-                                    <p>Edit Room Details</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class='nav-link' href='/dist/pages/widgets/cards'>
-                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
-                                    <p> Remove Room</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class='nav-link' href='/dist/pages/widgets/cards'>
-                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
-                                    <p>Room Categories
-                                        {{-- (Single, Double, Suite) --}}
-                                    </p>
-                                </a>
-                            </li>
+                            </li>    
                         </ul>       
                     </li>
 

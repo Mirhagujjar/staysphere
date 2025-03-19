@@ -495,7 +495,7 @@
                 <label for="children" class="me-2">Children</label>
                 <input type="number" class="form-control me-2" id="children" min="0" value="0">
 
-                <a href="{{ route('rooms') }}" class="btn btn-warning">Check Availability</a>
+                <a href="{{ route('user.rooms.index') }}" class="btn btn-warning">Check Availability</a>
             </form>
         </div>
     </div>
@@ -585,7 +585,7 @@
             </div>
         </div>
         <div class="text-center mt-4">
-            <a href="{{ route('rooms') }}" class="btn btn-warning">View all Rooms</a>
+            <a href="{{ route('user.rooms.index') }}" class="btn btn-warning">View all Rooms</a>
         </div>
     </div>
 

@@ -1,5 +1,4 @@
 <?php
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoomsController;
@@ -12,23 +11,45 @@ use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PackageController;
 
+// -------userside links------------------
+use App\Http\Controllers\User\UserRoomController;
+
+// -------admin side links------------------
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminRoomController;
 
 
 use Illuminate\Support\Facades\Route;
 
-
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::prefix('admin')->group(function () {
-    Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/reservation', [AdminController::class, 'index'])->name('admin.reservations.reservations_list');
 
+// ------------------------------admin side routes-----------------------------------------
+Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/admin/rooms/create', [AdminController::class, 'create'])->name('admin.rooms.create');
 
-    // Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
-    // Route::get('/bookings', [AdminController::class, 'bookings'])->name('admin.bookings');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('rooms', AdminRoomController::class);
 });
 
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/rooms/edit/{id}', [AdminRoomController::class, 'edit'])->name('rooms.edit');
+    Route::get('/rooms', [AdminRoomController::class, 'index'])->name('rooms.index');
+    Route::get('/rooms/create', [AdminRoomController::class, 'create'])->name('rooms.create');
+    Route::post('/rooms/store', [AdminRoomController::class, 'store'])->name('rooms.store');
+    Route::put('/rooms/update/{id}', [AdminRoomController::class, 'update'])->name('rooms.update');
+    Route::delete('/rooms/delete/{id}', [AdminRoomController::class, 'destroy'])->name('rooms.destroy');
+   
+
+});
+
+
+
+// ----------------------------------------user side routes------------------------------
+
+// rooms
+Route::get('/rooms', [UserRoomController::class, 'index'])->name('user.rooms.index');
+Route::get('/rooms/{id}', [UserRoomController::class, 'show'])->name('user.rooms.show');
 
 // reservation
 Route::prefix('reservations')->group(function () {
@@ -42,7 +63,7 @@ Route::prefix('reservations')->group(function () {
 });
 
 
-Route::get('/rooms', [RoomsController::class, 'index'])->name('rooms');
+// Route::get('/rooms', [RoomsController::class, 'index'])->name('rooms');
 //  Route::get('/rooms', [RoomsController::class, 'rooms'])->name('hotel.rooms');
 
 Route::get('/events', [EventsController::class, 'index'])->name('events');
