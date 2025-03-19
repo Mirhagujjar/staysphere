@@ -263,13 +263,13 @@
                 <p>Capacity: {{ $room->room_capacity }} Persons</p>
                 <p>Facilities: {{ $room->facilities }}</p>
                 <p>Has View: {{ $room->has_view ? 'Yes' : 'No' }}</p>
-                <a href="{{ route('reservations.create', $room->id) }}" class="btn btn-warning">Book Now</a>
+                <a href="{{ route('user.reservations.create', $room->id) }}" class="btn btn-warning">Book Now</a>
             </div>
         </div>
     </div>
 
     {{-- ----------------------------Facilities------------------------------ --}}
-    <div class="facilities-section">
+    {{-- <div class="facilities-section">
         <h2 class="text-center mb-4">Main Facilities</h2>
         <div class="container">
             <div class="row g-4">
@@ -299,7 +299,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- -------------------------Booking Section---------------------- --}}
     <div class="container py-5" id="booking_section">

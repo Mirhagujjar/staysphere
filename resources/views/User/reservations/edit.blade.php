@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h2 class="text-center">Edit Reservation</h2>
-    <form action="{{ route('reservations.update', $reservation->id) }}" method="POST">
+    <form action="{{ route('user.reservations.update', $reservation->id) }}" method="POST">
         @csrf
         <div class="mb-3">
             <label>Name</label>
@@ -34,7 +34,7 @@
             <input type="number" name="guests" class="form-control" value="{{ $reservation->guests }}" required>
         </div>
         <button type="submit" class="btn btn-success">Update</button>
-        <a href="{{ route('reservations.index') }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ route('user.reservations.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 @endsection

@@ -3,20 +3,20 @@
 @section('content')
 
 <style>
-    /* Background and overall layout */
+
     .reset-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh; /* Full viewport height */
-        background: url('{{ asset('build/assets/images/login.jpg') }}') no-repeat center center/cover; /* Add your background image */
+        height: 100vh;
+        background: url('{{ asset('build/assets/images/login.jpg') }}') no-repeat center center/cover;
     }
 
-    /* Transparent circular reset box */
+
     .reset-box {
-        background: rgba(255, 255, 255, 0.1); /* Transparent white background */
-        backdrop-filter: blur(10px); /* Blur effect */
-        border-radius: 50%; /* Circular shape */
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 10%;
         padding: 60px;
         width: 400px;
         height: 400px;
@@ -26,64 +26,64 @@
         align-items: center;
         text-align: center;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        border: 2px solid rgba(255, 255, 255, 0.2); /* Light border */
-        animation: wipeIn 6s ease-in-out; /* Wipe animation */
-        overflow: hidden; /* Ensure content stays within the circle */
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        animation: wipeIn 6s ease-in-out;
+        overflow: hidden;
     }
 
-    /* Wipe animation */
-    @keyframes wipeIn {
+
+    /* @keyframes wipeIn {
         from {
             clip-path: circle(0% at 50% 50%);
         }
         to {
             clip-path: circle(100% at 50% 50%);
         }
-    }
+    } */
 
-    /* Heading */
+
     .reset-box h3 {
         margin-bottom: 20px;
         font-size: 24px;
-        color: #343A40; /* Dark Gray */
+        color: #343A40;
     }
 
-    /* Form inputs */
+    /* -----------------Form inputs -----------*/
     .form-control {
-        width: 80%; /* Adjusted width for circular form */
-        padding: 12px;
-        margin-bottom: 20px; /* Increased spacing */
-        border: 1px solid rgba(44, 62, 80, 0.3); /* Midnight Blue with transparency */
+        /* width: 80%;
+        padding: 12px; */
+        margin-bottom: 20px;
+        border: 1px solid rgba(44, 62, 80, 0.3);
         border-radius: 5px;
-        background: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+        background: rgba(255, 255, 255, 0.8);
         font-size: 16px;
-        color: #343A40; /* Dark Gray */
+        color: #343A40;
         transition: border-color 0.3s ease;
     }
 
     .form-control:focus {
-        border-color: #1ABC9C; /* Light Teal */
+        border-color: #1ABC9C;
         outline: none;
     }
 
-    /* Reset button */
+    /*--------------- Reset button----------- */
     .btn-warning {
-        width: 80%; /* Adjusted width for circular form */
+        width: 63%;
         padding: 12px;
-        background-color: #F1C40F; /* Soft Gold */
+        background-color: #F1C40F;
         border: none;
         border-radius: 5px;
-        color: #2C3E50; /* Midnight Blue */
+        color: #2C3E50;
         font-size: 16px;
         cursor: pointer;
         transition: background-color 0.3s;
     }
 
     .btn-warning:hover {
-        background-color: #F39C12; /* Darker Gold on hover */
+        background-color: #F39C12;
     }
 
-    /* Social login buttons */
+
     .social-login {
         display: flex;
         justify-content: center;
@@ -96,7 +96,7 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+        background: rgba(255, 255, 255, 0.2);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -107,12 +107,12 @@
     }
 
     .social-login a:hover {
-        background: rgba(255, 255, 255, 0.3); /* Lighter on hover */
+        background: rgba(255, 255, 255, 0.3);
     }
 
-    /* Error messages */
+
     .invalid-feedback {
-        color: #ff6b6b; /* Light red for errors */
+        color: #ff6b6b;
         font-size: 14px;
         margin-top: 5px;
     }
@@ -133,10 +133,10 @@
         @endif
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
-            <!-- Fake hidden fields to prevent auto-fill -->
+
             <input type="email" name="fake_email" style="display:none;">
 
-            <!-- Email Field -->
+            {{-- ------------ Email Field -------- --}}
             <div class="row mb-3">
                 <div class="col-md-12">
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" autofocus placeholder="Email Address">
@@ -148,20 +148,20 @@
                 </div>
             </div>
 
-            <!-- Reset Button -->
+            {{-- ----------- Reset Button ---------- --}}
             <div class="row mb-0">
                 <div class="col-md-12">
                     <button type="submit" class="btn btn-warning">
-                        {{ __('Send Password Reset Link') }}
+                        {{ __('Send Password') }}
                     </button>
                 </div>
             </div>
         </form>
         <script>
-            // Clear email and password fields on page load
+
             document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('email').value = '';
-            
+
             });
         </script>
     </div>

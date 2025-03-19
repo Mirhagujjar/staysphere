@@ -13,7 +13,7 @@
             <p>Room Type: {{ $reservation->room_type }}</p>
             <p>Guests: {{ $reservation->guests }}</p>
 
-            <a href="{{ route('reservations.index') }}" class="btn btn-secondary">Back to Reservations</a>
+            <a href="{{ route('user.reservations.index') }}" class="btn btn-secondary">Back to Reservations</a>
         </div>
     </div>
 </div>

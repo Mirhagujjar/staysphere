@@ -14,32 +14,32 @@
 
     /* Transparent circular registration box */
     .registration-box {
-        background: rgba(255, 255, 255, 0.1); /* Transparent white background */
-        backdrop-filter: blur(10px); /* Blur effect */
-        border-radius: 50%; /* Circular shape */
-        padding: 40px; /* Reduced padding */
-        width: 500px; /* Increased width */
-        height: 500px; /* Increased height */
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 10%;
+        padding: 40px;
+        width: 500px;
+        height: 500px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        border: 2px solid rgba(255, 255, 255, 0.2); /* Light border */
-        animation: wipeIn 6s ease-in-out; /* Wipe animation */
-        overflow: hidden; /* Ensure content stays within the circle */
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        animation: wipeIn 6s ease-in-out;
+        overflow: hidden;
     }
 
     /* Wipe animation */
-    @keyframes wipeIn {
+    /* @keyframes wipeIn {
         from {
             clip-path: circle(0% at 50% 50%);
         }
         to {
             clip-path: circle(100% at 50% 50%);
         }
-    }
+    } */
 
     /* Heading */
     .registration-box h2 {
@@ -178,6 +178,14 @@
                     <button type="submit" class="btn btn-primary">
                         {{ __('Register') }}
                     </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="signup-section">
+                        <p class="signup-text">login page <a href="{{ route('login') }}" class="signup-link">login</a></p>
+                    </div>
                 </div>
             </div>
         </form>

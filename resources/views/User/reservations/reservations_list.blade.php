@@ -16,9 +16,9 @@
                     <p>Room Type: {{ $reservations->room_type }}</p>
                     <p>Guests: {{ $reservations->guests }}</p>
 
-                    <a href="{{ route('reservations.show', $reservations->id) }}" class="btn btn-primary">View Details</a>
-                    <a href="{{ route('reservations.edit', $reservations->id) }}" class="btn btn-warning">Edit</a>
-                    <form action="{{ route('reservations.destroy', $reservations->id) }}" method="POST" style="display: inline-block;">
+                    <a href="{{ route('user.reservations.show', $reservations->id) }}" class="btn btn-primary">View Details</a>
+                    <a href="{{ route('user.reservations.edit', $reservations->id) }}" class="btn btn-warning">Edit</a>
+                    <form action="{{ route('user.reservations.destroy', $reservations->id) }}" method="POST" style="display: inline-block;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>

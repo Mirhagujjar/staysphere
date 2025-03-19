@@ -543,7 +543,7 @@
                             <p>70ft Room Size</p>
                             <p>30000 / Per Night</p>
                         </div>
-                        <a href="{{ route('reservations.create') }}" class="btn-book">Book Now</a>
+                        <a href="{{ route('user.reservations.create') }}" class="btn-book">Book Now</a>
                     </div>
                 </div>
             </div>
@@ -561,7 +561,7 @@
                             <p>35ft Room Size</p>
                             <p>25000 / Per Night</p>
                         </div>
-                        <a href="{{ route('reservations.create') }}" class="btn-book">Book Now</a>
+                        <a href="{{ route('user.reservations.create') }}" class="btn-book">Book Now</a>
                     </div>
                 </div>
             </div>
@@ -579,7 +579,7 @@
                             <p>60ft Room Size</p>
                             <p>20000 / Per Night</p>
                         </div>
-                        <a href="{{ route('reservations.create') }}" class="btn-book">Book Now</a>
+                        <a href="{{ route('user.reservations.create') }}" class="btn-book">Book Now</a>
                     </div>
                 </div>
             </div>

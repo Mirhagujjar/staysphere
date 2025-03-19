@@ -91,6 +91,13 @@
                         </ul>       
                     </li>
 
+                    <li class="nav-item">
+                        <a href="{{ route('admin.reservations.index') }}" class="nav-link">
+                            <i class="nav-icon bi bi-calendar-check"></i>
+                            <p>Reservations</p>
+                        </a>
+                    </li>
+
                     {{-- booking management --}}
                     <li class="nav-item">
                         <a href="#" class="nav-link">

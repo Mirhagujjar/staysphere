@@ -161,7 +161,7 @@
           <h6 class="text-uppercase mb-4 font-weight-bold">Links</h6>
           <p><a href="{{ route('about') }}">About Us</a></p>
           <p><a href="{{route('services')}}">Services</a></p>
-          <p><a href="{{route('reservations.create')}}" >Book Now</a></p>
+          <p><a href="{{route('user.reservations.create')}}" >Book Now</a></p>
           <p><a href="{{route('user.rooms.index')}}">Rooms</a></p>
           <p><a href="{{ route('events') }}">Events</a></p>
         </div>
