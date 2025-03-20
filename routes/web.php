@@ -24,6 +24,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// --------------------------------middle ware------------------------------------------
+
+Route::middleware(['admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index']);
+    Route::get('/admin/reservations', [AdminReservationController::class, 'index']);
+});
+
+Route::middleware(['user'])->group(function () {
+    Route::get('/user/reservations', [ReservationController::class, 'index']);
+});
+
 
 // ------------------------------admin side routes-----------------------------------------
 Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');

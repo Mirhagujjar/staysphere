@@ -93,7 +93,7 @@
 
                     <li class="nav-item">
                         <a href="{{ route('admin.reservations.index') }}" class="nav-link">
-                            <i class="nav-icon bi bi-calendar-check"></i>
+                            <i class="nav-icon bi bi-calendar-check text-warning"></i>
                             <p>Reservations</p>
                         </a>
                     </li>
