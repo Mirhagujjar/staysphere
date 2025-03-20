@@ -1,5 +1,4 @@
 <?php
-use App\Http\Controllers\RoomsController;
 
 
 
@@ -16,14 +15,14 @@ foreach ($routeFiles as $file) {
 
 // --------------------------------middle ware------------------------------------------
 
-Route::middleware(['admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index']);
-    Route::get('/admin/reservations', [AdminReservationController::class, 'index']);
-});
+// Route::middleware(['admin'])->group(function () {
+//     Route::get('/admin/dashboard', [AdminController::class, 'index']);
+//     Route::get('/admin/reservations', [AdminReservationController::class, 'index']);
+// });
 
-Route::middleware(['user'])->group(function () {
-    Route::get('/user/reservations', [ReservationController::class, 'index']);
-});
+// Route::middleware(['user'])->group(function () {
+//     Route::get('/user/reservations', [ReservationController::class, 'index']);
+// });
 
 
 
