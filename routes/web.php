@@ -24,6 +24,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// --------------------collect the othr route files
+$routeFiles = ['faiza.php', 'sidra.php', 'fozia.php'];
+
+foreach ($routeFiles as $file) {
+    require __DIR__ . '/' . $file;
+}
+
 // --------------------------------middle ware------------------------------------------
 
 Route::middleware(['admin'])->group(function () {
