@@ -25,10 +25,11 @@ class Reservation extends Model
     /**
      * Relationship: A reservation belongs to a user.
      */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    
+     public function user()
+     {
+         return $this->belongsTo(User::class, 'user_id');
+     }
 
     /**
      * Relationship: A reservation belongs to a room.
@@ -51,4 +52,5 @@ class Reservation extends Model
             })
             ->exists();
     }
+
 }
