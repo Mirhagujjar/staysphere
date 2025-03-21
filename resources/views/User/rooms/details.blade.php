@@ -253,7 +253,7 @@
         <div class="section-title text-center">
             <h2>Room Details</h2>
         </div>
-
+    
         <div class="row">
             <div class="col-md-6">
                 <img src="{{ asset('storage/' . $room->image) }}" class="img-fluid" alt="{{ $room->room_name }}">
@@ -263,10 +263,21 @@
                 <p>Capacity: {{ $room->room_capacity }} Persons</p>
                 <p>Facilities: {{ $room->facilities }}</p>
                 <p>Has View: {{ $room->has_view ? 'Yes' : 'No' }}</p>
-                <a href="{{ route('user.reservations.create', $room->id) }}" class="btn btn-warning">Book Now</a>
+    
+                {{-- ✅ Room Booked Status --}}
+                @if (isset($checkIn) && isset($checkOut) && $room->isBooked($checkIn, $checkOut))
+                    <p class="text-danger">This room is already booked.</p>
+                @else
+                    <span class="badge bg-success">Available</span>
+                    <a href="{{ route('user.reservations.create', ['room_id' => $room->id]) }}" class="btn btn-warning mt-3">
+                        Book Now
+                    </a>
+                @endif
             </div>
         </div>
     </div>
+    
+    
 
     {{-- ----------------------------Facilities------------------------------ --}}
     {{-- <div class="facilities-section">

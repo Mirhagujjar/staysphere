@@ -15,12 +15,12 @@ class UserMiddleware
      */
 
 
-    public function handle(Request $request, Closure $next) {
-        if (!Auth::check() || Auth::user()->role !== 'user') {
-            return redirect('/login')->with('error', 'Unauthorized access.');
-        }
-        return $next($request);
-    }
+    // public function handle(Request $request, Closure $next) {
+    //     if (!Auth::check() || Auth::user()->role !== 'user') {
+    //         return redirect('/login')->with('error', 'Unauthorized access.');
+    //     }
+    //     return $next($request);
+    // }
 
 
 }

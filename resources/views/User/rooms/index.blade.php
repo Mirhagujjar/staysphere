@@ -311,11 +311,20 @@
                                 </div>
                                 <a href="{{ route('user.rooms.show', $room->id) }}" class="btn-book">View Details</a>
                             </div>
+                            {{-- ✅ Sirf Available Rooms ke liye "Book Now" Button Show Karein --}}
+                            @if(!$room->isBooked())
+                                <div class="card-footer text-center">
+                                    <a href="{{ route('user.reservations.create', ['room_id' => $room->id]) }}" class="btn btn-primary">
+                                        Book Now
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     @endforeach
                 </div>
             </div>
+            
         </div>
     </div>
 

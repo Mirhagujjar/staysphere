@@ -56,6 +56,7 @@
                 @yield('content')
             </div>
 
+
             <!--end::App Content-->
         </main>
         <!--end::App Main-->

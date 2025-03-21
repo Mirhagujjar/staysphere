@@ -35,9 +35,30 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('/rooms/delete/{id}', [AdminRoomController::class, 'destroy'])->name('rooms.destroy');
 });
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('reservations', AdminReservationController::class);
+// Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+//     Route::resource('reservations', AdminReservationController::class);
+// });
+
+
+// reservation
+// Route::prefix('reservations')->name('admin.reservations.')->group(function () {
+//     Route::get('/', [AdminReservationController::class, 'index'])->name('index');
+//     Route::get('/create', [AdminReservationController::class, 'reservationform'])->name('create');
+//     Route::post('/store', [AdminReservationController::class, 'store'])->name('store');
+//     Route::get('/{id}', [AdminReservationController::class, 'show'])->name('show'); 
+//     Route::get('/{id}/edit', [AdminReservationController::class, 'edit'])->name('edit');
+//     Route::post('/{id}/update', [AdminReservationController::class, 'update'])->name('update');
+//     Route::delete('/{id}', [AdminReservationController::class, 'destroy'])->name('destroy');
+// });
+
+Route::prefix('admin/reservations')->name('admin.reservations.')->group(function () {
+    Route::get('/', [AdminReservationController::class, 'index'])->name('index');
+    Route::get('/show/{id}', [AdminReservationController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [AdminReservationController::class, 'edit'])->name('edit');
+    Route::put('/update/{id}', [AdminReservationController::class, 'update'])->name('update');
+    Route::delete('/{id}', [AdminReservationController::class, 'destroy'])->name('destroy');
 });
+
 
 
 // ----------------------------------------user side routes------------------------------

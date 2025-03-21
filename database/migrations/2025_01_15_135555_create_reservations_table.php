@@ -10,19 +10,25 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('reservations', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->date('check_in');
-            $table->date('check_out');
-            $table->string('room_type');
-            $table->integer('guests');
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('reservations', function (Blueprint $table) {
+        $table->id();
+        $table->unsignedBigInteger('room_id'); // Correct data type
+        $table->string('name');
+        $table->string('email');
+        $table->string('phone');
+        $table->date('check_in');
+        $table->date('check_out');
+        $table->integer('guests');
+        $table->enum('status', ['pending', 'confirmed', 'checked_out'])->default('pending');
+        $table->timestamps();
+
+        // Foreign Key
+        $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
+    });
+}
+
+
 
     /**
      * Reverse the migrations.

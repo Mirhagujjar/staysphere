@@ -55,9 +55,9 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        <form action="{{ route('reservations.store') }}" method="POST">
+        <form action="{{ route('user.reservations.store') }}" method="POST">
             @csrf
-
+            <input type="hidden" name="room_id" value="{{ $room_id }}">
 
             <div class="mb-3">
                 <label class="form-label">Full Name</label>

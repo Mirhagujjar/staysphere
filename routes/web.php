@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 
 
 
 use Illuminate\Support\Facades\Route;
 
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // --------------------collect the othr route files
 $routeFiles = ['faiza.php', 'sidra.php', 'fozia.php'];

@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rooms', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->decimal('price', 8, 2);
-            $table->integer('capacity');
-            $table->string('type');
-            $table->boolean('window_view')->default(false);
-            $table->text('services')->nullable();
+            $table->id(); // Correct way to define primary key
+            $table->string('room_name');
+            $table->string('room_type');
+            $table->integer('price');
+            $table->integer('room_capacity');
+            $table->text('facilities')->nullable();
+            $table->boolean('has_view')->default(false);
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
