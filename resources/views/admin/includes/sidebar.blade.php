@@ -98,6 +98,31 @@
                         </a>
                     </li>
 
+                    {{-- packages --}}
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon bi bi-archive text-warning"></i>
+                            <p>
+                                Packages
+                                <i class="nav-arrow bi bi-chevron-right text-warning"></i>
+                            </p>
+                        </a>      
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a class='nav-link' href="{{ route('admin.packages') }}">
+                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
+                                    <p>View All Packages</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class='nav-link' href="{{ route('admin.bookingspackages.index') }}">
+                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
+                                    <p>Check Packages Bookings </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     {{-- booking management --}}
                     <li class="nav-item">
                         <a href="#" class="nav-link">

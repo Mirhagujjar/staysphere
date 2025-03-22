@@ -4,15 +4,18 @@ use Illuminate\Support\Facades\Route;
 // -------- User Side Controllers --------
 use App\Http\Controllers\User\UserRoomController;
 use App\Http\Controllers\User\ReservationController;
+use App\Http\Controllers\User\UserPackageController;
+use App\Http\Controllers\User\UserBookingPackageController;
 
 // -------- Admin Side Controllers --------
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminRoomController;
 use App\Http\Controllers\Admin\AdminReservationController;
+use App\Http\Controllers\Admin\AdminPackageController;
+use App\Http\Controllers\Admin\AdminBookingPackageController;
 
 // -------- Other Controllers --------
 use App\Http\Controllers\ServicesController;
-use App\Http\Controllers\PackageController;
 
 // ---------------------------- Admin Routes ----------------------------
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -31,6 +34,28 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/{id}', [AdminReservationController::class, 'destroy'])->name('destroy');
     });
 });
+
+
+// pckages
+// Packages Routes
+// Packages Routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/packages', [AdminPackageController::class, 'index'])->name('packages');
+    Route::get('/packages/edit/{id}', [AdminPackageController::class, 'edit'])->name('packages.edit'); 
+    Route::post('/packages/add', [AdminPackageController::class, 'store'])->name('add.package');
+    Route::put('/packages/update/{id}', [AdminPackageController::class, 'update'])->name('package.update');
+    Route::delete('/packages/delete/{id}', [AdminPackageController::class, 'destroy'])->name('package.delete');
+});
+
+// Booking Packages Routes
+Route::prefix('admin/bookingspackages')->name('admin.bookingspackages.')->group(function () {
+    Route::get('/', [AdminBookingPackageController::class, 'index'])->name('index');
+    Route::get('/edit/{id}', [AdminBookingPackageController::class, 'edit'])->name('edit');
+    Route::put('/update/{id}', [AdminBookingPackageController::class, 'update'])->name('update');
+    Route::delete('/delete/{id}', [AdminBookingPackageController::class, 'destroy'])->name('destroy');
+});
+
+
 
 // ---------------------------- User Side Routes ----------------------------
 // Rooms
@@ -64,7 +89,10 @@ Route::prefix('services')->group(function(){
 });
 
 // ---------------------------- Packages Route ----------------------------
-Route::get('/packages', [PackageController::class, 'showPackages'])->name('packages');
+// Route::get('/packages', [PackageController::class, 'showPackages'])->name('packages');
+
+Route::get('/packages', [UserPackageController::class, 'index'])->name('user.packages');
+Route::post('/packages/book', [UserBookingPackageController::class, 'bookPackage'])->name('user.book.package');
 
 // ---------------------------- Middleware Routes (Future Use) ----------------------------
 // Route::middleware(['admin'])->group(function () {

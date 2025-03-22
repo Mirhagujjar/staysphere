@@ -9,21 +9,24 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('package_bookings', function (Blueprint $table) {
             $table->id();
             $table->string('full_name');
             $table->string('email');
             $table->string('phone');
-            $table->foreignId('package_id')->constrained('packages')->onDelete('cascade');
+            $table->unsignedBigInteger('package_id');
             $table->date('check_in');
             $table->date('check_out');
-            $table->enum('payment_method', ['Pay at Arrival', 'Online Payment', 'Partial Payment']);
+            $table->string('payment_method');
             $table->text('special_requests')->nullable();
             $table->timestamps();
+    
+            $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
         });
     }
+    
 
     /**
      * Reverse the migrations.

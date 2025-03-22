@@ -121,7 +121,7 @@
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" href="{{route('menu')}}">Menu of the Day</a></li>
                         <li><a class="dropdown-item" href="{{ route('blog.blog') }}">Blog</a></li>
-                        <li><a class="dropdown-item" href="{{ route('packages') }}">Packages</a></li>
+                        <li><a class="dropdown-item" href="{{ route('user.packages') }}">Packages</a></li>
                     </ul>
                   </li>
 
@@ -172,7 +172,7 @@
           <p><a href="/">Home</a></p>
           <p><a href="{{ route('blog.blog') }}">Blog</a></p>
           <p><a href="{{ route('reviews') }}">Reviews</a></p>
-          <p><a href="{{ route('packages') }}">Packages</a></p>
+          <p><a href="{{ route('user.packages') }}">Packages</a></p>
           <p><a href="{{route('contact.index')}}">Contact Us</a></p>
         </div>
 

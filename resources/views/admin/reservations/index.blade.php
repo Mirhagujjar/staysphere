@@ -36,8 +36,8 @@
                     <span class="badge bg-success">{{ $reservation->status }}</span>
     
                     <div class="mt-3">
-                        <a href="{{ route('user.reservations.edit', $reservation->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="{{ route('user.reservations.destroy', $reservation->id) }}" method="POST" class="d-inline">
+                        <a href="{{ route('admin.reservations.edit', $reservation->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{{ route('admin.reservations.destroy', $reservation->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>

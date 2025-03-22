@@ -39,7 +39,7 @@ class AdminRoomController extends Controller
             'room_capacity' => 'required|integer|min:1',
             'facilities' => 'required|string',
             'has_view' => 'boolean',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|max:2048',
         ]);
 
         $imagePath = null;
@@ -110,7 +110,7 @@ class AdminRoomController extends Controller
             'room_capacity' => 'required|integer',
             'facilities' => 'nullable|string',
             'has_view' => 'required|boolean',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048' // Image validation
+            'image' => 'nullable|image|max:2048' // Image validation
         ]);
     
         // Find the room by ID
