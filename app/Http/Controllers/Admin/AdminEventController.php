@@ -4,16 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Event;
 
 class AdminEventController extends Controller
 {
     public function index() {
         $events = Event::all();
-        return view('admin.events.index', compact('events'));
+        return view('admin.event.index', compact('events'));
     }
 
     public function create() {
-        return view('admin.events.create');
+        return view('admin.event.create');
     }
 
     public function store(Request $request) {
@@ -26,11 +27,11 @@ class AdminEventController extends Controller
         ]);
 
         Event::create($request->all());
-        return redirect()->route('admin.events.index')->with('success', 'Event Created Successfully!');
+        return redirect()->route('admin.event.index')->with('success', 'Event Created Successfully!');
     }
 
     public function edit(Event $event) {
-        return view('admin.events.edit', compact('event'));
+        return view('admin.event.edit', compact('event'));
     }
     public function update(Request $request, Event $event) {
         $request->validate([
@@ -42,11 +43,22 @@ class AdminEventController extends Controller
         ]);
 
         $event->update($request->all());
-        return redirect()->route('admin.events.index')->with('success', 'Event Updated Successfully!');
+        return redirect()->route('admin.event.index')->with('success', 'Event Updated Successfully!');
     }
 
     public function destroy(Event $event) {
         $event->delete();
-        return redirect()->route('admin.events.index')->with('success', 'Event Deleted Successfully!');
+        return redirect()->route('admin.event.index')->with('success', 'Event Deleted Successfully!');
+    }
+
+    public function index1()
+    {
+        $events = Event::all();
+        return view('admin.event.index', compact('events'));
+    }
+
+    public function create1()
+    {
+        return view('admin.event.create');
     }
 }
