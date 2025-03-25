@@ -65,7 +65,7 @@
                             </li>
                         </ul>
                     </li> --}}
-                    
+
                     {{-- Room mangement --}}
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -87,8 +87,8 @@
                                     <i class="nav-icon bi bi-arrow-right text-warning"></i>
                                     <p>Add New Room</p>
                                 </a>
-                            </li>    
-                        </ul>       
+                            </li>
+                        </ul>
                     </li>
 
                     <li class="nav-item">
@@ -106,7 +106,7 @@
                                 Packages
                                 <i class="nav-arrow bi bi-chevron-right text-warning"></i>
                             </p>
-                        </a>      
+                        </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a class='nav-link' href="{{ route('admin.packages') }}">
@@ -122,6 +122,32 @@
                             </li>
                         </ul>
                     </li>
+                    {{-- event --}}
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon bi bi-calendar-event text-primary"></i>
+                            <p>
+                                Events Management
+                                <i class="nav-arrow bi bi-chevron-right text-primary"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a class='nav-link' href="{{ route('admin.event') }}">
+                                    <i class="nav-icon bi bi-arrow-right text-primary"></i>
+                                    <p>View All Events</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class='nav-link' href="{{ route('admin.createEvent') }}">
+                                    <i class="nav-icon bi bi-arrow-right text-primary"></i>
+                                    <p>Add New Event</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
 
                     {{-- booking management --}}
                     <li class="nav-item">
@@ -131,7 +157,7 @@
                                 Bookings Management
                                 <i class="nav-arrow bi bi-chevron-right text-warning"></i>
                             </p>
-                        </a>      
+                        </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a class='nav-link' href='/dist/pages/widgets/small-box'>
@@ -163,7 +189,7 @@
                             </li>
                         </ul>
                     </li>
-                   
+
 
                     {{-- Users Management --}}
                     <li class="nav-item">

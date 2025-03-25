@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\User\Event;
 
-// login aur regisration py tum ne kam kya h us py bi ab bi tum ne hi kam krna h 
-// laready tum ne kam kya howa h is liay dia h tumy 
+// login aur regisration py tum ne kam kya h us py bi ab bi tum ne hi kam krna h
+// laready tum ne kam kya howa h is liay dia h tumy
 
 
 // blogs
@@ -18,9 +19,21 @@ Route::prefix('blog')->group(function(){
     Route::get('/hosting', [BlogController::class, 'hosting'])->name('blog.hosting');
 });
 
-Route::get('/events', [EventsController::class, 'index'])->name('events');
+Route::get('/events', [EventsController::class, 'index1'])->name('events');
 
 
 
 
 Route::get('/about', [AboutController::class, 'index'])->name('about');
+
+use App\Http\Controllers\Admin\AdminEventController;
+use App\Http\Controllers\User\EventController;
+
+// Public Routes
+Route::get('/event', [EventController::class, 'index'])->name('event.index');
+Route::get('/event/{event}', [EventController::class, 'show'])->name('event.show');
+
+// Admin Routes (Protected by Middleware)
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('/admin/events', AdminEventController::class);
+});

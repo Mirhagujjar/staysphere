@@ -834,7 +834,7 @@
                         <span>
                             <em>Info and bookings</em> <br>+92 123 456 7890
                         </span>
-                    </a>
+                    </a>        
                 </p>
             </div>
 
