@@ -134,13 +134,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a class='nav-link' href="{{ route('admin.event') }}">
+                                <a class='nav-link' href="{{ route('admin.events') }}">
                                     <i class="nav-icon bi bi-arrow-right text-primary"></i>
                                     <p>View All Events</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class='nav-link' href="{{ route('admin.createEvent') }}">
+                                <a class='nav-link' href="{{ route('admin.events.create') }}">
                                     <i class="nav-icon bi bi-arrow-right text-primary"></i>
                                     <p>Add New Event</p>
                                 </a>

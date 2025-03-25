@@ -41,5 +41,17 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 
 
-Route::get('/admin/events', [AdminEventController::class, 'index1'])->name('admin.event');
-Route::get('/admin/events/create', [AdminEventController::class, 'create1'])->name('admin.createEvent');
+// Route::get('/admin/events', [AdminEventController::class, 'index1'])->name('admin.event');
+// Route::get('/admin/events/create', [AdminEventController::class, 'create1'])->name('admin.createEvent');
+
+
+
+// Admin Event Management Routes
+Route::prefix('admin')->group(function () {
+    Route::get('/events', [AdminEventController::class, 'index'])->name('admin.events'); // View all events
+    Route::get('/events/create', [AdminEventController::class, 'create'])->name('admin.events.create'); // Show create form
+    Route::post('/events', [AdminEventController::class, 'store'])->name('admin.events.store'); // Store new event
+    Route::get('/events/{id}/edit', [AdminEventController::class, 'edit'])->name('admin.events.edit'); // Show edit form
+    Route::put('/events/{id}', [AdminEventController::class, 'update'])->name('admin.events.update'); // Update event
+    Route::delete('/events/{id}', [AdminEventController::class, 'destroy'])->name('admin.events.destroy'); // Delete event
+});
