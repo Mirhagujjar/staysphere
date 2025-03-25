@@ -126,22 +126,22 @@
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon bi bi-calendar-event text-primary"></i>
+                            <i class="nav-icon bi bi-calendar-event text-warning"></i>
                             <p>
                                 Events Management
-                                <i class="nav-arrow bi bi-chevron-right text-primary"></i>
+                                <i class="nav-arrow bi bi-chevron-right text-warning"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a class='nav-link' href="{{ route('admin.events') }}">
-                                    <i class="nav-icon bi bi-arrow-right text-primary"></i>
+                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
                                     <p>View All Events</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class='nav-link' href="{{ route('admin.events.create') }}">
-                                    <i class="nav-icon bi bi-arrow-right text-primary"></i>
+                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
                                     <p>Add New Event</p>
                                 </a>
                             </li>
