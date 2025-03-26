@@ -470,7 +470,7 @@
                 <div class="col-md-4">
                     <div class="team-card text-center p-4 shadow rounded">
                         <div class="team-image">
-                            <img src="{{ asset('build/assets/images/team2.jpg') }}" alt="Team Member 1"
+                            <img src="{{ asset('build/assets/images/team1.jpg') }}" alt="Team Member 1"
                                 class="img-fluid rounded-circle">
                         </div>
                         <h5 class="mt-3">John Doe</h5>
@@ -489,7 +489,7 @@
                 <div class="col-md-4">
                     <div class="team-card text-center p-4 shadow rounded">
                         <div class="team-image">
-                            <img src="{{ asset('build/assets/images/team3.jpg') }}" alt="Team Member 2"
+                            <img src="{{ asset('build/assets/images/team1.jpg') }}" alt="Team Member 2"
                                 class="img-fluid rounded-circle">
                         </div>
                         <h5 class="mt-3">Jane Smith</h5>

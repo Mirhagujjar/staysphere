@@ -147,6 +147,30 @@
                             </li>
                         </ul>
                     </li>
+                 {{-- about us --}}
+                 <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon bi bi-info-circle text-warning"></i>
+                        <p>
+                            About Us
+                            <i class="nav-arrow bi bi-chevron-right text-warning"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a class='nav-link' href="{{ route('admin.about.index') }}">
+                                <i class="nav-icon bi bi-arrow-right text-warning"></i>
+                                <p>View About Us</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class='nav-link' href="{{ route('admin.about.create') }}">
+                                <i class="nav-icon bi bi-arrow-right text-warning"></i>
+                                <p>Add About Us</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
 
                     {{-- booking management --}}

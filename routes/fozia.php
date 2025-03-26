@@ -6,6 +6,8 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\User\EventController;
+use App\Http\Controllers\User\UserAboutUsController;
+use App\Http\Controllers\Admin\AdminAboutUsController;
 
 
 // login aur regisration py tum ne kam kya h us py bi ab bi tum ne hi kam krna h
@@ -54,4 +56,20 @@ Route::prefix('admin')->group(function () {
     Route::get('/events/{id}/edit', [AdminEventController::class, 'edit'])->name('admin.events.edit'); // Show edit form
     Route::put('/events/{id}', [AdminEventController::class, 'update'])->name('admin.events.update'); // Update event
     Route::delete('/events/{id}', [AdminEventController::class, 'destroy'])->name('admin.events.destroy'); // Delete event
+});
+
+// about us
+
+
+// ✅ User Routes
+Route::get('/about-us', [UserAboutUsController::class, 'index'])->name('user.about.index');
+
+// ✅ Admin Routes (Middleware Protected)
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/about-us', [AdminAboutUsController::class, 'index'])->name('admin.about.index');
+    Route::get('/admin/about-us/create', [AdminAboutUsController::class, 'create'])->name('admin.about.create');
+    Route::post('/admin/about-us', [AdminAboutUsController::class, 'store'])->name('admin.about.store');
+    Route::get('/admin/about-us/edit', [AdminAboutUsController::class, 'edit'])->name('admin.about.edit');
+    Route::post('/admin/about-us/update', [AdminAboutUsController::class, 'update'])->name('admin.about.update');
+    Route::delete('/admin/about-us/delete', [AdminAboutUsController::class, 'destroy'])->name('admin.about.delete');
 });
