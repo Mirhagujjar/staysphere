@@ -49,7 +49,6 @@ class AdminReservationController extends Controller
             'status' => 'pending',
         ]);
 
-        // ✅ Update the Reservation
         $reservation->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -63,7 +62,6 @@ class AdminReservationController extends Controller
         return redirect()->route('admin.reservations.index')->with('success', 'Reservation updated successfully!');
     }
 
-    // ✅ Delete Reservation
     public function destroy($id)
     {
         $reservation = Reservation::findOrFail($id);

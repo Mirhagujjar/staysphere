@@ -69,14 +69,14 @@ class UserRoomController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'room_id' => 'required|exists:rooms,id',
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'phone' => 'required|string|max:20',
-            'check_in' => 'required|date',
-            'check_out' => 'required|date|after:check_in',
-        ]);
+        // $request->validate([
+        //     'room_id' => 'required|exists:rooms,id',
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|email',
+        //     'phone' => 'required|string|max:20',
+        //     'check_in' => 'required|date',
+        //     'check_out' => 'required|date|after:check_in',
+        // ]);
 
         // Naya reservation create karein
         $reservation = new Reservation();

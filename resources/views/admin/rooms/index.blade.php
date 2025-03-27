@@ -26,7 +26,7 @@
                 <td>{{ $room->facilities }}</td>
                 <td>{{ $room->has_view ? 'Yes' : 'No' }}</td>
                 <td>
-                    <img src="{{ url('storage/' . $room->image) }}" width="80">
+                    <img src="{{ url('storage/room_images' . $room->image) }}" width="80">
                 </td>
                 <td>
                     <a href="{{ route('admin.rooms.edit', $room->id) }}" class="btn btn-primary">Edit</a>      

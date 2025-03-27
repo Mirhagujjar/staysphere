@@ -22,12 +22,12 @@ class AdminBookingPackageController extends Controller {
     // 🟢 Update Booking
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'package_name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'status' => 'required|string',
-            'image' => 'nullable|image|max:2048',
-        ]);
+        // $request->validate([
+        //     'package_name' => 'required|string|max:255',
+        //     'price' => 'required|numeric',
+        //     'status' => 'required|string',
+        //     'image' => 'nullable|image|max:2048',
+        // ]);
 
         $booking = PackageBooking::findOrFail($id);
         $booking->package_name = $request->package_name;

@@ -31,7 +31,7 @@
             <label class="form-label">Package Image</label>
             <input type="file" name="image" class="form-control">
             @if($booking->image)
-                <img src="{{ asset('storage/' . $booking->image) }}" width="100" class="mt-2">
+                <img src="{{ asset('storage/room_images'. $booking->image) }}" width="100" class="mt-2">
             @endif
         </div>
 

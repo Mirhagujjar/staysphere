@@ -17,7 +17,7 @@
             @foreach ($packages as $package)
                 <tr>
                     <td>
-                        <img src="{{ asset('storage/packages/' . $package->image) }}" width="100">
+                        <img src="{{ asset('storage/room_images'. $package->image) }}" width="100">
                     </td>
                     <td>{{ $package->name }}</td>
                     <td>PKR {{ number_format($package->price, 2) }}</td>

@@ -121,7 +121,7 @@
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-6">
-                            @if (file_exists(public_path('storage/' . $package->image)))
+                            @if (file_exists(public_path('storage/room_images' . $package->image)))
                                 <img src="{{ asset('storage/room_images' . $package->image) }}" alt="Package Image">
                             @else
                                 <p>Image not found</p>

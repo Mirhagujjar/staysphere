@@ -41,7 +41,7 @@
         <div class="mb-3">
             <label class="form-label">Package Image</label>
             <input type="file" name="image" class="form-control">
-            <img src="{{ asset('storage/packages/' . $package->image) }}" width="150" class="mt-2">
+            <img src="{{ asset('storage/room_images'. $package->image) }}" width="150" class="mt-2">
         </div>
 
         <button type="submit" class="btn btn-success">Update Package</button>

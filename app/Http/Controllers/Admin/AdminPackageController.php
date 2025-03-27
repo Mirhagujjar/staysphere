@@ -62,16 +62,16 @@ class AdminPackageController extends Controller {
         if ($request->hasFile('image')) {
             // Purani image delete
             if ($package->image) {
-                Storage::delete('public/packages/' . $package->image);
+                Storage::delete('storage/room_images' . $package->image);
             }
             // Nayi image upload
-            $imagePath = $request->file('image')->store('public/packages');
+            $imagePath = $request->file('image')->store('storage/room_images');
             $package->image = basename($imagePath);
         }
     
         $package->save();
     
-        return redirect()->route('admin.packages.index')->with('success', 'Package updated successfully.');
+        return redirect()->route('admin.packages')->with('success', 'Package updated successfully.');
     }
     
 
