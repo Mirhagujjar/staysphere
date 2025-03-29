@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\EventsController;
+
+
 use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\User\EventController;
 use App\Http\Controllers\User\UserAboutUsController;
@@ -36,10 +38,10 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/event', [EventController::class, 'index'])->name('event.index');
 Route::get('/event/{event}', [EventController::class, 'show'])->name('event.show');
 
-// Admin Routes (Protected by Middleware)
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::resource('/admin/events', AdminEventController::class);
-});
+// // Admin Routes (Protected by Middleware)
+// Route::middleware(['auth', 'admin'])->group(function () {
+//     Route::resource('/admin/events', AdminEventController::class);
+// });
 
 
 
@@ -56,6 +58,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/events/{id}/edit', [AdminEventController::class, 'edit'])->name('admin.events.edit'); // Show edit form
     Route::put('/events/{id}', [AdminEventController::class, 'update'])->name('admin.events.update'); // Update event
     Route::delete('/events/{id}', [AdminEventController::class, 'destroy'])->name('admin.events.destroy'); // Delete event
+
 });
 
 // about us
@@ -64,12 +67,20 @@ Route::prefix('admin')->group(function () {
 // ✅ User Routes
 Route::get('/about-us', [UserAboutUsController::class, 'index'])->name('user.about.index');
 
-// ✅ Admin Routes (Middleware Protected)
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/about-us', [AdminAboutUsController::class, 'index'])->name('admin.about.index');
-    Route::get('/admin/about-us/create', [AdminAboutUsController::class, 'create'])->name('admin.about.create');
-    Route::post('/admin/about-us', [AdminAboutUsController::class, 'store'])->name('admin.about.store');
-    Route::get('/admin/about-us/edit', [AdminAboutUsController::class, 'edit'])->name('admin.about.edit');
-    Route::post('/admin/about-us/update', [AdminAboutUsController::class, 'update'])->name('admin.about.update');
-    Route::delete('/admin/about-us/delete', [AdminAboutUsController::class, 'destroy'])->name('admin.about.delete');
+
+
+
+
+
+Route::prefix('admin')->group(function () {
+    Route::get('/about-us', [AdminAboutUsController::class, 'index'])->name('admin.about.index');
+    Route::get('/about-us/create', [AdminAboutUsController::class, 'create'])->name('admin.about.create');
+    Route::post('/about-us', [AdminAboutUsController::class, 'store'])->name('admin.about.store');
+    Route::get('/about-us/{id}/edit', [AdminAboutUsController::class, 'edit'])->name('admin.about.edit');
+    Route::put('/about-us/update/{id}', [AdminAboutUsController::class, 'update'])->name('admin.about.update');
+    Route::delete('/about-us/delete/{id}', [AdminAboutUsController::class, 'destroy'])->name('admin.about.destroy');
+
+
+
+
 });

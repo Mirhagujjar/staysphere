@@ -5,83 +5,66 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\AboutUs;
-
+use Illuminate\Support\Facades\Storage;  // <-- Import Storage
 
 class AdminAboutUsController extends Controller
 {
+    public function index()
+    {
+        $aboutData = AboutUs::all();
+        return view('admin.about.index', compact('aboutData'));
+    }
 
-        public function index()
-        {
-            $about = AboutUs::first();
-            return view('admin.about.index', compact('about'));
-        }
+    // Show the form for creating a new entry
+    public function create()
+    {
+        return view('admin.about.create');
+    }
 
-        public function create()
-        {
-            return view('admin.about.create');
-        }
+    // Store new record in the database
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
 
-        public function store(Request $request)
-        {
-            $request->validate([
-                'title' => 'required|string|max:255',
-                'description' => 'required',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-            ]);
+        ]);
 
-            $about = new AboutUs();
-            $about->title = $request->title;
-            $about->description = $request->description;
+        AboutUs::create($request->all());
 
-            if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('about_images', 'public');
-                $about->image = $imagePath;
-            }
+        return redirect()->route('admin.about.index')->with('success', 'About Us data added successfully!');
+    }
 
-            $about->save();
+    // Show the form for editing a record
+    public function edit($id)
+    {
+        $about = AboutUs::findOrFail($id);
+        return view('admin.about.edit', compact('about'));
+    }
 
-            return redirect()->route('admin.about.index')->with('success', 'About Us created successfully.');
-        }
+    // Update the record in the database
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
 
-        public function edit()
-        {
-            $about = AboutUs::first();
-            return view('admin.about.edit', compact('about'));
-        }
+        $about = AboutUs::findOrFail($id);
+        $about->update($request->all());
 
-        public function update(Request $request)
-        {
-            $request->validate([
-                'title' => 'required|string|max:255',
-                'description' => 'required',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-            ]);
+        return redirect()->route('admin.about.index')->with('success', 'About Us data updated successfully!');
+    }
 
-            $about = AboutUs::first();
+    // Delete the record from the database
+    public function destroy($id)
+    {
+        $about = AboutUs::findOrFail($id);
+        $about->delete();
 
-            if (!$about) {
-                $about = new AboutUs();
-            }
-
-            $about->title = $request->title;
-            $about->description = $request->description;
-
-            if ($request->hasFile('image')) {
-                Storage::delete('public/' . $about->image);
-                $imagePath = $request->file('image')->store('about_images', 'public');
-                $about->image = $imagePath;
-            }
-
-            $about->save();
-
-            return redirect()->route('admin.about.index')->with('success', 'About Us updated successfully.');
-        }
-
-        public function destroy()
-        {
-            AboutUs::truncate();
-            return redirect()->route('admin.about.index')->with('success', 'About Us deleted successfully.');
-        }
+        return redirect()->route('admin.about.index')->with('success', 'About Us data deleted successfully!');
     }
 
 
+}

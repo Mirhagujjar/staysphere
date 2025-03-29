@@ -1,20 +1,27 @@
 @extends('admin.dashboard')
 
+
+
 @section('content')
 <div class="container">
-    <h1>Add About Us</h1>
-    <form action="{{ route('admin.about.store') }}" method="POST" enctype="multipart/form-data">
+    <h1>Add New About Us</h1>
+
+    <form action="{{ route('admin.about.store') }}" method="POST">
         @csrf
-        <label>Title</label>
-        <input type="text" name="title" required>
 
-        <label>Description</label>
-        <textarea name="description" required></textarea>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
 
-        <label>Image</label>
-        <input type="file" name="image">
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+        </div>
 
-        <button type="submit">Save</button>
+        <button type="submit" class="btn btn-success">Save</button>
     </form>
 </div>
 @endsection
+
+

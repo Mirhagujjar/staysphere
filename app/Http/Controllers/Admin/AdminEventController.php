@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Event;
+use Illuminate\Support\Facades\Storage;
 
 class AdminEventController extends Controller
 {
@@ -53,8 +54,8 @@ class AdminEventController extends Controller
         // 🟢 Show Edit Form
         public function edit($id)
         {
-            $event = Event::findOrFail($id);
-            return view('admin.event.edit', compact('event'));
+            $event = Event::find($id);
+            return view('admin.event.create', compact('event'));
         }
 
         // 🟢 Update Event
@@ -67,11 +68,18 @@ class AdminEventController extends Controller
         }
 
         // 🟢 Delete Event
-        public function destroy($id)
-        {
-            Event::destroy($id);
-            return redirect()->route('admin.events')->with('success', 'Event Deleted Successfully!');
-        }
+        // public function destroy($id)
+        // {
+        //     Event::destroy($id);
+        //     return redirect()->route('admin.events')->with('success', 'Event Deleted Successfully!');
+        // }
+
+    public function destroy($id)
+    {
+        $event = Event::findOrFail($id);
+        $event->delete();
+        return redirect()->route('admin.events')->with('success', 'Package deleted successfully!');
+    }
     }
 
 
