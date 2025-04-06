@@ -256,8 +256,8 @@
     
         <div class="row">
             <div class="col-md-6">
-                <img src="{{ asset('assets/images/rooms/' . $room->image) }}" 
-                class="img-fluid" alt="{{ $room->room_name }}">
+                <img src="{{ asset($room->image) }}" alt="{{ $room->room_name }}" class="img-thumbnail" style="max-width: 500px; height: auto;">
+
             </div>
             <div class="col-md-6">
                 <h3>Price: Rs. {{ number_format($room->price) }}</h3>

@@ -40,7 +40,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // Packages Routes
 // Packages Routes
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/packages', [AdminPackageController::class, 'index'])->name('packages');
+    Route::get('/packages', [AdminPackageController::class, 'index'])->name('packages.index');
     Route::get('/packages/edit/{id}', [AdminPackageController::class, 'edit'])->name('packages.edit'); 
     Route::get('/packages/create', [AdminPackageController::class, 'create'])->name('packages.create');
     Route::post('/packages/store', [AdminPackageController::class, 'store'])->name('package.store');

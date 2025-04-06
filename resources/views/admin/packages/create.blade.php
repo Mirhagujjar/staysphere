@@ -42,7 +42,7 @@
                                 <label class="form-label fw-bold">Package Price (PKR)</label>
                                 <div class="input-group">
                                     <span class="input-group-text">Rs.</span>
-                                    <input type="number" name="package_price" class="form-control" required>
+                                    <input type="number" name="price" class="form-control" required>
                                 </div>
                                 <small class="text-muted">Discounted price for the package</small>
                             </div>
@@ -50,7 +50,7 @@
                             <!-- Image Upload -->
                             <div class="col-12">
                                 <label class="form-label fw-bold">Package Image</label>
-                                <input type="file" name="image" class="form-control" accept="image/*" required>
+                                <input type="file" name="image" class="form-control" accept="image/*" >
                                 <small class="text-muted">Recommended size: 800x600px (JPG/PNG)</small>
                             </div>
 

@@ -26,7 +26,13 @@ class AdminPackageController extends Controller
     {
         // $request->validate([...]);
 
-        // Upload image to: public/assets/images/packages/
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required|numeric',
+            'image' => 'required|image',
+        ]);
+        
         $imageName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('assets/images/packages'), $imageName);
 
@@ -37,7 +43,7 @@ class AdminPackageController extends Controller
             'image' => $imageName
         ]);
 
-        return redirect()->back()->with('success', 'Package added successfully!');
+        return redirect()->route('admin.packages.index')->with('success', 'Package added successfully!');
     }
 
     public function edit($id)
@@ -72,7 +78,7 @@ class AdminPackageController extends Controller
 
         $package->save();
 
-        return redirect()->route('admin.packages')->with('success', 'Package updated successfully.');
+        return redirect()->route('admin.packages.index')->with('success', 'Package updated successfully.');
     }
 
     public function destroy($id)
@@ -86,6 +92,6 @@ class AdminPackageController extends Controller
         }
 
         $package->delete();
-        return redirect()->route('admin.packages')->with('success', 'Package deleted successfully!');
+        return redirect()->route('admin.packages.index')->with('success', 'Package deleted successfully!');
     }
 }

@@ -18,7 +18,6 @@ class AdminBookingPackageController extends Controller {
         return view('admin.bookingspackages.edit', compact('booking'));
     }
 
-    // 🟢 Update Booking
     public function update(Request $request, $id)
     {
         $booking = PackageBooking::findOrFail($id);
@@ -27,7 +26,6 @@ class AdminBookingPackageController extends Controller {
         $booking->status = $request->status;
 
         if ($request->hasFile('image')) {
-            // Move the image to the public/assets/images/packages folder and store the path
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('assets/images/packages'), $imageName);
