@@ -1,50 +1,92 @@
 @extends('admin.dashboard')
 
 @section('content')
-<div class="container">
-    <h2>Edit Package</h2>
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="h5 mb-0">Edit Package</h2>
+                </div>
+                
+                <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger mb-4">
+                            <h5 class="alert-heading">Please fix these errors:</h5>
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+                    <form action="{{ route('admin.package.update', $package->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="row g-3">
+                            <!-- Package Name -->
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Package Name</label>
+                                <input type="text" name="name" class="form-control" value="{{ old('name', $package->name) }}" required>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Description</label>
+                                <textarea name="description" class="form-control" rows="4" required>{{ old('description', $package->description) }}</textarea>
+                            </div>
+
+                            <!-- Prices -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Package Price (PKR)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">Rs.</span>
+                                    <input type="number" name="price" class="form-control" value="{{ old('price', $package->price) }}" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Regular Price (PKR)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">Rs.</span>
+                                    <input type="number" name="regular_price" class="form-control" value="{{ old('regular_price', $package->regular_price) }}" required>
+                                </div>
+                            </div>
+
+                            <!-- Image Upload -->
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Package Image</label>
+                                <div class="d-flex flex-column flex-md-row gap-3">
+                                    <div class="flex-grow-1">
+                                        <input type="file" name="image" class="form-control" accept="image/*">
+                                        <small class="text-muted">Leave blank to keep current image</small>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="mb-1 fw-bold">Current Image:</p>
+                                        <img src="{{ asset('assets/images/packages/' . $package->image) }}" 
+                                             alt="Package Image" 
+                                             class="img-thumbnail" 
+                                             style="max-width: 150px; height: auto;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-success px-4 py-2">
+                                    <i class="fas fa-save me-2"></i> Update Package
+                                </button>
+                                <a href="{{ route('admin.packages.index') }}" class="btn btn-outline-secondary ms-2">
+                                    <i class="fas fa-times me-2"></i> Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    @endif
-
-    <form action="{{ route('admin.package.update', $package->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-
-        <div class="mb-3">
-            <label class="form-label">Package Name</label>
-            <input type="text" name="name" class="form-control" value="{{ $package->name }}" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Description</label>
-            <textarea name="description" class="form-control" required>{{ $package->description }}</textarea>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Package Price (PKR)</label>
-            <input type="number" name="price" class="form-control" value="{{ $package->price }}" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Regular Price (PKR)</label>
-            <input type="number" name="regular_price" class="form-control" value="{{ $package->regular_price }}" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Package Image</label>
-            <input type="file" name="image" class="form-control">
-            <img src="{{ asset('storage/room_images'. $package->image) }}" width="150" class="mt-2">
-        </div>
-
-        <button type="submit" class="btn btn-success">Update Package</button>
-    </form>
+    </div>
 </div>
 @endsection

@@ -256,7 +256,7 @@
 
         <div class="row g-4">
             <!-- Filters Sidebar (Left) -->
-            <div class="col-lg-3">
+            {{-- <div class="col-lg-3">
                 <div class="card p-3 shadow-sm filters-sidebar">
                     <h4>Filters</h4>
                     <hr>
@@ -284,6 +284,90 @@
                         <a href="{{ route('user.rooms.index') }}" class="btn btn-outline-danger mt-2 w-100">Reset</a>
                     </form>
                 </div>
+            </div> --}}
+
+            <div class="col-lg-3">
+                <div class="card p-3 shadow-sm filters-sidebar">
+                    <h4>Filters</h4>
+                    <hr>
+                    <form method="GET" action="{{ route('user.rooms.index') }}">
+                        <h6>Room Type</h6>
+                        <select name="room_type" class="form-select">
+                            <option value="">Any</option>
+                            <option value="Deluxe">Deluxe</option>
+                            <option value="Suite">Suite</option>
+                            <option value="Standard">Standard</option>
+                            <option value="Single">Single</option>
+                        </select>
+            
+                        <h6 class="mt-3">Max Price (PKR)</h6>
+                        <input type="number" name="max_price" class="form-control" placeholder="Enter max price">
+            
+                        <h6 class="mt-3">Min Price (PKR)</h6>
+                        <input type="number" name="min_price" class="form-control" placeholder="Enter min price">
+            
+                        <h6 class="mt-3">Facilities</h6>
+                        <input type="text" name="facilities" class="form-control" placeholder="Enter facilities (comma separated)">
+            
+                        <h6 class="mt-3">Star Rating</h6>
+                        <select name="star_rating" class="form-select">
+                            <option value="">Any</option>
+                            <option value="1">1 Star</option>
+                            <option value="2">2 Stars</option>
+                            <option value="3">3 Stars</option>
+                            <option value="4">4 Stars</option>
+                            <option value="5">5 Stars</option>
+                        </select>
+            
+                        <h6 class="mt-3">Room Capacity</h6>
+                        <input type="number" name="room_capacity" class="form-control" placeholder="Enter minimum capacity">
+            
+                        <h6 class="mt-3">Distance (km)</h6>
+                        <input type="number" name="distance" class="form-control" placeholder="Enter max distance from location">
+            
+                        <h6 class="mt-3">Sort By Price</h6>
+                        <select name="sort_order" class="form-select">
+                            <option value="asc">Low to High</option>
+                            <option value="desc">High to Low</option>
+                        </select>
+            
+                        <!-- Additional Filters -->
+                        <h6 class="mt-3">Breakfast Included</h6>
+                        <select name="breakfast" class="form-select">
+                            <option value="">Any</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+            
+                        <h6 class="mt-3">Pet-Friendly</h6>
+                        <select name="pet_friendly" class="form-select">
+                            <option value="">Any</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+            
+                        <h6 class="mt-3">Cancellation Policy</h6>
+                        <select name="cancellation_policy" class="form-select">
+                            <option value="">Any</option>
+                            <option value="flexible">Flexible</option>
+                            <option value="strict">Strict</option>
+                        </select>
+            
+                        <!-- Popular Filters -->
+                        <h6 class="mt-3">Popular Filters</h6>
+                        <div class="form-check">
+                            <input type="checkbox" name="popular_filters[]" value="4_stars" class="form-check-input" id="filter4Stars">
+                            <label class="form-check-label" for="filter4Stars">4 Stars</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" name="popular_filters[]" value="double_bed" class="form-check-input" id="filterDoubleBed">
+                            <label class="form-check-label" for="filterDoubleBed">Double Bed</label>
+                        </div>
+            
+                        <button type="submit" class="btn btn-warning mt-3 w-100">Apply Filters</button>
+                        <a href="{{ route('user.rooms.index') }}" class="btn btn-outline-danger mt-2 w-100">Reset</a>
+                    </form>
+                </div>
             </div>
 
             <!-- Rooms Display (Right) -->
@@ -298,7 +382,7 @@
                             @if($room->on_sale)
                             <span class="badge text-bg-danger">SALE</span>
                             @endif
-                            <img src="{{ asset('storage/' . $room->image) }}" class="card-img-top" alt="{{ $room->room_name }}">
+                            <img src="{{ asset($room->image) }}" alt="{{ $room->room_name }}" class="card-img-top" alt="{{ $room->room_name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $room->room_name }}</h5>
                                 <p class="card-text">Rs. {{ number_format($room->price) }} / Per Night</p>
