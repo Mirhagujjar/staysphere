@@ -260,7 +260,53 @@
     <div class="modal-dialog">
         <div class="modal-content p-4">
             <h4 class="mb-3">Write a Review</h4>
-            <form>
+<form method="POST" action="{{ route('review.store') }}">
+    @csrf
+    <div class="mb-3">
+        <label>Your Name</label>
+        <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Email</label>
+        <input type="email" name="email" class="form-control" required>
+    </div>
+    {{-- <div class="mb-3">
+        <label>Stay Type</label>
+        <select name="stay_type" class="form-select">
+            <option>Solo</option>
+            <option>Family</option>
+            <option>Business</option>
+            <option>Friends</option>
+            <option>Couples</option>
+        </select>
+    </div> --}}
+
+    <div class="mb-3">
+        <label>Rating</label>
+        <select name="rating" class="form-select" required>
+            <option value="5">⭐⭐⭐⭐⭐</option>
+            <option value="4">⭐⭐⭐⭐☆</option>
+            <option value="3">⭐⭐⭐☆☆</option>
+            <option value="2">⭐⭐☆☆☆</option>
+            <option value="1">⭐☆☆☆☆</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Review</label>
+        <textarea name="comment" class="form-control" rows="3" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-warning w-100">Submit Review</button>
+</form>
+</div>
+</div>
+</div>
+
+{{-- <div class="modal fade" id="reviewModal">
+    <div class="modal-dialog">
+        <div class="modal-content p-4">
+            <h4 class="mb-3">Write a Review</h4>
+            <form method="POST" action="{{ route('review.store') }}">
+                @csrf
                 <div class="mb-3">
                     <label>Your Name</label>
                     <input type="text" class="form-control" required>
@@ -293,12 +339,12 @@
             </form>
         </div>
     </div>
-</div>
+</div> --}}
 
 <!--------------7. Footer CTA -------------->
 <div class="text-center my-5">
     <h4>Want to stay with us?</h4>
-    <a href="{{ route('reservations.create') }}" class="btn btn-warning">Check Room Availability</a>
+    <a href="{{}}" class="btn btn-warning">Check Room Availability</a>
 </div>
 
 @endsection

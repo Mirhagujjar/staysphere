@@ -171,7 +171,13 @@
                         </li>
                     </ul>
                 </li>
-
+                          {{-- reviews --}}
+                <li class="nav-item">
+                    <a href="{{ route('admin.review.index') }}" class="nav-link">
+                        <i class="nav-icon bi bi-calendar-check text-warning"></i>
+                        <p>Reviews</p>
+                    </a>
+                </li>
 
                     {{-- booking management --}}
                     <li class="nav-item">

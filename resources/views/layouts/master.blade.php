@@ -106,7 +106,7 @@
                         <a class="dropdown-item" href="{{route('contact.index')}}">Contact Us</a>
                     </li>
                     <li><a class="dropdown-item" href="{{ route('about') }}">About Us</a></li>
-                    <li><a class="dropdown-item" href="{{ route('reviews') }}">Reviews</a></li>
+                    <li><a class="dropdown-item" href="{{ route('user.review.review') }}">Reviews</a></li>
 
                 </ul>
                </li>
@@ -171,7 +171,7 @@
           <h6 class="text-uppercase mb-4 font-weight-bold">Useful Links</h6>
           <p><a href="/">Home</a></p>
           <p><a href="{{ route('blog.blog') }}">Blog</a></p>
-          <p><a href="{{ route('reviews') }}">Reviews</a></p>
+          <p><a href="{{ route('user.review.review') }}">Reviews</a></p>
           <p><a href="{{ route('user.packages') }}">Packages</a></p>
           <p><a href="{{route('contact.index')}}">Contact Us</a></p>
         </div>
