@@ -16,7 +16,14 @@
         </div>
         <!--end::Sidebar Brand-->
         <!--begin::Sidebar Wrapper-->
-        <div class="sidebar-wrapper">
+        <style>
+            .sidebar {
+                background-color:  #2C3E50; 
+                color: #F8F9FA; 
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+                }
+        </style>
+        <div class="sidebar-wrapper sidebar">
             <nav class="mt-2">
                 <!--begin::Sidebar Menu-->
                 <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
@@ -109,7 +116,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a class='nav-link' href="{{ route('admin.packages') }}">
+                                <a class='nav-link' href="{{ route('admin.packages.index') }}">
                                     <i class="nav-icon bi bi-arrow-right text-warning"></i>
                                     <p>View All Packages</p>
                                 </a>

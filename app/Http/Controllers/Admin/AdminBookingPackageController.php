@@ -9,7 +9,6 @@ use App\Models\PackageBooking;
 class AdminBookingPackageController extends Controller {
     public function index() {
         $bookings = PackageBooking::all(); 
-        // dd($bookings); 
         return view('admin.bookingspackages.index', compact('bookings'));
     }
 
@@ -19,24 +18,20 @@ class AdminBookingPackageController extends Controller {
         return view('admin.bookingspackages.edit', compact('booking'));
     }
 
-    // 🟢 Update Booking
     public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'package_name' => 'required|string|max:255',
-        //     'price' => 'required|numeric',
-        //     'status' => 'required|string',
-        //     'image' => 'nullable|image|max:2048',
-        // ]);
-
         $booking = PackageBooking::findOrFail($id);
         $booking->package_name = $request->package_name;
         $booking->price = $request->price;
         $booking->status = $request->status;
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('package_images', 'public');
-            $booking->image = $imagePath;
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/images/packages'), $imageName);
+
+            // Save the image path relative to the public folder
+            $booking->image = 'assets/images/packages/' . $imageName;
         }
 
         $booking->save();

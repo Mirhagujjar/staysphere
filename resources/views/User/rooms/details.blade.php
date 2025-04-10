@@ -256,15 +256,15 @@
     
         <div class="row">
             <div class="col-md-6">
-                <img src="{{ asset('storage/' . $room->image) }}" class="img-fluid" alt="{{ $room->room_name }}">
+                <img src="{{ asset($room->image) }}" alt="{{ $room->room_name }}" class="img-thumbnail" style="max-width: 500px; height: auto;">
+
             </div>
             <div class="col-md-6">
                 <h3>Price: Rs. {{ number_format($room->price) }}</h3>
                 <p>Capacity: {{ $room->room_capacity }} Persons</p>
                 <p>Facilities: {{ $room->facilities }}</p>
                 <p>Has View: {{ $room->has_view ? 'Yes' : 'No' }}</p>
-    
-                {{-- ✅ Room Booked Status --}}
+
                 @if (isset($checkIn) && isset($checkOut) && $room->isBooked($checkIn, $checkOut))
                     <p class="text-danger">This room is already booked.</p>
                 @else

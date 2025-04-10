@@ -13,8 +13,8 @@ class UserPackageController extends Controller {
         return view('user.packages.index', compact('packages'));
     }
 
-    public function book(Request $request) {
-        // Booking logic
-    }
+    // public function book(Request $request) {
+        
+    // }
 }
 

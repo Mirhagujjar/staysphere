@@ -13,12 +13,12 @@ class UserRoomController extends Controller
     {
         $query = Room::query();
 
-        // ✅ Filter by Room Type
+        // Filter by room type
         if ($request->filled('room_type')) {
             $query->where('room_type', $request->room_type);
         }
 
-        // ✅ Filter by Min & Max Price
+        // Filter by price range
         if ($request->filled('min_price')) {
             $query->where('price', '>=', $request->min_price);
         }
@@ -26,7 +26,7 @@ class UserRoomController extends Controller
             $query->where('price', '<=', $request->max_price);
         }
 
-        // ✅ Filter by Facilities
+        // Filter by facilities
         if ($request->filled('facilities')) {
             $facilities = explode(',', $request->facilities);
             foreach ($facilities as $facility) {
@@ -34,12 +34,26 @@ class UserRoomController extends Controller
             }
         }
 
-        // ✅ Filter by Room Capacity
+        // Filter by room capacity
         if ($request->filled('room_capacity')) {
             $query->where('room_capacity', '>=', $request->room_capacity);
         }
 
-        // ✅ Exclude already booked rooms
+        // Filter by star rating
+        if ($request->filled('star_rating')) {
+            $query->where('star_rating', '>=', $request->star_rating);
+        }
+
+        // Filter by distance from a specific location (assuming you have a location field)
+        if ($request->filled('distance')) {
+            // Assuming you have a way to calculate distance, you might need to adjust this logic
+            // For example, if you have latitude and longitude for rooms and the user
+            // You can use a raw query to filter based on distance
+            // This is a placeholder for actual distance calculation logic
+            $query->where('distance_from_location', '<=', $request->distance);
+        }
+
+        // Exclude booked rooms
         $query->whereNotIn('id', function ($subquery) {
             $subquery->select('room_id')
                 ->from('reservations')
@@ -47,20 +61,19 @@ class UserRoomController extends Controller
                 ->whereDate('check_out', '>=', now());
         });
 
-        // ✅ Sorting Order (Default: Newest)
+        // Sort order
         if ($request->filled('sort_order')) {
             $query->orderBy('price', $request->sort_order);
         } else {
             $query->orderBy('created_at', 'desc');
         }
 
-        // ✅ Get final results
+        // Get the filtered rooms
         $rooms = $query->get();
 
         return view('user.rooms.index', compact('rooms'));
     }
 
-    // ✅ Show Room Details
     public function show($id) 
     {
         $room = Room::findOrFail($id);
@@ -69,16 +82,17 @@ class UserRoomController extends Controller
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'room_id' => 'required|exists:rooms,id',
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|email',
-        //     'phone' => 'required|string|max:20',
-        //     'check_in' => 'required|date',
-        //     'check_out' => 'required|date|after:check_in',
-        // ]);
+        // Validate the request
+        $request->validate([
+            'room_id' => 'required|exists:rooms,id',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone' => 'required|string|max:20',
+            'check_in' => 'required|date',
+            'check_out' => 'required|date|after:check_in',
+        ]);
 
-        // Naya reservation create karein
+        // Create a new reservation
         $reservation = new Reservation();
         $reservation->room_id = $request->room_id;
         $reservation->name = $request->name;
@@ -89,13 +103,12 @@ class UserRoomController extends Controller
         $reservation->status = 'booked'; // Default status
         $reservation->save();
 
-        // Room ko booked mark karein
+        // Mark the room as booked
         $room = Room::find($request->room_id);
-        $room->is_booked = true;  // Room ko mark karein
+        $room->is_booked = true;  // Mark the room
         $room->save();
 
         return redirect()->route('user.reservations.show', $reservation->id)
-                        ->with('success', 'Room booked successfully!');
+                         ->with('success', 'Room booked successfully!');
     }
-
 }

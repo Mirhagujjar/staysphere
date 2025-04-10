@@ -20,7 +20,7 @@
             <div class="card shadow-sm">
                 <!-- Room Image -->
                 @if($reservation->room && $reservation->room->image)
-                    <img src="{{ asset('storage/' . $reservation->room->image) }}" class="card-img-top room-img" alt="Room Image">
+                    <img src="{{ asset('assets/images/reservation/' . $reservation->room->image) }}" class="card-img-top room-img" alt="Room Image">
                 @else
                     <img src="https://via.placeholder.com/300x200?text=No+Image" class="card-img-top room-img" alt="No Image">
                 @endif

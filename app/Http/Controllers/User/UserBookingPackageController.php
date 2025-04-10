@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PackageBooking;
-use App\Models\Package; // Ensure the Package model is imported
+use App\Models\Package; 
 
 class UserBookingPackageController extends Controller
 {

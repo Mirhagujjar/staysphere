@@ -113,7 +113,7 @@
 </div>
 
 {{-- Packages Section --}}
-<div class="container mt-5 py-5">
+{{-- <div class="container mt-5 py-5">
     <h2 class="text-center mb-4">Our Exclusive Packages</h2>
     <div class="row">
         @foreach($packages as $package)
@@ -121,14 +121,15 @@
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-6">
-                            @if (file_exists(public_path('storage/room_images' . $package->image)))
-                                <img src="{{ asset('storage/room_images' . $package->image) }}" alt="Package Image">
+                            @if (file_exists(public_path('assets/images/packages/' . $package->image)))
+                            <img src="{{ asset('assets/images/packages/' . $package->image) }}" alt="Package Image" width="150" class="mt-2">
+
                             @else
                                 <p>Image not found</p>
                             @endif
                         </div>
                         <div class="col-6">
-                            <div class="card-body h-100">
+                            <div class="card-body">
                                 <h5 class="card-title">{{ $package->name }}</h5>
                                 <p class="card-text">{{ $package->description }}</p>
                                 <p class="card-text">
@@ -137,6 +138,43 @@
 
                                 </p>
                                 <button class="btn btn-book mt-3" onclick="showBookingForm({{ $package->id }})">Get Package Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+</div> --}}
+<div class="container mt-5 py-5">
+    <h2 class="text-center mb-4">Our Exclusive Packages</h2>
+    <div class="row">
+        @foreach($packages as $package)
+            <div class="col-md-6 mb-4 package-card">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0 h-100"> <!-- Added h-100 here -->
+                        <div class="col-6">
+                            @if (file_exists(public_path('assets/images/packages/' . $package->image)))
+                            <div style="height: 100%; overflow: hidden;"> <!-- Image container -->
+                                <img src="{{ asset('assets/images/packages/' . $package->image) }}" 
+                                     alt="Package Image" 
+                                     class="img-fluid h-100 w-100 object-fit-cover"> <!-- Updated image classes -->
+                            </div>
+                            @else
+                                <p class="h-100 d-flex align-items-center justify-content-center">Image not found</p>
+                            @endif
+                        </div>
+                        <div class="col-6">
+                            <div class="card-body h-100 d-flex flex-column"> <!-- Added flex classes -->
+                                <h5 class="card-title">{{ $package->name }}</h5>
+                                <p class="card-text">{{ $package->description }}</p>
+                                <div class="mt-auto"> <!-- Pushes button to bottom -->
+                                    <p class="card-text">
+                                        <p>Regular Price: PKR {{ $package->regular_price }} /night</p>
+                                        <p>Package Price: PKR {{ $package->price }}</p>
+                                    </p>
+                                    <button class="btn btn-book mt-3" onclick="showBookingForm({{ $package->id }})">Get Package Now</button>
+                                </div>
                             </div>
                         </div>
                     </div>

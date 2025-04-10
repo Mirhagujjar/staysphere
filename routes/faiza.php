@@ -40,9 +40,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // Packages Routes
 // Packages Routes
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/packages', [AdminPackageController::class, 'index'])->name('packages');
+    Route::get('/packages', [AdminPackageController::class, 'index'])->name('packages.index');
     Route::get('/packages/edit/{id}', [AdminPackageController::class, 'edit'])->name('packages.edit'); 
-    Route::post('/packages/add', [AdminPackageController::class, 'store'])->name('add.package');
+    Route::get('/packages/create', [AdminPackageController::class, 'create'])->name('packages.create');
+    Route::post('/packages/store', [AdminPackageController::class, 'store'])->name('package.store');
     Route::put('/packages/update/{id}', [AdminPackageController::class, 'update'])->name('package.update');
     Route::delete('/packages/delete/{id}', [AdminPackageController::class, 'destroy'])->name('package.delete');
 });
@@ -62,6 +63,8 @@ Route::prefix('admin/bookingspackages')->name('admin.bookingspackages.')->group(
 Route::prefix('rooms')->name('user.rooms.')->group(function () {
     Route::get('/', [UserRoomController::class, 'index'])->name('index');
     Route::get('/show/{id}', [UserRoomController::class, 'show'])->name('show');
+    Route::get('/store/{id}', [UserRoomController::class, 'store'])->name('store');
+
 });
 
 // Reservations
@@ -74,6 +77,14 @@ Route::prefix('reservations')->name('user.reservations.')->group(function () {
     // Route::post('/{id}/update', [ReservationController::class, 'update'])->name('update');
     // Route::delete('/{id}', [ReservationController::class, 'destroy'])->name('destroy');
 });
+
+Route::prefix('packages')->name('user.packages.')->group(function () {
+    Route::get('/', [UserPackageController::class, 'index'])->name('index');
+    // Route::get('/show/{id}', [UserRoomController::class, 'show'])->name('show');
+});
+
+Route::post('/book', [UserBookingPackageController::class, 'bookPackage'])->name('user.book.package'); 
+
 
 // ---------------------------- Services Routes ----------------------------
 // services
@@ -91,8 +102,8 @@ Route::prefix('services')->group(function(){
 // ---------------------------- Packages Route ----------------------------
 // Route::get('/packages', [PackageController::class, 'showPackages'])->name('packages');
 
-Route::get('/packages', [UserPackageController::class, 'index'])->name('user.packages');
-Route::post('/packages/book', [UserBookingPackageController::class, 'bookPackage'])->name('user.book.package');
+// Route::get('/packages', [UserPackageController::class, 'index'])->name('user.packages');
+// Route::post('/packages/book', [UserBookingPackageController::class, 'bookPackage'])->name('user.book.package');
 
 // ---------------------------- Middleware Routes (Future Use) ----------------------------
 // Route::middleware(['admin'])->group(function () {
