@@ -152,7 +152,7 @@
         @foreach($packages as $package)
             <div class="col-md-6 mb-4 package-card">
                 <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0 h-100"> <!-- Added h-100 here -->
+                    <div class="row g-0 h-100">
                         <div class="col-6">
                             @if (file_exists(public_path('assets/images/packages/' . $package->image)))
                             <div style="height: 100%; overflow: hidden;"> <!-- Image container -->

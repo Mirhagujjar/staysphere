@@ -44,8 +44,7 @@
     />
     <!--end::Third Party Plugin(Bootstrap Icons)-->
     <!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="../../dist/css/adminlte.css" />
-    <!--end::Required Plugin(AdminLTE)-->
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.css') }}">    <!--end::Required Plugin(AdminLTE)-->
     <!-- apexcharts -->
     <link
       rel="stylesheet"

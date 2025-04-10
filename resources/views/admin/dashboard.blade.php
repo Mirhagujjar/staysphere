@@ -5,7 +5,8 @@
     @include('admin.includes.head')
 
      <!--  Custom CSS (agar koi ho) -->
-     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+     {{-- <link rel="stylesheet" href="{{ asset('css/custom.css') }}"> --}}
+     
 
      <!-- Bootstrap CSS -->
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -66,10 +67,10 @@
             <div class="float-end d-none d-sm-inline">Anything you want</div>
             <!--end::To the end-->
             <!--begin::Copyright-->
-            <strong>
+            {{-- <strong>
                 Copyright &copy; 2014-2025&nbsp;
                 <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
-            </strong>
+            </strong> --}}
             All rights reserved.
             <!--end::Copyright-->
         </footer>
@@ -92,27 +93,20 @@
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
     </script>
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-    <script src="../../dist/js/adminlte.js"></script>
-    <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
+    <script src="{{ asset('dist/js/adminlte.js') }}"></script>    <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script>
-        const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
-        const Default = {
-            scrollbarTheme: 'os-theme-light',
-            scrollbarAutoHide: 'leave',
-            scrollbarClickScroll: true,
-        };
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
-            if (sidebarWrapper && typeof OverlayScrollbarsGlobal?.OverlayScrollbars !== 'undefined') {
-                OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
-                    scrollbars: {
-                        theme: Default.scrollbarTheme,
-                        autoHide: Default.scrollbarAutoHide,
-                        clickScroll: Default.scrollbarClickScroll,
-                    },
-                });
-            }
-        });
+       document.addEventListener('DOMContentLoaded', function () {
+        const sidebarWrapper = document.querySelector('.sidebar-wrapper');
+        if (sidebarWrapper && typeof OverlayScrollbarsGlobal !== 'undefined') {
+            OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
+                scrollbars: {
+                    theme: 'os-theme-light',
+                    autoHide: 'leave',
+                    clickScroll: true,
+                },
+            });
+        }
+    });
     </script>
     <!--end::OverlayScrollbars Configure-->
     <!-- OPTIONAL SCRIPTS -->
@@ -121,11 +115,12 @@
         integrity="sha256-ipiJrswvAR4VAx/th+6zWsdeYmVae0iJuiR+6OqHJHQ=" crossorigin="anonymous"></script>
     <!-- sortablejs -->
     <script>
+       document.addEventListener('DOMContentLoaded', function () {
         const connectedSortables = document.querySelectorAll('.connectedSortable');
-        connectedSortables.forEach((connectedSortable) => {
-            let sortable = new Sortable(connectedSortable, {
+        connectedSortables.forEach((el) => {
+            new Sortable(el, {
                 group: 'shared',
-                handle: '.card-header',
+                handle: '.card-header'
             });
         });
 
@@ -133,6 +128,7 @@
         cardHeaders.forEach((cardHeader) => {
             cardHeader.style.cursor = 'move';
         });
+    });
     </script>
     <!-- apexcharts -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"
@@ -143,57 +139,62 @@
         // IT'S ALL JUST JUNK FOR DEMO
         // ++++++++++++++++++++++++++++++++++++++++++
 
-        const sales_chart_options = {
-            series: [{
-                    name: 'Digital Goods',
-                    data: [28, 48, 40, 19, 86, 27, 90],
-                },
-                {
-                    name: 'Electronics',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                },
-            ],
-            chart: {
-                height: 300,
-                type: 'area',
-                toolbar: {
-                    show: false,
-                },
-            },
-            legend: {
-                show: false,
-            },
-            colors: ['#0d6efd', '#20c997'],
-            dataLabels: {
-                enabled: false,
-            },
-            stroke: {
-                curve: 'smooth',
-            },
-            xaxis: {
-                type: 'datetime',
-                categories: [
-                    '2023-01-01',
-                    '2023-02-01',
-                    '2023-03-01',
-                    '2023-04-01',
-                    '2023-05-01',
-                    '2023-06-01',
-                    '2023-07-01',
+        document.addEventListener('DOMContentLoaded', function () {
+        const revenueEl = document.querySelector('#revenue-chart');
+        if (revenueEl) {
+            const sales_chart_options = {
+                series: [
+                    { name: 'Digital Goods', data: [28, 48, 40, 19, 86, 27, 90] },
+                    { name: 'Electronics', data: [65, 59, 80, 81, 56, 55, 40] }
                 ],
-            },
-            tooltip: {
-                x: {
-                    format: 'MMMM yyyy',
+                chart: {
+                    height: 300,
+                    type: 'area',
+                    toolbar: { show: false }
                 },
-            },
-        };
+                legend: { show: false },
+                colors: ['#0d6efd', '#20c997'],
+                dataLabels: { enabled: false },
+                stroke: { curve: 'smooth' },
+                xaxis: {
+                    type: 'datetime',
+                    categories: ['2023-01-01', '2023-02-01', '2023-03-01', '2023-04-01', '2023-05-01', '2023-06-01', '2023-07-01']
+                },
+                tooltip: {
+                    x: { format: 'MMMM yyyy' }
+                }
+            };
+            const sales_chart = new ApexCharts(revenueEl, sales_chart_options);
+            sales_chart.render();
+        }
 
-        const sales_chart = new ApexCharts(
-            document.querySelector('#revenue-chart'),
-            sales_chart_options,
-        );
-        sales_chart.render();
+        // Sparkline charts
+        const sparklines = [
+            { id: '#sparkline-1', data: [1000, 1200, 920, 927, 931, 1027, 819, 930, 1021] },
+            { id: '#sparkline-2', data: [515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921] },
+            { id: '#sparkline-3', data: [15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21] }
+        ];
+
+        sparklines.forEach(spark => {
+            const el = document.querySelector(spark.id);
+            if (el) {
+                const options = {
+                    series: [{ data: spark.data }],
+                    chart: {
+                        type: 'area',
+                        height: 50,
+                        sparkline: { enabled: true }
+                    },
+                    stroke: { curve: 'straight' },
+                    fill: { opacity: 0.3 },
+                    yaxis: { min: 0 },
+                    colors: ['#DCE6EC']
+                };
+                const chart = new ApexCharts(el, options);
+                chart.render();
+            }
+        });
+    });
     </script>
     <!-- jsvectormap -->
     <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js"
@@ -202,104 +203,17 @@
         integrity="sha256-XPpPaZlU8S/HWf7FZLAncLg2SAkP8ScUTII89x9D3lY=" crossorigin="anonymous"></script>
     <!-- jsvectormap -->
     <script>
-        const visitorsData = {
-            US: 398, // USA
-            SA: 400, // Saudi Arabia
-            CA: 1000, // Canada
-            DE: 500, // Germany
-            FR: 760, // France
-            CN: 300, // China
-            AU: 700, // Australia
-            BR: 600, // Brazil
-            IN: 800, // India
-            GB: 320, // Great Britain
-            RU: 3000, // Russia
-        };
-
-        // World map by jsVectorMap
-        const map = new jsVectorMap({
-            selector: '#world-map',
-            map: 'world',
-        });
-
-        // Sparkline charts
-        const option_sparkline1 = {
-            series: [{
-                data: [1000, 1200, 920, 927, 931, 1027, 819, 930, 1021],
-            }, ],
-            chart: {
-                type: 'area',
-                height: 50,
-                sparkline: {
-                    enabled: true,
-                },
-            },
-            stroke: {
-                curve: 'straight',
-            },
-            fill: {
-                opacity: 0.3,
-            },
-            yaxis: {
-                min: 0,
-            },
-            colors: ['#DCE6EC'],
-        };
-
-        const sparkline1 = new ApexCharts(document.querySelector('#sparkline-1'), option_sparkline1);
-        sparkline1.render();
-
-        const option_sparkline2 = {
-            series: [{
-                data: [515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921],
-            }, ],
-            chart: {
-                type: 'area',
-                height: 50,
-                sparkline: {
-                    enabled: true,
-                },
-            },
-            stroke: {
-                curve: 'straight',
-            },
-            fill: {
-                opacity: 0.3,
-            },
-            yaxis: {
-                min: 0,
-            },
-            colors: ['#DCE6EC'],
-        };
-
-        const sparkline2 = new ApexCharts(document.querySelector('#sparkline-2'), option_sparkline2);
-        sparkline2.render();
-
-        const option_sparkline3 = {
-            series: [{
-                data: [15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21],
-            }, ],
-            chart: {
-                type: 'area',
-                height: 50,
-                sparkline: {
-                    enabled: true,
-                },
-            },
-            stroke: {
-                curve: 'straight',
-            },
-            fill: {
-                opacity: 0.3,
-            },
-            yaxis: {
-                min: 0,
-            },
-            colors: ['#DCE6EC'],
-        };
-
-        const sparkline3 = new ApexCharts(document.querySelector('#sparkline-3'), option_sparkline3);
-        sparkline3.render();
+        
+        document.addEventListener('DOMContentLoaded', function () {
+        const worldMap = document.querySelector('#world-map');
+        if (worldMap) {
+            new jsVectorMap({
+                selector: '#world-map',
+                map: 'world',
+                markersSelectable: true
+            });
+        }
+    });
     </script>
     <!--end::Script-->
 </body>

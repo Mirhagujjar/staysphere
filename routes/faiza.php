@@ -18,7 +18,7 @@ use App\Http\Controllers\Admin\AdminBookingPackageController;
 use App\Http\Controllers\ServicesController;
 
 // ---------------------------- Admin Routes ----------------------------
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     // Dashboard
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
 
@@ -49,10 +49,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 // Booking Packages Routes
-Route::prefix('admin/bookingspackages')->name('admin.bookingspackages.')->group(function () {
-    Route::get('/', [AdminBookingPackageController::class, 'index'])->name('index');
-    Route::get('/edit/{id}', [AdminBookingPackageController::class, 'edit'])->name('edit');
-    Route::put('/update/{id}', [AdminBookingPackageController::class, 'update'])->name('update');
+Route::prefix('admin/')->name('admin.bookingspackages.')->group(function () {
+    Route::get('/bookingspackages', [AdminBookingPackageController::class, 'index'])->name('index');
+    // Route::get('/edit/{id}', [AdminBookingPackageController::class, 'edit'])->name('edit');
+    // Route::put('/update/{id}', [AdminBookingPackageController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [AdminBookingPackageController::class, 'destroy'])->name('destroy');
 });
 
