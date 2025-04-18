@@ -83,18 +83,19 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a class='nav-link' href="{{ route('login') }}">
+                                <a class='nav-link' href="{{ route('admin.login') }}">
                                     <i class="nav-icon bi bi-arrow-right text-warning"></i>
                                     <p>Login</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class='nav-link' href="{{ route('register') }}">
+                                <a class='nav-link' href="{{ route('admin.register') }}">
                                     <i class="nav-icon bi bi-arrow-right text-warning"></i>
                                     <p>Registration</p>
                                 </a>
                             </li>
-                        </ul>
+                         </ul>
+                        
                     </li>
 
                     {{-- Room mangement --}}
