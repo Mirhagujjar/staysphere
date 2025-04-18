@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>All Events</h1>
-    <a href="{{ route('admin.events.create') }}" class="btn btn-primary">+ Add New Event</a>
+    <a href="{{ route('admin.events.create') }}" class="btn btn-warning">+ Add New Event</a>
 
     <table class="table table-bordered mt-3">
         <thead>

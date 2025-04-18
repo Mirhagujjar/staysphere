@@ -250,7 +250,7 @@
             font-weight: bold;
         }
 
-        /*---------------------- Hotel Services----------------------*/
+        /---------------------- Hotel Services----------------------/
         .hotel-services {
             padding: 5rem 0;
             background-color: white;
@@ -444,7 +444,7 @@
     <div id="carouselExampleDark" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="2000">
-                <img src="{{ asset('build/assets/images/home/slide1.jpg') }}" class="d-block w-100" alt="First slide">
+                <img src="{{ asset('build/assets/images/home/slider1.jpg') }}" class="d-block w-100" alt="First slide">
                 <div class="carousel-caption d-none d-md-block">
                     <h1>StaySphere</h1>
                     <h4>"Experience the Art of Hospitality"</h4>
@@ -452,7 +452,7 @@
             </div>
 
             <div class="carousel-item" data-bs-interval="2000">
-                <img src="{{ asset('build/assets/images/home/slide2.jpg') }}" class="d-block w-100" alt="Second slide">
+                <img src="{{ asset('build/assets/images/home/slider2.jpg') }}" class="d-block w-100" alt="Second slide">
                 <div class="carousel-caption d-none d-md-block">
                     <h1>StaySphere</h1>
                     <h4>"Stay Easy, Live Luxuriously"</h4>
@@ -460,7 +460,7 @@
             </div>
 
             <div class="carousel-item" data-bs-interval="2000">
-                <img src="{{ asset('build/assets/images/home/slide3.jpg') }}" class="d-block w-100" alt="Third slide">
+                <img src="{{ asset('build/assets/images/home/slider3.jpg') }}" class="d-block w-100" alt="Third slide">
                 <div class="carousel-caption d-none d-md-block">
                     <h1>StaySphere</h1>
                     <h4>"Your Stay, Our Priority"</h4>

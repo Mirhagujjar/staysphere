@@ -12,8 +12,6 @@ use App\Http\Controllers\User\UserAboutUsController;
 use App\Http\Controllers\Admin\AdminAboutUsController;
 
 
-// login aur regisration py tum ne kam kya h us py bi ab bi tum ne hi kam krna h
-// laready tum ne kam kya howa h is liay dia h tumy
 
 
 // blogs

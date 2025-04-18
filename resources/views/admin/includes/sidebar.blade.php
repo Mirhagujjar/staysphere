@@ -73,6 +73,30 @@
                         </ul>
                     </li> --}}
 
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon bi bi-box-arrow-in-right text-warning"></i>
+                            <p>
+                                Auth
+                                <i class="nav-arrow bi bi-chevron-right text-warning"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a class='nav-link' href="{{ route('login') }}">
+                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
+                                    <p>Login</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class='nav-link' href="{{ route('register') }}">
+                                    <i class="nav-icon bi bi-arrow-right text-warning"></i>
+                                    <p>Registration</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     {{-- Room mangement --}}
                     <li class="nav-item">
                         <a href="#" class="nav-link">

@@ -18,7 +18,8 @@ use App\Http\Controllers\Admin\AdminBookingPackageController;
 use App\Http\Controllers\ServicesController;
 
 // ---------------------------- Admin Routes ----------------------------
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+Route::prefix('admin')->name('admin.')->group(function () {
+    // ->middleware('auth')  ye name ky bad line me add ho ga
     // Dashboard
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
 
@@ -114,3 +115,79 @@ Route::prefix('services')->group(function(){
 //     Route::get('/user/reservations', [ReservationController::class, 'index']);
 // });
 
+
+
+
+
+
+
+
+
+
+
+
+
+// -----------------------------------auth for admin
+use App\Http\Controllers\Admin\AdminAuth\LoginController;
+use App\Http\Controllers\Admin\AdminAuth\RegisterController;
+use App\Http\Controllers\Admin\AdminAuth\ForgotPasswordController;
+use App\Http\Controllers\Admin\AdminAuth\ResetPasswordController;
+use App\Http\Controllers\Admin\AdminAuth\VerificationController;
+
+
+// Admin Login & Register
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
+
+// Admin Password Reset
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+// Email Verification
+Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+
+
+
+
+
+
+
+
+
+
+
+// -------------------------------user side auth
+use App\Http\Controllers\User\UserAuth\UserLoginController;
+use App\Http\Controllers\User\UserAuth\UserRegisterController;
+use App\Http\Controllers\User\UserAuth\UserForgotPasswordController;
+use App\Http\Controllers\User\UserAuth\UserResetPasswordController;
+use App\Http\Controllers\User\UserAuth\UserVerificationController;
+use App\Http\Controllers\User\UserAuth\UserConfirmPasswordController;
+
+
+// User Login & Register
+// Route::get('/login', [UserLoginController::class, 'showLoginForm'])->name('login');
+// Route::post('/login', [UserLoginController::class, 'login']);
+// Route::post('/logout', [UserLoginController::class, 'logout'])->name('logout');
+
+// Route::get('/register', [UserRegisterController::class, 'showRegistrationForm'])->name('register');
+// Route::post('/register', [UserRegisterController::class, 'register']);
+
+// User Password Reset
+Route::get('password/reset', [UserForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [UserForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [UserResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [UserResetPasswordController::class, 'reset'])->name('password.update');
+
+// Email Verification
+Route::get('email/verify', [UserVerificationController::class, 'show'])->name('verification.notice');
+Route::get('email/verify/{id}/{hash}', [UserVerificationController::class, 'verify'])->name('verification.verify');
+Route::post('email/resend', [UserVerificationController::class, 'resend'])->name('verification.resend');
