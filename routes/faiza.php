@@ -94,6 +94,8 @@ Route::post('/book', [UserBookingPackageController::class, 'bookPackage'])->name
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [UserProfileController::class, 'show'])->name('user.profile');
     Route::post('/profile', [UserProfileController::class, 'update'])->name('user.profile.update');
+    // Route::post('/logout', [UserProfileController::class, 'destroy'])
+    // ->name('logout');
 });
 
 // ---------------------------- Services Routes ----------------------------

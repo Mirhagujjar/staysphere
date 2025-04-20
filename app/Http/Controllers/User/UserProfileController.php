@@ -43,5 +43,9 @@ class UserProfileController extends Controller
         return view('user.profile', compact('user'));
     }
     
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
 }

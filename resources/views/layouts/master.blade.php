@@ -136,6 +136,7 @@
 
   @yield('content')
 
+
   <footer class=" text-light pt-5 pb-4 ">
     <div class="container text-center text-md-start margin-top">
       <div class="row">
@@ -220,6 +221,7 @@
 
 </script>
 
+@yield('scripts')
 </body>
 </html>
 
