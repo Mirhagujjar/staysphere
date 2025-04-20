@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header bg-warning text-white">
                     <h4 class="mb-0">Update Your Profile</h4>
                 </div>
 
@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button type="submit" class="btn btn-primary px-4">
+                            <button type="submit" class="btn btn-warning px-4">
                                 <i class="fas fa-save me-2"></i>Update Profile
                             </button>
                         </div>
