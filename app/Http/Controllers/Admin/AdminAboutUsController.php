@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\AboutUs;
-use Illuminate\Support\Facades\Storage;  // <-- Import Storage
+use Illuminate\Support\Facades\Storage;  
 
 class AdminAboutUsController extends Controller
 {

@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdminAuthController extends Controller
+
+class AdminLoginController extends Controller
 {
     public function showLoginForm()
     {
@@ -17,19 +18,15 @@ class AdminAuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (Auth::guard('admin')->attempt($credentials)) {
+        if (Auth::attempt(array_merge($credentials, ['role' => 'admin']))) {
             return redirect()->route('admin.dashboard');
         }
 
-        return back()->withErrors(['email' => 'Invalid credentials']);
-    }
-
-    public function logout(Request $request)
+        return back()->withErrors(['email' => 'Invalid credentials or not an admin']);
+    } 
+    public function logout()
     {
-        Auth::guard('admin')->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
+        Auth::logout();
         return redirect()->route('admin.login');
     }
 }
