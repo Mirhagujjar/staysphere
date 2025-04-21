@@ -44,7 +44,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 // Packages Routes
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/packages', [AdminPackageController::class, 'index'])->name('packages.index');
-    Route::get('/packages/edit/{id}', [AdminPackageController::class, 'edit'])->name('packages.edit'); 
+    Route::get('/packages/edit/{id}', [AdminPackageController::class, 'edit'])->name('packages.edit');
     Route::get('/packages/create', [AdminPackageController::class, 'create'])->name('packages.create');
     Route::post('/packages/store', [AdminPackageController::class, 'store'])->name('package.store');
     Route::put('/packages/update/{id}', [AdminPackageController::class, 'update'])->name('package.update');
@@ -88,7 +88,7 @@ Route::prefix('packages')->name('user.packages.')->group(function () {
     // Route::get('/show/{id}', [UserRoomController::class, 'show'])->name('show');
 });
 
-Route::post('/book', [UserBookingPackageController::class, 'bookPackage'])->name('user.book.package'); 
+Route::post('/book', [UserBookingPackageController::class, 'bookPackage'])->name('user.book.package');
 
 // pofile
 Route::middleware(['auth'])->group(function () {
@@ -136,10 +136,10 @@ Route::prefix('services')->group(function(){
 
 
 
-// 🔹 User Registration Route
+//  User Registration Route
 Auth::routes();
 
-// 🔸 Admin Registration Route (optional)
+//  Admin Registration Route (optional)
 // Route::get('/admin/register', [AdminRegisterController::class, 'showRegistrationForm'])->name('admin.register');
 // Route::post('/admin/register', [AdminRegisterController::class, 'register']);
 
@@ -158,7 +158,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/register', [AdminRegisterController::class, 'showRegisterForm'])->name('register');
     Route::post('/register', [AdminRegisterController::class, 'register'])->name('register.submit');
-  
+
 
 
     // Route::get('/', [AdminController::class, 'dashboard'])
