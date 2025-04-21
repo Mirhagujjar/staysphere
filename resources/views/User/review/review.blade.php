@@ -88,14 +88,32 @@
 </style>
 
 <!------------- 1. Header Section ----------->
-<div class="review-header text-center text-white py-5">
+{{-- <div class="review-header text-center text-white py-5">
     <h1>What Our Guests Say About Us</h1>
     <p>Real experiences from our valued guests.</p>
     <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#reviewModal">Write a Review</button>
-</div>
+</div> --}}
+@if(isset($header))
+    <div class="review-header text-center text-white py-5">
+        <h1>{{ $header->title }}</h1>
+        <p>{{ $header->subtitle }}</p>
+        <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#reviewModal">
+            {{ $header->button_text }}
+        </button>
+    </div>
+@else
+    <div class="review-header text-center text-white py-5">
+        <h1>What Our Guests Say About Us</h1>
+        <p>Real experiences from our valued guests.</p>
+        <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#reviewModal">
+            Write a Review
+        </button>
+    </div>
+@endif
+
 
 <!--------------- 2. Rating------------------ -->
-<div class="container my-5">
+{{-- <div class="container my-5">
     <div class="row align-items-center text-center">
         <!------------ Left-------------->
         <div class="col-md-4">
@@ -148,10 +166,10 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <!------------- 3. Filters & Search Bar------------- -->
-<div class="container my-4">
+{{-- <div class="container my-4">
     <div class="d-flex justify-content-between">
         <input type="text" class="box1 form-control w-50" placeholder="Search reviews...">
         <select class="box2 form-select w-25">
@@ -161,26 +179,52 @@
             <option>Most Helpful</option>
         </select>
     </div>
+</div> --}}
+<!------------- 3. Filters & Search Bar------------- -->
+<div class="container my-4">
+    <div class="d-flex justify-content-between">
+        {{-- Search bar (optional, abhi commented hai) --}}
+        {{-- <input type="text" class="box1 form-control w-50" placeholder="Search reviews..."> --}}
+
+        <form method="GET" action="{{ route('user.review.review') }}" class="w-25">
+            <select name="sort" class="box2 form-select" onchange="this.form.submit()">
+                <option value="">Sort by</option>
+                <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Newest</option>
+                <option value="highest" {{ request('sort') == 'highest' ? 'selected' : '' }}>Highest Rated</option>
+                <option value="lowest" {{ request('sort') == 'lowest' ? 'selected' : '' }}>Lowest Rated</option>
+            </select>
+        </form>
+    </div>
 </div>
+
 
 <!------------- 4. Customer Reviews Section ------------>
 <div class="container">
     <div class="row">
-        @foreach(range(1, 3) as $i)
+        @foreach( $reviews as $review)
         <div class="col-md-6 mb-4 text-white">
-            <div class=" review-card">
+            <div class="review-card">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
-                        <img src="{{ asset('build/assets/images/reviews/2.jpg') }}" class="rounded-circle me-3" width="50" alt="User">
-                        <div>
-                            <h5 class="mb-0">Ahmed Khan</h5>
-                            <small class="">Stayed as Couple - Reviewed on Jan 20, 2025</small>
-                        </div>
+                        {{-- <i class="bi bi-user-circle bi-3x"></i> --}}
+                    <div>
+                    <h5 class="mb-2">{{ $review->name }}</h5>
                     </div>
-                    <p>⭐⭐⭐⭐⭐</p>
-                    <p>"Amazing experience! The service was top-notch, and the food was excellent!"</p>
-                    <button class="btn btn-outline-success btn-sm">👍 Helpful (24)</button>
-                    <button class="btn btn-outline-danger btn-sm">Report</button>
+                    </div>
+                    <p>
+                        @for($i = 1; $i <= 5; $i++)
+                            @if($i <= $review->rating)
+                                ⭐
+                            @else
+                                ☆
+                            @endif
+                        @endfor
+                    </p>
+
+                    <p>"{{ $review->comment }}"</p>
+
+                    {{-- <button class="btn btn-outline-success btn-sm">👍 Helpful</button> --}}
+                    {{-- <button class="btn btn-outline-danger btn-sm">Report</button> --}}
                 </div>
             </div>
         </div>
@@ -188,8 +232,41 @@
     </div>
 </div>
 
-<!----------------------5. Featured Section-------------------->
+<!----------------------5. carousal  Section-------------------->
+
 <div class="container my-5">
+    <h2 class="text-center fw-bold mb-4"> Why Guests Love Stay Sphere</h2>
+    <p class="text-center text-muted mb-4">Our commitment to excellence makes every stay memorable.</p>
+
+    <div id="hotelExcellenceCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @foreach($carouselItems as $index => $feature)
+                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                    <div class="feature-card">
+                        <div class="feature-overlay">
+                            <h3>{{ $feature->title }}</h3>
+                            <p>{{ $feature->description }}</p>
+                        </div>
+                        {{-- <img src="{{ asset('storage/' . $feature->image) }}" class="feature-img" alt="{{ $feature->title }}"> --}}
+                        <img src="{{ asset('assets/images/' . $feature->image) }}" class="feature-img" alt="{{ $feature->title }}">
+
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- Carousel Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#hotelExcellenceCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#hotelExcellenceCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+</div>
+
+{{-- <div class="container my-5">
     <h2 class="text-center fw-bold mb-4">🏆 Why Guests Love Stay Sphere</h2>
     <p class="text-center text-muted mb-4">Our commitment to excellence makes every stay memorable.</p>
 
@@ -253,7 +330,7 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
         </button>
     </div>
-</div>
+</div> --}}
 
 <!------------6. Write a Review Form---------------->
 <div class="modal fade" id="reviewModal">
@@ -301,45 +378,6 @@
 </div>
 </div>
 
-{{-- <div class="modal fade" id="reviewModal">
-    <div class="modal-dialog">
-        <div class="modal-content p-4">
-            <h4 class="mb-3">Write a Review</h4>
-            <form method="POST" action="{{ route('review.store') }}">
-                @csrf
-                <div class="mb-3">
-                    <label>Your Name</label>
-                    <input type="text" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label>Stay Type</label>
-                    <select class="form-select">
-                        <option>Solo</option>
-                        <option>Family</option>
-                        <option>Business</option>
-                        <option>Friends</option>
-                        <option>Couples</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label>Rating</label>
-                    <select class="form-select">
-                        <option>⭐⭐⭐⭐⭐</option>
-                        <option>⭐⭐⭐⭐☆</option>
-                        <option>⭐⭐⭐☆☆</option>
-                        <option>⭐⭐☆☆☆</option>
-                        <option>⭐☆☆☆☆</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label>Review</label>
-                    <textarea class="form-control" rows="3" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-warning w-100">Submit Review</button>
-            </form>
-        </div>
-    </div>
-</div> --}}
 
 <!--------------7. Footer CTA -------------->
 <div class="text-center my-5">
