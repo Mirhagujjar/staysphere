@@ -21,8 +21,6 @@ use App\Http\Controllers\ServicesController;
 
 // ---------------------------- Admin Routes ----------------------------
 Route::prefix('admin')->name('admin.')->group(function () {
-
-
     Route::get('/dashboard', [AdminController::class, 'dashboard'])
     ->name('dashboard');
 
@@ -124,6 +122,7 @@ Route::post('/book', [UserBookingPackageController::class, 'bookPackage'])->name
 
 
 
+
 // pofile
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [UserProfileController::class, 'show'])->name('user.profile');
@@ -159,6 +158,4 @@ Route::prefix('services')->group(function(){
 // Route::middleware(['user'])->group(function () {
 //     Route::get('/user/reservations', [ReservationController::class, 'index']);
 // });
-
-
 

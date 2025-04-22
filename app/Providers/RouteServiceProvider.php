@@ -20,6 +20,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
     
         Route::middleware('web')
             ->prefix('admin')
