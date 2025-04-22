@@ -88,11 +88,35 @@
 </style>
 
 <!------------- 1. Header Section ----------->
-{{-- <div class="review-header text-center text-white py-5">
+{{-- @foreach ($headers as $header)
+    <div class="review-header text-center text-white py-5" style="background-image: url('{{ asset('assets/images/' . $header->image) }}'); background-size: cover; background-position: center;">
+        <h1>{{ $header->title }}</h1>
+        <p>{{ $header->description }}</p>
+        <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#reviewModal">Write a Review</button>
+    </div>
+@endforeach --}}
+{{-- Review Header --}}
+@if($headers)
+    <div class="review-header text-center text-white py-5">
+        <h1>{{ $headers->title }}</h1>
+        <p>{{ $headers->description }}</p>
+        <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#reviewModal">Write a Review</button>
+    </div>
+@else
+    {{-- Default static header (agar dynamic data na ho) --}}
+    <div class="review-header text-center text-white py-5">
+        <h1>What Our Guests Say About Us</h1>
+        <p>Real experiences from our valued guests.</p>
+        <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#reviewModal">Write a Review</button>
+    </div>
+@endif
+
+
+ {{-- <div class="review-header text-center text-white py-5">
     <h1>What Our Guests Say About Us</h1>
     <p>Real experiences from our valued guests.</p>
     <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#reviewModal">Write a Review</button>
-</div>
+</div> --}}
 
 <!--------------- 2. Rating------------------ -->
 {{-- <div class="container my-5">
@@ -181,14 +205,14 @@
 
 
 <!------------- 4. Customer Reviews Section ------------>
-<div class="container">
+{{-- <div class="container">
     <div class="row">
         @foreach( $reviews as $review)
         <div class="col-md-6 mb-4 text-white">
             <div class="review-card">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
-                        {{-- <i class="bi bi-user-circle bi-3x"></i> --}}
+
                     <div>
                     <h5 class="mb-2">{{ $review->name }}</h5>
                     </div>
@@ -205,17 +229,15 @@
 
                     <p>"{{ $review->comment }}"</p>
 
-                    {{-- <button class="btn btn-outline-success btn-sm">👍 Helpful</button> --}}
-                    {{-- <button class="btn btn-outline-danger btn-sm">Report</button> --}}
                 </div>
             </div>
         </div>
         @endforeach
     </div>
-</div>
+</div> --}}
 
-<!----------------------5. Featured Section-------------------->
-<div class="container my-5">
+<!----------------------5. carousalSection-------------------->
+{{-- <div class="container my-5">
     <h2 class="text-center fw-bold mb-4"> Why Guests Love Stay Sphere</h2>
     <p class="text-center text-muted mb-4">Our commitment to excellence makes every stay memorable.</p>
 
@@ -228,7 +250,7 @@
                             <h3>{{ $feature->title }}</h3>
                             <p>{{ $feature->description }}</p>
                         </div>
-                        {{-- <img src="{{ asset('storage/' . $feature->image) }}" class="feature-img" alt="{{ $feature->title }}"> --}}
+
                         <img src="{{ asset('assets/images/' . $feature->image) }}" class="feature-img" alt="{{ $feature->title }}">
 
                     </div>
@@ -245,9 +267,9 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
         </button>
     </div>
-</div>
+</div> --}}
 
-{{-- <div class="container my-5">
+<div class="container my-5">
     <h2 class="text-center fw-bold mb-4">🏆 Why Guests Love Stay Sphere</h2>
     <p class="text-center text-muted mb-4">Our commitment to excellence makes every stay memorable.</p>
 
@@ -311,7 +333,7 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
         </button>
     </div>
-</div> --}}
+</div>
 
 <!------------6. Write a Review Form---------------->
 <div class="modal fade" id="reviewModal">

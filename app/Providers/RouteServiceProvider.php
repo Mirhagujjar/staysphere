@@ -19,17 +19,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-<<<<<<< HEAD
         // parent::boot();
-=======
->>>>>>> 0900f7dc8239da7e6e9291a57244a77ed138bc85
-
-    
         Route::middleware('web')
             ->prefix('admin')
             ->name('admin.')
             ->group(base_path('routes/web.php'));
-    
+
         Route::middleware('web')
             ->prefix('user')
             ->name('user.')

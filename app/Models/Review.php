@@ -5,10 +5,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-    protected $fillable = ['name', 'email', 'rating', 'comment' , 'is_approved' ,'type', 'title', 'description',
-    'image'];
-<<<<<<< Updated upstream
-    
-=======
->>>>>>> Stashed changes
+    protected $fillable = ['name', 'email', 'rating', 'comment' , 'is_approved'];
+
 }

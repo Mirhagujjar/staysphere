@@ -1,9 +1,5 @@
-<<<<<<< Updated upstream
-@extends('admin.dashboard')
-=======
-@extends('layouts.admin')
->>>>>>> Stashed changes
 
+@extends('admin.dashboard')
 @section('content')
 <div class="container mt-4">
     <h2>Add New Carousel Item</h2>
@@ -24,8 +20,5 @@
         <button type="submit" class="btn btn-primary">Add Carousel Item</button>
     </form>
 </div>
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 @endsection

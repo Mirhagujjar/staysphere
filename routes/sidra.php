@@ -2,12 +2,13 @@
 use Illuminate\Support\Facades\Route;
 // -------- User Side Controllers --------
 use App\Http\Controllers\User\UserReviewController;
+use App\Http\Controllers\User\HeaderReviewController;
 // -------- admin Side Controllers --------
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminReviewController;
+use App\Http\Controllers\Admin\AdminHeaderReviewController;
 
 use App\Http\Controllers\MenuController;
-
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 // ---------------------------- user Routes ----------------------------
@@ -15,18 +16,23 @@ use App\Http\Controllers\HomeController;
 Route::post('/submit-review', [UserReviewController::class, 'store'])->name('review.store');
 Route::get('user/review', [UserReviewController::class, 'index'])->name('user.review.review');
 Route::get('/review', [UserReviewController::class, 'showreview']);
+                //    header
+Route::get('user/review', [HeaderReviewController::class, 'showHeader'])->name('user.review.review');
 // --------------------- Admin Routes ----------------------------
                    // reviews
  Route::get('/admin/review', [AdminReviewController::class, 'index'])->name('admin.review.index');
  Route::get('/admin/review/approve/{id}', [AdminReviewController::class, 'approve'])->name('admin.review.approve');
  Route::get('/admin/review/reject/{id}', [AdminReviewController::class, 'reject'])->name('admin.review.reject');
  Route::delete('/admin/review/delete/{id}', [AdminReviewController::class, 'destroy'])->name('admin.review.delete');
- // ------- Header Section Routes --------
-Route::get('/admin/review/header/create', [AdminReviewController::class, 'createHeader'])->name('admin.review.header.create');
-Route::post('/admin/review/header/store', [AdminReviewController::class, 'storeHeader'])->name('admin.review.header.store');
-Route::get('/admin/review/header/edit/{id}', [AdminReviewController::class, 'editHeader'])->name('admin.review.header.edit');
-Route::put('/admin/review/header/update/{id}', [AdminReviewController::class, 'updateHeader'])->name('admin.review.header.update');
-Route::delete('/admin/review/header/delete/{id}', [AdminReviewController::class, 'deleteHeader'])->name('admin.review.header.delete');
+                   // Header
+
+ Route::prefix('admin')->name('admin.')->group(function () {
+
+    Route::get('review/header/header_create', [AdminHeaderReviewController::class, 'create'])->name('header.create');
+    Route::post('review/header/store', [AdminHeaderReviewController::class, 'store'])->name('header.store');
+    Route::get('review/header/header_edit/{id}', [AdminHeaderReviewController::class, 'edit'])->name('header.edit');
+    Route::put('review/header/update/{id}', [AdminHeaderReviewController::class, 'update'])->name('header.update');
+});
 
 // ------- Carousel Section Routes --------
 Route::get('/admin/review/carousel/create', [AdminReviewController::class, 'createCarousel'])->name('admin.review.carousel.create');

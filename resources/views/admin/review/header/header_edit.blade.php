@@ -1,32 +1,36 @@
-<<<<<<< Updated upstream
 @extends('admin.dashboard')
-=======
-@extends('layouts.admin')
->>>>>>> Stashed changes
 
 @section('content')
 <div class="container mt-4">
     <h2>Edit Header</h2>
-    <form action="{{ route('admin.review.header.update', $header->id) }}" method="POST" enctype="multipart/form-data">
+
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    <form action="{{ route('admin.header.update', $headers->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
+
         <div class="mb-3">
-            <label>Title:</label>
-            <input type="text" name="title" value="{{ $header->title }}" class="form-control" required>
+            <label>Title</label>
+            <input type="text" name="title" value="{{ $headers->title }}" class="form-control" required>
         </div>
+
         <div class="mb-3">
-            <label>Description:</label>
-            <textarea name="description" class="form-control" required>{{ $header->description }}</textarea>
+            <label>Description</label>
+            <textarea name="description" class="form-control" rows="4" required>{{ $headers->description }}</textarea>
         </div>
+
         <div class="mb-3">
-            <label>Current Image:</label><br>
-            <img src="{{ asset('images/'.$header->image) }}" width="150">
-        </div>
-        <div class="mb-3">
-            <label>Change Image (Optional):</label>
+            <label>Current Image</label><br>
+            @if($headers->image)
+                <img src="{{ asset('assets/' . $headers->image) }}" width="200" class="mb-2">
+            @endif
             <input type="file" name="image" class="form-control">
         </div>
-        <button type="submit" class="btn btn-success">Update Header</button>
+
+        <button type="submit" class="btn btn-primary">Update Header</button>
     </form>
 </div>
 @endsection
