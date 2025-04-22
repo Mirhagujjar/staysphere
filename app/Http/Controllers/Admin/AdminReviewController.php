@@ -45,7 +45,35 @@ class AdminReviewController extends Controller
         Review::destroy($id);
         return back()->with('success', 'Review deleted!');
     }
+
+    public function createCarousel()
+{
+    return view('admin.review.carousel.carousel_create'); // agar aapka view ka path ye hai
 }
+<<<<<<< Updated upstream
+public function storeCarousel(Request $request)
+{
+    // Validation (optional)
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'image' => 'required|image',
+    ]);
+
+    // Save image
+    $imagePath = $request->file('image')->store('carousel', 'public');
+
+    // Save to database (if needed)
+    // Carousel::create([
+    //     'title' => $request->title,
+    //     'image' => $imagePath,
+    // ]);
+
+    return redirect()->back()->with('success', 'Carousel item added successfully!');
+}
+
+}
+=======
+>>>>>>> Stashed changes
 
 // namespace App\Http\Controllers\Admin;
 

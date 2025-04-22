@@ -75,6 +75,10 @@ class UserReviewController extends Controller
         return redirect()->back()->with('success', 'Review submitted successfully, pending approval!');
     }
 
+<<<<<<< Updated upstream
+
+=======
+>>>>>>> Stashed changes
     public function showreview()
     {
         // Fetch only approved reviews

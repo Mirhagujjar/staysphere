@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
+@extends('admin.dashboard')
+=======
 @extends('layouts.admin')
+>>>>>>> Stashed changes
 
 @section('content')
 <div class="container mt-4">

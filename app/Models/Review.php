@@ -7,4 +7,8 @@ class Review extends Model
 {
     protected $fillable = ['name', 'email', 'rating', 'comment' , 'is_approved' ,'type', 'title', 'description',
     'image'];
+<<<<<<< Updated upstream
+    
+=======
+>>>>>>> Stashed changes
 }
