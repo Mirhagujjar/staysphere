@@ -16,4 +16,6 @@ class AdminMiddleware
 
         return redirect('/')->with('error', 'Unauthorized Access');
     }
+
+    
 }

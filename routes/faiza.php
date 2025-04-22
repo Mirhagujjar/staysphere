@@ -20,10 +20,9 @@ use App\Http\Controllers\Admin\AdminBookingPackageController;
 use App\Http\Controllers\ServicesController;
 
 // ---------------------------- Admin Routes ----------------------------
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])
+    ->name('dashboard');
 
     // Room Management
     Route::resource('rooms', AdminRoomController::class)->except(['show']);
@@ -63,6 +62,37 @@ Route::prefix('admin/')->name('admin.bookingspackages.')->group(function () {
 
 
 
+
+
+
+// Admin Routes
+
+use App\Http\Controllers\Admin\AdminRegisterController;
+use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\Admin\AdminProfileController;
+
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AdminLoginController::class, 'login'])->name('login.submit');;
+
+    Route::get('/register', [AdminRegisterController::class, 'showRegisterForm'])->name('register');
+    Route::post('/register', [AdminRegisterController::class, 'register'])->name('register.submit');
+    
+});
+
+
+// admin profile
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/profile', [AdminProfileController::class, 'show'])->name('admin.profile');
+    Route::put('/profile/update', [AdminProfileController::class, 'update'])->name('admin.profile.update');
+});
+
+
+
+
+
 // ---------------------------- User Side Routes ----------------------------
 // Rooms
 Route::prefix('rooms')->name('user.rooms.')->group(function () {
@@ -89,6 +119,9 @@ Route::prefix('packages')->name('user.packages.')->group(function () {
 });
 
 Route::post('/book', [UserBookingPackageController::class, 'bookPackage'])->name('user.book.package');
+
+
+
 
 // pofile
 Route::middleware(['auth'])->group(function () {
@@ -125,69 +158,4 @@ Route::prefix('services')->group(function(){
 // Route::middleware(['user'])->group(function () {
 //     Route::get('/user/reservations', [ReservationController::class, 'index']);
 // });
-
-
-
-
-
-
-
-
-
-
-
-//  User Registration Route
-Auth::routes();
-
-//  Admin Registration Route (optional)
-// Route::get('/admin/register', [AdminRegisterController::class, 'showRegistrationForm'])->name('admin.register');
-// Route::post('/admin/register', [AdminRegisterController::class, 'register']);
-
-
-
-
-// Admin Routes
-
-use App\Http\Controllers\Admin\AdminRegisterController;
-use App\Http\Controllers\Admin\AdminLoginController;
-
-
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AdminLoginController::class, 'login'])->name('login.submit');;
-
-    Route::get('/register', [AdminRegisterController::class, 'showRegisterForm'])->name('register');
-    Route::post('/register', [AdminRegisterController::class, 'register'])->name('register.submit');
-
-
-
-    // Route::get('/', [AdminController::class, 'dashboard'])
-    // ->name('dashboard')->middleware('auth');
-});
-
-
-
-
-
-// -----------------------------------auth for admin
-use App\Http\Controllers\Admin\AdminAuthController;
-
-// Admin Login Routes
-// Route::prefix('admin')->name('admin.')->group(function () {
-//     Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
-//     Route::post('/login', [AdminAuthController::class, 'login']);
-//     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
-
-//     Route::get('/admin/register', [AdminRegisterController::class, 'showRegistrationForm'])->name('admin.register');
-// });
-
-
-
-// use App\Http\Controllers\Admin\AdminRegisterController;
-
-// Route::prefix('admin')->name('admin.')->group(function () {
-//     Route::get('register', [AdminRegisterController::class, 'showRegistrationForm'])->name('register');
-//     Route::post('register', [AdminRegisterController::class, 'register'])->name('register.submit');
-// });
-
 
