@@ -16,8 +16,6 @@ use App\Http\Controllers\HomeController;
 Route::post('/submit-review', [UserReviewController::class, 'store'])->name('review.store');
 Route::get('user/review', [UserReviewController::class, 'index'])->name('user.review.review');
 Route::get('/review', [UserReviewController::class, 'showreview']);
-                //    header
-Route::get('user/review', [HeaderReviewController::class, 'showHeader'])->name('user.review.review');
 // --------------------- Admin Routes ----------------------------
                    // reviews
  Route::get('/admin/review', [AdminReviewController::class, 'index'])->name('admin.review.index');

@@ -5,11 +5,11 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Review;
+// use App\Models\Header;
+// use App\Models\Carousel;
 
 class UserReviewController extends Controller
 {
-
-
     public function index()
 {
     $reviews = Review::where('is_approved', true)->latest()->get();
@@ -17,8 +17,7 @@ class UserReviewController extends Controller
 }
     public function store(Request $request)
     {
-
-        // Validate form
+        // Validate form data
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -26,13 +25,13 @@ class UserReviewController extends Controller
             'comment' => 'required',
         ]);
 
-
+        // Store the review in the database
         Review::create([
             'name' => $request->name,
             'email' => $request->email,
             'rating' => $request->rating,
             'comment' => $request->comment,
-            'is_approved' => 0,
+            'is_approved' => 0, // Review is pending approval
         ]);
 
         return redirect()->back()->with('success', 'Review submitted successfully, pending approval!');

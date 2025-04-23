@@ -212,7 +212,6 @@
             <div class="review-card">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
-
                     <div>
                     <h5 class="mb-2">{{ $review->name }}</h5>
                     </div>
@@ -269,7 +268,44 @@
     </div>
 </div> --}}
 
+<<<<<<< Updated upstream
+=======
+<!----------------------5. carousal  Section-------------------->
+
+>>>>>>> Stashed changes
 <div class="container my-5">
+    <h2 class="text-center fw-bold mb-4"> Why Guests Love Stay Sphere</h2>
+    <p class="text-center text-muted mb-4">Our commitment to excellence makes every stay memorable.</p>
+
+    <div id="hotelExcellenceCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @foreach($carouselItems as $index => $feature)
+                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                    <div class="feature-card">
+                        <div class="feature-overlay">
+                            <h3>{{ $feature->title }}</h3>
+                            <p>{{ $feature->description }}</p>
+                        </div>
+                        {{-- <img src="{{ asset('storage/' . $feature->image) }}" class="feature-img" alt="{{ $feature->title }}"> --}}
+                        <img src="{{ asset('assets/images/' . $feature->image) }}" class="feature-img" alt="{{ $feature->title }}">
+
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- Carousel Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#hotelExcellenceCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#hotelExcellenceCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+</div>
+
+{{-- <div class="container my-5">
     <h2 class="text-center fw-bold mb-4">🏆 Why Guests Love Stay Sphere</h2>
     <p class="text-center text-muted mb-4">Our commitment to excellence makes every stay memorable.</p>
 
@@ -333,7 +369,7 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
         </button>
     </div>
-</div>
+</div> --}}
 
 <!------------6. Write a Review Form---------------->
 <div class="modal fade" id="reviewModal">
