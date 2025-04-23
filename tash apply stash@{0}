@@ -1,0 +1,92 @@
+[1mdiff --git a/app/Http/Controllers/Admin/AdminProfileController.php b/app/Http/Controllers/Admin/AdminProfileController.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ec5df30[m
+[1m--- /dev/null[m
+[1m+++ b/app/Http/Controllers/Admin/AdminProfileController.php[m
+[36m@@ -0,0 +1,49 @@[m
+[32m+[m[32m<?php[m
+[32m+[m
+[32m+[m[32mnamespace App\Http\Controllers\Admin;[m
+[32m+[m
+[32m+[m[32muse App\Http\Controllers\Controller;[m
+[32m+[m[32muse Illuminate\Http\Request;[m
+[32m+[m[32muse Illuminate\Support\Facades\Auth;[m
+[32m+[m[32muse Illuminate\Support\Facades\File;[m
+[32m+[m[32muse Illuminate\Support\Facades\Hash;[m
+[32m+[m
+[32m+[m[32mclass AdminProfileController extends Controller[m
+[32m+[m[32m{[m
+[32m+[m[32m    public function show()[m
+[32m+[m[32m    {[m
+[32m+[m[32m        $admin = Auth::user(); // Using users table[m
+[32m+[m[32m        return view('admin.profile', compact('admin'));[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public function update(Request $request)[m
+[32m+[m[32m    {[m
+[32m+[m[32m        $admin = Auth::user();[m
+[32m+[m
+[32m+[m[32m            $request->validate([[m
+[32m+[m[32m        'name' => 'required|string|max:255',[m
+[32m+[m[32m        'email' => 'required|email|max:255|unique:users,email,' . $admin->id,[m
+[32m+[m[32m        'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',[m
+[32m+[m[32m        'password' => 'nullable|min:6|confirmed',[m
+[32m+[m[32m    ]);[m
+[32m+[m
+[32m+[m[32m    $admin->name = $request->name;[m
+[32m+[m[32m    $admin->email = $request->email;[m
+[32m+[m
+[32m+[m[32m    if ($request->hasFile('profile_image')) {[m
+[32m+[m[32m        $file = $request->file('profile_image');[m
+[32m+[m[32m        $filename = time() . '.' . $file->getClientOriginalExtension();[m
+[32m+[m[32m        $file->move(public_path('uploads/profile'), $filename);[m
+[32m+[m[32m        $admin->profile_image = $filename;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // Only update password if it's provided[m
+[32m+[m[32m    if ($request->filled('password')) {[m
+[32m+[m[32m        $admin->password = Hash::make($request->password);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    $admin->save();[m
+[32m+[m
+[32m+[m[32m    return redirect()->back()->with('success', 'Profile updated successfully!');[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/app/Http/Kernel.php b/app/Http/Kernel.php[m
+[1mindex 30a7692..48079db 100644[m
+[1m--- a/app/Http/Kernel.php[m
+[1m+++ b/app/Http/Kernel.php[m
+[36m@@ -2,6 +2,10 @@[m
+ [m
+ namespace App\Http;[m
+ [m
+[32m+[m[32m// use Spatie\Permission\Middlewares\RoleMiddleware;[m
+[32m+[m[32m// use Spatie\Permission\Middlewares\PermissionMiddleware;[m
+[32m+[m[32m// use Spatie\Permission\Middlewares\RoleOrPermissionMiddleware;[m
+[32m+[m
+ use Illuminate\Foundation\Http\Kernel as HttpKernel;[m
+ [m
+ class Kernel extends HttpKernel[m
+[36m@@ -40,5 +44,9 @@[m [mclass Kernel extends HttpKernel[m
+         // 'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,[m
+         'admin' => \App\Http\Middleware\AdminMiddleware::class,[m
+         'user' => \App\Http\Middleware\UserMiddleware::class,[m
+[32m+[m
+[32m+[m[32m        // 'role' => \App\Http\Middleware\RoleMiddleware::class,[m
+[32m+[m[32m        // 'permission' => PermissionMiddleware::class,[m
+[32m+[m[32m        // 'role_or_permission' => RoleOrPermissionMiddleware::class,[m
+     ];[m
+ }[m
+[1mdiff --git a/app/Http/Middleware/AdminMiddleware.php b/app/Http/Middleware/AdminMiddleware.php[m
+[1mindex 689fc78..1acf8e7 100644[m
+[1m--- a/app/Http/Middleware/AdminMiddleware.php[m
+[1m+++ b/app/Http/Middleware/AdminMiddleware.php[m
+[36m@@ -16,4 +16,6 @@[m [mpublic function handle(Request $request, Closure $next)[m
+ [m
+         return redirect('/')->with('error', 'Unauthorized Access');[m
+     }[m
+[32m+[m
+[32m+[m[41m    [m
+ }[m
+[1mdiff --git a/app/Providers/RouteServiceProvider.php b/app/

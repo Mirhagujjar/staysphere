@@ -35,31 +35,24 @@ class UserRoomController extends Controller
         }
 
         // Filter by room capacity
-        if ($request->filled('room_capacity')) {
-            $query->where('room_capacity', '>=', $request->room_capacity);
-        }
+        // if ($request->filled('room_capacity')) {
+        //     $query->where('room_capacity', '>=', $request->room_capacity);
+        // }
 
         // Filter by star rating
-        if ($request->filled('star_rating')) {
-            $query->where('star_rating', '>=', $request->star_rating);
-        }
+        // if ($request->filled('star_rating')) {
+        //     $query->where('star_rating', '>=', $request->star_rating);
+        // }
 
-        // Filter by distance from a specific location (assuming you have a location field)
-        if ($request->filled('distance')) {
-            // Assuming you have a way to calculate distance, you might need to adjust this logic
-            // For example, if you have latitude and longitude for rooms and the user
-            // You can use a raw query to filter based on distance
-            // This is a placeholder for actual distance calculation logic
-            $query->where('distance_from_location', '<=', $request->distance);
-        }
+       
 
         // Exclude booked rooms
-        $query->whereNotIn('id', function ($subquery) {
-            $subquery->select('room_id')
-                ->from('reservations')
-                ->whereDate('check_in', '<=', now())
-                ->whereDate('check_out', '>=', now());
-        });
+        // $query->whereNotIn('id', function ($subquery) {
+        //     $subquery->select('room_id')
+        //         ->from('reservations')
+        //         ->whereDate('check_in', '<=', now())
+        //         ->whereDate('check_out', '>=', now());
+        // });
 
         // Sort order
         if ($request->filled('sort_order')) {

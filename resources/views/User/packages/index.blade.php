@@ -170,8 +170,10 @@
                                 <p class="card-text">{{ $package->description }}</p>
                                 <div class="mt-auto"> <!-- Pushes button to bottom -->
                                     <p class="card-text">
-                                        <p>Regular Price: PKR {{ $package->regular_price }} /night</p>
-                                        <p>Package Price: PKR {{ $package->price }}</p>
+                                        <p class="card-text">
+                                            <p class="text-decoration-line-through text-muted">Regular Price: PKR {{ $package->regular_price }} /night</p>
+                                            <p>Package Price: PKR {{ $package->price }}</p>
+                                        </p>
                                     </p>
                                     <button class="btn btn-book mt-3" onclick="showBookingForm({{ $package->id }})">Get Package Now</button>
                                 </div>
