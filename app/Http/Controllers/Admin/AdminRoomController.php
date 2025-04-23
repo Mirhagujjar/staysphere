@@ -10,7 +10,7 @@ class AdminRoomController extends Controller
 {
     public function dashboard()
     {
-        $rooms = Room::all(); // Fetching all rooms
+        $rooms = Room::all(); 
         return view('admin.dashboard', compact('rooms'));
     }
 
@@ -22,7 +22,7 @@ class AdminRoomController extends Controller
 
     public function create()
     {
-        $rooms = Room::all(); // Fetch all rooms
+        $rooms = Room::all(); 
         return view('admin.rooms.create', compact('rooms'));
     }
 
@@ -44,7 +44,7 @@ class AdminRoomController extends Controller
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('assets/images/rooms'), $imageName);
-            $imagePath = 'assets/images/rooms/' . $imageName; // Add slash between path and image name
+            $imagePath = 'assets/images/rooms/' . $imageName; 
         }
 
         Room::create([
@@ -89,7 +89,7 @@ class AdminRoomController extends Controller
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('assets/images/rooms'), $imageName);
-            $room->image = 'assets/images/rooms/' . $imageName; // Add slash between path and image name
+            $room->image = 'assets/images/rooms/' . $imageName; 
         }
 
         $room->room_name = $request->room_name;

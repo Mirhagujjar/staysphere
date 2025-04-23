@@ -30,7 +30,6 @@ class AdminBookingPackageController extends Controller {
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('assets/images/packages'), $imageName);
 
-            // Save the image path relative to the public folder
             $booking->image = 'assets/images/packages/' . $imageName;
         }
 

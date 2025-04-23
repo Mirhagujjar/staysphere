@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Reservation;
-use App\Models\Room; // Import Room model
+use App\Models\Room; 
 
 class ReservationController extends Controller
 {

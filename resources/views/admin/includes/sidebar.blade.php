@@ -47,14 +47,13 @@
 
 
                <!-- Sidebar with Login/Profile Dropdown -->
-               <ul class="navbar-nav ms-auto">    
                 @auth
                     @if(Auth::user()->role === 'admin')
                         @php
                             $admin = Auth::user();
                         @endphp
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 @if ($admin->profile_image)
                                     <img src="{{ asset('uploads/profile/' . $admin->profile_image) }}"
                                          class="rounded-circle me-2" width="40" height="40" alt="Admin Image">
@@ -92,12 +91,11 @@
                         </a>
                     </li>
                 @endauth
-            </ul>
             
                 
                 <!-- Add SweetAlert CSS -->
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 
                 <!-- Add Font Awesome -->
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -129,16 +127,6 @@
                     }
                 </script>
             
-          
-
-          
-
-
-
-
-
-
-
 
                 
 
@@ -249,19 +237,7 @@
                     </a>
                 </li>
 
-                <!-- Bookings Management -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-journal-bookmark text-warning"></i>
-                        <p>Bookings Management <i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-arrow-right text-warning"></i> <p>Approve Bookings</p></a></li>
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-arrow-right text-warning"></i> <p>Reject Bookings</p></a></li>
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-arrow-right text-warning"></i> <p>Booking Status</p></a></li>
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-arrow-right text-warning"></i> <p>Search / Filter</p></a></li>
-                    </ul>
-                </li>
+             
 
                 <!-- Users Management -->
                 <li class="nav-item">
@@ -289,7 +265,7 @@
                 </li>
 
                 <!-- Analytics -->
-                <li class="nav-item mt-3">
+                {{-- <li class="nav-item mt-3">
                     <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-graph-up text-warning"></i>
                         <p>Analytics <i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
@@ -298,7 +274,7 @@
                         <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-arrow-right text-warning"></i> <p>Marketing</p></a></li>
                         <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-arrow-right text-warning"></i> <p>Visitors</p></a></li>
                     </ul>
-                </li>
+                </li> --}}
 
 
 
