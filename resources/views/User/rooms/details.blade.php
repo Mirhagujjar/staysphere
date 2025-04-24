@@ -5,17 +5,13 @@
     * {
         font-family: "Montserrat", Helvetica, sans-serif;
         box-sizing: border-box;
-        /* Ensure consistent box sizing */
     }
 
     html,
     body {
         overflow-x: hidden;
-        /* Prevent horizontal overflow */
         margin: 0;
-        /* Reset default margin */
         padding: 0;
-        /* Reset default padding */
     }
 
     /* <!------------------------------- Top Banner ------------------------> */
@@ -276,41 +272,6 @@
             </div>
         </div>
     </div>
-    
-    
-
-    {{-- ----------------------------Facilities------------------------------ --}}
-    {{-- <div class="facilities-section">
-        <h2 class="text-center mb-4">Main Facilities</h2>
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-md-3 ">
-                    <div class="facility-item text-center">
-                        <i class="bi bi-car-front"></i>
-                        <h5>Car Parking</h5>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="facility-item text-center">
-                        <i class="bi bi-wifi"></i>
-                        <h5>High-Speed Wifi</h5>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="facility-item text-center">
-                        <i class="bi bi-water"></i>
-                        <h5>Swimming Pool</h5>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="facility-item text-center">
-                        <i class="bi bi-cup-straw"></i>
-                        <h5>Free Breakfast</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 
     {{-- -------------------------Booking Section---------------------- --}}
     <div class="container py-5" id="booking_section">
