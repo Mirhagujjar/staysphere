@@ -8,6 +8,6 @@ class ReviewsController extends Controller
 {
     public function showreviews()
     {
-        return view('reviews'); // This will return the FAQ view
+        return view('reviews');
     }
 }

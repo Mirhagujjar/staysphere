@@ -8,6 +8,6 @@ class MenuController extends Controller
 {
     public function showMenu()
     {
-        return view('menu-of-the-day'); // Loads the menu-of-the-day.blade.php file
+        return view('menu-of-the-day'); 
     }
 }

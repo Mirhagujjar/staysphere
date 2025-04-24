@@ -4,9 +4,9 @@
 
 <style>
     .room-img {
-        width: 100%; /* Full width */
-        height: 200px; /* Fixed height */
-        object-fit: cover; /* Prevents distortion */
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
     }
@@ -18,13 +18,13 @@
         @foreach($reservations as $reservation)
         <div class="col-md-4 mb-4">
             <div class="card shadow-sm">
-                <!-- Room Image -->
+
                 @if($reservation->room && $reservation->room->image)
                     <img src="{{ asset('assets/images/reservation/' . $reservation->room->image) }}" class="card-img-top room-img" alt="Room Image">
                 @else
                     <img src="https://via.placeholder.com/300x200?text=No+Image" class="card-img-top room-img" alt="No Image">
                 @endif
-    
+
                 <div class="card-body">
                     <h5 class="card-title">{{ $reservation->name }}</h5>
                     <p class="card-text"><strong>Email:</strong> {{ $reservation->email }}</p>
@@ -34,7 +34,7 @@
                     <p class="card-text"><strong>Check-out:</strong> {{ $reservation->check_out }}</p>
                     <p class="card-text"><strong>Guests:</strong> {{ $reservation->guests }}</p>
                     <span class="badge bg-success">{{ $reservation->status }}</span>
-    
+
                     <div class="mt-3">
                         <a href="{{ route('admin.reservations.edit', $reservation->id) }}" class="btn btn-warning btn-sm">Edit</a>
                         <form action="{{ route('admin.reservations.destroy', $reservation->id) }}" method="POST" class="d-inline">
@@ -48,6 +48,6 @@
         </div>
         @endforeach
     </div>
-    
+
 </div>
 @endsection

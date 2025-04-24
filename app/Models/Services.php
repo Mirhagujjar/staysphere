@@ -9,6 +9,6 @@ class Services extends Model
     protected $fillable = ['name', 'description', 'image', 'details'];
 
     protected $casts = [
-        'details' => 'array', // Cast details as JSON array
+        'details' => 'array', 
     ];
 }

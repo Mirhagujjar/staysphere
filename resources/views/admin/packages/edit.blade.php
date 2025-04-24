@@ -8,7 +8,7 @@
                 <div class="card-header bg-primary text-white">
                     <h2 class="h5 mb-0">Edit Package</h2>
                 </div>
-                
+
                 <div class="card-body">
                     @if ($errors->any())
                         <div class="alert alert-danger mb-4">
@@ -26,19 +26,19 @@
                         @method('PUT')
 
                         <div class="row g-3">
-                            <!-- Package Name -->
+
                             <div class="col-12">
                                 <label class="form-label fw-bold">Package Name</label>
                                 <input type="text" name="name" class="form-control" value="{{ old('name', $package->name) }}" required>
                             </div>
 
-                            <!-- Description -->
+                        
                             <div class="col-12">
                                 <label class="form-label fw-bold">Description</label>
                                 <textarea name="description" class="form-control" rows="4" required>{{ old('description', $package->description) }}</textarea>
                             </div>
 
-                            <!-- Prices -->
+    
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Package Price (PKR)</label>
                                 <div class="input-group">
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
 
-                            <!-- Image Upload -->
+                            
                             <div class="col-12">
                                 <label class="form-label fw-bold">Package Image</label>
                                 <div class="d-flex flex-column flex-md-row gap-3">
@@ -65,9 +65,9 @@
                                     </div>
                                     <div class="text-center">
                                         <p class="mb-1 fw-bold">Current Image:</p>
-                                        <img src="{{ asset('assets/images/packages/' . $package->image) }}" 
-                                             alt="Package Image" 
-                                             class="img-thumbnail" 
+                                        <img src="{{ asset('assets/images/packages/' . $package->image) }}"
+                                             alt="Package Image"
+                                             class="img-thumbnail"
                                              style="max-width: 150px; height: auto;">
                                     </div>
                                 </div>
