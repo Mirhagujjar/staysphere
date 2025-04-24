@@ -24,7 +24,6 @@ class AdminPackageController extends Controller
 
     public function store(Request $request)
     {
-        // $request->validate([...]);
 
         $request->validate([
             'name' => 'required',
@@ -55,22 +54,19 @@ class AdminPackageController extends Controller
     public function update(Request $request, $id)
     {
         $package = Package::findOrFail($id);
-
-        // $request->validate([...]);
-
         $package->name = $request->name;
         $package->description = $request->description;
         $package->price = $request->price;
         $package->regular_price = $request->regular_price;
 
         if ($request->hasFile('image')) {
-            // Purani image delete
+            //   remove old img
             $oldImagePath = public_path('assets/images/packages/' . $package->image);
             if (File::exists($oldImagePath)) {
                 File::delete($oldImagePath);
             }
 
-            // Nayi image upload
+            // New image upload
             $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('assets/images/packages'), $imageName);
             $package->image = $imageName;

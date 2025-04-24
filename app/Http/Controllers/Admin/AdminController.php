@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    //  Admin Dashboard (Shows Both Rooms & Reservations)
     public function dashboard()
     {
         $rooms = Room::all(); 

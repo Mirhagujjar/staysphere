@@ -33,27 +33,6 @@ class UserRoomController extends Controller
                 $query->where('facilities', 'LIKE', "%$facility%");
             }
         }
-
-        // Filter by room capacity
-        // if ($request->filled('room_capacity')) {
-        //     $query->where('room_capacity', '>=', $request->room_capacity);
-        // }
-
-        // Filter by star rating
-        // if ($request->filled('star_rating')) {
-        //     $query->where('star_rating', '>=', $request->star_rating);
-        // }
-
-       
-
-        // Exclude booked rooms
-        // $query->whereNotIn('id', function ($subquery) {
-        //     $subquery->select('room_id')
-        //         ->from('reservations')
-        //         ->whereDate('check_in', '<=', now())
-        //         ->whereDate('check_out', '>=', now());
-        // });
-
         // Sort order
         if ($request->filled('sort_order')) {
             $query->orderBy('price', $request->sort_order);

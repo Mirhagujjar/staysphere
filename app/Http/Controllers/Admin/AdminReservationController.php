@@ -16,28 +16,22 @@ class AdminReservationController extends Controller
 
     }
     
-    
-
-    // ✅ Show Single Reservation
     public function show($id)
     {
         $reservation = Reservation::findOrFail($id);
         return view('admin.reservations.show', compact('reservation'));
     }
 
-    // ✅ Edit Reservation
     public function edit($id)
     {
         $reservation = Reservation::findOrFail($id);
         return view('admin.reservations.edit', compact('reservation'));
     }
 
-    // ✅ Update Reservation
     public function update(Request $request, $id)
     {
         $reservation = Reservation::findOrFail($id);
 
-        // ✅ Validation (Ensure `room_type` Exists in Database)
         Reservation::create([
             'name' => $request->name,
             'email' => $request->email,
