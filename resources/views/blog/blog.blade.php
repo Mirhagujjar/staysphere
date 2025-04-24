@@ -199,7 +199,7 @@
             <div class="sidebar-section mb-4">
                 <h4>Popular Posts</h4>
                 <ul class="list-unstyled">
-                    <li><a href="{{ route('rooms') }}">Best Room Choices at Stay Sphere</a></li>
+                    <li><a href="{{ route('user.rooms.index') }}">Best Room Choices at Stay Sphere</a></li>
                     <li><a href="{{ route('blog.topRoom') }}">Stay Sphere Exclusive Deals</a></li>
                     <li><a href="{{ route('events') }}">Events at Stay Sphere</a></li>
                 </ul>
@@ -209,7 +209,7 @@
             <div class="sidebar-section text-light">
                 <h4>Special Offers</h4>
                 <p>Get 20% off on your first booking. Limited time only!</p>
-                <a href="{{ route('reservations.create') }}" class="btn btn-custom w-100 text-dark">Book Now</a>
+                <a href="{{ route('user.reservations.create') }}" class="btn btn-custom w-100 text-dark">Book Now</a>
             </div>
         </div>
 
