@@ -213,7 +213,7 @@
                 <div class="cta-box mt-4">
                     <h5>Exclusive Offer: 20% Off on Deluxe Rooms!</h5>
                     <p>Book now and enjoy a luxurious stay with us.</p>
-                    <a href="{{ route('reservations.create') }}" class="btn btn-warning">Book Now</a>
+                    <a href="{{ route('user.reservations.create') }}" class="btn btn-warning">Book Now</a>
                 </div>
             </div>
         </div>
@@ -225,14 +225,14 @@
                 <ul class="list-unstyled">
                     <li><a href="{{ route('blog.chefSpecial') }}"> Chef’s Special</a></li>
                     <li><a href="{{ route('blog.guest') }}">Guest Experiences</a></li>
-                    <li><a href="{{ route('blog.hosting') }}"> Hosting an Event?</a></li>
+                    <li><a href="{{ route('blog.hosting') }}"> Hosting an Event</a></li>
                 </ul>
             </div>
 
             <div class="sidebar-section">
                 <h4>Room Picks</h4>
                 <p><b>Experience luxury</b>, comfort, and elegance with our top-rated rooms, designed for a perfect stay.</p>
-                <a href="{{route('rooms')}}" class="btn btn-warning text-dark">Learn More</a>
+                <a href="{{route('user.rooms.index')}}" class="btn btn-warning text-dark">Learn More</a>
             </div>
         </div>
     </div>
@@ -251,7 +251,7 @@
 </section>
 
     {{-- ----------- Comments Section --------- --}}
-    <div class="comment-section mt-5">
+    {{-- <div class="comment-section mt-5">
         <h4>Leave a Comment</h4>
         <form>
             <div class="mb-3">
@@ -260,7 +260,7 @@
             </div>
             <button type="submit" class="btn btn-warning">Submit</button>
         </form>
-    </div>
+    </div> --}}
 </div>
 
 @endsection

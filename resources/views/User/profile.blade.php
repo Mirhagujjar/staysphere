@@ -18,12 +18,12 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" 
+                                    <input type="text" class="form-control" id="name" name="name"
                                            value="{{ auth()->user()->name }}" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" 
+                                    <input type="email" class="form-control" id="email" name="email"
                                            value="{{ auth()->user()->email }}" required>
                                 </div>
                             </div>
@@ -34,7 +34,7 @@
                                 @if(auth()->user()->profile_image)
                                     <div class="mt-3">
                                         <p class="mb-1">Current Profile Image:</p>
-                                        <img src="{{ asset('assets/profile_images/' . auth()->user()->profile_image) }}" 
+                                        <img src="{{ asset('assets/images/' . auth()->user()->profile_image) }}"
                                              class="rounded-circle border" width="100" height="100">
                                     </div>
                                 @endif
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="password_confirmation" class="form-label">Confirm New Password</label>
-                                    <input type="password" class="form-control" id="password_confirmation" 
+                                    <input type="password" class="form-control" id="password_confirmation"
                                            name="password_confirmation">
                                 </div>
                             </div>
@@ -79,20 +79,20 @@
         border-radius: 10px;
         overflow: hidden;
     }
-    
+
     .card-header {
         padding: 1.5rem;
     }
-    
+
     .form-control {
         border-radius: 5px;
         padding: 0.75rem 1rem;
     }
-    
+
     .form-control:focus {
         box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
     }
-    
+
     .btn-primary {
         background-color: #0d6efd;
         border: none;
@@ -101,12 +101,12 @@
         border-radius: 5px;
         transition: all 0.3s;
     }
-    
+
     .btn-primary:hover {
         background-color: #0b5ed7;
         transform: translateY(-2px);
     }
-    
+
     hr {
         opacity: 0.1;
     }

@@ -192,7 +192,7 @@
                 <div class="cta-box mt-4">
                     <h5>Exclusive Offer: 20% Off on Deluxe Rooms!</h5>
                     <p>Book now and enjoy a luxurious stay with us.</p>
-                    <a href="{{ route('reservations.create') }}" class="btn btn-warning">Book Now</a>
+                    <a href="{{ route('user.reservations.create') }}" class="btn btn-warning">Book Now</a>
                 </div>
             </div>
         </div>
@@ -204,7 +204,7 @@
                 <ul class="list-unstyled">
                     <li><a href="{{ route('blog.topRoom') }}"> Ultimate Comfort</a></li>
                     <li><a href="{{ route('blog.guest') }}">Guest Experiences</a></li>
-                    <li><a href="{{ route('blog.hosting') }}"> Hosting an Event?</a></li>
+                    <li><a href="{{ route('blog.hosting') }}"> Hosting an Event</a></li>
                 </ul>
             </div>
 
@@ -228,17 +228,7 @@
         <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/M6.jpg') }}" alt="menu 6"></div>
     </div>
 </section>
-    {{-- ------------ Comments Section ----------- --}}
-    <div class="comment-section mt-5">
-        <h4>Leave a Comment</h4>
-        <form>
-            <div class="mb-3">
-                <label for="comment" class="form-label">Your Comment</label>
-                <textarea class="form-control" id="comment" rows="3" placeholder="Write your thoughts..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-warning">Submit</button>
-        </form>
-    </div>
+    
 </div>
 
 @endsection

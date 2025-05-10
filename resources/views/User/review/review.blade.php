@@ -88,35 +88,11 @@
 </style>
 
 <!------------- 1. Header Section ----------->
-{{-- @foreach ($headers as $header)
-    <div class="review-header text-center text-white py-5" style="background-image: url('{{ asset('assets/images/' . $header->image) }}'); background-size: cover; background-position: center;">
-        <h1>{{ $header->title }}</h1>
-        <p>{{ $header->description }}</p>
-        <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#reviewModal">Write a Review</button>
-    </div>
-@endforeach --}}
-{{-- Review Header --}}
-@if($headers)
-    <div class="review-header text-center text-white py-5">
-        <h1>{{ $headers->title }}</h1>
-        <p>{{ $headers->description }}</p>
-        <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#reviewModal">Write a Review</button>
-    </div>
-@else
-    {{-- Default static header (agar dynamic data na ho) --}}
-    <div class="review-header text-center text-white py-5">
-        <h1>What Our Guests Say About Us</h1>
-        <p>Real experiences from our valued guests.</p>
-        <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#reviewModal">Write a Review</button>
-    </div>
-@endif
-
-
- {{-- <div class="review-header text-center text-white py-5">
+<div class="review-header text-center text-white py-5">
     <h1>What Our Guests Say About Us</h1>
     <p>Real experiences from our valued guests.</p>
     <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#reviewModal">Write a Review</button>
-</div> --}}
+</div>
 
 <!--------------- 2. Rating------------------ -->
 {{-- <div class="container my-5">
@@ -182,7 +158,6 @@
             <option>Newest</option>
             <option>Highest Rated</option>
             <option>Lowest Rated</option>
-            <option>Most Helpful</option>
         </select>
     </div>
 </div> --}}
@@ -205,7 +180,7 @@
 
 
 <!------------- 4. Customer Reviews Section ------------>
-{{-- <div class="container">
+<div class="container">
     <div class="row">
         @foreach( $reviews as $review)
         <div class="col-md-6 mb-4 text-white">
@@ -233,79 +208,10 @@
         </div>
         @endforeach
     </div>
-</div> --}}
-
-<!----------------------5. carousalSection-------------------->
-{{-- <div class="container my-5">
-    <h2 class="text-center fw-bold mb-4"> Why Guests Love Stay Sphere</h2>
-    <p class="text-center text-muted mb-4">Our commitment to excellence makes every stay memorable.</p>
-
-    <div id="hotelExcellenceCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            @foreach($carouselItems as $index => $feature)
-                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                    <div class="feature-card">
-                        <div class="feature-overlay">
-                            <h3>{{ $feature->title }}</h3>
-                            <p>{{ $feature->description }}</p>
-                        </div>
-
-                        <img src="{{ asset('assets/images/' . $feature->image) }}" class="feature-img" alt="{{ $feature->title }}">
-
-                    </div>
-                </div>
-            @endforeach
-        </div>
-
-        <!-- Carousel Controls -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#hotelExcellenceCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        </button>
-
-        <button class="carousel-control-next" type="button" data-bs-target="#hotelExcellenceCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        </button>
-    </div>
-</div> --}}
-
-<<<<<<< Updated upstream
-=======
-<!----------------------5. carousal  Section-------------------->
-
->>>>>>> Stashed changes
-<div class="container my-5">
-    <h2 class="text-center fw-bold mb-4"> Why Guests Love Stay Sphere</h2>
-    <p class="text-center text-muted mb-4">Our commitment to excellence makes every stay memorable.</p>
-
-    <div id="hotelExcellenceCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            @foreach($carouselItems as $index => $feature)
-                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                    <div class="feature-card">
-                        <div class="feature-overlay">
-                            <h3>{{ $feature->title }}</h3>
-                            <p>{{ $feature->description }}</p>
-                        </div>
-                        {{-- <img src="{{ asset('storage/' . $feature->image) }}" class="feature-img" alt="{{ $feature->title }}"> --}}
-                        <img src="{{ asset('assets/images/' . $feature->image) }}" class="feature-img" alt="{{ $feature->title }}">
-
-                    </div>
-                </div>
-            @endforeach
-        </div>
-
-        <!-- Carousel Controls -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#hotelExcellenceCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        </button>
-
-        <button class="carousel-control-next" type="button" data-bs-target="#hotelExcellenceCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        </button>
-    </div>
 </div>
 
-{{-- <div class="container my-5">
+<!----------------------5. carousalSection-------------------->
+<div class="container my-5">
     <h2 class="text-center fw-bold mb-4">🏆 Why Guests Love Stay Sphere</h2>
     <p class="text-center text-muted mb-4">Our commitment to excellence makes every stay memorable.</p>
 
@@ -369,7 +275,7 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
         </button>
     </div>
-</div> --}}
+</div>
 
 <!------------6. Write a Review Form---------------->
 <div class="modal fade" id="reviewModal">
@@ -421,7 +327,7 @@
 <!--------------7. Footer CTA -------------->
 <div class="text-center my-5">
     <h4>Want to stay with us?</h4>
-    <a href="{{}}" class="btn btn-warning">Check Room Availability</a>
+    <a href="{{route('user.rooms.index')}}" class="btn btn-warning">Check Room Availability</a>
 </div>
 
 @endsection

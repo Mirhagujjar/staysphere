@@ -189,7 +189,7 @@
                 <div class="cta-box mt-4">
                     <h5>Exclusive Offer: 20% Off on Deluxe Rooms!</h5>
                     <p>Book now and enjoy a luxurious stay with us.</p>
-                    <a href="{{ route('reservations.create') }}" class="btn btn-warning">Book Now</a>
+                    <a href="{{ route('user.reservations.create') }}" class="btn btn-warning">Book Now</a>
                 </div>
             </div>
         </div>
@@ -208,7 +208,7 @@
             <div class="sidebar-section">
                 <h4>Planning a special event!</h4>
                 <p> Our <b>elegant halls </b>provide the perfect venue for meetings, celebrations, and gatherings.</p>
-                <a href="{{ route('events') }}" class="btn btn-warning text-dark">Learn More</a>
+                <a href="{{ route('user.event.index') }}" class="btn btn-warning text-dark">Learn More</a>
             </div>
         </div>
     </div>
@@ -225,17 +225,7 @@
         <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/H4.jpg') }}" alt="event 6"></div>
     </div>
 </section>
-    {{-- ------------ Comments Section ------------- --}}
-    <div class="comment-section mt-5">
-        <h4>Leave a Comment</h4>
-        <form>
-            <div class="mb-3">
-                <label for="comment" class="form-label">Your Comment</label>
-                <textarea class="form-control" id="comment" rows="3" placeholder="Write your thoughts..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-warning">Submit</button>
-        </form>
-    </div>
+    
 </div>
 
 @endsection

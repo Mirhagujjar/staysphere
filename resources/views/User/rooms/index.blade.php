@@ -5,17 +5,17 @@
         * {
             font-family: "Montserrat", Helvetica, sans-serif;
             box-sizing: border-box;
-            /* Ensure consistent box sizing */
+
         }
 
         html,
         body {
             overflow-x: hidden;
-            /* Prevent horizontal overflow */
+           
             margin: 0;
-            /* Reset default margin */
+           
             padding: 0;
-            /* Reset default padding */
+            
         }
 
         /* <!------------------------------- Top Banner ------------------------> */
@@ -299,16 +299,16 @@
                             <option value="Standard">Standard</option>
                             <option value="Single">Single</option>
                         </select>
-            
+
                         <h6 class="mt-3">Max Price (PKR)</h6>
                         <input type="number" name="max_price" class="form-control" placeholder="Enter max price">
-            
+
                         <h6 class="mt-3">Min Price (PKR)</h6>
                         <input type="number" name="min_price" class="form-control" placeholder="Enter min price">
-            
+
                         <h6 class="mt-3">Facilities</h6>
                         <input type="text" name="facilities" class="form-control" placeholder="Enter facilities (comma separated)">
-            
+
                         <h6 class="mt-3">Star Rating</h6>
                         <select name="star_rating" class="form-select">
                             <option value="">Any</option>
@@ -318,19 +318,19 @@
                             <option value="4">4 Stars</option>
                             <option value="5">5 Stars</option>
                         </select>
-            
+
                         <h6 class="mt-3">Room Capacity</h6>
                         <input type="number" name="room_capacity" class="form-control" placeholder="Enter minimum capacity">
-            
+
                         <h6 class="mt-3">Distance (km)</h6>
                         <input type="number" name="distance" class="form-control" placeholder="Enter max distance from location">
-            
+
                         <h6 class="mt-3">Sort By Price</h6>
                         <select name="sort_order" class="form-select">
                             <option value="asc">Low to High</option>
                             <option value="desc">High to Low</option>
                         </select>
-            
+
                         <!-- Additional Filters -->
                         <h6 class="mt-3">Breakfast Included</h6>
                         <select name="breakfast" class="form-select">
@@ -338,21 +338,21 @@
                             <option value="yes">Yes</option>
                             <option value="no">No</option>
                         </select>
-            
+
                         <h6 class="mt-3">Pet-Friendly</h6>
                         <select name="pet_friendly" class="form-select">
                             <option value="">Any</option>
                             <option value="yes">Yes</option>
                             <option value="no">No</option>
                         </select>
-            
+
                         <h6 class="mt-3">Cancellation Policy</h6>
                         <select name="cancellation_policy" class="form-select">
                             <option value="">Any</option>
                             <option value="flexible">Flexible</option>
                             <option value="strict">Strict</option>
                         </select>
-            
+
                         <!-- Popular Filters -->
                         <h6 class="mt-3">Popular Filters</h6>
                         <div class="form-check">
@@ -363,7 +363,7 @@
                             <input type="checkbox" name="popular_filters[]" value="double_bed" class="form-check-input" id="filterDoubleBed">
                             <label class="form-check-label" for="filterDoubleBed">Double Bed</label>
                         </div>
-            
+
                         <button type="submit" class="btn btn-warning mt-3 w-100">Apply Filters</button>
                         <a href="{{ route('user.rooms.index') }}" class="btn btn-outline-danger mt-2 w-100">Reset</a>
                     </form>
@@ -407,7 +407,7 @@
                     @endforeach
                 </div>
             </div> --}}
-            
+
             {{-- <div class="col-lg-9">
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                     @foreach($rooms as $room)
@@ -426,12 +426,12 @@
                                     @endif
                                 </div>
                             </div>
-                            
+
                             <!-- Card Body -->
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title text-2C3E50">{{ $room->room_name }}</h5>
                                 <p class="card-text text-343A40">Rs. {{ number_format($room->price) }} / Per Night</p>
-                                
+
                                 <!-- Overlay Content (hidden by default) -->
                                 <div class="card-overlay mt-auto pt-3 border-top">
                                     <div class="details small">
@@ -446,11 +446,11 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- Footer -->
                             @if(!$room->isBooked())
                             <div class="card-footer bg-transparent border-top-0 pt-0">
-                                <a href="{{ route('user.reservations.create', ['room_id' => $room->id]) }}" 
+                                <a href="{{ route('user.reservations.create', ['room_id' => $room->id]) }}"
                                    class="btn btn-1ABC9C w-100">
                                     Book Now
                                 </a>
@@ -466,8 +466,8 @@
                 <div class="row g-4">
                     @foreach($rooms as $room)
                     <div class="col-md-4">
-                        <div class="card card-hover h-80">  
-                           
+                        <div class="card card-hover h-80">
+
                             <div class="position-relative" style="height: 200px; overflow: hidden;">
                                 @if($room->is_new)
                                 <span class="badge text-bg-success position-absolute top-0 start-0 m-2">NEW</span>
@@ -475,15 +475,15 @@
                                 @if($room->on_sale)
                                 <span class="badge text-bg-danger position-absolute top-0 end-0 m-2">SALE</span>
                                 @endif
-                                <img src="{{ asset($room->image) }}" 
-                                     class="w-100 h-100 object-fit-cover" 
+                                <img src="{{ asset($room->image) }}"
+                                     class="w-100 h-100 object-fit-cover"
                                      alt="{{ $room->room_name }}">
                             </div>
-                            
-                            <div class="card-body d-flex flex-column">  
+
+                            <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">{{ $room->room_name }}</h5>
                                 <p class="card-text">Rs. {{ number_format($room->price) }} / Per Night</p>
-                                <div class="card-overlay mt-auto">  
+                                <div class="card-overlay mt-auto">
                                     <div class="details">
                                         <p>{{ $room->guest_capacity }} Guests</p>
                                         <p>{{ $room->size }} ft Room Size</p>
@@ -492,10 +492,10 @@
                                     <a href="{{ route('user.rooms.show', $room->id) }}" class="btn-book">View Details</a>
                                 </div>
                             </div>
-                            
+
                             @if(!$room->isBooked())
                             <div class="card-footer text-center">
-                                <a href="{{ route('user.reservations.create', ['room_id' => $room->id]) }}" 
+                                <a href="{{ route('user.reservations.create', ['room_id' => $room->id]) }}"
                                    class="btn btn-primary">
                                     Book Now
                                 </a>

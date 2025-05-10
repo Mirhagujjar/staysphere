@@ -5,17 +5,17 @@
     * {
         font-family: "Montserrat", Helvetica, sans-serif;
         box-sizing: border-box;
-        /* Ensure consistent box sizing */
+
     }
 
     html,
     body {
         overflow-x: hidden;
-        /* Prevent horizontal overflow */
+
         margin: 0;
-        /* Reset default margin */
+
         padding: 0;
-        /* Reset default padding */
+       
     }
 
     /* <!------------------------------- Top Banner ------------------------> */
@@ -253,7 +253,7 @@
         <div class="section-title text-center">
             <h2>Room Details</h2>
         </div>
-    
+
         <div class="row">
             <div class="col-md-6">
                 <img src="{{ asset($room->image) }}" alt="{{ $room->room_name }}" class="img-thumbnail" style="max-width: 500px; height: auto;">
@@ -276,8 +276,8 @@
             </div>
         </div>
     </div>
-    
-    
+
+
 
     {{-- ----------------------------Facilities------------------------------ --}}
     {{-- <div class="facilities-section">
