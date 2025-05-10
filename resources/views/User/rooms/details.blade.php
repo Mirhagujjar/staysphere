@@ -5,17 +5,25 @@
     * {
         font-family: "Montserrat", Helvetica, sans-serif;
         box-sizing: border-box;
+<<<<<<< HEAD
 
+=======
+>>>>>>> dca063835abdbcd89e23730f642d5bf164e2b5bb
     }
 
     html,
     body {
         overflow-x: hidden;
+<<<<<<< HEAD
 
         margin: 0;
 
         padding: 0;
        
+=======
+        margin: 0;
+        padding: 0;
+>>>>>>> dca063835abdbcd89e23730f642d5bf164e2b5bb
     }
 
     /* <!------------------------------- Top Banner ------------------------> */
@@ -276,6 +284,7 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 
 
 
@@ -311,6 +320,8 @@
             </div>
         </div>
     </div> --}}
+=======
+>>>>>>> dca063835abdbcd89e23730f642d5bf164e2b5bb
 
     {{-- -------------------------Booking Section---------------------- --}}
     <div class="container py-5" id="booking_section">
