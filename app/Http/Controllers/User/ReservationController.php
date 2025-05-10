@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Reservation;
 use App\Models\Room; 
 
+use Illuminate\Support\Facades\Auth;
+
+
 class ReservationController extends Controller
 {
     // Show reservation form
@@ -117,4 +120,23 @@ class ReservationController extends Controller
 
         return redirect()->route('user.reservations.index')->with('success', 'Room booked successfully!');
     }
+
+
+
+
+
+
+        public function myBookings()
+        {
+            $user = Auth::user();
+
+            $reservations = Reservation::with('room')
+                ->where('email', $user->email) // assuming reservation stores user's email
+                ->orderBy('check_in', 'desc')
+                ->get();
+
+            return view('user.profile.show', compact('user', 'reservations'));
+        }
+
+
 }

@@ -88,11 +88,19 @@
 </style>
 
 <!------------- 1. Header Section ----------->
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 <div class="review-header text-center text-white py-5">
     <h1>What Our Guests Say About Us</h1>
     <p>Real experiences from our valued guests.</p>
     <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#reviewModal">Write a Review</button>
+<<<<<<< Updated upstream
 </div>
+=======
+</div> 
+>>>>>>> Stashed changes
 
 <!--------------- 2. Rating------------------ -->
 {{-- <div class="container my-5">
@@ -211,7 +219,11 @@
 </div>
 
 <!----------------------5. carousalSection-------------------->
+<<<<<<< Updated upstream
 <div class="container my-5">
+=======
+ <div class="container my-5">
+>>>>>>> Stashed changes
     <h2 class="text-center fw-bold mb-4">🏆 Why Guests Love Stay Sphere</h2>
     <p class="text-center text-muted mb-4">Our commitment to excellence makes every stay memorable.</p>
 

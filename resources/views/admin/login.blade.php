@@ -123,9 +123,9 @@
                         </a>
                     </div>
                     
-                    <p class="text-center mb-0">
+                    {{-- <p class="text-center mb-0">
                         <a href="{{ route('admin.register') }}" class="text-decoration-none">Register a new membership</a>
-                    </p>
+                    </p> --}}
                 </div>
             </div>
         </div>

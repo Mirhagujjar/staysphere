@@ -17,7 +17,9 @@ class AdminRegisterController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users',
+            // 'email' => 'required|email|unique:users',
+            // Only reject emails that are already used by admins
+           'email' => 'required|email|unique:users,email,NULL,id,role,admin',
             'password' => 'required|confirmed|min:6', // confirmed needs password_confirmation field
         ]);
     

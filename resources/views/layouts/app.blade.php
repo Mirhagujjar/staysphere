@@ -10,17 +10,23 @@
     @else
         <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
-               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="{{ asset('assets/profile_images/' . Auth::user()->profile_image) }}"
-                     onerror="this.onerror=null;this.src='{{ asset('assets/profile_images/default-user.png') }}';"
-                     class="rounded-circle me-2"
-                     alt="Profile"
-                     width="30" height="30">
+            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                @if(Auth::user()->profile_image && file_exists(public_path('assets/profile_images/' . Auth::user()->profile_image)))
+                    <img src="{{ asset('assets/profile_images/' . Auth::user()->profile_image) }}"
+                        class="rounded-circle me-2"
+                        alt="Profile"
+                        width="30" height="30">
+                @else
+                    <i class="fas fa-user-circle fa-2x text-secondary me-2"></i>
+                @endif
+
                 <span>{{ Auth::user()->name }}</span>
             </a>
 
+
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('user.profile') }}">
+                <a class="dropdown-item" href="{{ route('user.profile.show') }}">
                     <i class="fas fa-user-circle me-2"></i> {{ __('Profile') }}
                 </a>
                 <a class="dropdown-item text-danger" href="#" onclick="showLogoutConfirmation(event)">
