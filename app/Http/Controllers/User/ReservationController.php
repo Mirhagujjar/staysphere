@@ -15,8 +15,11 @@ class ReservationController extends Controller
     // Show reservation form
     public function reservationform(Request $request)
     {
-        $room_id = $request->room_id;
-        return view('user.reservations.create', compact('room_id'));
+        $room_id = $request->input('room_id');
+
+        $room = Room::findOrFail($room_id); // Assuming Room model exists
+
+        return view('User.reservations.create', compact('room'));
     }
 
     // Show all reservations
@@ -82,11 +85,13 @@ class ReservationController extends Controller
     // Store reservation
     public function store(Request $request)
     {
+         $room = Room::findOrFail($request->room_id);
         Reservation::create([
+            'room_id' => $room->id,
+            'user_id' => auth()->id(),
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'room_id' => $request->room_id,
             'check_in' => $request->check_in,
             'check_out' => $request->check_out,
             'guests' => $request->guests,
@@ -139,4 +144,14 @@ class ReservationController extends Controller
         }
 
 
+
+
+        public function create(Request $request)
+        {
+            $room = Room::findOrFail($request->room_id);
+            return view('user.reservations.create', [
+                'room' => $room,
+                'room_id' => $room->id
+            ]);
+        }
 }

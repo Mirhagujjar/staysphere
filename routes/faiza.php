@@ -154,6 +154,58 @@ Route::prefix('admin/superadmin')->name('admin.superadmin.')->group(function () 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+use App\Http\Controllers\Admin\FilterController;
+
+
+// routes/web.php (admin section)
+Route::prefix('admin')->group(function() {
+    // Filters
+    Route::get('/filters', [FilterController::class, 'index'])->name('admin.filters.index');
+    Route::get('/filters/create', [FilterController::class, 'create'])->name('admin.filters.create');
+    Route::post('/filters', [FilterController::class, 'store'])->name('admin.filters.store');
+    Route::get('/filters/{filter}/edit', [FilterController::class, 'edit'])->name('admin.filters.edit');
+    Route::put('/filters/{filter}', [FilterController::class, 'update'])->name('admin.filters.update');
+    Route::delete('/filters/{filter}', [FilterController::class, 'destroy'])->name('admin.filters.destroy');
+    Route::post('/filters/update-order', [FilterController::class, 'updateOrder'])->name('admin.filters.update-order');
+    
+    // Filter Options
+    Route::get('/filters/{filter}/options', [FilterController::class, 'showOptions'])->name('admin.filters.options');
+    Route::post('/filters/{filter}/options', [FilterController::class, 'storeOption'])->name('admin.filters.options.store');
+    Route::put('/filter-options/{option}', [FilterController::class, 'updateOption'])->name('admin.filters.options.update');
+    Route::delete('/filter-options/{option}', [FilterController::class, 'deleteOption'])->name('admin.filters.options.delete');
+    Route::post('/filter-options/update-order', [FilterController::class, 'updateOptionOrder'])->name('admin.filters.options.update-order');
+
+    Route::get('/filter-options/{option}/edit', [FilterController::class, 'editOption'])
+     ->name('admin.filters.options.edit');
+Route::put('/filter-options/{option}', [FilterController::class, 'updateOption'])
+     ->name('admin.filters.options.update');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ---------------------------- User Side Routes ----------------------------
 // Rooms
 Route::prefix('rooms')->name('user.rooms.')->group(function () {

@@ -6,19 +6,28 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Models\Reservation;
+use App\Models\Filter;
 
 class UserRoomController extends Controller 
 {
-    public function index(Request $request) 
+    public function index(Request $request)
     {
-        $query = Room::query();
+        $filters = Filter::with('options')->whereHas('options')->get();
+        
+        $query = Room::query()->with('filterOptions');
 
-        // Filter by room type
-        if ($request->filled('room_type')) {
-            $query->where('room_type', $request->room_type);
+        // Apply filters
+        if ($request->has('filters')) {
+            foreach ($request->filters as $filterSlug => $optionIds) {
+                if (is_array($optionIds) && !empty($optionIds)) {
+                    $query->whereHas('filterOptions', function($q) use ($optionIds) {
+                        $q->whereIn('filter_options.id', $optionIds);
+                    });
+                }
+            }
         }
 
-        // Filter by price range
+        // Price range
         if ($request->filled('min_price')) {
             $query->where('price', '>=', $request->min_price);
         }
@@ -26,25 +35,12 @@ class UserRoomController extends Controller
             $query->where('price', '<=', $request->max_price);
         }
 
-        // Filter by facilities
-        if ($request->filled('facilities')) {
-            $facilities = explode(',', $request->facilities);
-            foreach ($facilities as $facility) {
-                $query->where('facilities', 'LIKE', "%$facility%");
-            }
-        }
-        // Sort order
-        if ($request->filled('sort_order')) {
-            $query->orderBy('price', $request->sort_order);
-        } else {
-            $query->orderBy('created_at', 'desc');
-        }
+        $rooms = $query->paginate(12);
 
-        // Get the filtered rooms
-        $rooms = $query->get();
-
-        return view('user.rooms.index', compact('rooms'));
+        return view('user.rooms.index', compact('rooms', 'filters'));
     }
+
+
 
     public function show($id) 
     {

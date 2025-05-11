@@ -55,9 +55,10 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        <form action="{{ route('user.reservations.store') }}" method="POST">
+        <form action="{{ route('user.reservations.store', ['room_id' => $room->id]) }}" method="POST">
             @csrf
-            <input type="hidden" name="room_id" value="{{ $room_id }}">
+           <input type="hidden" name="room_id" value="{{ $room->id }}">
+
 
             <div class="mb-3">
                 <label class="form-label">Full Name</label>
@@ -85,13 +86,9 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Room Type</label>
-                <select name="room_type" class="form-control" required>
-                    <option value="Single">Single Room</option>
-                    <option value="Double">Double Room</option>
-                    <option value="Suite">Suite</option>
-                </select>
-            </div>
+                <label>Room Type</label>
+                <input type="text" name="room_type" class="form-control" value="{{ $room->room_type }}" required>
+           </div>
 
             <div class="mb-3">
                 <label class="form-label">Number of Guests</label>
