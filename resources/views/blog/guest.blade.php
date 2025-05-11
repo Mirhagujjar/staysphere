@@ -227,9 +227,7 @@
         <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/G6.jpg') }}" alt="guest 6"></div>
     </div>
 </section>
-<<<<<<< Updated upstream
-    
-=======
+
     {{-- ------------- Comments Section ----------- --}}
     {{-- <div class="comment-section mt-5">
         <h4>Leave a Comment</h4>
@@ -241,7 +239,7 @@
             <button type="submit" class="btn btn-warning">Submit</button>
         </form>
     </div> --}}
->>>>>>> Stashed changes
+
 </div>
 
 @endsection
