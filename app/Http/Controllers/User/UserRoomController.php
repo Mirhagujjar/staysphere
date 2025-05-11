@@ -10,35 +10,24 @@ use App\Models\Filter;
 
 class UserRoomController extends Controller 
 {
-    public function index(Request $request)
-    {
-        $filters = Filter::with('options')->whereHas('options')->get();
-        
-        $query = Room::query()->with('filterOptions');
+   public function index(Request $request)
+{
+    // Get all active filters with their options
+    $filters = Filter::with(['options' => function($query) {
+        $query->whereHas('rooms')->orderBy('order');
+    }])->where('is_active', true)->orderBy('order')->get();
 
-        // Apply filters
-        if ($request->has('filters')) {
-            foreach ($request->filters as $filterSlug => $optionIds) {
-                if (is_array($optionIds) && !empty($optionIds)) {
-                    $query->whereHas('filterOptions', function($q) use ($optionIds) {
-                        $q->whereIn('filter_options.id', $optionIds);
-                    });
-                }
-            }
-        }
+    // Filter rooms using scopes from your existing Room model
+    $rooms = Room::withFilters($request->filters)
+               ->priceRange($request->min_price, $request->max_price)
+               ->with('filterOptions')
+                ->select(['id', 'room_name', 'room_type', 'price', 'room_capacity', 'size', 'image'])
+                 // Ensure size is selected
 
-        // Price range
-        if ($request->filled('min_price')) {
-            $query->where('price', '>=', $request->min_price);
-        }
-        if ($request->filled('max_price')) {
-            $query->where('price', '<=', $request->max_price);
-        }
+               ->paginate(12);
 
-        $rooms = $query->paginate(12);
-
-        return view('user.rooms.index', compact('rooms', 'filters'));
-    }
+    return view('user.rooms.index', compact('rooms', 'filters'));
+}
 
 
 

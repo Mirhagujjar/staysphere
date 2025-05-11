@@ -13,7 +13,7 @@
                         @csrf
 
                         <div class="row g-3">
-                            <!-- Room Basic Info -->
+                            <!-- Basic Room Info -->
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Room Name*</label>
                                 <input type="text" name="room_name" class="form-control @error('room_name') is-invalid @enderror" 
@@ -25,8 +25,14 @@
 
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Room Type*</label>
-                                <input type="text" name="room_type" class="form-control @error('room_type') is-invalid @enderror"
-                                       value="{{ old('room_type') }}" required>
+                                <select name="room_type" class="form-select @error('room_type') is-invalid @enderror" required>
+                                    <option value="">Select Room Type</option>
+                                    @foreach($roomTypes as $type)
+                                        <option value="{{ $type->value }}" {{ old('room_type') == $type->value ? 'selected' : '' }}>
+                                            {{ $type->label }}
+                                        </option>
+                                    @endforeach
+                                </select>
                                 @error('room_type')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -34,70 +40,57 @@
 
                             <!-- Price and Capacity -->
                             <div class="col-md-6">
-                                <label class="form-label fw-bold">Price*</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">Rs.</span>
-                                    <input type="number" name="price" class="form-control @error('price') is-invalid @enderror"
-                                           value="{{ old('price') }}" required>
-                                    @error('price')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <label class="form-label fw-bold">Price (Rs.)*</label>
+                                <input type="number" name="price" class="form-control @error('price') is-invalid @enderror"
+                                       value="{{ old('price') }}" required>
+                                @error('price')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Room Capacity*</label>
-                                <div class="input-group">
-                                    <input type="number" name="room_capacity" class="form-control @error('room_capacity') is-invalid @enderror"
-                                           value="{{ old('room_capacity') }}" required>
-                                    <span class="input-group-text">Persons</span>
-                                    @error('room_capacity')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <!-- Facilities -->
-                            <div class="col-12">
-                                <label class="form-label fw-bold">Facilities*</label>
-                                <textarea name="facilities" class="form-control @error('facilities') is-invalid @enderror" 
-                                          rows="2" required>{{ old('facilities') }}</textarea>
-                                <small class="text-muted">Separate facilities with commas</small>
-                                @error('facilities')
+                                <input type="number" name="room_capacity" class="form-control @error('room_capacity') is-invalid @enderror"
+                                       value="{{ old('room_capacity') }}" required>
+                                @error('room_capacity')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <!-- View and Image -->
+                            <!-- Room Size -->
                             <div class="col-md-6">
-                                <label class="form-label fw-bold">Has View</label>
-                                <select name="has_view" class="form-select @error('has_view') is-invalid @enderror">
-                                    <option value="1" {{ old('has_view', 1) == 1 ? 'selected' : '' }}>Yes</option>
-                                    <option value="0" {{ old('has_view') == 0 ? 'selected' : '' }}>No</option>
+                                <label class="form-label fw-bold">Room Size (sq.ft)*</label>
+                                <input type="number" name="size" class="form-control @error('size') is-invalid @enderror"
+                                       value="{{ old('size') }}" required>
+                                @error('size')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <!-- View Type -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">View Type*</label>
+                                <select name="view_type" class="form-select @error('view_type') is-invalid @enderror" required>
+                                    <option value="">Select View Type</option>
+                                    @foreach($viewTypes as $view)
+                                        <option value="{{ $view->value }}" {{ old('view_type') == $view->value ? 'selected' : '' }}>
+                                            {{ $view->label }}
+                                        </option>
+                                    @endforeach
                                 </select>
-                                @error('has_view')
+                                @error('view_type')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Room Image*</label>
-                                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" 
-                                       accept="image/*" required>
-                                <small class="text-muted">Recommended size: 800x600px</small>
-                                @error('image')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <!-- Room Filters Section -->
-                            {{-- <div class="col-12">
+                            <!-- Room Features (Dynamic Filters) -->
+                            <div class="col-12">
                                 <div class="card shadow-sm mt-3">
                                     <div class="card-header bg-primary text-white">
-                                        <h4 class="h5 mb-0">Room Features</h4>
+                                        <h4 class="h5 mb-0">Room Features & Facilities</h4>
                                     </div>
                                     <div class="card-body">
-                                        @foreach($filters as $filter)
+                                        @foreach($featureFilters as $filter)
                                             @if($filter->options->count() > 0)
                                                 <div class="mb-4">
                                                     <h5 class="mb-2">{{ $filter->name }}</h5>
@@ -108,11 +101,11 @@
                                                                 <div class="col-md-4 mb-2">
                                                                     <div class="form-check">
                                                                         <input class="form-check-input" type="checkbox" 
-                                                                               name="filter_options[]" 
+                                                                               name="features[]" 
                                                                                value="{{ $option->id }}" 
-                                                                               id="option_{{ $option->id }}"
-                                                                               {{ in_array($option->id, (array)old('filter_options')) ? 'checked' : '' }}>
-                                                                        <label class="form-check-label" for="option_{{ $option->id }}">
+                                                                               id="feature_{{ $option->id }}"
+                                                                               {{ is_array(old('features')) && in_array($option->id, old('features')) ? 'checked' : '' }}>
+                                                                        <label class="form-check-label" for="feature_{{ $option->id }}">
                                                                             {{ $option->label }}
                                                                         </label>
                                                                     </div>
@@ -120,10 +113,10 @@
                                                             @endforeach
                                                         </div>
                                                     @else
-                                                        <select name="filter_options[]" class="form-select" multiple>
+                                                        <select name="features[]" class="form-select" multiple>
                                                             @foreach($filter->options as $option)
                                                                 <option value="{{ $option->id }}"
-                                                                    {{ in_array($option->id, (array)old('filter_options')) ? 'selected' : '' }}>
+                                                                    {{ is_array(old('features')) && in_array($option->id, old('features')) ? 'selected' : '' }}>
                                                                     {{ $option->label }}
                                                                 </option>
                                                             @endforeach
@@ -134,7 +127,28 @@
                                         @endforeach
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
+
+                            <!-- Room Image -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Room Image*</label>
+                                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" 
+                                       accept="image/*" required>
+                                @error('image')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                <small class="text-muted">Recommended size: 800x600px, Max 2MB</small>
+                            </div>
+
+                            <!-- Room Description -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Short Description*</label>
+                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" 
+                                          rows="3" required>{{ old('description') }}</textarea>
+                                @error('description')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
 
                             <!-- Form Actions -->
                             <div class="col-12 mt-4">

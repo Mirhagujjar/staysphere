@@ -19,6 +19,7 @@ class Room extends Model
         'facilities', // JSON field for basic facilities
         'has_view',
         'image',
+        'size',
     ];
 
     protected $casts = [

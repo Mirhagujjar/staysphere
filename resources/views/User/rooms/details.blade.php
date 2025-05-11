@@ -253,14 +253,40 @@
         <div class="row">
             <div class="col-md-6">
                 <img src="{{ asset($room->image) }}" alt="{{ $room->room_name }}" class="img-thumbnail" style="max-width: 500px; height: auto;">
-
             </div>
             <div class="col-md-6">
                 <h3>Price: Rs. {{ number_format($room->price) }}</h3>
                 <p>Capacity: {{ $room->room_capacity }} Persons</p>
                 <p>Type: {{ $room->room_type }}</p>
-                <p>Facilities: {{ $room->facilities }}</p>
-                <p>Has View: {{ $room->has_view ? 'Yes' : 'No' }}</p>
+                <p>Size: {{ $room->size }} ft²</p>  <!-- Added size display -->
+                
+                <!-- Improved facilities display -->
+                <div class="mb-2">
+                    <strong>Facilities:</strong>
+                    @if(is_array($room->facilities))
+                        <ul class="list-unstyled">
+                            @foreach($room->facilities as $facility)
+                                <li>{{ $facility }}</li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <span>{{ $room->facilities }}</span>
+                    @endif
+                </div>
+
+                <p>View: {{ $room->has_view ? 'Yes' : 'No' }}</p>
+
+                <!-- Room Features from Filters -->
+                @if($room->filterOptions->count() > 0)
+                    <div class="mb-3">
+                        <strong>Features:</strong>
+                        <div class="d-flex flex-wrap gap-2 mt-2">
+                            @foreach($room->filterOptions as $option)
+                                <span class="badge bg-primary">{{ $option->label }}</span>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
 
                 @if (isset($checkIn) && isset($checkOut) && $room->isBooked($checkIn, $checkOut))
                     <p class="text-danger">This room is already booked.</p>

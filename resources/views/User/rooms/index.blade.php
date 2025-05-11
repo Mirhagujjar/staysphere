@@ -258,8 +258,7 @@
                     <h4>Filters</h4>
                     <hr>
                     <form method="GET" action="{{ route('user.rooms.index') }}">
-                        
-                    
+                        <!-- Price Range -->
                         <div class="mb-3">
                             <h6>Price Range</h6>
                             <div class="row g-2">
@@ -272,7 +271,7 @@
                             </div>
                         </div>
 
-                        
+                        <!-- Dynamic Filters -->
                         @foreach($filters as $filter)
                             @if($filter->options->count() > 0)
                                 <div class="mb-3">
@@ -311,50 +310,64 @@
                 </div>
             </div>
 
-            <!-- Rooms Listing - Keeping Your Original Layout -->
+            <!-- Rooms Listing -->
             <div class="col-lg-9">
-                <div class="row g-4">
-                    @foreach($rooms as $room)
-                    <div class="col-md-4">
-                        <div class="card card-hover h-80">
-                            <!-- Room Image - Fixed Path -->
-                            <div class="position-relative" style="height: 200px; overflow: hidden;">
-                                @if($room->is_new)
-                                <span class="badge text-bg-success position-absolute top-0 start-0 m-2">NEW</span>
-                                @endif
-                                @if($room->on_sale)
-                                <span class="badge text-bg-danger position-absolute top-0 end-0 m-2">SALE</span>
-                                @endif
-                                <img src="{{ asset($room->image ?: 'assets/images/default-room.jpg') }}"
-                                    class="w-100 h-100 object-fit-cover"
-                                    alt="{{ $room->room_name }}">
-                            </div>
-
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">{{ $room->room_name }}</h5>
-                                <p class="card-text">Rs. {{ number_format($room->price) }} / Per Night</p>
-                                <div class="card-overlay mt-auto">
-                                    <div class="details">
-                                        <p>{{ $room->room_capacity }} Guests</p>
-                                        <p>{{ $room->size }} ft Room Size</p>
-                                        <p>Rs. {{ number_format($room->price) }} / Per Night</p>
-                                    </div>
-                                    <a href="{{ route('user.rooms.show', $room->id) }}" class="btn-book">View Details</a>
+                @if($rooms->count() > 0)
+                    <div class="row g-4">
+                        @foreach($rooms as $room)
+                        <div class="col-md-4">
+                            <div class="card card-hover h-80">
+                                <!-- Room Image -->
+                                <div class="position-relative" style="height: 200px; overflow: hidden;">
+                                    @if($room->is_new)
+                                    <span class="badge text-bg-success position-absolute top-0 start-0 m-2">NEW</span>
+                                    @endif
+                                    @if($room->on_sale)
+                                    <span class="badge text-bg-danger position-absolute top-0 end-0 m-2">SALE</span>
+                                    @endif
+                                    <img src="{{ asset($room->image ?: 'assets/images/default-room.jpg') }}"
+                                        class="w-100 h-100 object-fit-cover"
+                                        alt="{{ $room->room_name }}">
                                 </div>
-                            </div>
 
-                            @if(!$room->isBooked())
-                            <div class="card-footer text-center">
-                                <a href="{{ route('user.reservations.create', ['room_id' => $room->id]) }}"
-                                class="btn btn-primary">
-                                    Book Now
-                                </a>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">{{ $room->room_name }}</h5>
+                                    <p class="card-text">Rs. {{ number_format($room->price) }} / Per Night</p>
+                                    <div class="card-overlay mt-auto">
+                                        <div class="details">
+                                            <p>{{ $room->room_capacity }} Guests</p>
+                                            @if($room->size)
+                                                <p>{{ $room->size }} ft² Room Size</p>
+                                            @endif
+                                            <p>Rs. {{ number_format($room->price) }} / Per Night</p>
+                                        </div>
+                                        <a href="{{ route('user.rooms.show', $room->id) }}" class="btn-book">View Details</a>
+                                    </div>
+                                </div>
+
+                                @if(!$room->isBooked())
+                                <div class="card-footer text-center">
+                                    <a href="{{ route('user.reservations.create', ['room_id' => $room->id]) }}"
+                                    class="btn btn-primary">
+                                        Book Now
+                                    </a>
+                                </div>
+                                @endif
                             </div>
-                            @endif
                         </div>
+                        @endforeach
                     </div>
-                    @endforeach
-                </div>
+                    
+                    <!-- Pagination -->
+                    <div class="mt-4">
+                        {{ $rooms->appends(request()->query())->links() }}
+                    </div>
+                @else
+                    <div class="alert alert-info">
+                        No rooms found matching your filters. 
+                        <a href="{{ route('user.rooms.index') }}">Clear filters</a> to see all rooms.
+                    </div>
+                @endif
             </div>
         </div>
     </div>
