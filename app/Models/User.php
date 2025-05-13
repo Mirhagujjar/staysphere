@@ -22,7 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'profile_image', 
+        'profile_image',
+        'is_banned', 
 
     ];
 

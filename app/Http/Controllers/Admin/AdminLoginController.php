@@ -15,30 +15,40 @@ class AdminLoginController extends Controller
     }
 
     public function login(Request $request)
-{
-    $credentials = $request->only('email', 'password');
+    {
+        $credentials = $request->only('email', 'password');
 
-    if (Auth::attempt($credentials)) {
-        $user = Auth::user();
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
 
-        if (in_array($user->role, ['admin', 'super_admin'])) {
-            return redirect()->route('admin.dashboard');
-        } else {
+            // Check if user is admin or super_admin
+            if (in_array($user->role, ['admin', 'super_admin'])) {
+
+                //  Check if user is banned
+                if ($user->is_banned) {
+                    Auth::logout();
+                    return back()->withErrors(['email' => 'Your admin account has been banned.']);
+                }
+
+                return redirect()->route('admin.dashboard');
+            }
+
+            //  Not an admin
             Auth::logout();
             return back()->withErrors(['email' => 'Invalid credentials or not an admin']);
         }
+
+        return back()->withErrors(['email' => 'Invalid credentials or not an admin']);
     }
 
-    return back()->withErrors(['email' => 'Invalid credentials or not an admin']);
-}
  
-public function logout(Request $request)
-{
-    Auth::logout(); // ya Auth::guard('admin')->logout(); agar admin guard use ho raha ho
+    public function logout(Request $request)
+    {
+        Auth::logout(); // ya Auth::guard('admin')->logout(); agar admin guard use ho raha ho
 
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-    return redirect('/admin/dashboard'); // ya koi aur redirect
-}
+        return redirect('/admin/dashboard'); // ya koi aur redirect
+    }
 }

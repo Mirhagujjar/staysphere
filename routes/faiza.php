@@ -157,6 +157,9 @@ Route::prefix('admin/superadmin')->name('admin.superadmin.')->group(function () 
     Route::get('/{id}/edit', [AdminManagementController::class, 'edit'])->name('edit');
     Route::put('/{id}', [AdminManagementController::class, 'update'])->name('update');
     Route::delete('/{id}', [AdminManagementController::class, 'destroy'])->name('destroy');
+
+    Route::patch('/{id}/toggle-ban', [AdminManagementController::class, 'toggleBan'])->name('toggleBan');
+
 });
 
 
@@ -176,6 +179,7 @@ Route::prefix('admin/superadmin')->name('admin.superadmin.')->group(function () 
 
 
 use App\Http\Controllers\Admin\FilterController;
+use App\Http\Controllers\Admin\AdminUserController;
 
 
 // routes/web.php (admin section)
@@ -207,6 +211,10 @@ Route::put('/filter-options/{option}', [FilterController::class, 'updateOption']
 
 
 
+
+Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
+Route::post('/admin/users/{id}/ban', [AdminUserController::class, 'toggleBan'])->name('admin.users.ban');
+Route::delete('/admin/users/{id}', [AdminUserController::class, 'deleteUser'])->name('admin.users.delete');
 
 
 

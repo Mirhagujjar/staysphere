@@ -13,13 +13,31 @@ use Illuminate\Support\Facades\Validator;
 class AdminManagementController extends Controller
 {
     // Show all admins
-    public function index()
-    {
-        // $admins = Admin::all();
-        // return view('admin.super.admins.index', compact('admins'));
-        $admins = User::where('role', 'admin')->get();
-       return view('admin.super.dashboard', compact('admins'));
+  public function index(Request $request)
+{
+    $query = User::where('role', 'admin');
+
+    // Search by name or email
+    if ($request->filled('search')) {
+        $search = $request->search;
+        $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', "%{$search}%")
+              ->orWhere('email', 'like', "%{$search}%");
+        });
     }
+
+    // Filter by ban status
+    if ($request->filled('status') && in_array($request->status, ['0', '1'])) {
+        $query->where('is_banned', $request->status);
+    }
+
+    $admins = $query->paginate(10);
+
+    return view('admin.super.admins.index', compact('admins'));
+}
+
+
+
 
     // Show the form to create a new admin
     public function create()
@@ -90,6 +108,15 @@ class AdminManagementController extends Controller
         $admin->delete();
 
         return redirect()->back()->with('success', 'Admin deleted successfully.');
+    }
+
+    public function toggleBan($id)
+    {
+        $admin = User::findOrFail($id);
+        $admin->is_banned = !$admin->is_banned;
+        $admin->save();
+
+        return back()->with('success', $admin->is_banned ? 'Admin banned successfully.' : 'Admin unbanned successfully.');
     }
 
 }

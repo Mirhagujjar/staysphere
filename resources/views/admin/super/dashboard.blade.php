@@ -14,8 +14,9 @@
             <button type="submit" class="btn btn-danger">Logout</button>
         </form>
     </div>
+    @include('admin.super.admins.index')
 
-    <h2>Admin List</h2>
+    {{-- <h2>Admin List</h2>
     <div class="table-responsive">
         <table class="table table-bordered table-striped shadow-sm">
             <thead class="table-dark">
@@ -50,6 +51,6 @@
             </tbody>
         </table>
         
-    </div>
+    </div> --}}
 </div>
 @endsection

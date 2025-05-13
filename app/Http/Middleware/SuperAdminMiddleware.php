@@ -23,5 +23,20 @@ class SuperAdminMiddleware
         return $next($request);
     }
     
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            if (Auth::user()->is_banned) {
+                Auth::logout();
+                return back()->withErrors(['email' => 'You are banned from accessing this site.']);
+            }
+            return redirect()->intended('/');
+        }
+
+        return back()->withErrors(['email' => 'Invalid credentials']);
+    }
+
 
 }
