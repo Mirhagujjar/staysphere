@@ -242,8 +242,11 @@
             <div class="link-container">
                 <a href="/">Home</a> > Rooms
             </div>
+             
         </div>
     </div>
+
+  
 
     <!--------------------- Room Section ------------------------------->
     <div class="container my-5">

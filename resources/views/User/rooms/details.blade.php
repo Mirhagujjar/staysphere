@@ -279,12 +279,12 @@
                 <!-- Room Features from Filters -->
                 @if($room->filterOptions->count() > 0)
                     <div class="mb-3">
-                        <strong>Features:</strong>
-                        <div class="d-flex flex-wrap gap-2 mt-2">
-                            @foreach($room->filterOptions as $option)
-                                <span class="badge bg-primary">{{ $option->label }}</span>
-                            @endforeach
-                        </div>
+                        <b>Features:</b>
+                            <ul>
+                                @foreach($room->filterOptions as $option)
+                                    <li>{{ $option->label }}</li>
+                                @endforeach
+                            </ul>
                     </div>
                 @endif
 

@@ -34,8 +34,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/{id}/edit', [AdminReservationController::class, 'edit'])->name('edit');
         Route::put('/update/{id}', [AdminReservationController::class, 'update'])->name('update');
         Route::delete('/{id}', [AdminReservationController::class, 'destroy'])->name('destroy');
+
+        Route::patch('/{id}/status', [AdminReservationController::class, 'updateStatus'])->name('updateStatus');
+
+        Route::get('/past', [AdminReservationController::class, 'pastReservations'])->name('past');
+        Route::delete('/force-delete/{id}', [AdminReservationController::class, 'forceDelete'])->name('forceDelete');
+
+
     });
 });
+
+
+
 
 
 // pckages
@@ -220,10 +230,13 @@ Route::prefix('reservations')->name('user.reservations.')->group(function () {
     Route::get('/', [ReservationController::class, 'index'])->name('index');
     Route::get('/create', [ReservationController::class, 'reservationform'])->name('create');
     Route::post('/store', [ReservationController::class, 'store'])->name('store');
-    // Route::get('/{id}', [ReservationController::class, 'show'])->name('show');
-    // Route::get('/{id}/edit', [ReservationController::class, 'edit'])->name('edit');
-    // Route::post('/{id}/update', [ReservationController::class, 'update'])->name('update');
-    // Route::delete('/{id}', [ReservationController::class, 'destroy'])->name('destroy');
+    Route::get('/{id}', [ReservationController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [ReservationController::class, 'edit'])->name('edit');
+    Route::put('/{id}/update', [ReservationController::class, 'update'])->name('update');
+    Route::delete('/{id}', [ReservationController::class, 'destroy'])->name('destroy');
+
+    // Route::get('/history', [ReservationController::class, 'getHistory'])->name('history');
+
 });
 
 Route::prefix('packages')->name('user.packages.')->group(function () {

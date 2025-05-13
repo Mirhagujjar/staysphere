@@ -50,9 +50,17 @@
 <div class="form-page">
     <div class="form-container">
         <h2 class="text-center heading mb-4">Book a Room</h2>
-
+        {{-- Add error messages at the top --}}
         @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
         @endif
 
         <form action="{{ route('user.reservations.store', ['room_id' => $room->id]) }}" method="POST">
@@ -67,22 +75,26 @@
 
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                <input type="email" name="email" class="form-control" value="{{ Auth::user()->email }}" readonly required>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Phone Number</label>
-                <input type="text" name="phone" class="form-control" placeholder="Enter your phone number" required>
+               {{-- Add phone number validation pattern --}}
+               <input type="tel" name="phone" class="form-control" 
+                    placeholder="Enter your phone number" 
+                    pattern="[0-9]{10,15}" 
+                    title="Please enter a valid phone number (10-15 digits)" required>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Check-in Date</label>
-                <input type="date" name="check_in" class="form-control" required>
+                <input type="date" name="check_in" class="form-control" min="{{ \Carbon\Carbon::today()->toDateString() }}" required>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Check-out Date</label>
-                <input type="date" name="check_out" class="form-control" required>
+                <input type="date" name="check_out" class="form-control" min="{{ \Carbon\Carbon::today()->toDateString() }}" required>
             </div>
 
             <div class="mb-3">
@@ -100,5 +112,24 @@
         </form>
     </div>
 </div>
+
+{{-- Enhanced date validation script --}}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date().toISOString().split('T')[0];
+    const checkIn = document.querySelector('input[name="check_in"]');
+    const checkOut = document.querySelector('input[name="check_out"]');
+    
+    checkIn.min = today;
+    checkOut.min = today;
+    
+    checkIn.addEventListener('change', function() {
+        checkOut.min = this.value;
+        if(new Date(checkOut.value) < new Date(this.value)) {
+            checkOut.value = this.value;
+        }
+    });
+});
+</script>
 
 @endsection

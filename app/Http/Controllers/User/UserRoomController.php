@@ -33,7 +33,7 @@ class UserRoomController extends Controller
 
     public function show($id) 
     {
-        $room = Room::findOrFail($id);
+        $room = Room::with('filterOptions.filter')->findOrFail($id);
         return view('user.rooms.details', compact('room'));
     }
 

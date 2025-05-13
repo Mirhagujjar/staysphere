@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
+use App\Models\Reservation;
+
 class UserProfileController extends Controller
 {
     public function __construct()
@@ -15,10 +17,13 @@ class UserProfileController extends Controller
         $this->middleware('auth');
     }
 
+  
+
     public function show()
     {
-        $user = auth()->user();
-        return view('user.profile.show', compact('user')); // Separate view file
+        $user = Auth::user();
+        $reservations = Reservation::where('user_id', $user->id)->with('room')->get();
+        return view('User.profile.show', compact('user', 'reservations'));
     }
 
     public function edit()
@@ -65,14 +70,13 @@ class UserProfileController extends Controller
 
 
 
-     public function showProfile()
+   
+
+    public function showProfile()
     {
         $user = auth()->user();
-        $bookings = $user->bookings()->latest()->get(); // Assuming relation is set
-
-        return view('user.profile.show', compact('user', 'bookings'));
+        $reservations = \App\Models\Reservation::where('user_id', auth()->id())->with('room')->get();
+        return view('User.profile.show', compact('user', 'reservations'));
     }
-
-
 
 }

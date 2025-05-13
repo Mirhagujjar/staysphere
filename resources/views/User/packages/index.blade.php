@@ -220,11 +220,13 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="checkInDate" class="form-label">Check-in Date</label>
-                        <input type="date" class="form-control" id="checkInDate" name="check_in" required>
+                        <input type="date" class="form-control" id="checkInDate" name="check_in"  min="{{ \Carbon\Carbon::today()->toDateString() }}"required>
+                        
+
                     </div>
                     <div class="col-md-6">
                         <label for="checkOutDate" class="form-label">Check-out Date</label>
-                        <input type="date" class="form-control" id="checkOutDate" name="check_out" required>
+                        <input type="date" class="form-control" id="checkOutDate" name="check_out" min="{{ \Carbon\Carbon::today()->toDateString() }}" required>
                     </div>
                 </div> 
                 <div class="mb-3">
@@ -248,6 +250,12 @@
         </div>
     </div>
 </div>
+
+<script>
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById("check_in").setAttribute('min', today);
+  document.getElementById("check_out").setAttribute('min', today);
+</script>
 
 {{-- ----------------------------Facilities------------------------------ --}}
 <div class="facilities-section">

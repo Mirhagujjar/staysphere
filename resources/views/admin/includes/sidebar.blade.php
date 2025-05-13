@@ -145,6 +145,10 @@
                         </script>
 
 
+
+                        
+
+
                 @endcan
 
 
@@ -257,10 +261,24 @@
 
                         <!-- Reservations -->
                         <li class="nav-item">
-                            <a href="{{ route('admin.reservations.index') }}" class="nav-link">
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi-calendar-check text-warning"></i>
-                                <p>Reservations</p>
+                                <p>Reservations <i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.reservations.index') }}" class="nav-link">
+                                        <i class="bi bi-arrow-right text-warning"></i>
+                                        <p>View All Reservations</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.reservations.past') }}" class="nav-link">
+                                        <i class="bi bi-arrow-right text-warning"></i>
+                                        <p>View delete Reservations</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
                         <!-- Packages -->

@@ -34,47 +34,20 @@
                         </div>
                     </div>
 
+                    <!-- 👇 Booking History Button -->
+                    <div class="mt-4 d-flex justify-content-between">
+                        <a href="{{ route('user.profile.edit') }}" class="btn btn-warning">
+                            <i class="fas fa-edit me-1"></i> Edit Profile
+                        </a>
 
-
-
-
-
-
-
-
-                <h4>Your Bookings</h4>
-
-                @if($reservations->isEmpty())
-                    <p>You have no bookings yet.</p>
-                @else
-                    <ul class="list-group">
-                        @foreach ($reservations as $reservation)
-                            <li class="list-group-item">
-                                <strong>{{ $reservation->room->title ?? 'Room #' . $reservation->room_id }}</strong><br>
-                                Check-in: {{ $reservation->check_in }} | Check-out: {{ $reservation->check_out }}<br>
-                                Guests: {{ $reservation->guests }} | Status: {{ ucfirst($reservation->status) }}
-                            </li>
-                        @endforeach
-                    </ul>
-                @endif
-          
-
-
-
-
-
-
-
-
-
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="{{ route('user.profile.edit') }}" class="btn btn-warning px-4">
-                            <i class="fas fa-edit me-2"></i>Edit Profile
+                        <a href="{{ route('user.reservations.index') }}" class="btn btn-primary">
+                            <i class="fas fa-history me-1"></i> Your Booking History
                         </a>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+                </div> <!-- end card-body -->
+            </div> <!-- end card -->
+        </div> <!-- end col -->
+    </div> <!-- end row -->
+</div> <!-- end container -->
 @endsection
