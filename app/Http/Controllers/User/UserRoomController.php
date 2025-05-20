@@ -21,8 +21,10 @@ class UserRoomController extends Controller
         $filterParams = [];
         
         // Add price range if provided
-        if ($request->filled('min_price') || $request->filled('max_price')) {
+        if ($request->filled('min_price')) {
             $filterParams['min_price'] = $request->min_price;
+        }
+        if ($request->filled('max_price')) {
             $filterParams['max_price'] = $request->max_price;
         }
 
@@ -31,11 +33,25 @@ class UserRoomController extends Controller
             $filterParams['room_type'] = $request->room_type;
         }
 
-        // Add other filters
+        // Add view type if provided
+        if ($request->filled('view_type')) {
+            $filterParams['view_type'] = $request->view_type;
+        }
+
+        // Add other filters (Star Rating, Special Offers, Packages)
         if ($request->filled('filters')) {
             foreach ($request->filters as $filterSlug => $options) {
                 if (!empty($options)) {
-                    $filterParams[$filterSlug] = $options;
+                    // Handle special cases for specific filter types
+                    if ($filterSlug === 'star_rating') {
+                        $filterParams['star_rating'] = $options;
+                    } elseif ($filterSlug === 'special_offers') {
+                        $filterParams['special_offers'] = $options;
+                    } elseif ($filterSlug === 'packages') {
+                        $filterParams['packages'] = $options;
+                    } else {
+                        $filterParams[$filterSlug] = $options;
+                    }
                 }
             }
         }

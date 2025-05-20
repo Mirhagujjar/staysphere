@@ -85,16 +85,29 @@ class Room extends Model
             $query->where('room_type', $filters['room_type']);
         }
 
-        // Third priority: Amenities and other filters
-        $otherFilters = array_diff_key($filters, array_flip(['min_price', 'max_price', 'room_type']));
+        // Third priority: View type
+        if (isset($filters['view_type'])) {
+            $query->where('has_view', true);
+        }
+
+        // Fourth priority: Star Rating, Special Offers, Packages and other filters
+        $otherFilters = array_diff_key($filters, array_flip(['min_price', 'max_price', 'room_type', 'view_type']));
         
         if (!empty($otherFilters)) {
             $query->where(function ($q) use ($otherFilters) {
+                $first = true;
                 foreach ($otherFilters as $filterSlug => $options) {
-                    if (is_array($options)) {
-                        $q->orWhereHas('filterOptions', function ($subQ) use ($options) {
-                            $subQ->whereIn('filter_options.id', $options);
-                        });
+                    if (is_array($options) && !empty($options)) {
+                        if ($first) {
+                            $q->whereHas('filterOptions', function ($subQ) use ($options) {
+                                $subQ->whereIn('filter_options.id', $options);
+                            });
+                            $first = false;
+                        } else {
+                            $q->orWhereHas('filterOptions', function ($subQ) use ($options) {
+                                $subQ->whereIn('filter_options.id', $options);
+                            });
+                        }
                     }
                 }
             });

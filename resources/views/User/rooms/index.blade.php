@@ -261,47 +261,105 @@
                     <h4>Filters</h4>
                     <hr>
                     <form method="GET" action="{{ route('user.rooms.index') }}">
-                        <!-- Price Range -->
-                        <div class="mb-3">
-                            <h6>Price Range</h6>
+                        <!-- Price Range (Highest Priority) -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold">Price Range</h6>
                             <div class="row g-2">
                                 <div class="col">
-                                    <input type="number" name="min_price" class="form-control" placeholder="Min" value="{{ request('min_price') }}">
+                                    <input type="number" name="min_price" class="form-control" placeholder="Min Price" value="{{ request('min_price') }}">
                                 </div>
                                 <div class="col">
-                                    <input type="number" name="max_price" class="form-control" placeholder="Max" value="{{ request('max_price') }}">
+                                    <input type="number" name="max_price" class="form-control" placeholder="Max Price" value="{{ request('max_price') }}">
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Dynamic Filters -->
-                        @foreach($filters as $filter)
+                        <!-- Room Type (Second Priority) -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold">Room Type</h6>
+                            <select name="room_type" class="form-select">
+                                <option value="">All Room Types</option>
+                                @foreach($filters->where('slug', 'room-type')->first()->options ?? [] as $option)
+                                    <option value="{{ $option->value }}" {{ request('room_type') == $option->value ? 'selected' : '' }}>
+                                        {{ $option->label }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Star Rating -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold">Star Rating</h6>
+                            <select name="filters[star_rating][]" class="form-select">
+                                <option value="">All Ratings</option>
+                                @foreach($filters->where('slug', 'star-rating')->first()->options ?? [] as $option)
+                                    <option value="{{ $option->id }}" {{ in_array($option->id, (array)request('filters.star_rating', [])) ? 'selected' : '' }}>
+                                        {{ $option->label }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Special Offers -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold">Special Offers</h6>
+                            <select name="filters[special_offers][]" class="form-select">
+                                <option value="">All Offers</option>
+                                @foreach($filters->where('slug', 'special-offers')->first()->options ?? [] as $option)
+                                    <option value="{{ $option->id }}" {{ in_array($option->id, (array)request('filters.special_offers', [])) ? 'selected' : '' }}>
+                                        {{ $option->label }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Packages -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold">Packages</h6>
+                            <select name="filters[packages][]" class="form-select">
+                                <option value="">All Packages</option>
+                                @foreach($filters->where('slug', 'packages')->first()->options ?? [] as $option)
+                                    <option value="{{ $option->id }}" {{ in_array($option->id, (array)request('filters.packages', [])) ? 'selected' : '' }}>
+                                        {{ $option->label }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- View Type -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold">View Type</h6>
+                            <select name="view_type" class="form-select">
+                                <option value="">All Views</option>
+                                @foreach($filters->where('slug', 'view-type')->first()->options ?? [] as $option)
+                                    <option value="{{ $option->value }}" {{ request('view_type') == $option->value ? 'selected' : '' }}>
+                                        {{ $option->label }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Other Amenities -->
+                        @foreach($filters->whereNotIn('slug', ['room-type', 'star-rating', 'special-offers', 'packages', 'view-type']) as $filter)
                             @if($filter->options->count() > 0)
-                                <div class="mb-3">
-                                    <h6>{{ $filter->name }}</h6>
+                                <div class="mb-4">
+                                    <h6 class="fw-bold">{{ $filter->name }}</h6>
                                     
                                     @if($filter->type == 'checkbox')
-                                        @foreach($filter->options as $option)
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" 
-                                                    name="filters[{{ $filter->slug }}][]"
-                                                    value="{{ $option->id }}"
-                                                    id="filter_{{ $filter->slug }}_{{ $option->id }}"
-                                                    {{ in_array($option->id, (array)request('filters.'.$filter->slug, [])) ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="filter_{{ $filter->slug }}_{{ $option->id }}">
-                                                    {{ $option->label }}
-                                                </label>
-                                            </div>
-                                        @endforeach
-                                    @else
-                                        <select name="filters[{{ $filter->slug }}]" class="form-select">
-                                            <option value="">All {{ $filter->name }}</option>
+                                        <div class="filter-options">
                                             @foreach($filter->options as $option)
-                                                <option value="{{ $option->id }}" {{ request('filters.'.$filter->slug) == $option->id ? 'selected' : '' }}>
-                                                    {{ $option->label }}
-                                                </option>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" 
+                                                        name="filters[{{ $filter->slug }}][]"
+                                                        value="{{ $option->id }}"
+                                                        id="filter_{{ $filter->slug }}_{{ $option->id }}"
+                                                        {{ in_array($option->id, (array)request('filters.'.$filter->slug, [])) ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="filter_{{ $filter->slug }}_{{ $option->id }}">
+                                                        {{ $option->label }}
+                                                    </label>
+                                                </div>
                                             @endforeach
-                                        </select>
+                                        </div>
                                     @endif
                                 </div>
                             @endif
