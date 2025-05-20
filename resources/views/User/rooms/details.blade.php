@@ -257,6 +257,7 @@
             <div class="col-md-6">
                 <h3>Price: Rs. {{ number_format($room->price) }}</h3>
                 <p>Capacity: {{ $room->room_capacity }} Persons</p>
+                <p>Name: {{ $room->room_name  }}</p>
                 <p>Type: {{ $room->room_type }}</p>
                 <p>Size: {{ $room->size }} ft²</p>  <!-- Added size display -->
                 

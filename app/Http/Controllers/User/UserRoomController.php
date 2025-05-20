@@ -56,8 +56,9 @@ class UserRoomController extends Controller
             }
         }
 
-        // Filter rooms with priority
-        $rooms = Room::withFilters($filterParams)
+        // Filter rooms with priority and only show available rooms
+        $rooms = Room::available()
+                ->withFilters($filterParams)
                 ->with('filterOptions')
                 ->select(['id', 'room_name', 'room_type', 'price', 'room_capacity', 'size', 'image'])
                 ->paginate(12);

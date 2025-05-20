@@ -62,6 +62,17 @@ class Room extends Model
     }
 
     /**
+     * Scope to exclude booked rooms until their checkout date
+     */
+    public function scopeAvailable($query)
+    {
+        return $query->whereDoesntHave('reservations', function ($q) {
+            $q->where('status', 'confirmed')
+              ->where('check_out', '>=', now());
+        });
+    }
+
+    /**
      * Scope to filter rooms by filter options with priority
      */
     public function scopeWithFilters($query, array $filters = null)

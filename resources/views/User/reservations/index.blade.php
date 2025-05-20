@@ -109,6 +109,10 @@
                                     <span class="detail-label">Guests:</span>
                                     {{ $reservation->guests }}
                                 </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Room_name:</span>
+                                    {{ $reservation->room->room_name }}
+                                </div>
                             </div>
 
                             <div class="d-flex justify-content-between pt-2">

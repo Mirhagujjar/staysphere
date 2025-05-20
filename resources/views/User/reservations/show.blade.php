@@ -53,6 +53,12 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
+                                        <p class="text-muted small mb-1">Room_name</p>
+                                        <p class="mb-0">{{ $reservation->room->room_name }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
                                         <p class="text-muted small mb-1">Phone</p>
                                         <p class="mb-0">{{ $reservation->phone }}</p>
                                     </div>
