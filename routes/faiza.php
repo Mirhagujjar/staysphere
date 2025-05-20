@@ -234,7 +234,7 @@ Route::prefix('rooms')->name('user.rooms.')->group(function () {
 });
 
 // Reservations
-Route::prefix('reservations')->name('user.reservations.')->group(function () {
+Route::prefix('reservations')->name('user.reservations.')->middleware('auth')->group(function () {
     Route::get('/', [ReservationController::class, 'index'])->name('index');
     Route::get('/create', [ReservationController::class, 'reservationform'])->name('create');
     Route::post('/store', [ReservationController::class, 'store'])->name('store');

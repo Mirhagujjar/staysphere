@@ -115,9 +115,11 @@
                                 <a href="{{ route('user.reservations.show', $reservation->id) }}" class="action-btn btn btn-sm btn-outline-secondary">
                                     Details
                                 </a>
-                                <a href="{{ route('user.reservations.edit', $reservation->id) }}" class="action-btn btn btn-sm btn-outline-primary">
-                                    Edit
-                                </a>
+                                @if(!\Carbon\Carbon::parse($reservation->check_out)->isPast())
+                                    <a href="{{ route('user.reservations.edit', $reservation->id) }}" class="action-btn btn btn-sm btn-outline-primary">
+                                        Edit
+                                    </a>
+                                @endif
                                 <form action="{{ route('user.reservations.destroy', $reservation->id) }}" method="POST">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="action-btn btn btn-sm btn-outline-danger" onclick="return confirm('Cancel this reservation?')">

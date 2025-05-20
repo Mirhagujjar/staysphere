@@ -62,19 +62,45 @@ class Room extends Model
     }
 
     /**
-     * Scope to filter rooms by filter options
+     * Scope to filter rooms by filter options with priority
      */
     public function scopeWithFilters($query, array $filters = null)
     {
-        return $query->when($filters, function ($query) use ($filters) {
-            foreach ($filters as $filterSlug => $options) {
-                if (is_array($options)) {
-                    $query->whereHas('filterOptions', function ($q) use ($options) {
-                        $q->whereIn('filter_options.id', $options);
-                    });
+        if (!$filters) {
+            return $query;
+        }
+
+        // First priority: Price range
+        if (isset($filters['min_price']) || isset($filters['max_price'])) {
+            $query->when(isset($filters['min_price']), function ($q) use ($filters) {
+                $q->where('price', '>=', $filters['min_price']);
+            })
+            ->when(isset($filters['max_price']), function ($q) use ($filters) {
+                $q->where('price', '<=', $filters['max_price']);
+            });
+        }
+
+        // Second priority: Room type
+        if (isset($filters['room_type'])) {
+            $query->where('room_type', $filters['room_type']);
+        }
+
+        // Third priority: Amenities and other filters
+        $otherFilters = array_diff_key($filters, array_flip(['min_price', 'max_price', 'room_type']));
+        
+        if (!empty($otherFilters)) {
+            $query->where(function ($q) use ($otherFilters) {
+                foreach ($otherFilters as $filterSlug => $options) {
+                    if (is_array($options)) {
+                        $q->orWhereHas('filterOptions', function ($subQ) use ($options) {
+                            $subQ->whereIn('filter_options.id', $options);
+                        });
+                    }
                 }
-            }
-        });
+            });
+        }
+
+        return $query;
     }
 
     /**

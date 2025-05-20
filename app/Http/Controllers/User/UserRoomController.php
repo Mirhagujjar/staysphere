@@ -10,24 +10,44 @@ use App\Models\Filter;
 
 class UserRoomController extends Controller 
 {
-   public function index(Request $request)
-{
-    // Get all active filters with their options
-    $filters = Filter::with(['options' => function($query) {
-        $query->whereHas('rooms')->orderBy('order');
-    }])->where('is_active', true)->orderBy('order')->get();
+    public function index(Request $request)
+    {
+        // Get all filters with their options
+        $filters = Filter::with(['options' => function($query) {
+            $query->orderBy('order');
+        }])->orderBy('order')->get();
 
-    // Filter rooms using scopes from your existing Room model
-    $rooms = Room::withFilters($request->filters)
-               ->priceRange($request->min_price, $request->max_price)
-               ->with('filterOptions')
+        // Prepare filters array with priority
+        $filterParams = [];
+        
+        // Add price range if provided
+        if ($request->filled('min_price') || $request->filled('max_price')) {
+            $filterParams['min_price'] = $request->min_price;
+            $filterParams['max_price'] = $request->max_price;
+        }
+
+        // Add room type if provided
+        if ($request->filled('room_type')) {
+            $filterParams['room_type'] = $request->room_type;
+        }
+
+        // Add other filters
+        if ($request->filled('filters')) {
+            foreach ($request->filters as $filterSlug => $options) {
+                if (!empty($options)) {
+                    $filterParams[$filterSlug] = $options;
+                }
+            }
+        }
+
+        // Filter rooms with priority
+        $rooms = Room::withFilters($filterParams)
+                ->with('filterOptions')
                 ->select(['id', 'room_name', 'room_type', 'price', 'room_capacity', 'size', 'image'])
-                 // Ensure size is selected
+                ->paginate(12);
 
-               ->paginate(12);
-
-    return view('user.rooms.index', compact('rooms', 'filters'));
-}
+        return view('user.rooms.index', compact('rooms', 'filters'));
+    }
 
 
 
