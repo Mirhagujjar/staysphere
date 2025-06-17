@@ -358,13 +358,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('admin.about.index') }}" class="nav-link">
+                            <a href="{{route('admin.about.show')}}" class="nav-link">
                                 <i class="bi bi-arrow-right text-warning"></i>
                                 <p>View About Us</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.about.create') }}" class="nav-link">
+                            <a href="{{route ('admin.about.edit')}}" class="nav-link">
                                 <i class="bi bi-arrow-right text-warning"></i>
                                 <p>Add About Us</p>
                             </a>

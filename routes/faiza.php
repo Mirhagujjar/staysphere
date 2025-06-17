@@ -7,6 +7,7 @@ use App\Http\Controllers\User\ReservationController;
 use App\Http\Controllers\User\UserPackageController;
 use App\Http\Controllers\User\UserBookingPackageController;
 use App\Http\Controllers\User\UserProfileController;
+// use App\Http\Controllers\User\AboutUsController;
 
 
 // -------- Admin Side Controllers --------
@@ -15,9 +16,39 @@ use App\Http\Controllers\Admin\AdminRoomController;
 use App\Http\Controllers\Admin\AdminReservationController;
 use App\Http\Controllers\Admin\AdminPackageController;
 use App\Http\Controllers\Admin\AdminBookingPackageController;
+use App\Http\Controllers\Admin\AboutUsController;
+
 
 // -------- Other Controllers --------
 use App\Http\Controllers\ServicesController;
+
+
+// User routes
+Route::get('/about', [App\Http\Controllers\User\AboutUsController::class, 'index'])->name('about');
+
+// Admin routes
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    // About Us
+    Route::get('/about/preview', [AboutUsController::class, 'show'])->name('admin.about.show');
+    Route::get('/about', [AboutUsController::class, 'edit'])->name('admin.about.edit');
+    Route::post('/about', [AboutUsController::class, 'update'])->name('admin.about.update');
+    
+    // Team Members
+    Route::get('/about/team', [AboutUsController::class, 'teamIndex'])->name('admin.team.index');
+    Route::get('/about/team/create', [AboutUsController::class, 'teamCreate'])->name('admin.about.team.create');
+    Route::post('/about/team', [AboutUsController::class, 'teamStore'])->name('admin.team.store');
+    Route::get('/about/team/{teamMember}/edit', [AboutUsController::class, 'teamEdit'])->name('admin.team.edit');
+    Route::put('/about/team/{teamMember}', [AboutUsController::class, 'teamUpdate'])->name('admin.team.update');
+    Route::delete('/about/team/{teamMember}', [AboutUsController::class, 'teamDestroy'])->name('admin.team.destroy');
+    
+    // FAQs
+    Route::get('/about/faq', [AboutUsController::class, 'faqIndex'])->name('admin.about.faq-index');
+    Route::get('/about/faq/create', [AboutUsController::class, 'faqCreate'])->name('admin.about.faq.create');
+    Route::post('/about/faq', [AboutUsController::class, 'faqStore'])->name('admin.about.faq.store');
+    Route::get('/about/faq/{faq}/edit', [AboutUsController::class, 'faqEdit'])->name('admin.about.faq.edit');
+    Route::post('/about/faq/{faq}', [AboutUsController::class, 'faqUpdate'])->name('admin.about.faq.update');
+    Route::delete('/about/faq/{faq}', [AboutUsController::class, 'faqDestroy'])->name('admin.about.faq.destroy');
+});
 
 // ---------------------------- Admin Routes ----------------------------
 Route::prefix('admin')->name('admin.')->group(function () {
