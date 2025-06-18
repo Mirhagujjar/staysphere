@@ -104,21 +104,29 @@
         <form action="{{ route('user.profile.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
+            @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+
+            {{-- Basic Information --}}
             <div class="mb-4">
                 <div class="section-heading">Basic Information</div>
 
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" 
-                            value="{{ auth()->user()->name }}" required>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" 
-                            value="{{ auth()->user()->email }}" required>
-                    </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="name"
+                        value="{{ auth()->user()->name }}" required>
                 </div>
 
                 <div class="mb-3">
@@ -136,18 +144,24 @@
 
             <hr>
 
+            {{-- Authentication Section --}}
             <div class="mb-4">
-                <div class="section-heading">Change Password</div>
-                <p class="note">Leave the fields blank if you do not wish to change your password.</p>
+                <div class="section-heading">Authentication</div>
+                <p class="note">To change your password, please confirm your current password.</p>
 
                 <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="current_password" class="form-label">Current Password</label>
+                        <input type="password" class="form-control" id="current_password" name="current_password">
+                    </div>
+
                     <div class="col-md-6 mb-3">
                         <label for="password" class="form-label">New Password</label>
                         <input type="password" class="form-control" id="password" name="password">
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="password_confirmation" class="form-label">Confirm Password</label>
+                        <label for="password_confirmation" class="form-label">Confirm New Password</label>
                         <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
                     </div>
                 </div>

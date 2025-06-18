@@ -208,7 +208,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/profile', [AdminProfileController::class, 'show'])->name('profile.show');
     Route::get('/admin/profile/edit', [AdminProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile/update', [AdminProfileController::class, 'update'])->name('profile.update');
+    
+     Route::match(['PUT', 'POST'], '/profile/update', [AdminProfileController::class, 'update'])->name('profile.update');
+});
+
+// user side 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [UserProfileController::class, 'show'])->name('user.profile.show');
+    Route::get('/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
+    Route::match(['PUT', 'POST'], '/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
+    Route::get('/profile', [ReservationController::class, 'myBookings'])->name('user.profile.show');
+
 });
 
 // Route::middleware(['auth:admin'])->group(function () {
@@ -336,13 +346,7 @@ Route::post('/book', [UserBookingPackageController::class, 'bookPackage'])->name
    
 // });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [UserProfileController::class, 'show'])->name('user.profile.show');
-    Route::get('/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
-    Route::post('/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
-    Route::get('/profile', [ReservationController::class, 'myBookings'])->name('user.profile.show');
 
-});
 
 
 // ---------------------------- Services Routes ----------------------------

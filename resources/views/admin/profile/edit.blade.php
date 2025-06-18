@@ -24,6 +24,12 @@
         margin-bottom: 25px;
     }
 
+    .section-heading {
+        font-size: 18px;
+        margin-bottom: 15px;
+        color: #0dcaf0;
+    }
+
     .form-label {
         color: #ffc107;
         font-weight: 500;
@@ -69,11 +75,16 @@
     .btn-warning:hover {
         background-color: #e0a800;
     }
+
+    hr {
+        border-top: 1px solid rgba(255,255,255,0.2);
+        margin: 25px 0;
+    }
 </style>
 
 <div class="container py-5">
     <div class="profile-edit-card">
-        <h4>Edit Profile</h4>
+        <h4>Edit Admin Profile</h4>
 
         <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -86,12 +97,6 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-control"
-                       value="{{ old('email', $admin->email) }}" required>
-            </div>
-
-            <div class="mb-3">
                 <label class="form-label">Profile Image</label>
                 <input type="file" name="profile_image" class="form-control">
                 @if ($admin->profile_image)
@@ -101,8 +106,32 @@
                 @endif
             </div>
 
+            <hr>
+
+            <div class="section-heading">Authentication</div>
+            <p class="note">To change your password, please confirm your current password.</p>
+
+             @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div class="mb-3">
-                <label class="form-label">New Password (optional)</label>
+                <label class="form-label">Current Password</label>
+                <input type="password" name="current_password" class="form-control" placeholder="Enter current password">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">New Password</label>
                 <input type="password" name="password" class="form-control" placeholder="Enter new password">
             </div>
 
@@ -110,6 +139,9 @@
                 <label class="form-label">Confirm New Password</label>
                 <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm password">
             </div>
+
+
+            
 
             <div class="text-end">
                 <button type="submit" class="btn btn-warning">

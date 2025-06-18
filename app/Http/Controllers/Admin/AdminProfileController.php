@@ -26,18 +26,22 @@ class AdminProfileController extends Controller
     {
         $admin = Auth::user();
 
+        // Validate inputs
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . $admin->id,
             'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'password' => 'nullable|min:6|confirmed',
+            'current_password' => 'nullable|required_with:password|string',
+            'password' => 'nullable|string|min:8|confirmed',
+        ], [
+            'password.min' => 'The new password must be at least 8 characters.',
+            'password.confirmed' => 'The new password and confirmation do not match.',
+            'current_password.required_with' => 'Current password is required when setting a new password.',
         ]);
 
         $admin->name = $request->name;
-        $admin->email = $request->email;
 
+        // Handle profile image
         if ($request->hasFile('profile_image')) {
-            // Delete old image if exists
             if ($admin->profile_image && File::exists(public_path('uploads/profile/' . $admin->profile_image))) {
                 File::delete(public_path('uploads/profile/' . $admin->profile_image));
             }
@@ -48,7 +52,12 @@ class AdminProfileController extends Controller
             $admin->profile_image = $filename;
         }
 
+        // Handle password change
         if ($request->filled('password')) {
+            if (!Hash::check($request->current_password, $admin->password)) {
+                return back()->withErrors(['current_password' => 'The current password you entered is incorrect.']);
+            }
+
             $admin->password = Hash::make($request->password);
         }
 
@@ -56,6 +65,8 @@ class AdminProfileController extends Controller
 
         return redirect()->route('admin.profile.show')->with('success', 'Profile updated successfully!');
     }
+
+
 
 
 
