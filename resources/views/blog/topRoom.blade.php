@@ -250,17 +250,6 @@
     </div>
 </section>
 
-    {{-- ----------- Comments Section --------- --}}
-    {{-- <div class="comment-section mt-5">
-        <h4>Leave a Comment</h4>
-        <form>
-            <div class="mb-3">
-                <label for="comment" class="form-label">Your Comment</label>
-                <textarea class="form-control" id="comment" rows="3" placeholder="Write your thoughts..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-warning">Submit</button>
-        </form>
-    </div> --}}
 </div>
 
 @endsection

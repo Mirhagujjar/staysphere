@@ -22,7 +22,7 @@
                             <th>ID</th>
                             <th>User</th>
                             <th class="d-none d-md-table-cell">Package</th>
-                            <th>Image</th>
+                            {{-- <th>Image</th> --}}
                             <th>Price</th>
                             <th class="d-none d-lg-table-cell">Dates</th>
                             <th>Status</th>
@@ -35,12 +35,12 @@
                             <td>{{ $booking->id }}</td>
                             <td>{{ $booking->full_name }}</td>
                             <td class="d-none d-md-table-cell">{{ $booking->package->name ?? 'N/A' }}</td>
-                            <td>
+                            {{-- <td>
                                 <img src="{{ asset($booking->image ?? 'uploads/packages/' . ($booking->package->image ?? '')) }}" 
                                      alt="{{ $booking->package->name ?? 'Booking image' }}" 
                                      class="img-thumbnail" 
                                      style="width: 60px; height: auto;">
-                            </td>
+                            </td> --}}
                             <td>Rs. {{ number_format($booking->package->price ?? 0, 2) }}</td>
                             <td class="d-none d-lg-table-cell">
                                 {{ date('M d, Y', strtotime($booking->check_in)) }} - 

@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+{{-- @extends('admin.dashboard')
 
 @section('content')
 <div class="container py-4">
@@ -14,13 +14,15 @@
 
                 <div class="mb-3">
                     <label>Name</label>
-                    <input type="text" name="name" class="form-control" value="{{ old('name', $admin->name) }}">
+                    <input type="text" name="name" class="form-control" value="{{ old('name', $admin->name ?? '') }}">
                 </div>
 
 
                 <div class="mb-3">
                     <label>Email</label>
-                    <input type="email" name="email" class="form-control" value="{{ old('email', $admin->email) }}">
+                    
+                    <input type="text" name="email" value="{{ old('email', $admin->email) }}">
+
                 </div>
 
 
@@ -51,4 +53,4 @@
     </div>
 </div>
 @endsection
-
+ --}}

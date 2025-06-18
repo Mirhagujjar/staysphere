@@ -224,8 +224,11 @@
         <div class="gallery-item"><img src="{{ asset('build/assets/images/events/professionalconference.jpg') }}" alt="event 5"></div>
         <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/H4.jpg') }}" alt="event 6"></div>
     </div>
+
 </section>
     
+
+  
 </div>
 
 @endsection

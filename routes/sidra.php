@@ -22,22 +22,7 @@ Route::get('/review', [UserReviewController::class, 'showreview']);
  Route::get('/admin/review/approve/{id}', [AdminReviewController::class, 'approve'])->name('admin.review.approve');
  Route::get('/admin/review/reject/{id}', [AdminReviewController::class, 'reject'])->name('admin.review.reject');
  Route::delete('/admin/review/delete/{id}', [AdminReviewController::class, 'destroy'])->name('admin.review.delete');
-                   // Header
 
- Route::prefix('admin')->name('admin.')->group(function () {
-
-    Route::get('review/header/header_create', [AdminHeaderReviewController::class, 'create'])->name('header.create');
-    Route::post('review/header/store', [AdminHeaderReviewController::class, 'store'])->name('header.store');
-    Route::get('review/header/header_edit/{id}', [AdminHeaderReviewController::class, 'edit'])->name('header.edit');
-    Route::put('review/header/update/{id}', [AdminHeaderReviewController::class, 'update'])->name('header.update');
-});
-
-// ------- Carousel Section Routes --------
-Route::get('/admin/review/carousel/create', [AdminReviewController::class, 'createCarousel'])->name('admin.review.carousel.create');
-Route::post('/admin/review/carousel/store', [AdminReviewController::class, 'storeCarousel'])->name('admin.review.carousel.store');
-Route::get('/admin/review/carousel/edit/{id}', [AdminReviewController::class, 'editCarousel'])->name('admin.review.carousel.edit');
-Route::put('/admin/review/carousel/update/{id}', [AdminReviewController::class, 'updateCarousel'])->name('admin.review.carousel.update');
-Route::delete('/admin/review/carousel/delete/{id}', [AdminReviewController::class, 'deleteCarousel'])->name('admin.review.carousel.delete');
 
 
 

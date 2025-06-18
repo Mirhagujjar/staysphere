@@ -364,8 +364,7 @@
     </div>
 
     {{-- -----------------------3-------------------- --}}
-    <div class="testimonial-section position-relative">
-        {{-- - Video Background -- --}}
+    {{-- <div class="testimonial-section position-relative">
         <video autoplay muted loop class="video-background">
             <source src="{{ asset('build/assets/videos/v1.mp4') }}" type="video/mp4">
             Your browser does not support the video tag.
@@ -455,7 +454,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- ---------------------------------4-------------------------- --}}
     <div class="our-team-section py-5">

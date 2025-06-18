@@ -7,21 +7,32 @@ use Illuminate\Http\Request;
 use App\Models\Reservation;
 use App\Models\Room; 
 
+use Illuminate\Support\Facades\Auth;
+
+
 class ReservationController extends Controller
 {
     // Show reservation form
     public function reservationform(Request $request)
     {
-        $room_id = $request->room_id;
-        return view('user.reservations.create', compact('room_id'));
+        $room_id = $request->input('room_id');
+
+        $room = Room::findOrFail($room_id); // Assuming Room model exists
+
+        return view('User.reservations.create', compact('room'));
     }
 
     // Show all reservations
-    public function index()
+   public function index()
     {
-        $reservations = Reservation::with('room')->get(); // Load room details
-        return view('user.reservations.reservations_list', compact('reservations'));
+        $reservations = Reservation::with('room') // eager load the room
+            ->where('user_id', auth()->id())
+            ->latest()
+            ->get();
+
+        return view('user.reservations.index', compact('reservations'));
     }
+
 
     // Show reservation details
     public function show($id)
@@ -34,13 +45,22 @@ class ReservationController extends Controller
     public function edit($id)
     {
         $reservation = Reservation::with('room')->findOrFail($id);
+
+        if (\Carbon\Carbon::parse($reservation->check_out)->isPast()) {
+           return redirect()->route('user.reservations.edit', $id)->with('error', 'This reservation cannot be edited anymore.');
+        }
+
         return view('user.reservations.edit', compact('reservation'));
+
+        
     }
 
+
     // Update reservation
+    // Update method
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $validated = $request->validate([
             'room_id'   => 'required|exists:rooms,id',
             'check_in'  => 'required|date',
             'check_out' => 'required|date|after:check_in',
@@ -48,23 +68,33 @@ class ReservationController extends Controller
 
         $reservation = Reservation::findOrFail($id);
 
-        // Check if the room is available for the new dates
-        $isBooked = Reservation::where('room_id', $request->room_id)
-            ->where('id', '!=', $id) // Exclude current reservation
-            ->where(function ($query) use ($request) {
-                $query->whereBetween('check_in', [$request->check_in, $request->check_out])
-                    ->orWhereBetween('check_out', [$request->check_in, $request->check_out]);
+        // Check if the reservation can still be edited
+        if (\Carbon\Carbon::parse($reservation->check_out)->isPast()) {
+            return redirect()->route('user.reservations.edit', $id)
+                ->with('error', 'This reservation cannot be edited anymore.');
+        }
+
+        // Proceed with the update if all validations pass
+        // Check room availability
+        $isBooked = Reservation::where('room_id', $validated['room_id'])
+            ->where('id', '!=', $id)
+            ->where(function ($query) use ($validated) {
+                $query->whereBetween('check_in', [$validated['check_in'], $validated['check_out']])
+                    ->orWhereBetween('check_out', [$validated['check_in'], $validated['check_out']]);
             })
             ->exists();
 
         if ($isBooked) {
-            return redirect()->back()->with('error', 'This room is already booked for the selected dates.');
+            return back()->withInput()->with('error', 'Room already booked for these dates.');
         }
 
-        // Update reservation
-        $reservation->update($request->all());
-
-        return redirect()->route('user.reservations.index')->with('success', 'Reservation updated successfully!');
+        try {
+            $reservation->update($validated);
+            return redirect()->route('user.reservations.index')
+                ->with('success', 'Reservation updated successfully!');
+        } catch (\Exception $e) {
+            return back()->withInput()->with('error', 'Error updating reservation: '.$e->getMessage());
+        }
     }
 
     // Delete reservation
@@ -77,44 +107,72 @@ class ReservationController extends Controller
     }
 
     // Store reservation
-    public function store(Request $request)
+   public function store(Request $request)
     {
-        Reservation::create([
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone' => 'required|string|between:10,15',
+            'room_id' => 'required|exists:rooms,id',
+            'check_in' => 'required|date',
+            'check_out' => 'required|date|after:check_in',
+            'room_type' => 'required|string',
+            'guests' => 'required|integer|min:1',
+        ]);
+
+        // Check room availability first
+       $isBooked = Reservation::where('room_id', $request->room_id)
+        ->where(function ($query) use ($request) {
+            $query->whereBetween('check_in', [$request->check_in, $request->check_out])
+                ->orWhereBetween('check_out', [$request->check_in, $request->check_out])
+                ->orWhere(function ($query) use ($request) {
+                    $query->where('check_in', '<', $request->check_in)
+                            ->where('check_out', '>', $request->check_out);
+                });
+        })
+        ->exists();
+
+
+        if ($isBooked) {
+            return back()->withInput()->with('error', 'This room is already booked for the selected dates.');
+        }
+
+        // Create only once
+        $reservation = Reservation::create([
+            'room_id' => $request->room_id,
+            'user_id' => Auth::id(),
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'room_id' => $request->room_id,
             'check_in' => $request->check_in,
             'check_out' => $request->check_out,
-            'guests' => $request->guests,
-            'status' => 'pending',
-        ]);
-
-        // Check if the room is already booked for these dates
-        $isBooked = Reservation::where('room_id', $request->room_id)
-            ->where(function ($query) use ($request) {
-                $query->whereBetween('check_in', [$request->check_in, $request->check_out])
-                    ->orWhereBetween('check_out', [$request->check_in, $request->check_out]);
-            })
-            ->exists();
-
-        if ($isBooked) {
-            return redirect()->back()->with('error', 'This room is already booked for the selected dates.');
-        }
-
-        // Store Reservation
-        Reservation::create([
-            'name'      => $request->name,
-            'email'     => $request->email,
-            'phone'     => $request->phone,
-            'room_id'   => $request->room_id,
-            'check_in'  => $request->check_in,
-            'check_out' => $request->check_out,
             'room_type' => $request->room_type,
-            'guests'    => $request->guests,
-            'status'    => 'pending', // Default status
+            'guests' => $request->guests,
+            'status' => 'pending'
         ]);
 
         return redirect()->route('user.reservations.index')->with('success', 'Room booked successfully!');
     }
+
+
+
+
+
+
+
+    public function myBookings()
+    {
+        $reservations = Reservation::where('user_id', auth()->id())->orderBy('check_in', 'desc')->get();
+        return view('User.profile.show', compact('reservations'));
+    }
+
+
+
+//     public function getHistory()
+// {
+//     $reservations = Reservation::where('email', auth()->user()->email)->orderBy('check_in', 'desc')->get();
+//     return view('User.reservations.reservations_list', compact('reservations'));
+// }
+
+      
 }

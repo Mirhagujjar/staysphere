@@ -6,49 +6,71 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Models\Reservation;
+use App\Models\Filter;
 
 class UserRoomController extends Controller 
 {
-    public function index(Request $request) 
+    public function index(Request $request)
     {
-        $query = Room::query();
+        // Get all filters with their options
+        $filters = Filter::with(['options' => function($query) {
+            $query->orderBy('order');
+        }])->orderBy('order')->get();
 
-        // Filter by room type
-        if ($request->filled('room_type')) {
-            $query->where('room_type', $request->room_type);
-        }
-
-        // Filter by price range
+        // Prepare filters array with priority
+        $filterParams = [];
+        
+        // Add price range if provided
         if ($request->filled('min_price')) {
-            $query->where('price', '>=', $request->min_price);
+            $filterParams['min_price'] = $request->min_price;
         }
         if ($request->filled('max_price')) {
-            $query->where('price', '<=', $request->max_price);
+            $filterParams['max_price'] = $request->max_price;
         }
 
-        // Filter by facilities
-        if ($request->filled('facilities')) {
-            $facilities = explode(',', $request->facilities);
-            foreach ($facilities as $facility) {
-                $query->where('facilities', 'LIKE', "%$facility%");
+        // Add room type if provided
+        if ($request->filled('room_type')) {
+            $filterParams['room_type'] = $request->room_type;
+        }
+
+        // Add view type if provided
+        if ($request->filled('view_type')) {
+            $filterParams['view_type'] = $request->view_type;
+        }
+
+        // Add other filters (Star Rating, Special Offers, Packages)
+        if ($request->filled('filters')) {
+            foreach ($request->filters as $filterSlug => $options) {
+                if (!empty($options)) {
+                    // Handle special cases for specific filter types
+                    if ($filterSlug === 'star_rating') {
+                        $filterParams['star_rating'] = $options;
+                    } elseif ($filterSlug === 'special_offers') {
+                        $filterParams['special_offers'] = $options;
+                    } elseif ($filterSlug === 'packages') {
+                        $filterParams['packages'] = $options;
+                    } else {
+                        $filterParams[$filterSlug] = $options;
+                    }
+                }
             }
         }
-        // Sort order
-        if ($request->filled('sort_order')) {
-            $query->orderBy('price', $request->sort_order);
-        } else {
-            $query->orderBy('created_at', 'desc');
-        }
 
-        // Get the filtered rooms
-        $rooms = $query->get();
+        // Filter rooms with priority and only show available rooms
+        $rooms = Room::available()
+                ->withFilters($filterParams)
+                ->with('filterOptions')
+                ->select(['id', 'room_name', 'room_type', 'price', 'room_capacity', 'size', 'image'])
+                ->paginate(12);
 
-        return view('user.rooms.index', compact('rooms'));
+        return view('user.rooms.index', compact('rooms', 'filters'));
     }
+
+
 
     public function show($id) 
     {
-        $room = Room::findOrFail($id);
+        $room = Room::with('filterOptions.filter')->findOrFail($id);
         return view('user.rooms.details', compact('room'));
     }
 

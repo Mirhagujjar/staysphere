@@ -8,8 +8,8 @@ use App\Http\Controllers\EventsController;
 
 use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\User\EventController;
-use App\Http\Controllers\User\UserAboutUsController;
-use App\Http\Controllers\Admin\AdminAboutUsController;
+// use App\Http\Controllers\User\UserAboutUsController;
+// use App\Http\Controllers\Admin\AdminAboutUsController;
 
 
 
@@ -28,7 +28,7 @@ Route::get('/events', [EventsController::class, 'index1'])->name('events');
 
 
 
-Route::get('/about', [AboutController::class, 'index'])->name('about');
+// Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 
 
@@ -63,22 +63,22 @@ Route::prefix('admin')->group(function () {
 
 
 // ✅ User Routes
-Route::get('/about-us', [UserAboutUsController::class, 'index'])->name('user.about.index');
+// Route::get('/about-us', [UserAboutUsController::class, 'index'])->name('user.about.index');
 
 
 
 
 
 
-Route::prefix('admin')->group(function () {
-    Route::get('/about-us', [AdminAboutUsController::class, 'index'])->name('admin.about.index');
-    Route::get('/about-us/create', [AdminAboutUsController::class, 'create'])->name('admin.about.create');
-    Route::post('/about-us', [AdminAboutUsController::class, 'store'])->name('admin.about.store');
-    Route::get('/about-us/{id}/edit', [AdminAboutUsController::class, 'edit'])->name('admin.about.edit');
-    Route::put('/about-us/update/{id}', [AdminAboutUsController::class, 'update'])->name('admin.about.update');
-    Route::delete('/about-us/delete/{id}', [AdminAboutUsController::class, 'destroy'])->name('admin.about.destroy');
+// Route::prefix('admin')->group(function () {
+//     Route::get('/about-us', [AdminAboutUsController::class, 'index'])->name('admin.about.index');
+//     Route::get('/about-us/create', [AdminAboutUsController::class, 'create'])->name('admin.about.create');
+//     Route::post('/about-us', [AdminAboutUsController::class, 'store'])->name('admin.about.store');
+//     Route::get('/about-us/{id}/edit', [AdminAboutUsController::class, 'edit'])->name('admin.about.edit');
+//     Route::put('/about-us/update/{id}', [AdminAboutUsController::class, 'update'])->name('admin.about.update');
+//     Route::delete('/about-us/delete/{id}', [AdminAboutUsController::class, 'destroy'])->name('admin.about.destroy');
 
 
 
 
-});
+// });

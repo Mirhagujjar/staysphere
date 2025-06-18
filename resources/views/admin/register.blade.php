@@ -79,7 +79,8 @@
                         </div>
                     @endif
                     
-                    <form action="{{ route('admin.register.submit') }}" method="POST">
+                    
+                    <form action="{{ route('admin.superadmin.register.submit') }}" method="POST">
                         @csrf
                         <div class="input-group mb-3">
                             <span class="input-group-text rounded-start-3"><i class="bi bi-person"></i></span>

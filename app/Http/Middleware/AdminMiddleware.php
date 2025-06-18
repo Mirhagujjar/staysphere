@@ -10,12 +10,13 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role === 'admin') {
+        if (auth()->check() && in_array(auth()->user()->role, ['admin', 'super_admin'])) {
             return $next($request);
+        }            abort(403);
         }
+    
 
-        return redirect('/')->with('error', 'Unauthorized Access');
-    }
+ }
 
     
-}
+
