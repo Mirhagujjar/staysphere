@@ -120,8 +120,10 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" href="{{route('menu')}}">Menu of the Day</a></li>
-                        <li><a class="dropdown-item" href="{{ route('blog.blog') }}">Blog</a></li>
+                        <li><a class="dropdown-item" href="{{ route('user.blogs.index') }}">Blog</a></li>
                         <li><a class="dropdown-item" href="{{ route('user.packages.index') }}">Packages</a></li>
+                        <li><a class="dropdown-item" href="{{ route('gallery') }}">Gallery</a></li>
+
                     </ul>
                   </li>
 
@@ -171,7 +173,7 @@
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">Useful Links</h6>
           <p><a href="/">Home</a></p>
-          <p><a href="{{ route('blog.blog') }}">Blog</a></p>
+          <p><a href="{{ route('user.blogs.index') }}">Blog</a></p>
           <p><a href="{{ route('user.review.review') }}">Reviews</a></p>
           <p><a href="{{ route('user.packages.index') }}">Packages</a></p>
           <p><a href="{{route('contact.index')}}">Contact Us</a></p>
