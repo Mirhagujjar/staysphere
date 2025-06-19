@@ -8,6 +8,8 @@ use App\Http\Controllers\User\UserPackageController;
 use App\Http\Controllers\User\UserBookingPackageController;
 use App\Http\Controllers\User\UserProfileController;
 // use App\Http\Controllers\User\AboutUsController;
+// use App\Http\Controllers\User\BlogController;
+
 
 
 // -------- Admin Side Controllers --------
@@ -17,10 +19,49 @@ use App\Http\Controllers\Admin\AdminReservationController;
 use App\Http\Controllers\Admin\AdminPackageController;
 use App\Http\Controllers\Admin\AdminBookingPackageController;
 use App\Http\Controllers\Admin\AboutUsController;
+use App\Http\Controllers\Admin\BlogController;
 
 
 // -------- Other Controllers --------
 use App\Http\Controllers\ServicesController;
+
+
+
+
+// routes/web.php
+ Route::get('/gallery', [\App\Http\Controllers\User\BlogController::class, 'showGallery'])->name('gallery'); 
+// User-facing blog routes
+Route::prefix('blog')->name('user.blogs.')->group(function() {
+    Route::get('/', [\App\Http\Controllers\User\BlogController::class, 'index'])->name('index');
+    Route::get('/search', [\App\Http\Controllers\User\BlogController::class, 'search'])->name('search');
+    Route::get('/category/{category}', [\App\Http\Controllers\User\BlogController::class, 'category'])->name('category');
+    Route::get('/{blog}', [\App\Http\Controllers\User\BlogController::class, 'show'])->name('show');
+});
+
+// Admin routes
+Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function() {
+    // Blog Main Page Management
+    Route::get('/main', [\App\Http\Controllers\Admin\BlogController::class, 'editMainPage'])->name('blog.main');
+    Route::post('/main', [\App\Http\Controllers\Admin\BlogController::class, 'updateMainPage'])->name('blog.main.update');
+    Route::delete('/main/gallery/{index}', [\App\Http\Controllers\Admin\BlogController::class, 'deleteMainGalleryImage'])
+        ->name('blog.main.delete-image');
+
+    // Regular Blog Posts Management
+    Route::resource('blogs', \App\Http\Controllers\Admin\BlogController::class);
+    
+    // Additional blog routes
+    Route::post('blogs/{blog}/toggle-status', [\App\Http\Controllers\Admin\BlogController::class, 'toggleStatus'])
+        ->name('blogs.toggle-status');
+    Route::delete('blog-gallery/{image}', [\App\Http\Controllers\Admin\BlogController::class, 'deleteBlogGalleryImage'])
+        ->name('blogs.delete-gallery-image');
+});
+
+
+
+
+
+
+
 
 
 // User routes
@@ -167,7 +208,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/profile', [AdminProfileController::class, 'show'])->name('profile.show');
     Route::get('/admin/profile/edit', [AdminProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile/update', [AdminProfileController::class, 'update'])->name('profile.update');
+    
+     Route::match(['PUT', 'POST'], '/profile/update', [AdminProfileController::class, 'update'])->name('profile.update');
+});
+
+// user side 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [UserProfileController::class, 'show'])->name('user.profile.show');
+    Route::get('/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
+    Route::match(['PUT', 'POST'], '/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
+    Route::get('/profile', [ReservationController::class, 'myBookings'])->name('user.profile.show');
+
 });
 
 // Route::middleware(['auth:admin'])->group(function () {
@@ -295,13 +346,7 @@ Route::post('/book', [UserBookingPackageController::class, 'bookPackage'])->name
    
 // });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [UserProfileController::class, 'show'])->name('user.profile.show');
-    Route::get('/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
-    Route::post('/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
-    Route::get('/profile', [ReservationController::class, 'myBookings'])->name('user.profile.show');
 
-});
 
 
 // ---------------------------- Services Routes ----------------------------

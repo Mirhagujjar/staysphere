@@ -3,7 +3,7 @@
 @section('content')
 
 <style>
-/* ---------------hero section------------- */
+  /* ---------------hero section------------- */
     .hero-section {
         position: relative;
         background: url('{{ asset('build/assets/images/blog/blog.jpg') }}') no-repeat center center;
@@ -206,11 +206,11 @@
             </div>
 
 
-            <div class="sidebar-section text-light">
+            {{-- <div class="sidebar-section text-light">
                 <h4>Special Offers</h4>
                 <p>Get 20% off on your first booking. Limited time only!</p>
                 <a href="{{ route('user.reservations.create') }}" class="btn btn-custom w-100 text-dark">Book Now</a>
-            </div>
+            </div> --}}
         </div>
 
                {{-- ------- Image Gallery--------- --}}

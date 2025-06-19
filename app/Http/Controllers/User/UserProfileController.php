@@ -32,21 +32,27 @@ class UserProfileController extends Controller
         return view('user.profile.edit', compact('user')); // Separate edit page
     }
 
-    public function update(Request $request)
+   public function update(Request $request)
     {
+        $user = Auth::user();
+
         $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users,email,' . Auth::id(),
+            'name' => 'required|string|max:255',
             'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'password' => 'nullable|string|min:6|confirmed',
+
+            // Password fields
+            'current_password' => 'nullable|required_with:password|string',
+            'password' => 'nullable|string|min:8|confirmed',
+        ], [
+            'password.min' => 'The new password must be at least 8 characters.',
+            'password.confirmed' => 'The new password and confirmation do not match.',
+            'current_password.required_with' => 'Current password is required when setting a new password.',
         ]);
 
-        $user = Auth::user();
         $user->name = $request->name;
-        $user->email = $request->email;
 
+        // Handle profile image upload
         if ($request->hasFile('profile_image')) {
-            // Remove old image
             if ($user->profile_image && File::exists(public_path('assets/profile_images/' . $user->profile_image))) {
                 File::delete(public_path('assets/profile_images/' . $user->profile_image));
             }
@@ -57,7 +63,12 @@ class UserProfileController extends Controller
             $user->profile_image = $filename;
         }
 
+        // Handle password change
         if ($request->filled('password')) {
+            if (!Hash::check($request->current_password, $user->password)) {
+                return back()->withErrors(['current_password' => 'The current password you entered is incorrect.']);
+            }
+
             $user->password = Hash::make($request->password);
         }
 
@@ -65,6 +76,8 @@ class UserProfileController extends Controller
 
         return redirect()->route('user.profile.show')->with('success', 'Profile updated successfully!');
     }
+
+
 
 
 

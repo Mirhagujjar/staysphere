@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::table('users', function (Blueprint $table) {
-        //     $table->string('profile_image')->nullable();
-
-        // });
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('profile_image')->nullable()->after('email');
+        });
     }
 
     /**
@@ -22,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Schema::table('users', function (Blueprint $table) {
-        //     //
-        // });
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('profile_image');
+        });
     }
 };

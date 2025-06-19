@@ -397,9 +397,9 @@
                         <p>Blog Management <i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-arrow-right text-warning"></i> <p>Add Blog</p></a></li>
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-arrow-right text-warning"></i> <p>Edit Blogs</p></a></li>
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-arrow-right text-warning"></i> <p>Delete Blogs</p></a></li>
+                        <li class="nav-item"><a href="{{ route('admin.blog.main') }}" class="nav-link"><i class="bi bi-arrow-right text-warning"></i> <p>Edit Main Blog Page</p></a></li>
+                        <li class="nav-item"><a href="{{route('admin.blogs.index')}}" class="nav-link"><i class="bi bi-arrow-right text-warning"></i> <p>View All Blogs</p></a></li>
+                        <li class="nav-item"><a href="{{ route('admin.blogs.create') }}" class="nav-link"><i class="bi bi-arrow-right text-warning"></i> <p>Add New Blog</p></a></li>
                     </ul>
                 </li>
 

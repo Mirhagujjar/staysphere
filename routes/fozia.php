@@ -2,7 +2,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\BlogController;
+// use App\Http\Controllers\BlogController;
 use App\Http\Controllers\EventsController;
 
 
@@ -15,13 +15,13 @@ use App\Http\Controllers\User\EventController;
 
 
 // blogs
-Route::prefix('blog')->group(function(){
-    Route::get('/', [BlogController::class, 'blog'])->name('blog.blog');
-    Route::get('/topRoom', [BlogController::class, 'topRoom'])->name('blog.topRoom');
-    Route::get('/chefSpecial', [BlogController::class, 'chefSpecial'])->name('blog.chefSpecial');
-    Route::get('/guest', [BlogController::class, 'guest'])->name('blog.guest');
-    Route::get('/hosting', [BlogController::class, 'hosting'])->name('blog.hosting');
-});
+// Route::prefix('blog')->group(function(){
+//     Route::get('/', [BlogController::class, 'blog'])->name('blog.blog');
+//     Route::get('/topRoom', [BlogController::class, 'topRoom'])->name('blog.topRoom');
+//     Route::get('/chefSpecial', [BlogController::class, 'chefSpecial'])->name('blog.chefSpecial');
+//     Route::get('/guest', [BlogController::class, 'guest'])->name('blog.guest');
+//     Route::get('/hosting', [BlogController::class, 'hosting'])->name('blog.hosting');
+// });
 
 Route::get('/events', [EventsController::class, 'index1'])->name('events');
 

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
 <style>
     /*-------------- Hero Section------------- */
     .hero-section {
@@ -180,77 +179,62 @@
     }
 </style>
 
-{{-- ------------ Hero Section ----------- --}}
-<div class="hero-section">
+<div class="hero-section" style="background: url('{{ asset('storage/' . ($blog->hero_image ?? 'build/assets/images/blog/R0.jpg')) }}') no-repeat center center; background-size: cover;">
     <div class="hero-overlay">
-        <h1 class="fw-bold">Ultimate Comfort: Top Room Picks</h1>
-        <p class="mb-0">By Stay Sphere | Published on Feb 09, 2025</p>
+        <h1 class="fw-bold">{{ $blog->title }}</h1>
+        <p class="mb-0">By {{ $blog->author }} | Published on {{ $blog->published_date->format('M d, Y') }}</p>
         <div class="link-container">
-            <a href="{{ route('blog.blog') }}">blog</a> >TopRoom
+            <a href="{{ route('user.blogs.index') }}">Blog</a> > {{ Str::limit($blog->title, 20) }}
         </div>
     </div>
 </div>
 
-{{-- ----------- Blog Content Section ------------- --}}
 <div class="container my-5">
     <div class="row">
-
         <div class="col-lg-8">
             <div class="blog-content">
-                <p class="lead">Planning your stay? Here are the best room choices to ensure a relaxing and luxurious experience at Stay Sphere.</p>
-                <p>"Experience elegance and relaxation with our carefully designed rooms, tailored for every type of traveler."</p>
+                {!! $blog->content !!}
 
-                <h4>Top Room Picks for Ultimate Comfort</h4>
-                <ul>
-                    <p>"Deluxe Suite – Perfect for a luxurious experience with top-tier amenities."</p>
-                    <p>"Family Room – Spacious and comfortable for a perfect family getaway."</p>
-                    <p>"Executive Room – Ideal for business travelers seeking comfort and convenience."</p>
-                    <p>"Cozy Single Room – A budget-friendly yet stylish option for solo travelers."</p>
-                    <p>"Penthouse Suite – The ultimate luxury experience with breathtaking views."</p>
-                </ul>
-
-
-                {{-- <div class="cta-box mt-4">
-                    <h5>Exclusive Offer: 20% Off on Deluxe Rooms!</h5>
-                    <p>Book now and enjoy a luxurious stay with us.</p>
-                    <a href="{{ route('user.reservations.create') }}" class="btn btn-warning">Book Now</a>
-                </div> --}}
+                @if($blog->gallery->count() > 0)
+                {{-- <section class="gallery-section">
+                    <h2>Gallery</h2>
+                    <div class="gallery-grid">
+                        @foreach($blog->gallery as $image)
+                        <div class="gallery-item">
+                            <img src="{{ asset('storage/' . $image->image_path) }}" alt="{{ $image->alt_text ?? 'Gallery image' }}">
+                        </div>
+                        @endforeach
+                    </div>
+                </section> --}}
+                @endif
             </div>
         </div>
 
-        {{-- ----------- Sidebar Section --------- --}}
         <div class="col-lg-4">
             <div class="sidebar-section mb-4">
                 <h4>Related Blogs</h4>
                 <ul class="list-unstyled">
-                    <li><a href="{{ route('blog.chefSpecial') }}"> Chef’s Special</a></li>
-                    <li><a href="{{ route('blog.guest') }}">Guest Experiences</a></li>
-                    <li><a href="{{ route('blog.hosting') }}"> Hosting an Event</a></li>
+                    @foreach($related as $post)
+                    <li><a href="{{ route('user.blogs.show', $post) }}">{{ $post->title }}</a></li>
+                    @endforeach
                 </ul>
             </div>
 
-            <div class="sidebar-section">
-                <h4>Room Picks</h4>
-                <p><b>Experience luxury</b>, comfort, and elegance with our top-rated rooms, designed for a perfect stay.</p>
-                <a href="{{route('user.rooms.index')}}" class="btn btn-warning text-dark">Learn More</a>
-            </div>
+            {{-- <div class="sidebar-section">
+                <h4>Categories</h4>
+                <ul class="list-unstyled">
+                    @foreach($blog->categories as $category)
+                    <li><a href="{{ route('user.blogs.category', $category) }}">{{ $category->name }}</a></li>
+                    @endforeach
+                </ul>
+            </div> --}}
+
+            {{-- <div class="cta-box mt-4">
+                <h5>Exclusive Offer: 20% Off on Deluxe Rooms!</h5>
+                <p>Book now and enjoy a luxurious stay with us.</p>
+                <a href="{{ route('user.reservations.create') }}" class="btn btn-warning">Book Now</a>
+            </div> --}}
         </div>
     </div>
-
-{{-- ---------- Image Gallery Section --------- --}}
-<section class="gallery-section">
-    <h2>Our Luxury Room</h2>
-    <div class="gallery-grid">
-        <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/R1.jpg') }}" alt="room 1"></div>
-        <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/R2.jpg') }}" alt="room 2"></div>
-        <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/R3.jpg') }}" alt="room 3"></div>
-        <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/R4.jpg') }}" alt="room 4"></div>
-        <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/R5.jpg') }}" alt="room 5"></div>
-        <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/R6.jpg') }}" alt="room 6"></div>
-    </div>
-</section>
-
 </div>
-
 @endsection
-
