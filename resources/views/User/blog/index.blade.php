@@ -128,6 +128,13 @@
     ];
 @endphp --}}
 
+@if(request('query'))
+    <h3 class="fw-bold mb-4">Search Results for: "{{ request('query') }}"</h3>
+@else
+    <h3 class="fw-bold mb-4">Latest Articles</h3>
+@endif
+
+
 
 <div class="hero-section" 
      style="background: url('{{ str_contains($settings['hero_image'], 'build/assets') ? asset($settings['hero_image']) : asset('storage/'.$settings['hero_image']) }}') no-repeat center center; background-size: cover;">
@@ -145,19 +152,25 @@
         <div class="col-lg-8">
             <h3 class="fw-bold mb-4">Latest Articles</h3>
             <div class="row">
-                @foreach($blogs as $blog)
-                <div class="col-md-6 mb-4">
-                    <div class="card shadow-sm">
-                        <img src="{{ asset('storage/' . $blog->featured_image) }}" class="card-img-top" alt="{{ $blog->title }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $blog->title }}</h5>
-                            <p class="text-muted small">{{ $blog->published_date->format('M d, Y') }} | By {{ $blog->author }}</p>
-                            <p class="card-text">{{ $blog->excerpt }}</p>
-                            <a href="{{ route('user.blogs.show', $blog) }}" class="btn btn-custom w-100">Read More</a>
-                        </div>
+                {{-- Original Blog List --}}
+                @if(!request('query'))
+                    <div class="row">
+                        @foreach($blogs as $blog)
+                            <div class="col-md-6 mb-4">
+                                <div class="card shadow-sm">
+                                    <img src="{{ asset('storage/' . $blog->featured_image) }}" class="card-img-top" alt="{{ $blog->title }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $blog->title }}</h5>
+                                        <p class="text-muted small">{{ $blog->published_date->format('M d, Y') }} | By {{ $blog->author }}</p>
+                                        <p class="card-text">{{ $blog->excerpt }}</p>
+                                        <a href="{{ route('user.blogs.show', $blog) }}" class="btn btn-custom w-100">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                </div>
-                @endforeach
+                @endif
+
             </div>
            {{-- Remove all other gallery sections and keep this one --}}
             {{-- @if(!empty($settings['gallery_images']))
@@ -194,13 +207,40 @@
         <div class="col-lg-4">
             <div class="sidebar-section mb-4">
                 <h4>Search Blog</h4>
-                <form action="{{ route('user.blogs.search') }}" method="GET">
+                <form action="{{ route('user.blogs.index') }}" method="GET">
                     <div class="input-group">
                         <input type="text" name="query" class="form-control" placeholder="Search blog articles...">
                         <button type="submit" class="btn btn-custom"><i class="bi bi-search"></i></button>
                     </div>
                 </form>
+
             </div>
+
+            {{-- Search Results Section --}}
+            @if(request('query'))
+                <div class="row">
+                    @forelse($blogs as $blog)
+                        <div class="col-md-6 mb-4">
+                            <div class="card shadow-sm">
+                                <img src="{{ asset('storage/' . $blog->featured_image) }}" class="card-img-top" alt="{{ $blog->title }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $blog->title }}</h5>
+                                    <p class="text-muted small">{{ $blog->published_date->format('M d, Y') }} | By {{ $blog->author }}</p>
+                                    <p class="card-text">{{ $blog->excerpt }}</p>
+                                    <a href="{{ route('user.blogs.show', $blog) }}" class="btn btn-custom w-100">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="alert alert-info">
+                            No articles found matching your search criteria.
+                        </div>
+                    @endforelse
+                </div>
+            @endif
+
+
+            
 
             {{-- <div class="sidebar-section mb-4">
                 <h4>Categories</h4>

@@ -67,6 +67,12 @@
 
 <div class="container py-5">
     <div class="profile-view-card">
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>✔</strong> {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <h4>Admin Profile</h4>
 
         <div class="profile-info-row">

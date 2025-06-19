@@ -36,6 +36,8 @@ Route::prefix('blog')->name('user.blogs.')->group(function() {
     Route::get('/search', [\App\Http\Controllers\User\BlogController::class, 'search'])->name('search');
     Route::get('/category/{category}', [\App\Http\Controllers\User\BlogController::class, 'category'])->name('category');
     Route::get('/{blog}', [\App\Http\Controllers\User\BlogController::class, 'show'])->name('show');
+    // Route::get('/search', [BlogController::class, 'search'])->name('search');
+
 });
 
 // Admin routes

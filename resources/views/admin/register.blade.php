@@ -1,4 +1,4 @@
-
+{{-- 
 <!doctype html>
 <html lang="en">
   <!--begin::Head-->
@@ -182,4 +182,4 @@
  </script>
  <!--end::OverlayScrollbars Configure-->
  <!--end::Script-->
-</html>
+</html> --}}

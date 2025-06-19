@@ -91,5 +91,6 @@ class UserProfileController extends Controller
         $reservations = \App\Models\Reservation::where('user_id', auth()->id())->with('room')->get();
         return view('User.profile.show', compact('user', 'reservations'));
     }
+    
 
 }
