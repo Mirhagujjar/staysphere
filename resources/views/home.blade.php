@@ -383,7 +383,7 @@
         }
 
         /* -------------------form----------------- */
-        .margin_120_95 {
+        /* .margin_120_95 {
             padding-top: 120px;
             padding-bottom: 95px;
         }
@@ -431,13 +431,13 @@
 
         #booking_section .row {
             margin: 0;
-            /* Reset margin if needed */
+
         }
 
         #booking_section .col-lg-6 {
             padding: 15px;
-            /* Add padding if needed */
-        }
+
+        } */
     </style>
 
     {{-- ----------------------- slider---------------- --}}
@@ -820,7 +820,7 @@
     </div>
 
     {{-- -------------------------form---------------------- --}}
-    <div class="container py-5" id="booking_section">
+    {{-- <div class="container py-5" id="booking_section">
         <div class="row justify-content-between align-items-start">
             <div class="col-lg-6 mb-4">
                 <div class="title">
@@ -878,5 +878,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
