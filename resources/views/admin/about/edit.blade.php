@@ -1,4 +1,4 @@
-// resources/views/admin/about/edit.blade.php
+
 @extends('admin.dashboard')
 
 @section('content')
