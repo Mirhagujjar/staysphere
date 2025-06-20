@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class FilterOption extends Model
 {
     protected $fillable = [
-        'filter_id',
-        'label',
-        'value',
+        'filter_id', 
+        'label', 
+        'value', 
+        'is_active',
         'order'
     ];
 

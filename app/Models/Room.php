@@ -153,4 +153,19 @@ class Room extends Model
             ->get()
             ->groupBy('filter.name');
     }
+
+    // Add these relationships
+    public function roomType()
+    {
+        return $this->belongsTo(FilterOption::class, 'room_type', 'value')
+            ->whereHas('filter', fn($q) => $q->where('slug', 'room-type'));
+    }
+
+  public function viewType()
+{
+    return $this->belongsTo(FilterOption::class, 'view_type', 'value')
+        ->whereHas('filter', function($q) {
+            $q->where('slug', 'view-type');
+        });
+}
 }

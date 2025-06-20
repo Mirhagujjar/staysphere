@@ -4,149 +4,41 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Room;
-use Illuminate\Http\Request;
 use App\Models\Filter;
 use App\Models\FilterOption;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class AdminRoomController extends Controller
 {
     public function dashboard()
     {
-        $rooms = Room::all(); 
+        $rooms = Room::with('filterOptions')->latest()->take(5)->get();
         return view('admin.dashboard', compact('rooms'));
     }
 
-    // Index method
     public function index()
     {
         $rooms = Room::with('filterOptions')->paginate(10);
         return view('admin.rooms.index', compact('rooms'));
     }
 
-    // Edit method
-    public function edit(Room $room)
-    {
-        $roomTypes = FilterOption::whereHas('filter', function($q) {
-            $q->where('slug', 'room-type');
-        })->get();
-        
-        $viewTypes = FilterOption::whereHas('filter', function($q) {
-            $q->where('slug', 'view-type');
-        })->get();
-        
-        $featureFilters = Filter::whereNotIn('slug', ['room-type', 'view-type'])
-            ->where('is_active', true)
-            ->with(['options' => function($q) {
-                $q->orderBy('order');
-            }])
-            ->orderBy('order')
-            ->get();
-
-        return view('admin.rooms.edit', compact('room', 'roomTypes', 'viewTypes', 'featureFilters'));
-    }
-
-    // Update method
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'room_name' => 'required|string|max:255',
-            'room_type' => 'required|string',
-            'price' => 'required|numeric|min:0',
-            'room_capacity' => 'required|integer|min:1',
-            'size' => 'required|integer|min:0',
-            'view_type' => 'required|string',
-            'description' => 'required|string',
-            'image' => 'required|image|max:2048',
-            'features' => 'nullable|array',
-            'features.*' => 'exists:filter_options,id'
-        ]);
-
-        // Handle image upload to public/assets/images/rooms
-        $imageName = time().'.'.$request->image->extension();  
-        $request->image->move(public_path('assets/images/rooms'), $imageName);
-        $validated['image'] = 'assets/images/rooms/'.$imageName;
-
-        // Create the room
-        $room = Room::create($validated);
-
-        // Attach features/facilities
-        if ($request->has('features')) {
-            $room->filterOptions()->attach($request->features);
-        }
-
-        return redirect()->route('admin.rooms.index')
-               ->with('success', 'Room added successfully!');
-    }
-
-   public function update(Request $request, Room $room)
-    {
-        // Validate only the fields that are allowed to be updated
-        $validated = $request->validate([
-            'room_name' => 'nullable|string|max:255',
-            'room_type' => 'nullable|string',
-            'price' => 'nullable|numeric|min:0',
-            'room_capacity' => 'nullable|integer|min:1',
-            'size' => 'nullable|integer|min:0',
-            'view_type' => 'nullable|string',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|max:2048',
-            'features' => 'nullable|array',
-            'features.*' => 'exists:filter_options,id'
-        ]);
-
-        // Handle image upload if new image is provided in the request
-        if ($request->has('image')) {
-            // Delete the old image from the server if exists
-            if (!empty($room->image)) {
-                $imagePath = public_path($room->image);
-                if (file_exists($imagePath) && is_file($imagePath)) {
-                    unlink($imagePath);
-                }
-            }
-
-            // Upload the new image and store its path
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('assets/images/rooms'), $imageName);
-            $validated['image'] = 'assets/images/rooms/' . $imageName;
-        }
-
-        // Update only the fields that are present in the request
-        $room->update(array_filter($validated));
-
-        // Sync features if features are provided
-        if ($request->has('features')) {
-            $room->filterOptions()->sync($request->features);
-        }
-
-        // If no features are provided, detach all current ones
-        if (!$request->has('features')) {
-            $room->filterOptions()->detach();
-        }
-
-        return redirect()->route('admin.rooms.index')
-            ->with('success', 'Room updated successfully!');
-    }
-
-
-
-    // app/Http/Controllers/Admin/AdminRoomController.php
     public function create()
     {
-        // Get room type options from your filter system
         $roomTypes = FilterOption::whereHas('filter', function($q) {
-            $q->where('slug', 'room-type');
-        })->get();
-        
+            $q->where('slug', 'room-type')->where('is_active', true);
+        })->orderBy('order')->get();
+
         $viewTypes = FilterOption::whereHas('filter', function($q) {
-            $q->where('slug', 'view-type');
-        })->get();
-        
-        // Get other feature filters (excluding room type and view type)
+            $q->where('slug', 'view-type')->where('is_active', true);
+        })->orderBy('order')->get();
+
         $featureFilters = Filter::whereNotIn('slug', ['room-type', 'view-type'])
             ->where('is_active', true)
             ->with(['options' => function($q) {
-                $q->orderBy('order');
+                $q->where('is_active', true)->orderBy('order');
             }])
             ->orderBy('order')
             ->get();
@@ -154,153 +46,161 @@ class AdminRoomController extends Controller
         return view('admin.rooms.create', compact('roomTypes', 'viewTypes', 'featureFilters'));
     }
 
-    // public function store(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'room_name' => 'required|string|max:255',
-    //         'room_type' => 'required|string',
-    //         'price' => 'required|numeric|min:0',
-    //         'room_capacity' => 'required|integer|min:1',
-    //         'size' => 'required|integer|min:0',
-    //         'view_type' => 'required|string',
-    //         'description' => 'required|string',
-    //         'image' => 'required|image|max:2048',
-    //         'features' => 'nullable|array',
-    //         'features.*' => 'exists:filter_options,id'
-    //     ]);
+    public function store(Request $request)
+    {
+        $roomTypeFilterId = Filter::where('slug', 'room-type')->value('id');
+        $viewTypeFilterId = Filter::where('slug', 'view-type')->value('id');
 
-    //     // Handle image upload
-    //     $imagePath = $request->file('image')->store('room_images', 'public');
-    //     $validated['image'] = $imagePath;
+        $validator = Validator::make($request->all(), [
+            'room_name' => 'required|string|max:255',
+            'room_type' => [
+                'required',
+                Rule::exists('filter_options', 'value')->where('filter_id', $roomTypeFilterId),
+            ],
+            'price' => 'required|numeric|min:0',
+            'room_capacity' => 'required|integer|min:1',
+            'size' => 'required|integer|min:0',
+            'view_type' => [
+                'required',
+                Rule::exists('filter_options', 'value')->where('filter_id', $viewTypeFilterId),
+            ],
+            'description' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'features' => 'nullable|array',
+            'features.*' => 'exists:filter_options,id',
+        ]);
 
-    //     // Create the room
-    //     $room = Room::create($validated);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
-    //     // Attach features/facilities
-    //     if ($request->has('features')) {
-    //         $room->filterOptions()->attach($request->features);
-    //     }
+        try {
+            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+            $destinationPath = public_path('assets/images/room_images');
+            $request->file('image')->move($destinationPath, $imageName);
+            $imagePath = 'assets/images/room_images/' . $imageName;
 
-    //     return redirect()->route('admin.rooms.index')
-    //         ->with('success', 'Room added successfully!');
-    // }
+            $room = Room::create([
+                'room_name' => $request->room_name,
+                'room_type' => $request->room_type,
+                'price' => $request->price,
+                'room_capacity' => $request->room_capacity,
+                'size' => $request->size,
+                'view_type' => $request->view_type,
+                'description' => $request->description,
+                'image' => $imagePath,
+                'is_booked' => false
+            ]);
 
-    // public function edit($id)
-    // {
-    //     $room = Room::with('filterOptions')->findOrFail($id);
-    //     $filters = Filter::with('options')->orderBy('order')->get();
-    //     return view('admin.rooms.edit', compact('room', 'filters'));
-    // }
+            if ($request->has('features')) {
+                $room->filterOptions()->attach($request->features);
+            }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         // ... existing validation rules ...
-    //         'filter_options' => 'nullable|array',
-    //         'filter_options.*' => 'exists:filter_options,id',
-    //     ]);
+            return redirect()->route('admin.rooms.index')->with('success', 'Room created successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error creating room: ' . $e->getMessage())->withInput();
+        }
+    }
 
-    //     $room = Room::findOrFail($id);
+    public function edit(Room $room)
+    {
+        $roomTypes = FilterOption::whereHas('filter', function($q) {
+            $q->where('slug', 'room-type')->where('is_active', true);
+        })->orderBy('order')->get();
 
-    //     // ... existing update logic ...
+        $viewTypes = FilterOption::whereHas('filter', function($q) {
+            $q->where('slug', 'view-type')->where('is_active', true);
+        })->orderBy('order')->get();
 
-    //     // Sync filter options
-    //     $room->filterOptions()->sync($request->filter_options ?? []);
+        $featureFilters = Filter::whereNotIn('slug', ['room-type', 'view-type'])
+            ->where('is_active', true)
+            ->with(['options' => function($q) {
+                $q->where('is_active', true)->orderBy('order');
+            }])
+            ->orderBy('order')
+            ->get();
 
-    //     return redirect()->route('admin.rooms.index')->with('success', 'Room updated successfully!');
-    // }
+        $currentFeatures = $room->filterOptions->pluck('id')->toArray();
 
-    // public function create()
-    // {
-    //     $rooms = Room::all(); 
-    //     return view('admin.rooms.create', compact('rooms'));
-    // }
+        return view('admin.rooms.edit', compact('room', 'roomTypes', 'viewTypes', 'featureFilters', 'currentFeatures'));
+    }
 
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'room_name' => 'required|string|max:255',
-    //         'room_type' => 'required|string',
-    //         'price' => 'required|numeric|min:0',
-    //         'room_capacity' => 'required|integer|min:1',
-    //         'facilities' => 'required|string',
-    //         'has_view' => 'boolean',
-    //         'image' => 'nullable|image|max:2048',
-    //     ]);
+    public function update(Request $request, Room $room)
+    {
+        $roomTypeFilterId = Filter::where('slug', 'room-type')->value('id');
+        $viewTypeFilterId = Filter::where('slug', 'view-type')->value('id');
 
-    //     $imagePath = null;
+        $validator = Validator::make($request->all(), [
+            'room_name' => 'required|string|max:255',
+            'room_type' => [
+                'required',
+                Rule::exists('filter_options', 'value')->where('filter_id', $roomTypeFilterId),
+            ],
+            'price' => 'required|numeric|min:0',
+            'room_capacity' => 'required|integer|min:1',
+            'size' => 'required|integer|min:0',
+            'view_type' => [
+                'required',
+                Rule::exists('filter_options', 'value')->where('filter_id', $viewTypeFilterId),
+            ],
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'features' => 'nullable|array',
+            'features.*' => 'exists:filter_options,id',
+        ]);
 
-    //     if ($request->hasFile('image')) {
-    //         $image = $request->file('image');
-    //         $imageName = time() . '.' . $image->getClientOriginalExtension();
-    //         $image->move(public_path('assets/images/rooms'), $imageName);
-    //         $imagePath = 'assets/images/rooms/' . $imageName; 
-    //     }
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
-    //     Room::create([
-    //         'room_name' => $request->room_name,
-    //         'room_type' => $request->room_type,
-    //         'price' => $request->price,
-    //         'room_capacity' => $request->room_capacity,
-    //         'facilities' => $request->facilities,
-    //         'has_view' => $request->has_view ?? false,
-    //         'image' => $imagePath,
-    //     ]);
+        try {
+            $data = [
+                'room_name' => $request->room_name,
+                'room_type' => $request->room_type,
+                'price' => $request->price,
+                'room_capacity' => $request->room_capacity,
+                'size' => $request->size,
+                'view_type' => $request->view_type,
+                'description' => $request->description,
+            ];
 
-    //     return redirect()->route('admin.rooms.index')->with('success', 'Room added successfully!');
-    // }
+            if ($request->hasFile('image')) {
+                $existingImagePath = public_path($room->image);
+                if (file_exists($existingImagePath)) {
+                    unlink($existingImagePath);
+                }
 
-    // public function edit($id)
-    // {
-    //     $room = Room::findOrFail($id);
-    //     return view('admin.rooms.edit', compact('room'));
-    // }
+                $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+                $destinationPath = public_path('assets/images/room_images');
+                $request->file('image')->move($destinationPath, $imageName);
+                $data['image'] = 'assets/images/room_images/' . $imageName;
+            }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'room_name' => 'required|string|max:255',
-    //         'room_type' => 'required|string',
-    //         'price' => 'required|numeric',
-    //         'room_capacity' => 'required|integer',
-    //         'facilities' => 'nullable|string',
-    //         'has_view' => 'required|boolean',
-    //         'image' => 'nullable|image|max:2048'
-    //     ]);
+            $room->update($data);
+            $room->filterOptions()->sync($request->features ?? []);
 
-    //     $room = Room::findOrFail($id);
+            return redirect()->route('admin.rooms.index')->with('success', 'Room updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error updating room: ' . $e->getMessage())->withInput();
+        }
+    }
 
-    //     if ($request->hasFile('image')) {
-    //         // Delete old image if needed (optional)
-    //         if ($room->image && file_exists(public_path($room->image))) {
-    //             unlink(public_path($room->image));
-    //         }
+    public function destroy(Room $room)
+    {
+        try {
+            if ($room->image) {
+                $imagePath = public_path($room->image);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
 
-    //         $image = $request->file('image');
-    //         $imageName = time() . '.' . $image->getClientOriginalExtension();
-    //         $image->move(public_path('assets/images/rooms'), $imageName);
-    //         $room->image = 'assets/images/rooms/' . $imageName; 
-    //     }
+            $room->filterOptions()->detach();
+            $room->delete();
 
-    //     $room->room_name = $request->room_name;
-    //     $room->room_type = $request->room_type;
-    //     $room->price = $request->price;
-    //     $room->room_capacity = $request->room_capacity;
-    //     $room->facilities = $request->facilities;
-    //     $room->has_view = $request->has_view;
-    //     $room->save();
-
-    //     return redirect()->route('admin.rooms.index')->with('success', 'Room updated successfully!');
-    // }
-
-    // public function destroy($id)
-    // {
-    //     $room = Room::findOrFail($id);
-    //     // Deleting the image before deleting the room record (optional)
-    //     if ($room->image && file_exists(public_path($room->image))) {
-    //         unlink(public_path($room->image));
-    //     }
-    //     $room->delete();
-    //     return redirect()->route('admin.rooms.index')->with('success', 'Room deleted successfully!');
-    // }
+            return redirect()->route('admin.rooms.index')->with('success', 'Room deleted successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error deleting room: ' . $e->getMessage());
+        }
+    }
 }

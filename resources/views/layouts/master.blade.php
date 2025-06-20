@@ -140,62 +140,62 @@
 
 
   <footer class="text-light pt-5 pb-4">
-  <div class="container text-center text-md-start margin-top">
-    <div class="row">
-      <!-- Logo and Description -->
-      <div class="col-md-4 col-lg-4 col-xl-3 mx-auto mt-3">
-        <h6 class="text-uppercase mb-4 font-weight-bold">Stay Sphere</h6>
-        <p>
-          Providing a seamless platform for booking the best hotel rooms with comfort, ease, and luxury.
-        </p>
-        <div class="mt-4">
-          <h6 class="text-uppercase fw-bold">Contact Us</h6>
-          <ul class="list-unstyled mb-0">
-            <li><i class="bi bi-telephone-fill me-2"></i> +92 123 456 7890</li>
-            <li><i class="bi bi-envelope-fill me-2"></i> info@staysphere.com</li>
-            <li><i class="bi bi-geo-alt-fill me-2"></i> Lahore, Pakistan</li>
-          </ul>
+    <div class="container text-center text-md-start margin-top">
+      <div class="row">
+        <!-- Logo and Description -->
+        <div class="col-md-4 col-lg-4 col-xl-3 mx-auto mt-3">
+          <h6 class="text-uppercase mb-4 font-weight-bold">Stay Sphere</h6>
+          <p>
+            Providing a seamless platform for booking the best hotel rooms with comfort, ease, and luxury.
+          </p>
+          <div class="mt-4">
+            <h6 class="text-uppercase fw-bold">Contact Us</h6>
+            <ul class="list-unstyled mb-0">
+              <li><i class="bi bi-telephone-fill me-2"></i> +92 123 456 7890</li>
+              <li><i class="bi bi-envelope-fill me-2"></i> info@staysphere.com</li>
+              <li><i class="bi bi-geo-alt-fill me-2"></i> Lahore, Pakistan</li>
+            </ul>
+          </div>
         </div>
-      </div>
 
-      <!-- Quick Links -->
-      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-        <h6 class="text-uppercase mb-4 font-weight-bold">Explore</h6>
-        <p><a href="{{ route('about') }}" class="text-decoration-none">About Us</a></p>
-        <p><a href="{{ route('user.rooms.index') }}" class="text-decoration-none">Rooms</a></p>
-        <p><a href="{{ route('user.packages.index') }}" class="text-decoration-none">Packages</a></p>
-        <p><a href="{{ route('events') }}" class="text-decoration-none">Events</a></p>
-      </div>
-
-      <!-- Support & Legal -->
-      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-        <h6 class="text-uppercase mb-4 font-weight-bold">Support</h6>
-        <p><a href="{{ route('contact.index') }}" class="text-decoration-none">Contact</a></p>
-        <p><a href="{{ route('user.review.review') }}" class="text-decoration-none">Reviews</a></p>
-        <p><a href="{{ route('user.blogs.index') }}" class="text-decoration-none">Blog</a></p>
-        <p><a href="#" class="text-decoration-none">FAQs</a></p>
-      </div>
-
-      <!-- Social Media & Legal -->
-      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
-        <h6 class="text-uppercase mb-4 font-weight-bold">Connect</h6>
-        <div class="social-icons mb-4">
-          <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="text-light me-3"><i class="bi bi-instagram"></i></a>
-          <a href="#" class="text-light me-3"><i class="bi bi-twitter-x"></i></a>
-          <a href="#" class="text-light"><i class="bi bi-linkedin"></i></a>
+        <!-- Quick Links -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+          <h6 class="text-uppercase mb-4 font-weight-bold">Explore</h6>
+          <p><a href="{{ route('about') }}" class="text-decoration-none">About Us</a></p>
+          <p><a href="{{ route('user.rooms.index') }}" class="text-decoration-none">Rooms</a></p>
+          <p><a href="{{ route('user.packages.index') }}" class="text-decoration-none">Packages</a></p>
+          <p><a href="{{ route('events') }}" class="text-decoration-none">Events</a></p>
         </div>
-        <h6 class="text-uppercase mb-3 font-weight-bold">Legal</h6>
-        <p><a href="#" class="text-decoration-none">Privacy Policy</a></p>
-        <p><a href="#" class="text-decoration-none">Terms of Service</a></p>
+
+        <!-- Support & Legal -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+          <h6 class="text-uppercase mb-4 font-weight-bold">Support</h6>
+          <p><a href="{{ route('contact.index') }}" class="text-decoration-none">Contact</a></p>
+          <p><a href="{{ route('user.review.review') }}" class="text-decoration-none">Reviews</a></p>
+          <p><a href="{{ route('user.blogs.index') }}" class="text-decoration-none">Blog</a></p>
+          <p><a href="#" class="text-decoration-none">FAQs</a></p>
+        </div>
+
+        <!-- Social Media & Legal -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+          <h6 class="text-uppercase mb-4 font-weight-bold">Connect</h6>
+          <div class="social-icons mb-4">
+            <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="text-light me-3"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="text-light me-3"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="text-light"><i class="bi bi-linkedin"></i></a>
+          </div>
+          <h6 class="text-uppercase mb-3 font-weight-bold">Legal</h6>
+          <p><a href="#" class="text-decoration-none">Privacy Policy</a></p>
+          <p><a href="#" class="text-decoration-none">Terms of Service</a></p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Copyright -->
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-    © {{ date('Y') }} Stay Sphere. All rights reserved.
-  </div>
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © {{ date('Y') }} Stay Sphere. All rights reserved.
+    </div>
 </footer>
 
 {{-------------------scroll to top ------------------- --}}

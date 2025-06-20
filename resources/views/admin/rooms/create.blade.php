@@ -9,7 +9,7 @@
                     <h2 class="h5 mb-0">Add New Room</h2>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.rooms.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.rooms.store') }}" method="POST" enctype="multipart/form-data" id="room-create-form">
                         @csrf
 
                         <div class="row g-3">
@@ -23,16 +23,26 @@
                                 @enderror
                             </div>
 
+                            <!-- Room Type with Validation -->
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Room Type*</label>
-                                <select name="room_type" class="form-select @error('room_type') is-invalid @enderror" required>
-                                    <option value="">Select Room Type</option>
-                                    @foreach($roomTypes as $type)
-                                        <option value="{{ $type->value }}" {{ old('room_type') == $type->value ? 'selected' : '' }}>
-                                            {{ $type->label }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                @if($roomTypes->count() > 0)
+                                    <select name="room_type" class="form-select @error('room_type') is-invalid @enderror" required>
+                                        <option value="">Select Room Type</option>
+                                        @foreach($roomTypes as $option)
+                                            <option value="{{ $option->value }}" {{ old('room_type') == $option->value ? 'selected' : '' }}>
+                                                {{ $option->label }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                @else
+                                    <div class="alert alert-warning">
+                                        No room types found. Please <a href="{{ route('admin.filters.create') }}">create a Room Type filter</a> first.
+                                    </div>
+                                    <select name="room_type" class="form-select" disabled>
+                                        <option value="">No room types available</option>
+                                    </select>
+                                @endif
                                 @error('room_type')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -42,7 +52,7 @@
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Price (Rs.)*</label>
                                 <input type="number" name="price" class="form-control @error('price') is-invalid @enderror"
-                                       value="{{ old('price') }}" required>
+                                       value="{{ old('price') }}" min="0" step="0.01" required>
                                 @error('price')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -51,7 +61,7 @@
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Room Capacity*</label>
                                 <input type="number" name="room_capacity" class="form-control @error('room_capacity') is-invalid @enderror"
-                                       value="{{ old('room_capacity') }}" required>
+                                       value="{{ old('room_capacity') }}" min="1" required>
                                 @error('room_capacity')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -61,29 +71,38 @@
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Room Size (sq.ft)*</label>
                                 <input type="number" name="size" class="form-control @error('size') is-invalid @enderror"
-                                       value="{{ old('size') }}" required>
+                                       value="{{ old('size') }}" min="0" required>
                                 @error('size')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <!-- View Type -->
+                            <!-- View Type with Validation -->
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">View Type*</label>
-                                <select name="view_type" class="form-select @error('view_type') is-invalid @enderror" required>
-                                    <option value="">Select View Type</option>
-                                    @foreach($viewTypes as $view)
-                                        <option value="{{ $view->value }}" {{ old('view_type') == $view->value ? 'selected' : '' }}>
-                                            {{ $view->label }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                @if($viewTypes->count() > 0)
+                                    <select name="view_type" class="form-select @error('view_type') is-invalid @enderror" required>
+                                        <option value="">Select View Type</option>
+                                        @foreach($viewTypes as $option)
+                                            <option value="{{ $option->value }}" {{ old('view_type') == $option->value ? 'selected' : '' }}>
+                                                {{ $option->label }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                @else
+                                    <div class="alert alert-warning">
+                                        No view types found. Please <a href="{{ route('admin.filters.create') }}">create a View Type filter</a> first.
+                                    </div>
+                                    <select name="view_type" class="form-select" disabled>
+                                        <option value="">No view types available</option>
+                                    </select>
+                                @endif
                                 @error('view_type')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <!-- Room Features (Dynamic Filters) -->
+                            <!-- Room Features Section -->
                             <div class="col-12">
                                 <div class="card shadow-sm mt-3">
                                     <div class="card-header bg-primary text-white">
@@ -103,9 +122,9 @@
                                                                         <input class="form-check-input" type="checkbox" 
                                                                                name="features[]" 
                                                                                value="{{ $option->id }}" 
-                                                                               id="feature_{{ $option->id }}"
+                                                                               id="feature_{{ $filter->slug }}_{{ $option->id }}"
                                                                                {{ is_array(old('features')) && in_array($option->id, old('features')) ? 'checked' : '' }}>
-                                                                        <label class="form-check-label" for="feature_{{ $option->id }}">
+                                                                        <label class="form-check-label" for="feature_{{ $filter->slug }}_{{ $option->id }}">
                                                                             {{ $option->label }}
                                                                         </label>
                                                                     </div>
@@ -132,6 +151,8 @@
                             <!-- Room Image -->
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Room Image*</label>
+                                <img id="preview-image" src="#" alt="Image Preview" style="display:none; max-width: 100%; margin-top: 10px;" />
+
                                 <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" 
                                        accept="image/*" required>
                                 @error('image')
@@ -142,7 +163,7 @@
 
                             <!-- Room Description -->
                             <div class="col-md-6">
-                                <label class="form-label fw-bold">Short Description*</label>
+                                <label class="form-label fw-bold">Description*</label>
                                 <textarea name="description" class="form-control @error('description') is-invalid @enderror" 
                                           rows="3" required>{{ old('description') }}</textarea>
                                 @error('description')
@@ -166,4 +187,48 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Form submission handling
+    const form = document.getElementById('room-create-form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            // Validate required filters exist
+            const roomTypeSelect = form.querySelector('select[name="room_type"]');
+            if (roomTypeSelect && roomTypeSelect.disabled) {
+                e.preventDefault();
+                alert('Please create Room Type filters first');
+                return false;
+            }
+
+            const viewTypeSelect = form.querySelector('select[name="view_type"]');
+            if (viewTypeSelect && viewTypeSelect.disabled) {
+                e.preventDefault();
+                alert('Please create View Type filters first');
+                return false;
+            }
+
+            return true;
+        });
+    }
+
+    // Image preview functionality
+    const imageInput = document.querySelector('input[name="image"]');
+    if (imageInput) {
+        imageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    // You could add image preview here if needed
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+});
+</script>
+@endpush
 @endsection

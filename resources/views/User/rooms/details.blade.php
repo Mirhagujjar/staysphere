@@ -258,12 +258,11 @@
                 <h3>Price: Rs. {{ number_format($room->price) }}</h3>
                 <p>Capacity: {{ $room->room_capacity }} Persons</p>
                 <p>Name: {{ $room->room_name  }}</p>
-                <p>Type: {{ $room->room_type }}</p>
+                {{-- <p>Type: {{ $room->room_type }}</p> --}}
                 <p>Size: {{ $room->size }} ft²</p>  <!-- Added size display -->
                 
                 <!-- Improved facilities display -->
-                <div class="mb-2">
-                    <strong>Facilities:</strong>
+                {{-- <div class="mb-2">
                     @if(is_array($room->facilities))
                         <ul class="list-unstyled">
                             @foreach($room->facilities as $facility)
@@ -273,14 +272,27 @@
                     @else
                         <span>{{ $room->facilities }}</span>
                     @endif
-                </div>
+                </div> --}}
 
-                <p>View: {{ $room->has_view ? 'Yes' : 'No' }}</p>
+                <!-- Replace type/view display with: -->
+                @if($room->roomType)
+                    Type: {{ $room->roomType->label }}
+                @else
+                    Type: Not specified
+                @endif
+
+               <div class="mb-2">
+                    @if($room->viewType)
+                        <p>View: {{ $room->viewType->label }}</p>
+                    @else
+                        <p>View: Not specified</p>
+                    @endif
+                </div>
 
                 <!-- Room Features from Filters -->
                 @if($room->filterOptions->count() > 0)
                     <div class="mb-3">
-                        <b>Features:</b>
+                        <b>Facilities and Features:</b>
                             <ul>
                                 @foreach($room->filterOptions as $option)
                                     <li>{{ $option->label }}</li>
