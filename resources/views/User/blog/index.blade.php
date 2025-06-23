@@ -5,7 +5,6 @@
  /* ---------------hero section------------- */
     .hero-section {
         position: relative;
-        background: url('{{ asset('build/assets/images/blog/blog.jpg') }}') no-repeat center center;
         background-size: cover;
         height: 400px;
         display: flex;
@@ -87,8 +86,9 @@
     }
 </style>
 
+{{-- Hero Section --}}
 <div class="hero-section" 
-     style="background: url('{{ str_contains($settings['hero_image'], 'build/assets') ? asset($settings['hero_image']) : asset('storage/'.$settings['hero_image']) }}') no-repeat center center; background-size: cover;">
+     style="background: url('{{ asset($settings["hero_image"]) }}') no-repeat center center; background-size: cover;">
     <div class="hero-content">
         <h1 class="fw-bold">{{ $settings['title'] }}</h1>
         <p class="mb-0">{{ $settings['subtitle'] }}</p>
@@ -98,6 +98,7 @@
     </div>
 </div>
 
+{{-- Main Content --}}
 <div class="container my-5">
     <div class="row">
         <div class="col-lg-8">
@@ -107,7 +108,7 @@
                     @forelse($blogs as $blog)
                         <div class="col-md-6 mb-4">
                             <div class="card shadow-sm">
-                                <img src="{{ asset('storage/' . $blog->featured_image) }}" class="card-img-top" alt="{{ $blog->title }}">
+                                <img src="{{ asset($blog->featured_image) }}" class="card-img-top" alt="{{ $blog->title }}">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $blog->title }}</h5>
                                     <p class="text-muted small">{{ $blog->published_date->format('M d, Y') }} | By {{ $blog->author }}</p>
@@ -126,7 +127,7 @@
                     @foreach($blogs as $blog)
                         <div class="col-md-6 mb-4">
                             <div class="card shadow-sm">
-                                <img src="{{ asset('storage/' . $blog->featured_image) }}" class="card-img-top" alt="{{ $blog->title }}">
+                                <img src="{{ asset($blog->featured_image) }}" class="card-img-top" alt="{{ $blog->title }}">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $blog->title }}</h5>
                                     <p class="text-muted small">{{ $blog->published_date->format('M d, Y') }} | By {{ $blog->author }}</p>

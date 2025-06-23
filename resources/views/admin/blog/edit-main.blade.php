@@ -30,20 +30,16 @@
             <form action="{{ route('admin.blog.main.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
+                {{-- Hero Image --}}
                 <div class="form-group">
                     <label>Current Hero Image</label><br>
                     @php
-                        $heroImage = $settings['hero_image'] ?? 'build/assets/images/blog/blog.jpg';
-                        $heroImageUrl = str_contains($heroImage, 'storage/') 
-                            ? asset($heroImage) 
-                            : (str_contains($heroImage, 'build/') 
-                                ? asset($heroImage) 
-                                : asset('storage/'.$heroImage));
+                        $heroImage = $settings['hero_image'] ?? 'assets/images/blog/blog.jpg';
                     @endphp
-                    <img src="{{ $heroImageUrl }}" 
-                        style="max-height: 200px;" 
-                        class="mb-3 img-thumbnail"
-                        onerror="this.src='{{ asset('build/assets/images/blog/blog.jpg') }}'">
+                    <img src="{{ asset($heroImage) }}"
+                         style="max-height: 200px;"
+                         class="mb-3 img-thumbnail"
+                         onerror="this.src='{{ asset('assets/images/blog/blog.jpg') }}'">
                 </div>
 
                 <div class="form-group">
@@ -52,36 +48,54 @@
                     <small class="text-muted">Recommended size: 1920x600px</small>
                 </div>
 
+                {{-- Title & Subtitle --}}
                 <div class="form-group">
                     <label for="title">Main Title</label>
-                    <input type="text" name="title" id="title" class="form-control" 
+                    <input type="text" name="title" id="title" class="form-control"
                            value="{{ old('title', $settings['title'] ?? '') }}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="subtitle">Subtitle</label>
-                    <input type="text" name="subtitle" id="subtitle" class="form-control" 
+                    <input type="text" name="subtitle" id="subtitle" class="form-control"
                            value="{{ old('subtitle', $settings['subtitle'] ?? '') }}" required>
                 </div>
 
+                {{-- Gallery --}}
                 <div class="form-group">
                     <label>Gallery Images</label>
                     <div class="row mb-3">
-                        @foreach(($settings['gallery_images'] ?? []) as $index => $image)
-                            @php
-                                $imagePath = is_string($image) ? $image : ($image['path'] ?? '');
-                            @endphp
-                            @if($imagePath)
-                                <div class="col-md-3 mb-3 position-relative">
-                                    <img src="{{ asset('storage/'.$imagePath) }}" class="img-fluid rounded">
-                                    <a href="{{ route('admin.blog.main.delete-image', $index) }}" 
-                                       class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1"
-                                       onclick="return confirm('Are you sure you want to delete this image?')">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </div>
-                            @endif
-                        @endforeach
+                       @foreach($settings['gallery_images'] as $index => $image)
+                            <div class="gallery-item">
+                                <img src="{{ asset($image) }}" width="150">
+                                <button onclick="deleteImage(event, {{ $index }})" class="btn btn-sm btn-danger">Delete</button>
+                            </div>
+                       @endforeach
+
+                        <script>
+                            function deleteImage(e, index) {
+                                e.preventDefault();
+                                
+                                if (confirm('Are you sure?')) {
+                                    fetch(`/admin/main/gallery/${index}`, {
+                                        method: 'DELETE',
+                                        headers: {
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                            'Content-Type': 'application/json',
+                                            'Accept': 'application/json'
+                                        }
+                                    })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            window.location.reload();
+                                        } else {
+                                            alert('Error deleting image');
+                                        }
+                                    })
+                                    .catch(error => console.error('Error:', error));
+                                }
+                            }
+                        </script>
                     </div>
                     <input type="file" name="gallery_images[]" multiple class="form-control-file">
                     <small class="text-muted">Add more images to the gallery section</small>

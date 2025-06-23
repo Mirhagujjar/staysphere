@@ -9,7 +9,7 @@ use App\Models\BlogGallery;
 use App\Models\PageSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class BlogController extends Controller
 {
@@ -18,7 +18,7 @@ class BlogController extends Controller
         $page = PageSetting::firstOrCreate(
             ['page_name' => 'blog_main'],
             ['settings' => [
-                'hero_image' => 'build/assets/images/blog/blog.jpg',
+                'hero_image' => 'assets/images/blog/blog.jpg',
                 'title' => 'Blog',
                 'subtitle' => 'Latest travel tips, exclusive offers & hotel updates',
                 'gallery_images' => []
@@ -42,58 +42,50 @@ class BlogController extends Controller
         ]);
 
         $page = PageSetting::where('page_name', 'blog_main')->firstOrNew();
-        
-        // Properly decode settings if it's a JSON string
+
         $settings = is_string($page->settings) ? json_decode($page->settings, true) : ($page->settings ?? []);
-        
-        // Initialize gallery_images if it doesn't exist
         if (!isset($settings['gallery_images'])) {
             $settings['gallery_images'] = [];
         }
 
-        // Handle hero image upload
         if ($request->hasFile('hero_image')) {
-            // Delete old hero image if exists
-            if (isset($settings['hero_image']) && $settings['hero_image'] !== 'build/assets/images/blog/blog.jpg') {
-                Storage::delete('public/' . $settings['hero_image']);
+            if (isset($settings['hero_image']) && File::exists(public_path($settings['hero_image'])) && $settings['hero_image'] !== 'assets/images/blog/blog.jpg') {
+                File::delete(public_path($settings['hero_image']));
             }
-            
-            $path = $request->file('hero_image')->store('pages/blog', 'public');
+
+            $image = $request->file('hero_image');
+            $path = 'assets/images/pages/blog/' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/images/pages/blog'), basename($path));
             $settings['hero_image'] = $path;
         }
 
-        // Handle gallery uploads
         if ($request->hasFile('gallery_images')) {
             $gallery = $settings['gallery_images'] ?? [];
             foreach ($request->file('gallery_images') as $image) {
-                $path = $image->store('pages/blog', 'public');
+                $path = 'assets/images/pages/blog/' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('assets/images/pages/blog'), basename($path));
                 $gallery[] = $path;
             }
             $settings['gallery_images'] = $gallery;
         }
 
-        // Update text fields
         $settings['title'] = $request->title;
         $settings['subtitle'] = $request->subtitle;
 
         $page->page_name = 'blog_main';
-        $page->settings = $settings; // Laravel will automatically encode to JSON
+        $page->settings = $settings;
         $page->save();
 
         return back()->with('success', 'Page updated successfully!');
     }
 
-   
-
     public function deleteMainGalleryImage($index)
     {
         $page = PageSetting::where('page_name', 'blog_main')->firstOrFail();
-        
-        // Properly decode settings
         $settings = is_string($page->settings) ? json_decode($page->settings, true) : ($page->settings ?? []);
-        
+
         if (isset($settings['gallery_images'][$index])) {
-            Storage::delete('public/' . $settings['gallery_images'][$index]);
+            File::delete(public_path($settings['gallery_images'][$index]));
             array_splice($settings['gallery_images'], $index, 1);
             $page->settings = $settings;
             $page->save();
@@ -133,10 +125,17 @@ class BlogController extends Controller
 
         $data = $request->except(['categories', 'gallery_images']);
         $data['slug'] = Str::slug($request->title);
-        $data['featured_image'] = $request->file('featured_image')->store('blogs', 'public');
-        
+
+        $featured = $request->file('featured_image');
+        $featuredPath = 'assets/images/blogs/' . uniqid() . '.' . $featured->getClientOriginalExtension();
+        $featured->move(public_path('assets/images/blogs'), basename($featuredPath));
+        $data['featured_image'] = $featuredPath;
+
         if ($request->hasFile('hero_image')) {
-            $data['hero_image'] = $request->file('hero_image')->store('blogs', 'public');
+            $hero = $request->file('hero_image');
+            $heroPath = 'assets/images/blogs/' . uniqid() . '.' . $hero->getClientOriginalExtension();
+            $hero->move(public_path('assets/images/blogs'), basename($heroPath));
+            $data['hero_image'] = $heroPath;
         }
 
         $blog = Blog::create($data);
@@ -147,12 +146,13 @@ class BlogController extends Controller
 
         if ($request->hasFile('gallery_images')) {
             foreach ($request->file('gallery_images') as $image) {
-                $path = $image->store('blogs/gallery', 'public');
+                $path = 'assets/images/blogs/gallery/' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('assets/images/blogs/gallery'), basename($path));
                 $blog->gallery()->create(['image_path' => $path]);
             }
         }
 
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully');
+        return redirect()->route('admin.gallery')->with('success', 'Blog created successfully');
     }
 
     public function edit(Blog $blog)
@@ -179,17 +179,23 @@ class BlogController extends Controller
         ]);
 
         $data = $request->except(['categories', 'gallery_images']);
-        
+
         if ($request->hasFile('featured_image')) {
-            Storage::delete('public/' . $blog->featured_image);
-            $data['featured_image'] = $request->file('featured_image')->store('blogs', 'public');
+            File::delete(public_path($blog->featured_image));
+            $image = $request->file('featured_image');
+            $path = 'assets/images/blogs/' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/images/blogs'), basename($path));
+            $data['featured_image'] = $path;
         }
-        
+
         if ($request->hasFile('hero_image')) {
             if ($blog->hero_image) {
-                Storage::delete('public/' . $blog->hero_image);
+                File::delete(public_path($blog->hero_image));
             }
-            $data['hero_image'] = $request->file('hero_image')->store('blogs', 'public');
+            $image = $request->file('hero_image');
+            $path = 'assets/images/blogs/' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/images/blogs'), basename($path));
+            $data['hero_image'] = $path;
         }
 
         $blog->update($data);
@@ -198,12 +204,12 @@ class BlogController extends Controller
             $blog->categories()->sync($request->categories);
         }
 
-       
         if ($request->hasFile('gallery_images')) {
-        foreach ($request->file('gallery_images') as $image) {
-            $path = $image->store('pages/blog', 'public'); // Consistent with your existing paths
-            $settings['gallery_images'][] = $path;
-        }
+            foreach ($request->file('gallery_images') as $image) {
+                $path = 'assets/images/blogs/gallery/' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('assets/images/blogs/gallery'), basename($path));
+                $blog->gallery()->create(['image_path' => $path]);
+            }
         }
 
         return redirect()->route('admin.blogs.index')->with('success', 'Blog updated successfully');
@@ -211,23 +217,31 @@ class BlogController extends Controller
 
     public function destroy(Blog $blog)
     {
-        Storage::delete('public/' . $blog->featured_image);
+        File::delete(public_path($blog->featured_image));
         if ($blog->hero_image) {
-            Storage::delete('public/' . $blog->hero_image);
+            File::delete(public_path($blog->hero_image));
         }
-        
+
         foreach ($blog->gallery as $image) {
-            Storage::delete('public/' . $image->image_path);
+            File::delete(public_path($image->image_path));
         }
-        
+
         $blog->delete();
         return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted successfully');
     }
 
-    // public function deleteGalleryImage(BlogGallery $image)
+    // public function deleteGalleryImage($id)
     // {
-    //     Storage::delete('public/' . $image->image_path);
+    //     $image = BlogGallery::findOrFail($id);
+        
+    //     // Delete the physical file
+    //     if (Storage::exists(str_replace('storage/', 'public/', $image->image_path))) {
+    //         Storage::delete(str_replace('storage/', 'public/', $image->image_path));
+    //     }
+        
+    //     // Delete the database record
     //     $image->delete();
+        
     //     return back()->with('success', 'Image deleted successfully');
     // }
 
@@ -237,4 +251,68 @@ class BlogController extends Controller
         $blog->save();
         return back()->with('success', 'Status updated successfully');
     }
+
+//     public function gallery()
+// {
+//     $page = PageSetting::firstOrCreate(
+//     ['page_name' => 'blog_main'],
+//     ['settings' => [
+//         'hero_image' => 'assets/images/blog/blog.jpg',
+//         'title' => 'Blog',
+//         'subtitle' => 'Latest travel tips, exclusive offers & hotel updates',
+//         'gallery_images' => []
+//     ]]
+// );
+
+
+
+//     $settings = is_array($page->settings) ? $page->settings : json_decode($page->settings, true);
+//     return view('admin.gallery', compact('settings'));
+// }
+
+// public function updateGallery(Request $request)
+// {
+//     $request->validate([
+//         'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+//     ]);
+
+//     $page = PageSetting::where('page_name', 'blog_main')->firstOrFail();
+//     $settings = is_array($page->settings) ? $page->settings : json_decode($page->settings, true);
+
+//     if (!isset($settings['gallery_images'])) {
+//         $settings['gallery_images'] = [];
+//     }
+
+//     if ($request->hasFile('gallery_images')) {
+//         foreach ($request->file('gallery_images') as $image) {
+//             $path = 'assets/images/pages/blog/' . uniqid() . '.' . $image->getClientOriginalExtension();
+//             $image->move(public_path('assets/images/pages/blog'), basename($path));
+//             $settings['gallery_images'][] = $path;
+//         }
+//     }
+
+//     $page->settings = $settings;
+//     $page->save();
+
+//     return back()->with('success', 'Gallery updated successfully!');
+// }
+
+// public function deleteGalleryImage($index)
+// {
+//     $page = PageSetting::where('page_name', 'blog_main')->firstOrFail();
+//     $settings = is_array($page->settings) ? $page->settings : json_decode($page->settings, true);
+
+//     if (isset($settings['gallery_images'][$index])) {
+//         $imagePath = public_path($settings['gallery_images'][$index]);
+//         if (file_exists($imagePath)) {
+//             unlink($imagePath);
+//         }
+//         array_splice($settings['gallery_images'], $index, 1);
+//         $page->settings = $settings;
+//         $page->save();
+//     }
+
+//     return response()->json(['success' => true]);
+// }
+
 }

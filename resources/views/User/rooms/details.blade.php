@@ -2,370 +2,219 @@
 
 @section('content')
 <style>
-    * {
-        font-family: "Montserrat", Helvetica, sans-serif;
-        box-sizing: border-box;
+    :root {
+        --primary-color: #2C3E50;
+        --secondary-color: #1ABC9C;
+        --accent-color: #F1C40F;
+        --dark-color: #343A40;
+        --light-color: #F8F9FA;
+        --text-dark: #2C3E50;
+        --text-light: #F8F9FA;
+        --text-muted: #6C757D;
     }
 
-    html,
-    body {
-        overflow-x: hidden;
-        margin: 0;
-        padding: 0;
-    }
-
-    /* <!------------------------------- Top Banner ------------------------> */
-    .half-screen-image {
-        position: relative;
+    .room-detail-hero {
         height: 70vh;
-        background: url('{{ asset('build/assets/images/r.jpg') }}') center/cover no-repeat;
-    }
-
-    .overlay-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        color: #F8F9FA;
-    }
-
-    .overlay-text h1 {
-        font-size: 3rem;
-        font-weight: bold;
-    }
-
-    .link-container {
-        margin-top: 10px;
-        font-size: 20px;
-        font-weight: 500;
-        color: #F8F9FA;
-    }
-
-    .link-container a {
-        text-decoration: none;
-        color: #F1C40F;
-    }
-
-    .link-container a:hover {
-        color: #1ABC9C;
-    }
-
-    /* <!--------------------- Room Section -------------------------------> */
-    .section-title h2 {
-        font-size: 35px;
-        font-weight: 600;
-        margin-top: 0;
-        line-height: 1.4;
-        color: #2C3E50;
-        margin-bottom: 0;
-    }
-
-    .text-center {
-        text-align: center;
-    }
-
-    /* ---------------------------------cards------------------------------ */
-    .g-4 {
-        padding: 10px;
-    }
-
-    .card {
-        margin-top: 60px;
-        position: relative;
-        background-color: #343A40;
-        color: #F8F9FA;
-    }
-
-    .card-title {
-        font-size: 1.2rem;
-        font-weight: bold;
-        text-align: center;
-    }
-
-    .card-text {
-        text-align: center;
-        font-size: 1rem;
-    }
-
-    /* ----------------Badges-----------------------*/
-    .badge {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        padding: 5px 10px;
-        font-size: 0.9rem;
-    }
-
-    /* ----------------------Card Hover------------------------ */
-    .card-hover {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .card-hover .card-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
-        color: white;
+        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                    url('{{ asset($room->image) }}') center/cover no-repeat;
         display: flex;
-        flex-direction: column;
+        align-items: center;
         justify-content: center;
-        align-items: center;
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
-    }
-
-    .card-hover:hover .card-overlay {
-        opacity: 1;
-    }
-
-    .card-overlay .details {
-        font-size: 0.9rem;
-        margin-bottom: 10px;
         text-align: center;
+        color: var(--text-light);
     }
 
-    .card-overlay .btn-book {
-        background-color: #F1C40F;
-        color: white;
-        padding: 8px 15px;
-        font-size: 0.9rem;
-        border-radius: 5px;
-        cursor: pointer;
-        text-decoration: none;
-    }
-
-    /* -----------------------Facilities----------------------------- */
-    .facilities-section {
-        margin-top: 100px;
-        margin-bottom: 100px;
-        padding: 50px 20px;
-        background: url('{{ asset('build/assets/images/rf.jpg') }}') center/cover no-repeat;
-        position: relative;
-        color: #fff;
-    }
-
-    .facilities-section h2 {
-        font-size: 4rem;
-        text-align: center;
-        margin-bottom: 30px;
-        color: #131111;
-    }
-
-    .facility-item {
-        background-color: rgba(0, 0, 0, 0.6);
-        padding: 20px;
-        border-radius: 10px;
-        transition: transform 0.3s ease;
-        color: #fff;
-    }
-
-    .facility-item i {
-        font-size: 2rem;
-        color: #F1C40F;
-        margin-bottom: 10px;
-    }
-
-    .facility-item:hover {
-        transform: scale(1.1);
-    }
-
-    /* -------------------last----------------- */
-    .margin_120_95 {
-        padding-top: 120px;
-        padding-bottom: 95px;
-    }
-
-    .title small {
-        text-transform: uppercase;
-        color: #2C3E50;
-        letter-spacing: 3px;
-        font-weight: 600;
-        font-size: 0.75rem;
-    }
-
-    .title h2 {
+    .room-detail-hero h1 {
+        font-size: 3.5rem;
         font-weight: 700;
-        font-size: 2.375rem;
-        color: #333;
-        margin-bottom: 15px;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
 
-    .phone_element a {
-        display: flex;
-        align-items: center;
+    .breadcrumb {
+        background: transparent;
+        justify-content: center;
+    }
+
+    .breadcrumb-item a {
+        color: var(--accent-color);
         text-decoration: none;
-        color: #978667;
+        transition: color 0.3s;
     }
 
-    .phone_element a i {
-        margin-right: 15px;
-        font-size: 1.875rem;
-        color: #2C3E50;
+    .breadcrumb-item a:hover {
+        color: var(--secondary-color);
     }
 
-    .phone_element a span {
-        font-size: 1.125rem;
+    .breadcrumb-item.active {
+        color: var(--text-light);
+    }
+
+    .room-feature-card {
+        border: none;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .room-feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .feature-icon {
+        font-size: 1.5rem;
+        margin-right: 10px;
+        color: var(--secondary-color);
+    }
+
+    .booking-card {
+        background-color: rgba(241, 196, 15, 0.05);
+        border-radius: 15px;
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .btn-book {
+        background-color: var(--accent-color);
+        color: var(--text-dark);
         font-weight: 600;
-        color: #2C3E50;
+        padding: 12px 30px;
+        border-radius: 50px;
+        transition: all 0.3s;
     }
 
-    .booking_wrapper {
-        background-color: rgba(151, 134, 103, 0.05);
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    .btn-book:hover {
+        background-color: var(--secondary-color);
+        color: var(--text-light);
+        transform: translateY(-2px);
     }
 
-    /* -----------------------filters- */
-    .filters-sidebar {
-        position: sticky;
-        top: 100px;
-        background: #343A40;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-        margin-left: 20px;
+    .amenity-badge {
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 50px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+
+    .price-display {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--secondary-color);
+    }
+
+    .availability-badge {
+        font-size: 1rem;
+        padding: 8px 15px;
     }
 </style>
 
-    <!------------------------------- Top Banner ------------------------>
-    <div class="half-screen-image">
-        <div class="overlay-text">
-            <h1>{{ $room->room_name }}</h1>
-            <p>Indulge in the ultimate blend of elegance and comfort in our meticulously designed rooms.</p>
-            <div class="link-container">
-                <a href="/">Home</a> > <a href="{{ route('user.rooms.index') }}">Rooms</a> > {{ $room->room_name }}
-            </div>
-        </div>
+<!-- Hero Section -->
+<section class="room-detail-hero">
+    <div class="container">
+        <h1>{{ $room->room_name }}</h1>
+        <p class="lead mb-4">Experience unparalleled comfort and luxury</p>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('user.rooms.index') }}">Rooms</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $room->room_name }}</li>
+            </ol>
+        </nav>
     </div>
+</section>
 
-    <!--------------------- Room Details Section ------------------------------->
-    <div class="container my-5">
-        <div class="section-title text-center">
-            <h2>Room Details</h2>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <img src="{{ asset($room->image) }}" alt="{{ $room->room_name }}" class="img-thumbnail" style="max-width: 500px; height: auto;">
+<!-- Room Details Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-5">
+            <!-- Room Image -->
+            <div class="col-lg-7">
+                <div class="room-feature-card shadow-sm">
+                    <img src="{{ asset($room->image) }}" alt="{{ $room->room_name }}" class="img-fluid rounded-3 w-100">
+                </div>
             </div>
-            <div class="col-md-6">
-                <h3>Price: Rs. {{ number_format($room->price) }}</h3>
-                <p>Capacity: {{ $room->room_capacity }} Persons</p>
-                <p>Name: {{ $room->room_name  }}</p>
-                {{-- <p>Type: {{ $room->room_type }}</p> --}}
-                <p>Size: {{ $room->size }} ft²</p>  <!-- Added size display -->
-                
-                <!-- Improved facilities display -->
-                {{-- <div class="mb-2">
-                    @if(is_array($room->facilities))
-                        <ul class="list-unstyled">
-                            @foreach($room->facilities as $facility)
-                                <li>{{ $facility }}</li>
-                            @endforeach
-                        </ul>
-                    @else
-                        <span>{{ $room->facilities }}</span>
-                    @endif
-                </div> --}}
 
-                <!-- Replace type/view display with: -->
-                @if($room->roomType)
-                    Type: {{ $room->roomType->label }}
-                @else
-                    Type: Not specified
-                @endif
-
-               <div class="mb-2">
-                    @if($room->viewType)
-                        <p>View: {{ $room->viewType->label }}</p>
+            <!-- Room Info -->
+            <div class="col-lg-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="mb-0">{{ $room->room_name }}</h2>
+                    @if(isset($checkIn) && isset($checkOut) && $room->isBooked($checkIn, $checkOut))
+                        <span class="badge bg-danger availability-badge">Booked</span>
                     @else
-                        <p>View: Not specified</p>
+                        <span class="badge bg-success availability-badge">Available</span>
                     @endif
                 </div>
 
-                <!-- Room Features from Filters -->
-                @if($room->filterOptions->count() > 0)
-                    <div class="mb-3">
-                        <b>Facilities and Features:</b>
-                            <ul>
-                                @foreach($room->filterOptions as $option)
-                                    <li>{{ $option->label }}</li>
-                                @endforeach
-                            </ul>
+                <div class="price-display mb-4">Rs. {{ number_format($room->price) }} <small class="text-muted">/ night</small></div>
+
+                <!-- Description -->
+                <div class="mb-5">
+                    <h4 class="mb-3"><i class="bi bi-card-text feature-icon"></i>Description</h4>
+                    <p class="text-muted">{{ $room->description ?? 'This beautiful room offers premium comfort and luxury amenities for your perfect stay.' }}</p>
+                </div>
+
+                <!-- Room Specifications -->
+                <div class="mb-5">
+                    <h4 class="mb-3"><i class="bi bi-info-circle feature-icon"></i>Room Specifications</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <p><i class="bi bi-people-fill text-primary me-2"></i> 
+                                <strong>Capacity:</strong> {{ $room->room_capacity }} Persons</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <p><i class="bi bi-arrows-angle-expand text-primary me-2"></i> 
+                                <strong>Size:</strong> {{ $room->size }} ft²</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <p><i class="bi bi-building text-primary me-2"></i> 
+                                <strong>Type:</strong> {{ $room->roomType->label ?? 'Not specified' }}</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <p><i class="bi bi-binoculars-fill text-primary me-2"></i> 
+                                <strong>View:</strong> {{ $room->view_type ?? 'Not specified' }}</p> <!-- FIXED -->
+                        </div>
                     </div>
-                @endif
+                </div>
 
-                @if (isset($checkIn) && isset($checkOut) && $room->isBooked($checkIn, $checkOut))
-                    <p class="text-danger">This room is already booked.</p>
-                @else
-                    <span class="badge bg-success">Available</span>
-                    <a href="{{ route('user.reservations.create', ['room_id' => $room->id]) }}" class="btn btn-warning mt-3">
-                        Book Now
+                <!-- Book Now Button -->
+                @unless(isset($checkIn) && isset($checkOut) && $room->isBooked($checkIn, $checkOut))
+                    <a href="{{ route('user.reservations.create', ['room_id' => $room->id]) }}" 
+                       class="btn btn-book w-100 py-3">
+                       <i class="bi bi-calendar-check me-2"></i> Book Now
                     </a>
-                @endif
+                @endunless
             </div>
         </div>
     </div>
+</section>
 
+<!-- Amenities Section -->
+@if($room->filterOptions->count() > 0)
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 mb-3">Amenities & Features</h2>
+            <p class="text-muted">Everything you need for a comfortable stay</p>
+        </div>
 
-    {{-- -------------------------Booking Section---------------------- --}}
-    <div class="container py-5" id="booking_section">
-        <div class="row justify-content-between align-items-center">
-            <div class="col-xl-4 mb-4">
-                <div class="title">
-                    <small>StaySphere Hotel</small>
-                    <h2>Check Availability</h2>
-                </div>
-                <p>Discover the ultimate luxury experience. Book your stay with us for unforgettable memories.</p>
-                <p class="phone_element no_borders">
-                    <a href="tel://423424234">
-                        <i class="bi bi-telephone-fill"></i>
-                        <span>
-                            <em>Info and bookings</em> <br>+92 123 456 7890
-                        </span>
-                    </a>
-                </p>
-            </div>
-
-            <div class="col-xl-7">
-                <div class="booking_wrapper bg-light p-4 rounded shadow">
-                    <form>
-                        <div class="mb-3">
-                            <input type="date" class="form-control" id="date_booking" name="date_booking" placeholder="Select Date">
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6 mb-3">
-                                <select class="form-select">
-                                    <option>Select Room</option>
-                                    <option>{{ $room->room_name }}</option>
-                                </select>
-                            </div>
-
-                            <div class="col-lg-6 mb-3">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <input type="number" class="form-control" id="adults_booking" placeholder="Adults">
-                                    </div>
-                                    <div class="col-6">
-                                        <input type="number" class="form-control" id="childs_booking" placeholder="Children">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="text-end">
-                            <button type="submit" class="rounded-pill px-4 py-2">Book Now</button>
-                        </div>
-                    </form>
+        <div class="row g-4">
+            @foreach($room->filterOptions->groupBy('filter.name') as $filterName => $options)
+            <div class="col-md-6 col-lg-4">
+                <div class="room-feature-card bg-white p-4 h-100">
+                    <h4 class="mb-4"><i class="bi bi-star-fill text-warning me-2"></i>{{ $filterName }}</h4>
+                    <ul class="list-unstyled">
+                        @foreach($options as $option)
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>{{ $option->label }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
+</section>
+@endif
 @endsection

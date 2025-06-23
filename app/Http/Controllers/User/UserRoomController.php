@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Models\Reservation;
+use App\Models\Facility;
+
 use App\Models\Filter;
 
 class UserRoomController extends Controller 
 {
-    public function index(Request $request)
+   public function index(Request $request)
     {
         // Get all active filters with their active options
         $filters = Filter::where('is_active', true)
@@ -63,7 +65,32 @@ class UserRoomController extends Controller
         // Paginate and retain filter params in URL
         $rooms = $query->paginate(12)->appends($request->query());
 
-        return view('user.rooms.index', compact('rooms', 'filters'));
+        // Get featured room for hero section
+        $heroRoom = Room::whereNotNull('hero_image')
+                    ->orWhereNotNull('hero_title')
+                    ->inRandomOrder()
+                    ->first();
+
+        // Get active facilities
+        $facilities = Facility::where('is_active', true)
+                            ->orderBy('sort_order')
+                            ->get();
+
+        // Get facilities background image
+        $facilitiesBackground = Facility::whereNotNull('background_image')
+                                    ->value('background_image');
+
+        // Prepare hero section data with fallbacks
+        $heroData = [
+            'hero_title' => $heroRoom->hero_title ?? 'Our Rooms',
+            'hero_description' => $heroRoom->hero_description ?? 'Indulge in the ultimate blend of elegance and comfort',
+            'hero_image' => $heroRoom->hero_image ?? 'build/assets/images/r.jpg'
+        ];
+
+        return view('user.rooms.index', array_merge(
+            compact('rooms', 'filters', 'facilities', 'facilitiesBackground'),
+            $heroData
+        ));
     }
 
 

@@ -11,16 +11,34 @@ class Room extends Model
 {
     use HasFactory;
 
+    // protected $fillable = [
+    //     'room_name',
+    //     'room_type',
+    //     'price',
+    //     'room_capacity',
+    //     'facilities', 
+    //     'has_view',
+    //     'image',
+    //     'size',
+    //      'hero_title',
+    //     'hero_description', 
+    //     'hero_image',
+    // ];
+
     protected $fillable = [
-        'room_name',
-        'room_type',
-        'price',
-        'room_capacity',
-        'facilities', // JSON field for basic facilities
-        'has_view',
-        'image',
-        'size',
-    ];
+    'room_name',
+    'room_type',
+    'price',
+    'room_capacity',
+    'size',
+    'view_type',
+    'description',
+    'image',
+    'hero_title',
+    'hero_description',
+    'hero_image',
+    'is_booked'
+];
 
     protected $casts = [
         'has_view' => 'boolean',
@@ -98,8 +116,8 @@ class Room extends Model
 
         // Third priority: View type
         if (isset($filters['view_type'])) {
-            $query->where('has_view', true);
-        }
+              $query->where('view_type', $filters['view_type']);
+            }
 
         // Fourth priority: Star Rating, Special Offers, Packages and other filters
         $otherFilters = array_diff_key($filters, array_flip(['min_price', 'max_price', 'room_type', 'view_type']));

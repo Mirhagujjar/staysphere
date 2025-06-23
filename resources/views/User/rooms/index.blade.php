@@ -1,248 +1,283 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        * {
-            font-family: "Montserrat", Helvetica, sans-serif;
-            box-sizing: border-box;
-        }
 
-        html,
-        body {
-            overflow-x: hidden;
-            margin: 0;
-            padding: 0;
+@if(session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
+@if(session('error'))
+    <div class="alert alert-danger">{{ session('error') }}</div>
+@endif
 
-        }
+<style>
+    * {
+        font-family: "Montserrat", Helvetica, sans-serif;
+        box-sizing: border-box;
+    }
 
-        /* <!------------------------------- Top Banner ------------------------> */
-        .half-screen-image {
-            position: relative;
-            height: 70vh;
-            background: url('{{ asset('build/assets/images/r.jpg') }}') center/cover no-repeat;
-        }
+    html,
+    body {
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
 
-        .overlay-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #F8F9FA;
-        }
+    }
 
-        .overlay-text h1 {
-            font-size: 3rem;
-            font-weight: bold;
-        }
+    /* <!------------------------------- Top Banner ------------------------> */
 
-        .link-container {
-            margin-top: 10px;
-            font-size: 20px;
-            font-weight: 500;
-            color: #F8F9FA;
-        }
+    .hero-dynamic {
+        background-image: url('{{ asset($heroImage ?? 'build/assets/images/r.jpg') }}') !important;
+    }
+    .half-screen-image {
+        position: relative;
+        height: 70vh;
+        background: url('{{ asset('build/assets/images/r.jpg') }}') center/cover no-repeat;
+    }
 
-        .link-container a {
-            text-decoration: none;
-            color: #F1C40F;
-        }
+    .overlay-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #F8F9FA;
+    }
 
-        .link-container a:hover {
-            color: #1ABC9C;
-        }
+    .overlay-text h1 {
+        font-size: 3rem;
+        font-weight: bold;
+    }
 
-        /* <!--------------------- Room Section -------------------------------> */
-        .section-title h2 {
-            font-size: 35px;
-            font-weight: 600;
-            margin-top: 0;
-            line-height: 1.4;
-            color: #2C3E50;
-            margin-bottom: 0;
-        }
+    .link-container {
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: 500;
+        color: #F8F9FA;
+    }
 
-        .text-center {
-            text-align: center;
-        }
+    .link-container a {
+        text-decoration: none;
+        color: #F1C40F;
+    }
 
-        /* ---------------------------------cards------------------------------ */
-        .g-4 {
-            padding: 10px;
-        }
+    .link-container a:hover {
+        color: #1ABC9C;
+    }
 
-        .card {
-            margin-top: 60px;
-            position: relative;
-            background-color: #343A40;
-            color: #F8F9FA;
-        }
+    /* <!--------------------- Room Section -------------------------------> */
+    .section-title h2 {
+        font-size: 35px;
+        font-weight: 600;
+        margin-top: 0;
+        line-height: 1.4;
+        color: #2C3E50;
+        margin-bottom: 0;
+    }
 
-        .card-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-align: center;
-        }
+    .text-center {
+        text-align: center;
+    }
 
-        .card-text {
-            text-align: center;
-            font-size: 1rem;
-        }
+    /* ---------------------------------cards------------------------------ */
+    .g-4 {
+        padding: 10px;
+    }
 
-        /* ----------------Badges-----------------------*/
-        .badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 5px 10px;
-            font-size: 0.9rem;
-        }
+    .card {
+        margin-top: 60px;
+        position: relative;
+        background-color: #343A40;
+        color: #F8F9FA;
+    }
 
-        /* ----------------------Card Hover------------------------ */
-        .card-hover {
-            position: relative;
-            overflow: hidden;
-        }
+    .card-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+    }
 
-        .card-hover .card-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
+    .card-text {
+        text-align: center;
+        font-size: 1rem;
+    }
 
-        .card-hover:hover .card-overlay {
-            opacity: 1;
-        }
+    /* ----------------Badges-----------------------*/
+    .badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 5px 10px;
+        font-size: 0.9rem;
+    }
 
-        .card-overlay .details {
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            text-align: center;
-        }
+    /* ----------------------Card Hover------------------------ */
+    .card-hover {
+        position: relative;
+        overflow: hidden;
+    }
 
-        .card-overlay .btn-book {
-            background-color: #F1C40F;
-            color: white;
-            padding: 8px 15px;
-            font-size: 0.9rem;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
+    .card-hover .card-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
 
-        /* -----------------------Facilities----------------------------- */
-        .facilities-section {
-            margin-top: 100px;
-            margin-bottom: 100px;
-            padding: 50px 20px;
-            background: url('{{ asset('build/assets/images/rf.jpg') }}') center/cover no-repeat;
-            position: relative;
-            color: #fff;
-        }
+    .card-hover:hover .card-overlay {
+        opacity: 1;
+    }
 
-        .facilities-section h2 {
-            font-size: 4rem;
-            text-align: center;
-            margin-bottom: 30px;
-            color: #111111;
-        }
+    .card-overlay .details {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        text-align: center;
+    }
 
-        .facility-item {
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-            color: #fff;
-        }
+    .card-overlay .btn-book {
+        background-color: #F1C40F;
+        color: white;
+        padding: 8px 15px;
+        font-size: 0.9rem;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
 
-        .facility-item i {
-            font-size: 2rem;
-            color: #F1C40F;
-            margin-bottom: 10px;
-        }
+    /* -----------------------Facilities----------------------------- */
+   .facilities-section {
+        margin-top: 100px;
+        margin-bottom: 100px;
+        padding: 50px 20px;
+        position: relative;
+        color: #fff;
+        /* Background is now handled inline via dynamic image */
+    }
 
-        .facility-item:hover {
-            transform: scale(1.1);
-        }
+    .facilities-section h2 {
+        font-size: 4rem;
+        text-align: center;
+        margin-bottom: 30px;
+        color: #ffffff; /* Changed from #111111 for better contrast on dark bg */
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Added for better readability */
+    }
 
-        /* -------------------last----------------- */
-        .margin_120_95 {
-            padding-top: 120px;
-            padding-bottom: 95px;
-        }
+    /* Facility Cards - Black Version */
+    .facility-item {
+        background-color: rgba(0, 0, 0, 0.85); /* Semi-transparent black */
+        padding: 25px 20px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        color: #ffffff;
+        height: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
 
-        .title small {
-            text-transform: uppercase;
-            color: #2C3E50;
-            letter-spacing: 3px;
-            font-weight: 600;
-            font-size: 0.75rem;
-        }
+    .facility-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        background-color: rgba(0, 0, 0, 0.9); /* Slightly darker on hover */
+    }
 
-        .title h2 {
-            font-weight: 700;
-            font-size: 2.375rem;
-            color: #333;
-            margin-bottom: 15px;
-        }
+    .facility-item i {
+        font-size: 2.2rem;
+        color: #F1C40F; /* Gold accent color */
+        margin-bottom: 15px;
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
 
-        .phone_element a {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: #978667;
-        }
+    .facility-item:hover i {
+        transform: scale(1.1);
+    }
 
-        .phone_element a i {
-            margin-right: 15px;
-            font-size: 1.875rem;
-            color: #2C3E50;
-        }
+    .facility-item h5 {
+        color: #ffffff;
+        margin-bottom: 12px;
+        font-weight: 600;
+    }
 
-        .phone_element a span {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #2C3E50;
-        }
+    .facility-item p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+        margin-bottom: 0;
+    }
+    /* -------------------last----------------- */
+    .margin_120_95 {
+        padding-top: 120px;
+        padding-bottom: 95px;
+    }
 
-        .booking_wrapper {
-            background-color: rgba(151, 134, 103, 0.05);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+    .title small {
+        text-transform: uppercase;
+        color: #2C3E50;
+        letter-spacing: 3px;
+        font-weight: 600;
+        font-size: 0.75rem;
+    }
 
-        /* -----------------------filters- */
-        .filters-sidebar {
-            position: sticky;
-            top: 100px;
-            background: #343A40;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-            margin-left: 20px;
-        }
-    </style>
+    .title h2 {
+        font-weight: 700;
+        font-size: 2.375rem;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    .phone_element a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #978667;
+    }
+
+    .phone_element a i {
+        margin-right: 15px;
+        font-size: 1.875rem;
+        color: #2C3E50;
+    }
+
+    .phone_element a span {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #2C3E50;
+    }
+
+    .booking_wrapper {
+        background-color: rgba(151, 134, 103, 0.05);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* -----------------------filters- */
+    .filters-sidebar {
+        position: sticky;
+        top: 100px;
+        background: #343A40;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+        margin-left: 20px;
+    }
+</style>
 
     <!------------------------------- Top Banner ------------------------>
-    <div class="half-screen-image">
+    <div class="half-screen-image" style="background-image: url('{{ asset($hero_image) }}')">
         <div class="overlay-text">
-            <h1>Rooms</h1>
-            <p>Indulge in the ultimate blend of elegance and comfort in our meticulously designed rooms.</p>
+            <h1>{{ $hero_title }}</h1>
+            <p>{{ $hero_description }}</p>
             <div class="link-container">
-                <a href="/">Home</a> > Rooms
+                <a href="/">Home</a> > <a href="{{ route('user.rooms.index') }}">Rooms</a>
             </div>
-             
         </div>
     </div>
 
@@ -418,102 +453,24 @@
     </div>
 
    {{-- ----------------------------Facilities------------------------------ --}}
-   <div class="facilities-section">
-    <h2 class="text-center mb-4">Main Facilities</h2>
+   <div class="facilities-section py-5" 
+     style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+             url('{{ $facilitiesBackground ? asset('storage/' . $facilitiesBackground) : asset('build/assets/images/default-facilities-bg.jpg') }}'); 
+             background-size: cover; background-position: center;">
     <div class="container">
+        <h2 class="text-center text-white mb-5">Our Premium Facilities</h2>
         <div class="row g-4">
-            <!-- Facility 1 -->
-            <div class="col-md-3 ">
+            @foreach($facilities as $facility)
+            <div class="col-lg-3 col-md-6">
                 <div class="facility-item text-center">
-                    <i class="bi bi-car-front"></i>
-                    <h5>Car Parking</h5>
+                    <i class="bi {{ $facility->icon }}"></i>
+                    <h5>{{ $facility->title }}</h5>
+                    <p>{{ $facility->description }}</p>
                 </div>
             </div>
-            <!-- Facility 2 -->
-            <div class="col-md-3">
-                <div class="facility-item text-center">
-                    <i class="bi bi-wifi"></i>
-                    <h5>High-Speed Wifi</h5>
-                </div>
-            </div>
-            <!-- Facility 3 -->
-            <div class="col-md-3">
-                <div class="facility-item text-center">
-                    <i class="bi bi-water"></i>
-                    <h5>Swimming Pool</h5>
-                </div>
-            </div>
-            <!-- Facility 4 -->
-            <div class="col-md-3">
-                <div class="facility-item text-center">
-                    <i class="bi bi-cup-straw"></i>
-                    <h5>Free Breakfast</h5>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
 
-{{-- -------------------------last---------------------- --}}
-<div class="container py-5" id="booking_section">
-    <div class="row justify-content-between align-items-center">
-        <!-- Left Section -->
-        <div class="col-xl-4 mb-4">
-            <div class="title">
-                <small>StaySphere Hotel</small>
-                <h2>Check Availability</h2>
-            </div>
-            <p>Discover the ultimate luxury experience. Book your stay with us for unforgettable memories.</p>
-            <p class="phone_element no_borders">
-                <a href="tel://423424234">
-                    <i class="bi bi-telephone-fill"></i>
-                    <span>
-                        <em>Info and bookings</em> <br>+92 123 456 7890
-                    </span>
-                </a>
-            </p>
-        </div>
-
-        <!-- Right Section -->
-        <div class="col-xl-7">
-            <div class="booking_wrapper bg-light p-4 rounded shadow">
-                <form>
-                    <div class="mb-3">
-                        <input type="date" class="form-control" id="date_booking" name="date_booking"
-                            placeholder="Select Date">
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-6 mb-3">
-                            <select class="form-select">
-                                <option>Select Room</option>
-                                <option>Double Room</option>
-                                <option>Deluxe Room</option>
-                                <option>Superior Room</option>
-                                <option>Junior Suite</option>
-                            </select>
-                        </div>
-
-                        <div class="col-lg-6 mb-3">
-                            <div class="row">
-                                <div class="col-6">
-                                    <input type="number" class="form-control" id="adults_booking"
-                                        placeholder="Adults">
-                                </div>
-                                <div class="col-6">
-                                    <input type="number" class="form-control" id="childs_booking"
-                                        placeholder="Children">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-end">
-                        <button type="submit" class="rounded-pill px-4 py-2">Book Now</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection

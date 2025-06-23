@@ -12,6 +12,40 @@
                     <form action="{{ route('admin.rooms.store') }}" method="POST" enctype="multipart/form-data" id="room-create-form">
                         @csrf
 
+                        <!-- hero section -->
+                        {{-- <div class="col-12">
+                            <div class="card shadow-sm mt-3">
+                                <div class="card-header bg-primary text-white">
+                                    <h4 class="h5 mb-0">Hero Section Content</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold">Hero Title</label>
+                                            <input type="text" name="hero_title" class="form-control" 
+                                                value="{{ old('hero_title', $room->hero_title ?? '') }}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold">Hero Subtitle</label>
+                                            <input type="text" name="hero_description" class="form-control" 
+                                                value="{{ old('hero_description', $room->hero_description ?? '') }}">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label fw-bold">Hero Image</label>
+                                            <input type="file" name="hero_image" class="form-control">
+                                            @if(isset($room) && $room->hero_image)
+                                                <div class="mt-2">
+                                                    <img src="{{ asset($room->hero_image) }}" class="img-thumbnail" style="max-height: 150px;">
+                                                    <label class="form-check-label ms-2">
+                                                        <input type="checkbox" name="remove_hero_image" value="1"> Remove image
+                                                    </label>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> --}}
                         <div class="row g-3">
                             <!-- Basic Room Info -->
                             <div class="col-md-6">
@@ -120,10 +154,10 @@
                                                                 <div class="col-md-4 mb-2">
                                                                     <div class="form-check">
                                                                         <input class="form-check-input" type="checkbox" 
-                                                                               name="features[]" 
-                                                                               value="{{ $option->id }}" 
-                                                                               id="feature_{{ $filter->slug }}_{{ $option->id }}"
-                                                                               {{ is_array(old('features')) && in_array($option->id, old('features')) ? 'checked' : '' }}>
+                                                                            name="features[]" 
+                                                                            value="{{ $option->id }}" 
+                                                                            id="feature_{{ $filter->slug }}_{{ $option->id }}"
+                                                                            {{ is_array(old('features')) && in_array($option->id, old('features')) ? 'checked' : '' }}>
                                                                         <label class="form-check-label" for="feature_{{ $filter->slug }}_{{ $option->id }}">
                                                                             {{ $option->label }}
                                                                         </label>
@@ -132,14 +166,32 @@
                                                             @endforeach
                                                         </div>
                                                     @else
-                                                        <select name="features[]" class="form-select" multiple>
-                                                            @foreach($filter->options as $option)
-                                                                <option value="{{ $option->id }}"
-                                                                    {{ is_array(old('features')) && in_array($option->id, old('features')) ? 'selected' : '' }}>
-                                                                    {{ $option->label }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
+                                                        <!-- Bootstrap 5 Custom Dropdown Multiselect -->
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-outline-secondary dropdown-toggle w-100 text-start" type="button" 
+                                                                    id="dropdownMenu-{{ $filter->slug }}" 
+                                                                    data-bs-toggle="dropdown" 
+                                                                    aria-expanded="false"
+                                                                    data-bs-auto-close="outside">
+                                                                Select options...
+                                                            </button>
+                                                            <ul class="dropdown-menu w-100 p-3" aria-labelledby="dropdownMenu-{{ $filter->slug }}">
+                                                                @foreach($filter->options as $option)
+                                                                    <li class="mb-2">
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox" 
+                                                                                name="features[]" 
+                                                                                value="{{ $option->id }}" 
+                                                                                id="dropdown_{{ $filter->slug }}_{{ $option->id }}"
+                                                                                {{ is_array(old('features')) && in_array($option->id, old('features')) ? 'checked' : '' }}>
+                                                                            <label class="form-check-label" for="dropdown_{{ $filter->slug }}_{{ $option->id }}">
+                                                                                {{ $option->label }}
+                                                                            </label>
+                                                                        </div>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
                                                     @endif
                                                 </div>
                                             @endif
@@ -147,6 +199,25 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Optional: JavaScript to update button text with selected items -->
+                            <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                document.querySelectorAll('.dropdown-menu input[type="checkbox"]').forEach(checkbox => {
+                                    checkbox.addEventListener('change', function() {
+                                        const dropdown = this.closest('.dropdown');
+                                        const button = dropdown.querySelector('.dropdown-toggle');
+                                        const checkedItems = dropdown.querySelectorAll('input[type="checkbox"]:checked');
+                                        
+                                        if (checkedItems.length > 0) {
+                                            button.textContent = `${checkedItems.length} selected`;
+                                        } else {
+                                            button.textContent = 'Select options...';
+                                        }
+                                    });
+                                });
+                            });
+                            </script>
 
                             <!-- Room Image -->
                             <div class="col-md-6">

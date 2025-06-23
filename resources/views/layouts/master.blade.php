@@ -122,7 +122,7 @@
                         <li><a class="dropdown-item" href="{{route('menu')}}">Menu of the Day</a></li>
                         <li><a class="dropdown-item" href="{{ route('user.blogs.index') }}">Blog</a></li>
                         <li><a class="dropdown-item" href="{{ route('user.packages.index') }}">Packages</a></li>
-                        <li><a class="dropdown-item" href="{{ route('gallery') }}">Gallery</a></li>
+                        <li><a class="dropdown-item" href="{{ route('user.gallery') }}">Gallery</a></li>
 
                     </ul>
                   </li>

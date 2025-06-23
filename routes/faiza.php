@@ -20,22 +20,43 @@ use App\Http\Controllers\Admin\AdminPackageController;
 use App\Http\Controllers\Admin\AdminBookingPackageController;
 use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\FacilityController;
+use App\Http\Controllers\Admin\AdminRegisterController;
+use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\AdminManagementController;
+
+use App\Http\Controllers\Admin\FilterController;
+use App\Http\Controllers\Admin\AdminUserController;
+
+use App\Http\Controllers\Admin\AdminDashboardController;
+
 
 
 // -------- Other Controllers --------
 use App\Http\Controllers\ServicesController;
 
 
+//----------------------------------------- gallery---------------------------------
+use App\Http\Controllers\GalleryController;
+
+// User side
+Route::get('/gallery', [GalleryController::class, 'showGallery'])->name('user.gallery');
+
+// Admin side
+Route::get('/admin/gallery', [GalleryController::class, 'adminGallery'])->name('admin.gallery');
+Route::post('/admin/gallery', [GalleryController::class, 'updateGallery'])->name('admin.gallery.update');
+Route::delete('/admin/gallery/delete/{index}', [GalleryController::class, 'deleteGalleryImage'])->name('admin.gallery.delete');
 
 
-// routes/web.php
- Route::get('/gallery', [\App\Http\Controllers\User\BlogController::class, 'showGallery'])->name('gallery'); 
+//  ----------------------------------blogs------------------------------------------
 // User-facing blog routes
 Route::prefix('blog')->name('user.blogs.')->group(function() {
     Route::get('/', [\App\Http\Controllers\User\BlogController::class, 'index'])->name('index');
     Route::get('/search', [\App\Http\Controllers\User\BlogController::class, 'search'])->name('search');
     Route::get('/category/{category}', [\App\Http\Controllers\User\BlogController::class, 'category'])->name('category');
     Route::get('/{blog}', [\App\Http\Controllers\User\BlogController::class, 'show'])->name('show');
+     Route::get('/gallery', [\App\Http\Controllers\User\BlogController::class, 'showGallery'])->name('gallery');
     // Route::get('/search', [BlogController::class, 'search'])->name('search');
 
 });
@@ -54,18 +75,12 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     // Additional blog routes
     Route::post('blogs/{blog}/toggle-status', [\App\Http\Controllers\Admin\BlogController::class, 'toggleStatus'])
         ->name('blogs.toggle-status');
-    Route::delete('blog-gallery/{image}', [\App\Http\Controllers\Admin\BlogController::class, 'deleteBlogGalleryImage'])
-        ->name('blogs.delete-gallery-image');
+    Route::delete('/admin/main/gallery/{index}', [BlogController::class, 'deleteMainGalleryImage'])
+    ->name('admin.main.gallery.delete');        
 });
 
 
-
-
-
-
-
-
-
+// ---------------------------------------about us--------------------------------
 // User routes
 Route::get('/about', [App\Http\Controllers\User\AboutUsController::class, 'index'])->name('about');
 
@@ -93,15 +108,21 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::delete('/about/faq/{faq}', [AboutUsController::class, 'faqDestroy'])->name('admin.about.faq.destroy');
 });
 
-// ---------------------------- Admin Routes ----------------------------
+// -------------------- Admin controller Routes for rooms and reservation----------
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])
     ->name('dashboard');
-
-    // Room Management
+// -----------rooms-----------------
+    //Admin Room Management
     Route::resource('rooms', AdminRoomController::class)->except(['show']);
+    Route::post('/rooms/update-hero', [AdminRoomController::class, 'updateHero'])->name('rooms.update-hero');
 
-    // Reservation Management
+
+
+
+//---------reservation-------------
+
+    //admin Reservation Management
     Route::prefix('reservations')->name('reservations.')->group(function () {
         Route::get('/', [AdminReservationController::class, 'index'])->name('index');
         Route::get('/show/{id}', [AdminReservationController::class, 'show'])->name('show');
@@ -118,155 +139,44 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 });
 
-
-
-
-
-// pckages
-// Packages Routes
-// Packages Routes
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/packages', [AdminPackageController::class, 'index'])->name('packages.index');
-    Route::get('/packages/edit/{id}', [AdminPackageController::class, 'edit'])->name('packages.edit');
-    Route::get('/packages/create', [AdminPackageController::class, 'create'])->name('packages.create');
-    Route::post('/packages/store', [AdminPackageController::class, 'store'])->name('package.store');
-    Route::put('/packages/update/{id}', [AdminPackageController::class, 'update'])->name('package.update');
-    Route::delete('/packages/delete/{id}', [AdminPackageController::class, 'destroy'])->name('package.delete');
-});
-
-// Booking Packages Routes
-Route::prefix('admin/')->name('admin.bookingspackages.')->group(function () {
-    Route::get('/bookingspackages', [AdminBookingPackageController::class, 'index'])->name('index');
-    // Route::get('/edit/{id}', [AdminBookingPackageController::class, 'edit'])->name('edit');
-    // Route::put('/update/{id}', [AdminBookingPackageController::class, 'update'])->name('update');
-    Route::delete('/delete/{id}', [AdminBookingPackageController::class, 'destroy'])->name('destroy');
-});
-
-
-
-
-
-
-
-
-// Admin Routes
-
-use App\Http\Controllers\Admin\AdminRegisterController;
-use App\Http\Controllers\Admin\AdminLoginController;
-use App\Http\Controllers\Admin\AdminProfileController;
-use App\Http\Controllers\Admin\AdminManagementController;
-
-use App\Http\Controllers\Admin\AdminDashboardController;
-
-// Route::prefix('admin')->name('admin.')->group(function () {
-//     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('login');
-//     Route::post('/login', [AdminLoginController::class, 'login'])->name('login.submit');;
-
-//     Route::get('/register', [AdminRegisterController::class, 'showRegisterForm'])->name('register');
-//     Route::post('/register', [AdminRegisterController::class, 'register'])->name('register.submit');
+// ------------------------------admin facilities----------------------------
+Route::prefix('facilities')->name('admin.facilities.')->group(function () {
+    Route::get('/', [FacilityController::class, 'index'])->name('index');
+    Route::get('/create', [FacilityController::class, 'create'])->name('create');
+    Route::post('/', [FacilityController::class, 'store'])->name('store');
+    Route::get('/{facility}/edit', [FacilityController::class, 'edit'])->name('edit');
+    Route::put('/{facility}', [FacilityController::class, 'update'])->name('update');
+    Route::delete('/{facility}', [FacilityController::class, 'destroy'])->name('destroy');
     
-// });
-
-
-// // admin profile
-// Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-//     Route::get('/profile', [AdminProfileController::class, 'show'])->name('admin.profile');
-//     Route::put('/profile/update', [AdminProfileController::class, 'update'])->name('admin.profile.update');
-// });
-
-
-// // super admin
-// use App\Http\Controllers\Admin\AdminManagementController;
-
-// Route::middleware(['auth', 'super_admin'])->group(function () {
-//     Route::get('/admin/superadmin', [AdminManagementController::class, 'create'])->name('superadmin.createAdmin');
-//     Route::post('/admin/superadmin', [AdminManagementController::class, 'store'])->name('superadmin.storeAdmin');
-// });
-
-
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/admin/superadmin', [AdminManagementController::class, 'index'])->name('admin.register'); // List Admins
-//     Route::get('/admin/superadmin', [AdminManagementController::class, 'create'])->name('admin.'); // Add Form
-//     Route::post('/admin/superadmin', [AdminManagementController::class, 'store'])->name('admin.users.store'); // Save Admin
-// });
-
-
-
-
-// ==========================
-// Admin Login (Shared login page for admin + super admin)
-// ==========================
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AdminLoginController::class, 'login'])->name('login.submit');
-    Route::post('/logout', [AdminLoginController::class, 'logout'])->name('logout');
-    
+    // Background image route
+    Route::post('/background', [FacilityController::class, 'updateBackground'])
+        ->name('background.update');
 });
 
-// ==========================
-// Admin Routes
-// ==========================
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-    Route::get('/profile', [AdminProfileController::class, 'show'])->name('profile.show');
-    Route::get('/admin/profile/edit', [AdminProfileController::class, 'edit'])->name('profile.edit');
-    
-     Route::match(['PUT', 'POST'], '/profile/update', [AdminProfileController::class, 'update'])->name('profile.update');
-});
-
-// user side 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [UserProfileController::class, 'show'])->name('user.profile.show');
-    Route::get('/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
-    Route::match(['PUT', 'POST'], '/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
-    Route::get('/profile', [ReservationController::class, 'myBookings'])->name('user.profile.show');
+//user side  Rooms routes
+Route::prefix('rooms')->name('user.rooms.')->group(function () {
+    Route::get('/', [UserRoomController::class, 'index'])->name('index');
+    Route::get('/show/{id}', [UserRoomController::class, 'show'])->name('show');
+    Route::get('/store/{id}', [UserRoomController::class, 'store'])->name('store');
 
 });
 
-// Route::middleware(['auth:admin'])->group(function () {
-//     Route::get('/admin/profile', [AdminProfileController::class, 'show'])->name('admin.profile.show');
-//     Route::get('/admin/profile/edit', [AdminProfileController::class, 'edit'])->name('admin.profile.edit');
-//     Route::put('/admin/profile/update', [AdminProfileController::class, 'update'])->name('admin.profile.update');
-// });
+//user side Reservations routes
+Route::prefix('reservations')->name('user.reservations.')->middleware('auth')->group(function () {
+    Route::get('/', [ReservationController::class, 'index'])->name('index');
+    Route::get('/create', [ReservationController::class, 'reservationform'])->name('create');
+    Route::post('/store', [ReservationController::class, 'store'])->name('store');
+    Route::get('/{id}', [ReservationController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [ReservationController::class, 'edit'])->name('edit');
+    Route::put('/{id}/update', [ReservationController::class, 'update'])->name('update');
+    Route::delete('/{id}', [ReservationController::class, 'destroy'])->name('destroy');
 
-
-
-// ==========================
-// Super Admin Routes
-// ==========================
-Route::prefix('admin/superadmin')->name('admin.superadmin.')->group(function () {
-    Route::get('/admins', [AdminManagementController::class, 'index'])->name('list');
-    Route::get('/admins/create', [AdminManagementController::class, 'create'])->name('create');
-    Route::post('/admins', [AdminManagementController::class, 'store'])->name('store');
-    Route::get('/{id}/edit', [AdminManagementController::class, 'edit'])->name('edit');
-    Route::put('/{id}', [AdminManagementController::class, 'update'])->name('update');
-    Route::delete('/{id}', [AdminManagementController::class, 'destroy'])->name('destroy');
-
-    Route::patch('/{id}/toggle-ban', [AdminManagementController::class, 'toggleBan'])->name('toggleBan');
+    // Route::get('/history', [ReservationController::class, 'getHistory'])->name('history');
 
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-use App\Http\Controllers\Admin\FilterController;
-use App\Http\Controllers\Admin\AdminUserController;
-
-
-// routes/web.php (admin section)
+// --------------------------------------------filters----------------------------------
+// admin side routes
 Route::prefix('admin')->group(function() {
     // Filters
     Route::get('/filters', [FilterController::class, 'index'])->name('admin.filters.index');
@@ -291,46 +201,18 @@ Route::put('/filter-options/{option}', [FilterController::class, 'updateOption']
 });
 
 
-
-
-
-
-
-Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
-Route::post('/admin/users/{id}/ban', [AdminUserController::class, 'toggleBan'])->name('admin.users.ban');
-Route::delete('/admin/users/{id}', [AdminUserController::class, 'deleteUser'])->name('admin.users.delete');
-
-
-
-
-
-
-
-
-
-// ---------------------------- User Side Routes ----------------------------
-// Rooms
-Route::prefix('rooms')->name('user.rooms.')->group(function () {
-    Route::get('/', [UserRoomController::class, 'index'])->name('index');
-    Route::get('/show/{id}', [UserRoomController::class, 'show'])->name('show');
-    Route::get('/store/{id}', [UserRoomController::class, 'store'])->name('store');
-
+//------------------------------------------ Packages Routes-------------------------------
+// admin Packages Routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/packages', [AdminPackageController::class, 'index'])->name('packages.index');
+    Route::get('/packages/edit/{id}', [AdminPackageController::class, 'edit'])->name('packages.edit');
+    Route::get('/packages/create', [AdminPackageController::class, 'create'])->name('packages.create');
+    Route::post('/packages/store', [AdminPackageController::class, 'store'])->name('package.store');
+    Route::put('/packages/update/{id}', [AdminPackageController::class, 'update'])->name('package.update');
+    Route::delete('/packages/delete/{id}', [AdminPackageController::class, 'destroy'])->name('package.delete');
 });
 
-// Reservations
-Route::prefix('reservations')->name('user.reservations.')->middleware('auth')->group(function () {
-    Route::get('/', [ReservationController::class, 'index'])->name('index');
-    Route::get('/create', [ReservationController::class, 'reservationform'])->name('create');
-    Route::post('/store', [ReservationController::class, 'store'])->name('store');
-    Route::get('/{id}', [ReservationController::class, 'show'])->name('show');
-    Route::get('/{id}/edit', [ReservationController::class, 'edit'])->name('edit');
-    Route::put('/{id}/update', [ReservationController::class, 'update'])->name('update');
-    Route::delete('/{id}', [ReservationController::class, 'destroy'])->name('destroy');
-
-    // Route::get('/history', [ReservationController::class, 'getHistory'])->name('history');
-
-});
-
+// user side packages 
 Route::prefix('packages')->name('user.packages.')->group(function () {
     Route::get('/', [UserPackageController::class, 'index'])->name('index');
     // Route::get('/show/{id}', [UserRoomController::class, 'show'])->name('show');
@@ -338,17 +220,67 @@ Route::prefix('packages')->name('user.packages.')->group(function () {
 
 Route::post('/book', [UserBookingPackageController::class, 'bookPackage'])->name('user.book.package');
 
+// -----------------------------------booking packages-------------------------------
+//admin Booking Packages Routes
+Route::prefix('admin/')->name('admin.bookingspackages.')->group(function () {
+    Route::get('/bookingspackages', [AdminBookingPackageController::class, 'index'])->name('index');
+    // Route::get('/edit/{id}', [AdminBookingPackageController::class, 'edit'])->name('edit');
+    // Route::put('/update/{id}', [AdminBookingPackageController::class, 'update'])->name('update');
+    Route::delete('/delete/{id}', [AdminBookingPackageController::class, 'destroy'])->name('destroy');
+});
 
 
 
-// pofile
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/profile', [UserProfileController::class, 'show'])->name('user.profile');
-//     Route::post('/profile', [UserProfileController::class, 'update'])->name('user.profile.update');
-   
-// });
+// ==========================
+// Admin Login (Shared login page for admin + super admin)
+// ==========================
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AdminLoginController::class, 'login'])->name('login.submit');
+    Route::post('/logout', [AdminLoginController::class, 'logout'])->name('logout');
+    
+});
+
+//-------------------------  profile Routes-----------------------------------
+// admin side routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/profile', [AdminProfileController::class, 'show'])->name('profile.show');
+    Route::get('/admin/profile/edit', [AdminProfileController::class, 'edit'])->name('profile.edit');
+    
+     Route::match(['PUT', 'POST'], '/profile/update', [AdminProfileController::class, 'update'])->name('profile.update');
+});
+
+// user side  routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [UserProfileController::class, 'show'])->name('user.profile.show');
+    Route::get('/profile/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
+    Route::match(['PUT', 'POST'], '/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
+    Route::get('/profile', [ReservationController::class, 'myBookings'])->name('user.profile.show');
+
+});
 
 
+
+//----------------------------------- Super Admin manages admins---------------------
+// admin side 
+Route::prefix('admin/superadmin')->name('admin.superadmin.')->group(function () {
+    Route::get('/admins', [AdminManagementController::class, 'index'])->name('list');
+    Route::get('/admins/create', [AdminManagementController::class, 'create'])->name('create');
+    Route::post('/admins', [AdminManagementController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [AdminManagementController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [AdminManagementController::class, 'update'])->name('update');
+    Route::delete('/{id}', [AdminManagementController::class, 'destroy'])->name('destroy');
+
+    Route::patch('/{id}/toggle-ban', [AdminManagementController::class, 'toggleBan'])->name('toggleBan');
+
+});
+
+
+// -----------------------------------admin manages users-------------------------------
+Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
+Route::post('/admin/users/{id}/ban', [AdminUserController::class, 'toggleBan'])->name('admin.users.ban');
+Route::delete('/admin/users/{id}', [AdminUserController::class, 'deleteUser'])->name('admin.users.delete');
 
 
 // ---------------------------- Services Routes ----------------------------
@@ -363,19 +295,3 @@ Route::prefix('services')->group(function(){
 
     // Route::get('/services/{id}', [ServicesController::class, 'showServiceDetails'])->name('services.details');
 });
-
-// ---------------------------- Packages Route ----------------------------
-// Route::get('/packages', [PackageController::class, 'showPackages'])->name('packages');
-
-// Route::get('/packages', [UserPackageController::class, 'index'])->name('user.packages');
-// Route::post('/packages/book', [UserBookingPackageController::class, 'bookPackage'])->name('user.book.package');
-
-// ---------------------------- Middleware Routes (Future Use) ----------------------------
-// Route::middleware(['admin'])->group(function () {
-//     Route::get('/admin/dashboard', [AdminController::class, 'index']);
-//     Route::get('/admin/reservations', [AdminReservationController::class, 'index']);
-// });
-// Route::middleware(['user'])->group(function () {
-//     Route::get('/user/reservations', [ReservationController::class, 'index']);
-// });
-

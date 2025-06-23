@@ -220,6 +220,7 @@
     </script>
     <!--end::Script-->
     @stack('scripts')
+    @stack('js')
 </body>
 <!--end::Body-->
 

@@ -1,9 +1,7 @@
 @extends('admin.dashboard')
 
 @push('styles')
-<!-- Summernote CSS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
-<!-- Select2 CSS (for categories) -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap4-theme@1.3.0/dist/select2-bootstrap4.min.css" rel="stylesheet" />
 @endpush
@@ -38,9 +36,7 @@
         <div class="card-body">
             <form action="{{ isset($blog) ? route('admin.blogs.update', $blog) : route('admin.blogs.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @if(isset($blog))
-                    @method('PUT')
-                @endif
+                @if(isset($blog)) @method('PUT') @endif
 
                 <!-- Title -->
                 <div class="form-group">
@@ -67,7 +63,7 @@
                             <label for="featured_image">Featured Image</label>
                             <input type="file" name="featured_image" id="featured_image" class="form-control-file" {{ isset($blog) ? '' : 'required' }}>
                             @if(isset($blog) && $blog->featured_image)
-                                <img src="{{ asset('storage/' . $blog->featured_image) }}" style="max-height:150px" class="mt-2">
+                                <img src="{{ asset($blog->featured_image) }}" style="max-height:150px" class="mt-2">
                             @endif
                         </div>
                     </div>
@@ -76,7 +72,7 @@
                             <label for="hero_image">Hero Image</label>
                             <input type="file" name="hero_image" id="hero_image" class="form-control-file">
                             @if(isset($blog) && $blog->hero_image)
-                                <img src="{{ asset('storage/' . $blog->hero_image) }}" style="max-height:150px" class="mt-2">
+                                <img src="{{ asset($blog->hero_image) }}" style="max-height:150px" class="mt-2">
                             @endif
                         </div>
                     </div>
@@ -100,35 +96,30 @@
                     </div>
                 </div>
 
-                <!-- Categories -->
-                {{-- <div class="form-group">
-                    <label for="categories">Categories</label>
-                    <select name="categories[]" id="categories" class="form-control select2" multiple>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ isset($blog) && $blog->categories->contains($category->id) ? 'selected' : '' }}>
-                                {{ $category->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div> --}}
-
                 <!-- Gallery -->
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="gallery_images">Gallery Images</label>
                     <input type="file" name="gallery_images[]" id="gallery_images" class="form-control-file" multiple>
+                    
                     @if(isset($blog) && $blog->gallery->count() > 0)
                         <div class="row mt-3">
                             @foreach($blog->gallery as $image)
                                 <div class="col-md-3 mb-3">
-                                    <img src="{{ asset('storage/' . $image->image_path) }}" class="img-fluid">
-                                    <button type="button" class="btn btn-sm btn-danger btn-block mt-2" onclick="deleteImage({{ $image->id }})">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </button>
+                                    <img src="{{ asset($image->image_path) }}" class="img-fluid">
+                                    
+                                    <!-- Proper DELETE form -->
+                                    <form action="{{ route('admin.blog.main.delete-image', $image->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger btn-block mt-2">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </form>
                                 </div>
                             @endforeach
                         </div>
                     @endif
-                </div>
+                </div> --}}
 
                 <!-- Meta SEO -->
                 <div class="row">
@@ -164,12 +155,9 @@
 </div>
 @endsection
 
-{{-- @push('scripts')
-<!-- jQuery -->
+@push('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Summernote JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
-<!-- Select2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
@@ -192,22 +180,31 @@ $(document).ready(function () {
     });
 });
 
-function deleteImage(imageId) {
+
+</script>
+<script>
+function deleteImage(id) {
     if (confirm('Are you sure you want to delete this image?')) {
-        fetch(`/admin/blog-gallery/${imageId}`, {
+        fetch(`/admin/blog/gallery/${id}`, {
             method: 'DELETE',
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                location.reload();
+        .then(response => {
+            if (response.ok) {
+                window.location.reload(); // Refresh the page to see changes
+            } else {
+                alert('Error deleting image');
             }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while deleting the image');
         });
     }
 }
 </script>
-@endpush --}}
+@endpush

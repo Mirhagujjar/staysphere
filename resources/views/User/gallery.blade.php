@@ -14,8 +14,8 @@
             <div class="row gallery-grid">
                 @foreach($mainGallery as $image)
                     <div class="col-md-4 mb-4 gallery-item">
-                        <a href="{{ asset('storage/' . $image) }}" data-lightbox="gallery">
-                            <img src="{{ asset('storage/' . $image) }}" 
+                        <a href="{{ asset($image) }}" data-lightbox="gallery">
+                            <img src="{{ asset($image) }}" 
                                  alt="Gallery image" 
                                  class="img-fluid rounded shadow-sm"
                                  style="height: 250px; width: 100%; object-fit: cover;">
@@ -27,15 +27,15 @@
     @endif
 
     <!-- Blog Post Galleries -->
-    @foreach($blogs as $blog)
+    {{-- @foreach($blogs as $blog)
         @if($blog->gallery->count() > 0)
             <div class="mb-5">
                 <h3 class="mb-4">{{ $blog->title }}</h3>
                 <div class="row gallery-grid">
                     @foreach($blog->gallery as $image)
                         <div class="col-md-4 mb-4 gallery-item">
-                            <a href="{{ asset('storage/' . $image->image_path) }}" data-lightbox="gallery-{{ $blog->id }}">
-                                <img src="{{ asset('storage/' . $image->image_path) }}" 
+                            <a href="{{ asset($image->image_path) }}" data-lightbox="gallery-{{ $blog->id }}">
+                                <img src="{{ asset($image->image_path) }}" 
                                      alt="{{ $blog->title }}" 
                                      class="img-fluid rounded shadow-sm"
                                      style="height: 250px; width: 100%; object-fit: cover;">
@@ -56,7 +56,7 @@
         <div class="alert alert-info text-center">
             No gallery images available yet. Please check back later.
         </div>
-    @endif
+    @endif --}}
 </div>
 @endsection
 

@@ -102,10 +102,10 @@
                                                                 <div class="col-md-4 mb-2">
                                                                     <div class="form-check">
                                                                         <input class="form-check-input" type="checkbox" 
-                                                                               name="features[]" 
-                                                                               value="{{ $option->id }}" 
-                                                                               id="feature_{{ $option->id }}"
-                                                                               {{ in_array($option->id, old('features', $room->filterOptions->pluck('id')->toArray())) ? 'checked' : '' }}>
+                                                                            name="features[]" 
+                                                                            value="{{ $option->id }}" 
+                                                                            id="feature_{{ $option->id }}"
+                                                                            {{ in_array($option->id, old('features', $room->filterOptions->pluck('id')->toArray())) ? 'checked' : '' }}>
                                                                         <label class="form-check-label" for="feature_{{ $option->id }}">
                                                                             {{ $option->label }}
                                                                         </label>
@@ -114,7 +114,7 @@
                                                             @endforeach
                                                         </div>
                                                     @else
-                                                        <select name="features[]" class="form-select" multiple>
+                                                        <select name="features[]" class="form-select select2-multiple" multiple>
                                                             @foreach($filter->options as $option)
                                                                 <option value="{{ $option->id }}"
                                                                     {{ in_array($option->id, old('features', $room->filterOptions->pluck('id')->toArray())) ? 'selected' : '' }}>
@@ -129,6 +129,21 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Add these to your head or before closing body tag -->
+                            <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+                            <script>
+                            $(document).ready(function() {
+                                $('.select2-multiple').select2({
+                                    placeholder: "Select options",
+                                    allowClear: true,
+                                    width: '100%'
+                                });
+                            });
+                            </script>
 
                             <!-- Room Image -->
                             <!-- Room Image -->

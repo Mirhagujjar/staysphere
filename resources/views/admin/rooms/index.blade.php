@@ -13,6 +13,49 @@
         </div>
     </div>
 
+    <!-- Hero Section Configuration Form -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="h5 mb-0">Website Hero Section Configuration</h4>
+        </div>
+        <div class="card-body">
+            <form action="{{ route('admin.rooms.update-hero') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Hero Title</label>
+                        <input type="text" name="hero_title" class="form-control" 
+                               value="{{ $heroRoom->hero_title ?? '' }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Hero Subtitle</label>
+                        <input type="text" name="hero_description" class="form-control" 
+                               value="{{ $heroRoom->hero_description ?? '' }}" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label fw-bold">Hero Image</label>
+                        <input type="file" name="hero_image" class="form-control">
+                        @if(isset($heroRoom) && $heroRoom->hero_image)
+                            <div class="mt-2">
+                                <img src="{{ asset($heroRoom->hero_image) }}" class="img-thumbnail" style="max-height: 150px;">
+                                <label class="form-check-label ms-2">
+                                    <input type="checkbox" name="remove_hero_image" value="1"> Remove image
+                                </label>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Hero Settings
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Rooms List Table -->
     <div class="card shadow-sm">
         <div class="card-body">
             <div class="table-responsive">
@@ -34,7 +77,7 @@
                         @foreach($rooms as $room)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                           <td>
+                            <td>
                                 <img src="{{ asset($room->image) }}" 
                                     alt="{{ $room->room_name }}" 
                                     style="width: 80px; height: 60px; object-fit: cover;">

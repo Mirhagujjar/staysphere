@@ -259,6 +259,35 @@
                             </ul>
                         </li>
 
+                        {{-- filters --}}
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon bi bi-funnel text-warning"></i>
+                                <p>Manage Filters<i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.filters.index') }}" class="nav-link">
+                                        <i class="bi bi-arrow-right text-warning"></i>
+                                        <p>View All Filters</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.filters.create') }}" class="nav-link">
+                                        <i class="bi bi-arrow-right text-warning"></i>
+                                        <p>Add Filters options</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.facilities.index') }}" class="nav-link">
+                                <i class="nav-icon bi bi-building text-warning"></i>
+                                <p>Facilities</p>
+                            </a>
+                        </li>
+
                         <!-- Reservations -->
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -327,29 +356,6 @@
                     </ul>
                 </li>
 
-                {{-- filters --}}
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-funnel text-warning"></i>
-                        <p>Manage Filters<i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.filters.index') }}" class="nav-link">
-                                <i class="bi bi-arrow-right text-warning"></i>
-                                <p>View All Filters</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.filters.create') }}" class="nav-link">
-                                <i class="bi bi-arrow-right text-warning"></i>
-                                <p>Add Filters options</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-
                 <!-- About Us -->
                 <li class="nav-item">
                     <a href="#" class="nav-link">
@@ -402,6 +408,14 @@
                         <li class="nav-item"><a href="{{ route('admin.blogs.create') }}" class="nav-link"><i class="bi bi-arrow-right text-warning"></i> <p>Add New Blog</p></a></li>
                     </ul>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.gallery') }}">
+                        <i class="fas fa-images"></i>
+                        <p>Gallery</p>
+                    </a>
+                </li>
+
 
                 <!-- Analytics -->
                 {{-- <li class="nav-item mt-3">

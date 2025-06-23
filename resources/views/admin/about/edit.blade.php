@@ -115,6 +115,30 @@
 </div>
 @endsection
 
+
+<script>
+$(document).ready(function () {
+    $('.summernote').summernote({
+        height: 300,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['insert', ['link', 'picture', 'hr']],
+            ['view', ['fullscreen', 'codeview']]
+        ]
+    });
+
+    $('.select2').select2({
+        theme: 'bootstrap4',
+        placeholder: 'Select categories'
+    });
+});
+
+
+</script>
+
 {{-- @push('js')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
