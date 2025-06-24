@@ -110,7 +110,7 @@
 </div>
 
 {{-- images in card form --}}
-<div class="container-fluid mt-5">
+{{-- <div class="container-fluid mt-5">
     <div class="row">
         <div class="col-md-4 col-12 mb-4">
             <div class="card">
@@ -128,10 +128,10 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 {{-- card --}}
-<div class="container-fluid my-5 py-5">
+{{-- <div class="container-fluid my-5 py-5">
     <div class="position-relative col-md-8 mx-auto">
         <div style="width: 100%; height: 400px; overflow: hidden;">
             <img src="{{ asset('build/assets/images/clean5.jpg') }}" class="img-fluid rounded" alt="Example Image" style="width: 100%; height: 100%; object-fit: cover;">
@@ -151,10 +151,10 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 {{-- form --}}
-<div class="modal fade" id="housekeeping">
+{{-- <div class="modal fade" id="housekeeping">
     <div class="modal-dialog">
         <div class="modal-content p-4">
             <h4 class="mb-3">Request Housekeeping Services</h4>
@@ -200,6 +200,6 @@
             </form>
         </div>
     </div>
-</div>
+</div> --}}
 
 @endsection

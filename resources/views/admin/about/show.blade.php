@@ -55,7 +55,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card team-member-card h-100">
                         <div class="card-body text-center">
-                        <img src="{{ $member->image ? asset($member->image) : asset('assets/images/default-member.jpg') }}" alt="{{ $member->name }}">
+                        <img src="{{ $member->image ? asset($member->image) : asset('assets/images/default-member.jpg') }}" alt="{{ $member->name }}"
                                  class="rounded-circle mb-3" width="150" height="150" style="object-fit: cover; border: 5px solid #17a2b8;">
                             <h4>{{ $member->name }}</h4>
                             <p class="text-primary">{{ $member->position }}</p>

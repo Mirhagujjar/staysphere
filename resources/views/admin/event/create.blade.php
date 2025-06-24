@@ -10,7 +10,7 @@
         <input type="text" name="title" required>
 
         <label>Description:</label>
-        <textarea name="description" required></textarea>
+        <textarea name="description" id="summernote" required></textarea>
 
         <label>Date:</label>
         <input type="date" name="event_date" required>
@@ -24,4 +24,5 @@
         <button type="submit" class="btn btn-primary">Create Event</button>
     </form>
 </div>
+@include("components.summernote")
 @endsection

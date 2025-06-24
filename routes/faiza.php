@@ -34,14 +34,14 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 
 
 // -------- Other Controllers --------
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ServicesController;
 
 
 //----------------------------------------- gallery---------------------------------
-use App\Http\Controllers\GalleryController;
 
 // User side
-Route::get('/gallery', [GalleryController::class, 'showGallery'])->name('user.gallery');
+Route::get('/user/gallery', [GalleryController::class, 'showGallery'])->name('user.gallery');
 
 // Admin side
 Route::get('/admin/gallery', [GalleryController::class, 'adminGallery'])->name('admin.gallery');
@@ -56,7 +56,7 @@ Route::prefix('blog')->name('user.blogs.')->group(function() {
     Route::get('/search', [\App\Http\Controllers\User\BlogController::class, 'search'])->name('search');
     Route::get('/category/{category}', [\App\Http\Controllers\User\BlogController::class, 'category'])->name('category');
     Route::get('/{blog}', [\App\Http\Controllers\User\BlogController::class, 'show'])->name('show');
-     Route::get('/gallery', [\App\Http\Controllers\User\BlogController::class, 'showGallery'])->name('gallery');
+    //  Route::get('/gallery', [\App\Http\Controllers\User\BlogController::class, 'showGallery'])->name('gallery');
     // Route::get('/search', [BlogController::class, 'search'])->name('search');
 
 });
@@ -66,8 +66,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     // Blog Main Page Management
     Route::get('/main', [\App\Http\Controllers\Admin\BlogController::class, 'editMainPage'])->name('blog.main');
     Route::post('/main', [\App\Http\Controllers\Admin\BlogController::class, 'updateMainPage'])->name('blog.main.update');
-    Route::delete('/main/gallery/{index}', [\App\Http\Controllers\Admin\BlogController::class, 'deleteMainGalleryImage'])
-        ->name('blog.main.delete-image');
+    // Route::delete('/main/gallery/{index}', [\App\Http\Controllers\Admin\BlogController::class, 'deleteMainGalleryImage'])
+    //     ->name('blog.main.delete-image');
 
     // Regular Blog Posts Management
     Route::resource('blogs', \App\Http\Controllers\Admin\BlogController::class);
@@ -75,8 +75,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     // Additional blog routes
     Route::post('blogs/{blog}/toggle-status', [\App\Http\Controllers\Admin\BlogController::class, 'toggleStatus'])
         ->name('blogs.toggle-status');
-    Route::delete('/admin/main/gallery/{index}', [BlogController::class, 'deleteMainGalleryImage'])
-    ->name('admin.main.gallery.delete');        
+    // Route::delete('/admin/main/gallery/{index}', [BlogController::class, 'deleteMainGalleryImage'])
+    // ->name('admin.main.gallery.delete');        
 });
 
 

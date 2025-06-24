@@ -126,7 +126,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="meta_description">Meta Description</label>
-                            <textarea name="meta_description" id="meta_description" class="form-control" rows="2">{{ old('meta_description', $blog->meta_description ?? '') }}</textarea>
+                            <textarea name="meta_description" id="summernote" class="form-control" rows="2">{{ old('meta_description', $blog->meta_description ?? '') }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -146,6 +146,7 @@
         </div>
     </div>
 </div>
+@include("components.summernote")
 @endsection
 
 @push('scripts')

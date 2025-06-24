@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Hero Subtitle</label>
-                        <input type="text" name="hero_description" class="form-control" 
+                        <input type="text" id="summernote" name="hero_description" class="form-control" 
                                value="{{ $heroRoom->hero_description ?? '' }}" required>
                     </div>
                     <div class="col-md-12">
@@ -127,4 +127,5 @@
         </div>
     </div>
 </div>
+@include("components.summernote")
 @endsection

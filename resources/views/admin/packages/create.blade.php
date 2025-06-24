@@ -22,7 +22,7 @@
 
                             <div class="col-12">
                                 <label class="form-label fw-bold">Description</label>
-                                <textarea name="description" class="form-control" rows="4" required></textarea>
+                                <textarea name="description" id="summernote" class="form-control" rows="4" required></textarea>
                                 <small class="text-muted">Describe the package features and benefits</small>
                             </div>
 
@@ -65,4 +65,5 @@
         </div>
     </div>
 </div>
+@include("components.summernote")
 @endsection

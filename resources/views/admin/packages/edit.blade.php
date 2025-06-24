@@ -35,7 +35,7 @@
                         
                             <div class="col-12">
                                 <label class="form-label fw-bold">Description</label>
-                                <textarea name="description" class="form-control" rows="4" required>{{ old('description', $package->description) }}</textarea>
+                                <textarea name="description" id="summernote" class="form-control" rows="4" required>{{ old('description', $package->description) }}</textarea>
                             </div>
 
     
@@ -89,4 +89,5 @@
         </div>
     </div>
 </div>
+@include("components.summernote")
 @endsection

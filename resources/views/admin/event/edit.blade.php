@@ -12,7 +12,7 @@
         <input type="text" name="title" value="{{ $event->title }}" required>
 
         <label>Description:</label>
-        <textarea name="description" required>{{ $event->description }}</textarea>
+        <textarea name="description" id="summernote" required>{{ $event->description }}</textarea>
 
         <label>Date:</label>
         <input type="date" name="event_date" value="{{ $event->event_date }}" required>
@@ -23,4 +23,5 @@
         <button type="submit" class="btn btn-primary">Update Event</button>
     </form>
 </div>
+@include("components.summernote")
 @endsection

@@ -45,7 +45,7 @@
                             <!-- Description -->
                             <div class="col-12">
                                 <label class="form-label fw-bold">Description</label>
-                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" 
+                                <textarea name="description" id="summernote" class="form-control @error('description') is-invalid @enderror" 
                                           rows="3">{{ old('description', $facility->description ?? '') }}</textarea>
                                 @error('description')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -111,6 +111,7 @@
         </div>
     </div>
 </div>
+@include("components.summernote")
 @endsection
 
 @push('scripts')
