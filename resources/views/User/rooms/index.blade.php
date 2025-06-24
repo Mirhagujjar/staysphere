@@ -422,17 +422,19 @@
                                             <p>Rs. {{ number_format($room->price) }} / Per Night</p>
                                         </div>
                                         <a href="{{ route('user.rooms.show', $room->id) }}" class="btn-book">View Details</a>
+
+                                        @if(!$room->isBooked())
+                                        <div class="card-footer text-center">
+                                            <a href="{{ route('user.reservations.create', ['room_id' => $room->id]) }}"
+                                            class="btn btn-primary">
+                                                Book Now
+                                            </a>
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
 
-                                @if(!$room->isBooked())
-                                <div class="card-footer text-center">
-                                    <a href="{{ route('user.reservations.create', ['room_id' => $room->id]) }}"
-                                    class="btn btn-primary">
-                                        Book Now
-                                    </a>
-                                </div>
-                                @endif
+                                
                             </div>
                         </div>
                         @endforeach

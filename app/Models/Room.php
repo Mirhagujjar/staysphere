@@ -180,10 +180,10 @@ class Room extends Model
     }
 
   public function viewType()
-{
-    return $this->belongsTo(FilterOption::class, 'view_type', 'value')
-        ->whereHas('filter', function($q) {
-            $q->where('slug', 'view-type');
-        });
-}
+    {
+        return $this->belongsTo(FilterOption::class, 'view_type', 'value')
+            ->whereHas('filter', function($q) {
+                $q->where('slug', 'view-type');
+            });
+    }
 }

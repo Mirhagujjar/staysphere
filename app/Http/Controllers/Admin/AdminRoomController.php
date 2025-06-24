@@ -273,12 +273,24 @@ class AdminRoomController extends Controller
 
         // Handle hero image upload
         if ($request->hasFile('hero_image')) {
-            // Delete old image if exists
+            // Delete old hero image manually
             if ($room->hero_image) {
-                Storage::delete($room->hero_image);
+                $existingHeroImagePath = public_path($room->hero_image);
+                if (file_exists($existingHeroImagePath)) {
+                    unlink($existingHeroImagePath);
+                }
             }
-            $room->hero_image = $request->file('hero_image')->store('hero_images', 'public');
-        } elseif ($request->has('remove_hero_image')) {
+
+            // Upload new hero image manually to public/assets/images/hero_images
+            $heroImageName = time() . '_hero_' . $request->file('hero_image')->getClientOriginalName();
+            $heroDestinationPath = public_path('assets/images/hero_images');
+            $request->file('hero_image')->move($heroDestinationPath, $heroImageName);
+
+            // Set public path
+            $room->hero_image = 'assets/images/hero_images/' . $heroImageName;
+        }
+ 
+        elseif ($request->has('remove_hero_image')) {
             // Remove image if checkbox is checked
             if ($room->hero_image) {
                 Storage::delete($room->hero_image);

@@ -115,7 +115,7 @@
 <section class="room-detail-hero">
     <div class="container">
         <h1>{{ $room->room_name }}</h1>
-        <p class="lead mb-4">Experience unparalleled comfort and luxury</p>
+        <p class="lead mb-4">{{ $room->short_description ?? 'Experience unparalleled comfort and luxury' }}</p>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb justify-content-center">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -153,7 +153,7 @@
                 <!-- Description -->
                 <div class="mb-5">
                     <h4 class="mb-3"><i class="bi bi-card-text feature-icon"></i>Description</h4>
-                    <p class="text-muted">{{ $room->description ?? 'This beautiful room offers premium comfort and luxury amenities for your perfect stay.' }}</p>
+                    <p class="text-muted">{{ $room->description }}</p>
                 </div>
 
                 <!-- Room Specifications -->
@@ -170,11 +170,11 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <p><i class="bi bi-building text-primary me-2"></i> 
-                                <strong>Type:</strong> {{ $room->roomType->label ?? 'Not specified' }}</p>
+                                <strong>Type:</strong> {{ $room->roomType->label ?? $room->room_type }}</p>
                         </div>
                         <div class="col-md-6 mb-3">
                             <p><i class="bi bi-binoculars-fill text-primary me-2"></i> 
-                                <strong>View:</strong> {{ $room->view_type ?? 'Not specified' }}</p> <!-- FIXED -->
+                                <strong>View:</strong> {{ $room->viewType->label ?? 'Not specified' }}</p>
                         </div>
                     </div>
                 </div>
@@ -207,7 +207,7 @@
                     <h4 class="mb-4"><i class="bi bi-star-fill text-warning me-2"></i>{{ $filterName }}</h4>
                     <ul class="list-unstyled">
                         @foreach($options as $option)
-                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>{{ $option->label }}</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>{{ $option->name }}</li>
                         @endforeach
                     </ul>
                 </div>

@@ -62,7 +62,7 @@
                 </div>
 
                 {{-- Gallery --}}
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label>Gallery Images</label>
                     <div class="row mb-3">
                        @foreach($settings['gallery_images'] as $index => $image)
@@ -99,7 +99,7 @@
                     </div>
                     <input type="file" name="gallery_images[]" multiple class="form-control-file">
                     <small class="text-muted">Add more images to the gallery section</small>
-                </div>
+                </div> --}}
 
                 <button type="submit" class="btn btn-primary">Save Changes</button>
                 <a href="{{ url('/blog') }}" target="_blank" class="btn btn-success ml-2">

@@ -68,7 +68,8 @@ class UserRoomController extends Controller
         // Get featured room for hero section
         $heroRoom = Room::whereNotNull('hero_image')
                     ->orWhereNotNull('hero_title')
-                    ->inRandomOrder()
+                    // ->inRandomOrder()
+                    ->orderBy('updated_at', 'desc')
                     ->first();
 
         // Get active facilities

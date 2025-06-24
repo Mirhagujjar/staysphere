@@ -3,7 +3,6 @@
 @section('content')
 
 <style>
-
     .reset-container {
         display: flex;
         justify-content: center;
@@ -12,70 +11,66 @@
         background: url('{{ asset('build/assets/images/login.jpg') }}') no-repeat center center/cover;
     }
 
-
     .reset-box {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border-radius: 10%;
-        padding: 60px;
-        width: 400px;
-        height: 400px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+        border-radius: 20px;
+        padding: 40px 30px;
+        width: 500px;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
         text-align: center;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         border: 2px solid rgba(255, 255, 255, 0.2);
         animation: wipeIn 6s ease-in-out;
-        overflow: hidden;
+        color: #fff;
     }
-
-
-    /* @keyframes wipeIn {
-        from {
-            clip-path: circle(0% at 50% 50%);
-        }
-        to {
-            clip-path: circle(100% at 50% 50%);
-        }
-    } */
-
 
     .reset-box h3 {
-        margin-bottom: 20px;
-        font-size: 24px;
-        color: #343A40;
+        margin-bottom: 10px;
+        font-size: 26px;
+        color: #fff;
+        font-weight: bold;
     }
 
-    /* -----------------Form inputs -----------*/
-    .form-control {
-        /* width: 80%;
-        padding: 12px; */
-        margin-bottom: 20px;
-        border: 1px solid rgba(44, 62, 80, 0.3);
-        border-radius: 5px;
-        background: rgba(255, 255, 255, 0.8);
+    .reset-box p.intro-text {
         font-size: 16px;
-        color: #343A40;
-        transition: border-color 0.3s ease;
+        margin-bottom: 20px;
+        color: #eee;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 14px;
+        margin-bottom: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.15);
+        font-size: 15px;
+        color: #fff;
+    }
+
+    .form-control::placeholder {
+        color: #ddd;
     }
 
     .form-control:focus {
-        border-color: #1ABC9C;
+        border-color: #F1C40F;
         outline: none;
+        background: rgba(255, 255, 255, 0.25);
     }
 
-    /*--------------- Reset button----------- */
     .btn-warning {
-        width: 63%;
+        width: 100%;
         padding: 12px;
         background-color: #F1C40F;
         border: none;
-        border-radius: 5px;
-        color: #2C3E50;
+        border-radius: 6px;
         font-size: 16px;
+        font-weight: bold;
         cursor: pointer;
+        color: #2C3E50;
         transition: background-color 0.3s;
     }
 
@@ -83,6 +78,10 @@
         background-color: #F39C12;
     }
 
+    .invalid-feedback {
+        color: #ff6b6b;
+        font-size: 13px;
+    }
 
     .social-login {
         display: flex;
@@ -92,17 +91,15 @@
     }
 
     .social-login a {
-        display: inline-block;
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
         font-size: 1.2rem;
-        color: #555;
-        text-decoration: none;
         transition: background 0.3s ease;
     }
 
@@ -110,61 +107,50 @@
         background: rgba(255, 255, 255, 0.3);
     }
 
-
-    .invalid-feedback {
-        color: #ff6b6b;
-        font-size: 14px;
-        margin-top: 5px;
-    }
 </style>
 
 <div class="reset-container">
     <div class="reset-box">
         <h3>Reset Password</h3>
-        <div class="social-login">
+        <p class="intro-text">Forgot your password? Let’s help you reset it.</p>
+
+        {{-- <div class="social-login">
             <a href="#" title="Login with Facebook"><i class="bi bi-facebook"></i></a>
             <a href="#" title="Login with Google"><i class="bi bi-google"></i></a>
             <a href="#" title="Login with Twitter"><i class="bi bi-twitter"></i></a>
-        </div>
+        </div> --}}
+
         @if (session('status'))
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success" role="alert" style="color: #0f0; background: rgba(0,0,0,0.3); border: none;">
                 {{ session('status') }}
             </div>
         @endif
+
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
 
             <input type="email" name="fake_email" style="display:none;">
 
-            {{-- ------------ Email Field -------- --}}
-            <div class="row mb-3">
-                <div class="col-md-12">
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" autofocus placeholder="Email Address">
-                    @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
+            {{-- Email Field --}}
+            <input id="email" type="email"
+                   class="form-control @error('email') is-invalid @enderror"
+                   name="email" required autocomplete="off" autofocus placeholder="Email Address">
+            @error('email')
+            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+            @enderror
 
-            {{-- ----------- Reset Button ---------- --}}
-            <div class="row mb-0">
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-warning">
-                        {{ __('Send Password') }}
-                    </button>
-                </div>
-            </div>
+            {{-- Submit --}}
+            <button type="submit" class="btn btn-warning">
+                {{ __('Send Password Reset Link') }}
+            </button>
         </form>
-        <script>
-
-            document.addEventListener('DOMContentLoaded', function() {
-                document.getElementById('email').value = '';
-
-            });
-        </script>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('email').value = '';
+    });
+</script>
 
 @endsection
