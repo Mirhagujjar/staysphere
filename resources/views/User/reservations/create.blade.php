@@ -99,7 +99,7 @@
 
             <div class="mb-3">
                 <label>Room Type</label>
-                <input type="text" name="room_type" class="form-control" value="{{ $room->room_type }}" required>
+                <input type="text" name="room_type" class="form-control" value="{{ $room->roomType->label }}" required>
            </div>
 
             <div class="mb-3">

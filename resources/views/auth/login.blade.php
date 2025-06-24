@@ -7,192 +7,255 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        background: url('build/assets/images/login1.jpg') no-repeat center center/cover;
+        min-height: 100vh;
+        background-color: #121212;
+        background-image: url('build/assets/images/login1.jpg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
     }
 
     .login-box {
-        background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(12px);
-        border-radius: 20px;
-        padding: 40px 30px;
-        width: 520px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        border: 2px solid rgba(255, 255, 255, 0.2);
-        animation: wipeIn 6s ease-in-out;
-        color: #080808;
+        background-color: rgba(40, 40, 40, 0.85);
+        backdrop-filter: blur(8px);
+        border-radius: 12px;
+        padding: 40px;
+        width: 100%;
+        max-width: 450px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #ffffff;
     }
 
     .login-box h2 {
-        margin-bottom: 10px;
+        margin-bottom: 16px;
         font-size: 28px;
-        color: #fff;
-        font-weight: bold;
+        font-weight: 600;
+        color: #ffffff;
     }
 
-    .login-box p.intro-text {
-        font-size: 16px;
-        margin-bottom: 20px;
-        color: #3a3737;
+    .login-box .intro-text {
+        font-size: 15px;
+        margin-bottom: 30px;
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.5;
     }
 
     .form-control {
         width: 100%;
-        padding: 14px;
-        margin-bottom: 18px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 14px 16px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 6px;
-        background: rgba(255, 255, 255, 0.15);
+        background-color: rgba(255, 255, 255, 0.1);
         font-size: 15px;
-        color: #fff;
+        color: #ffffff !important; /* Force white text */
+        transition: all 0.3s ease;
+    }
+
+    /* Fix for Chrome autofill */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-text-fill-color: #ffffff !important;
+        -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.1) inset !important;
+        transition: background-color 5000s ease-in-out 0s;
     }
 
     .form-control::placeholder {
-        color: #ddd;
+        color: rgba(255, 255, 255, 0.6);
     }
 
     .form-control:focus {
         border-color: #F1C40F;
         outline: none;
-        background: rgba(255, 255, 255, 0.25);
+        background-color: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 0 2px rgba(241, 196, 15, 0.2);
     }
 
-    .btn-warning {
+    .btn-primary {
         width: 100%;
-        padding: 12px;
+        padding: 14px;
         background-color: #F1C40F;
         border: none;
         border-radius: 6px;
         font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
+        font-weight: 600;
         color: #2C3E50;
+        cursor: pointer;
         transition: background-color 0.3s;
     }
 
-    .btn-warning:hover {
+    .btn-primary:hover {
         background-color: #F39C12;
     }
 
-    .forgot-password,
-    .signup-link {
-        color: #F1C40F;
-        font-size: 14px;
-    }
-
-    .forgot-password:hover,
-    .signup-link:hover {
-        text-decoration: underline;
-    }
-
-    .social-login {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
+    .form-check {
         margin-bottom: 20px;
     }
 
-    .social-login a {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.15);
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-        transition: background 0.3s ease;
+    .form-check-input {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
-    .social-login a:hover {
-        background: rgba(255, 255, 255, 0.3);
-    }
-
-    .form-check {
-        text-align: left;
-        margin-bottom: 15px;
-        color: #fff;
+    .form-check-input:checked {
+        background-color: #F1C40F;
+        border-color: #F1C40F;
     }
 
     .form-check-label {
-        color: #ddd;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 14px;
+    }
+
+    .link-text {
+        color: #F1C40F;
+        font-size: 14px;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .link-text:hover {
+        color: #F39C12;
+        text-decoration: underline;
+    }
+
+    .divider {
+        display: flex;
+        align-items: center;
+        margin: 25px 0;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 14px;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .divider::before {
+        margin-right: 15px;
+    }
+
+    .divider::after {
+        margin-left: 15px;
+    }
+
+    .invalid-feedback {
+        display: block;
+        margin-top: -15px;
+        margin-bottom: 15px;
+        color: #ff6b6b;
+        font-size: 13px;
+        text-align: left;
+    }
+
+    .is-invalid {
+        border-color: #ff6b6b !important;
+    }
+
+    .is-invalid:focus {
+        box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2) !important;
     }
 </style>
 
 <div class="login-container">
     <div class="login-box">
-        <h2>Welcome Back!</h2>
-        <p class="intro-text">You seem new here. Please login or sign up to continue exploring.</p>
-
-        {{-- <div class="social-login">
-            <a href="#"><i class="bi bi-facebook"></i></a>
-            <a href="#"><i class="bi bi-google"></i></a>
-            <a href="#"><i class="bi bi-twitter"></i></a>
-        </div> --}}
+        <h2>Welcome Back</h2>
+        <p class="intro-text">Sign in to access your account and continue your journey with us.</p>
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
+            {{-- Anti-autofill fields --}}
             <input type="email" name="fake_email" style="display:none;">
             <input type="password" name="fake_password" style="display:none;">
 
             {{-- Email --}}
             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                   name="email" required autocomplete="off" placeholder="Email Address">
+                   name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email Address">
             @error('email')
-                <span class="invalid-feedback" role="alert" style="color: #030303;">
+                <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
 
             {{-- Password --}}
             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                   name="password" required autocomplete="new-password" placeholder="Password">
+                   name="password" required autocomplete="current-password" placeholder="Password">
             @error('password')
-                <span class="invalid-feedback" role="alert" style="color: #0f0f0f;">
+                <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
 
             {{-- Remember Me --}}
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                       {{ old('remember') ? 'checked' : '' }}>
+                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                 <label class="form-check-label" for="remember">
-                    {{ __('Remember Me') }}
+                    Remember me
                 </label>
             </div>
 
             {{-- Submit --}}
-            <button type="submit" class="btn btn-warning">
-                {{ __('Login') }}
+            <button type="submit" class="btn btn-primary">
+                Sign In
             </button>
-
-            {{-- Signup --}}
-            <p class="mt-3">New here? <a href="{{ route('register') }}" class="signup-link">Create an account</a></p>
 
             {{-- Forgot password --}}
             @if (Route::has('password.request'))
-                <p class="mt-2">
-                    <a class="forgot-password" href="{{ route('password.request') }}">
-                        {{ __('Forgot Your Password?') }}
+                <div class="text-center mt-3">
+                    <a href="{{ route('password.request') }}" class="link-text">
+                        Forgot your password?
                     </a>
-                </p>
+                </div>
             @endif
+
+            <div class="divider">or</div>
+
+            {{-- Signup --}}
+            <div class="text-center">
+                <span style="color: rgba(255, 255, 255, 0.7); font-size: 14px;">Don't have an account?</span>
+                <a href="{{ route('register') }}" class="link-text ml-2">
+                    Sign up
+                </a>
+            </div>
         </form>
     </div>
 </div>
 
 <script>
-    // Just to ensure fields are empty even if browser tries to autofill
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
+        // Force white text in all inputs immediately
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach(input => {
+            // Set initial white color
+            input.style.color = '#ffffff';
+            
+            // Add event listeners to maintain white text
+            ['input', 'change', 'blur', 'focus'].forEach(event => {
+                input.addEventListener(event, function() {
+                    this.style.color = '#ffffff';
+                });
+            });
+        });
+
+        // Clear any autofilled values
         document.getElementById('email').value = '';
         document.getElementById('password').value = '';
+
+        // Additional check for autofilled fields
+        setTimeout(() => {
+            document.querySelectorAll('.form-control').forEach(input => {
+                if(input.value) {
+                    input.style.color = '#ffffff';
+                }
+            });
+        }, 200);
     });
 </script>
 

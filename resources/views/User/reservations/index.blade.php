@@ -110,8 +110,8 @@
                                     {{ $reservation->guests }}
                                 </div>
                                 <div class="detail-item">
-                                    <span class="detail-label">Room_name:</span>
-                                    {{ $reservation->room->room_name }}
+                                    <span class="detail-label">Room_Type:</span>
+                                    {{ $reservation->room->roomType->label }}
                                 </div>
                             </div>
 

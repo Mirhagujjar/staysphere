@@ -84,7 +84,7 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <p class="text-muted small mb-1">Room Type</p>
-                                        <p class="mb-0">{{ $reservation->room ? $reservation->room->room_type : 'N/A' }}</p>
+                                        <p class="mb-0">{{ $reservation->room->roomType->label ? $reservation->room->roomType->label: 'N/A' }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
