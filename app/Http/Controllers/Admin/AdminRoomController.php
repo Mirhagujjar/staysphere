@@ -29,6 +29,19 @@ class AdminRoomController extends Controller
         return view('admin.rooms.index', compact('rooms', 'heroRoom'));
     }
 
+     public function details($id)
+    {
+        $room = Room::with([
+            'roomType',
+            'viewType',
+            'filterOptions' => function ($query) {
+                $query->where('is_active', true)->with('filter');
+            }
+        ])->findOrFail($id);
+
+        return view('admin.rooms.details', compact('room'));
+    }
+
     public function create()
     {
         $roomTypes = FilterOption::whereHas('filter', function($q) {

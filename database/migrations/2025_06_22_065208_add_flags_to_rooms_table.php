@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('rooms', function (Blueprint $table) {
-            $table->boolean('is_new')->default(false)->after('is_booked');
-        $table->boolean('on_sale')->default(false)->after('is_new');
-                    $table->text('description')->nullable(); 
+            // $table->boolean('is_new')->default(false)->after('is_booked');
+        // $table->boolean('on_sale')->default(false)->after('is_new');
 
         });
     }

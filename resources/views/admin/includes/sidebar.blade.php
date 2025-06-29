@@ -310,6 +310,28 @@
                             </ul>
                         </li>
 
+                        {{-- services --}}
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon bi bi-calendar-check text-warning"></i>
+                                <p>Services <i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.services.index') }}" class="nav-link">
+                                        <i class="bi bi-arrow-right text-warning"></i>
+                                        <p>View All Services</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.services.create') }}" class="nav-link">
+                                        <i class="bi bi-arrow-right text-warning"></i>
+                                        <p>add New Services</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
                         <!-- Packages -->
                         <li class="nav-item">
                             <a href="#" class="nav-link">

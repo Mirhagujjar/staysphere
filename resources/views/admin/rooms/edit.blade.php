@@ -26,14 +26,23 @@
 
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Room Type*</label>
-                                <select name="room_type" class="form-select @error('room_type') is-invalid @enderror" required>
-                                    <option value="">Select Room Type</option>
-                                    @foreach($roomTypes as $type)
-                                        <option value="{{ $type->value }}" {{ old('room_type', $room->room_type) == $type->value ? 'selected' : '' }}>
-                                            {{ $type->label }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                @if($roomTypes->count() > 0)
+                                    <select name="room_type" class="form-select @error('room_type') is-invalid @enderror" required>
+                                        <option value="">Select Room Type</option>
+                                        @foreach($roomTypes as $type)
+                                            <option value="{{ $type->value }}" {{ old('room_type', $room->room_type) == $type->value ? 'selected' : '' }}>
+                                                {{ $type->label }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                @else
+                                    <div class="alert alert-warning">
+                                        No room types found. Please <a href="{{ route('admin.filters.create') }}">create a Room Type filter</a> first.
+                                    </div>
+                                    <select name="room_type" class="form-select" disabled>
+                                        <option value="">No room types available</option>
+                                    </select>
+                                @endif
                                 @error('room_type')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -71,20 +80,29 @@
                             <!-- View Type -->
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">View Type*</label>
-                                <select name="view_type" class="form-select @error('view_type') is-invalid @enderror" required>
-                                    <option value="">Select View Type</option>
-                                    @foreach($viewTypes as $view)
-                                        <option value="{{ $view->value }}" {{ old('view_type', $room->view_type) == $view->value ? 'selected' : '' }}>
-                                            {{ $view->label }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                @if($viewTypes->count() > 0)
+                                    <select name="view_type" class="form-select @error('view_type') is-invalid @enderror" required>
+                                        <option value="">Select View Type</option>
+                                        @foreach($viewTypes as $view)
+                                            <option value="{{ $view->value }}" {{ old('view_type', $room->view_type) == $view->value ? 'selected' : '' }}>
+                                                {{ $view->label }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                @else
+                                    <div class="alert alert-warning">
+                                        No view types found. Please <a href="{{ route('admin.filters.create') }}">create a View Type filter</a> first.
+                                    </div>
+                                    <select name="view_type" class="form-select" disabled>
+                                        <option value="">No view types available</option>
+                                    </select>
+                                @endif
                                 @error('view_type')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <!-- Room Features (Dynamic Filters) -->
+                            <!-- Room Features (Dynamic Filters) - Updated to match create form -->
                             <div class="col-12">
                                 <div class="card shadow-sm mt-3">
                                     <div class="card-header bg-primary text-white">
@@ -104,9 +122,9 @@
                                                                         <input class="form-check-input" type="checkbox" 
                                                                             name="features[]" 
                                                                             value="{{ $option->id }}" 
-                                                                            id="feature_{{ $option->id }}"
+                                                                            id="feature_{{ $filter->slug }}_{{ $option->id }}"
                                                                             {{ in_array($option->id, old('features', $room->filterOptions->pluck('id')->toArray())) ? 'checked' : '' }}>
-                                                                        <label class="form-check-label" for="feature_{{ $option->id }}">
+                                                                        <label class="form-check-label" for="feature_{{ $filter->slug }}_{{ $option->id }}">
                                                                             {{ $option->label }}
                                                                         </label>
                                                                     </div>
@@ -114,14 +132,39 @@
                                                             @endforeach
                                                         </div>
                                                     @else
-                                                        <select name="features[]" class="form-select select2-multiple" multiple>
-                                                            @foreach($filter->options as $option)
-                                                                <option value="{{ $option->id }}"
-                                                                    {{ in_array($option->id, old('features', $room->filterOptions->pluck('id')->toArray())) ? 'selected' : '' }}>
-                                                                    {{ $option->label }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
+                                                        <!-- Bootstrap 5 Custom Dropdown Multiselect -->
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-outline-secondary dropdown-toggle w-100 text-start" type="button" 
+                                                                    id="dropdownMenu-{{ $filter->slug }}" 
+                                                                    data-bs-toggle="dropdown" 
+                                                                    aria-expanded="false"
+                                                                    data-bs-auto-close="outside">
+                                                                @php
+                                                                    $selectedOptions = array_intersect(
+                                                                        $room->filterOptions->pluck('id')->toArray(),
+                                                                        $filter->options->pluck('id')->toArray()
+                                                                    );
+                                                                    $selectedCount = count($selectedOptions);
+                                                                @endphp
+                                                                {{ $selectedCount > 0 ? "$selectedCount selected" : 'Select options...' }}
+                                                            </button>
+                                                            <ul class="dropdown-menu w-100 p-3" aria-labelledby="dropdownMenu-{{ $filter->slug }}">
+                                                                @foreach($filter->options as $option)
+                                                                    <li class="mb-2">
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox" 
+                                                                                name="features[]" 
+                                                                                value="{{ $option->id }}" 
+                                                                                id="dropdown_{{ $filter->slug }}_{{ $option->id }}"
+                                                                                {{ in_array($option->id, old('features', $room->filterOptions->pluck('id')->toArray())) ? 'checked' : '' }}>
+                                                                            <label class="form-check-label" for="dropdown_{{ $filter->slug }}_{{ $option->id }}">
+                                                                                {{ $option->label }}
+                                                                            </label>
+                                                                        </div>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
                                                     @endif
                                                 </div>
                                             @endif
@@ -130,22 +173,6 @@
                                 </div>
                             </div>
 
-                            <!-- Add these to your head or before closing body tag -->
-                            <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-                            <script>
-                            $(document).ready(function() {
-                                $('.select2-multiple').select2({
-                                    placeholder: "Select options",
-                                    allowClear: true,
-                                    width: '100%'
-                                });
-                            });
-                            </script>
-
-                            <!-- Room Image -->
                             <!-- Room Image -->
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Room Image</label>
@@ -190,4 +217,26 @@
     </div>
 </div>
 @include("components.summernote")
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Update dropdown button text with selected count
+    document.querySelectorAll('.dropdown-menu input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const dropdown = this.closest('.dropdown');
+            const button = dropdown.querySelector('.dropdown-toggle');
+            const checkedItems = dropdown.querySelectorAll('input[type="checkbox"]:checked');
+            
+            if (checkedItems.length > 0) {
+                button.textContent = `${checkedItems.length} selected`;
+            } else {
+                button.textContent = 'Select options...';
+            }
+        });
+    });
+});
+</script>
+@endpush
+
 @endsection

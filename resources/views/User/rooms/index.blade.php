@@ -124,7 +124,7 @@
         height: 100%;
         background-color: rgba(0, 0, 0, 0.6);
         color: white;
-        display: flex;
+        display: none;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -132,20 +132,20 @@
         transition: opacity 0.3s ease-in-out;
     }
 
-    .card-hover:hover .card-overlay {
+    /* .card-hover:hover .card-overlay {
         opacity: 1;
-    }
+    } */
 
-    .card-overlay .details {
+     .details {
         font-size: 0.9rem;
         margin-bottom: 10px;
         text-align: center;
     }
 
-    .card-overlay .btn-book {
+    .btn-book {
         background-color: #F1C40F;
         color: white;
-        padding: 8px 15px;
+        padding: 8px 8px;
         font-size: 0.9rem;
         border-radius: 5px;
         cursor: pointer;
@@ -411,26 +411,27 @@
                                 </div>
 
                                 <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title">{{ $room->room_name }}</h5>
+                                    <h5 class="card-title">{{ $room->roomType->label }}</h5>
                                     <p class="card-text">Rs. {{ number_format($room->price) }} / Per Night</p>
-                                    <div class="card-overlay mt-auto">
+                                    <div class=" mt-auto">
                                         <div class="details">
-                                            <p>{{ $room->room_capacity }} Guests</p>
+                                            {{-- <p>{{ $room->room_capacity }} Guests</p> --}}
+                                            {{-- <strong>Type:</strong> {{ $room->roomType->label ?? $room->room_type }}</p> --}}
                                             @if($room->size)
                                                 <p>{{ $room->size }} ft² Room Size</p>
                                             @endif
-                                            <p>Rs. {{ number_format($room->price) }} / Per Night</p>
+                                            {{-- <p>Rs. {{ number_format($room->price) }} / Per Night</p> --}}
                                         </div>
                                         <a href="{{ route('user.rooms.show', $room->id) }}" class="btn-book">View Details</a>
 
-                                        @if(!$room->isBooked())
+                                        {{-- @if(!$room->isBooked())
                                         <div class="card-footer text-center">
                                             <a href="{{ route('user.reservations.create', ['room_id' => $room->id]) }}"
                                             class="btn btn-primary">
                                                 Book Now
                                             </a>
                                         </div>
-                                        @endif
+                                        @endif --}}
                                     </div>
                                 </div>
 

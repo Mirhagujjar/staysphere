@@ -10,7 +10,11 @@
             <a href="{{ route('admin.rooms.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Add New Room
             </a>
+            <a href="{{ url('/rooms') }}" target="_blank" class="btn btn-success ml-2">
+                <i class="fas fa-eye"></i> Preview Page
+            </a>
         </div>
+                
     </div>
 
     <!-- Hero Section Configuration Form -->
@@ -102,10 +106,15 @@
                                 @endif
                             </td>
                             <td>
+                                <a href="{{ route('admin.rooms.details', $room->id) }}" 
+                                   class="btn btn-sm btn-primary" title="show">
+                                    <i>show</i>
+                                </a>
                                 <a href="{{ route('admin.rooms.edit', $room->id) }}" 
                                    class="btn btn-sm btn-primary" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
+                                
                                 <form action="{{ route('admin.rooms.destroy', $room->id) }}" 
                                       method="POST" class="d-inline">
                                     @csrf @method('DELETE')

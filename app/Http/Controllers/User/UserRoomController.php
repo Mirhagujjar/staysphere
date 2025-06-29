@@ -98,9 +98,17 @@ class UserRoomController extends Controller
 
    public function show($id)
     {
-        $room = Room::with(['roomType', 'viewType', 'filterOptions.filter'])->findOrFail($id);
+        $room = Room::with([
+            'roomType',
+            'viewType',
+            'filterOptions' => function ($query) {
+                $query->where('is_active', true)->with('filter');
+            }
+        ])->findOrFail($id);
+
         return view('user.rooms.details', compact('room'));
     }
+
 
     public function store(Request $request)
     {

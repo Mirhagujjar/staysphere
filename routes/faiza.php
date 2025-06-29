@@ -115,6 +115,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // -----------rooms-----------------
     //Admin Room Management
     Route::resource('rooms', AdminRoomController::class)->except(['show']);
+    Route::get('/rooms/{room}/details', [AdminRoomController::class, 'details'])->name('rooms.details');
     Route::post('/rooms/update-hero', [AdminRoomController::class, 'updateHero'])->name('rooms.update-hero');
 
 
@@ -198,6 +199,24 @@ Route::prefix('admin')->group(function() {
      ->name('admin.filters.options.edit');
 Route::put('/filter-options/{option}', [FilterController::class, 'updateOption'])
      ->name('admin.filters.options.update');
+});
+
+
+// --------------------------------------services------------------------------------------
+use App\Http\Controllers\User\UserServiceController;
+
+// User-facing service routes
+Route::prefix('services')->group(function () {
+Route::get('/services', [\App\Http\Controllers\User\UserServiceController::class, 'index'])->name('user.services.index');
+    Route::get('/{slug}', [UserServiceController::class, 'show'])->name('services.show');
+});
+
+use App\Http\Controllers\Admin\AdminServiceController;
+
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::resource('services', AdminServiceController::class)->names('admin.services');
+    Route::put('/admin/services/hero-update', [AdminServiceController::class, 'updateHero'])->name('admin.services.hero.update');
+
 });
 
 
