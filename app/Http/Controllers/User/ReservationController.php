@@ -17,10 +17,22 @@ class ReservationController extends Controller
     {
         $room_id = $request->input('room_id');
 
-        $room = Room::findOrFail($room_id); // Assuming Room model exists
+        $room = Room::findOrFail($room_id); 
 
-        return view('User.reservations.create', compact('room'));
+        // $roomTypes = \App\Models\FilterOption::whereHas('filter', fn($q) => $q->where('slug', 'room-type'))->get();
+         $roomTypes = \App\Models\FilterOption::whereHas('filter', function($q) {
+            $q->where('slug', 'room-type');
+        })->get();
+
+        return view('User.reservations.create', compact('room','roomTypes','room_id'));
     }
+
+    // public function reservationform()
+    // {
+
+    //     $roomTypes = \App\Models\FilterOption::whereHas('filter', fn($q) => $q->where('slug', 'room-type'))->get();
+    //     return view('user.reservations.create', compact('roomTypes'));
+    // }
 
     // Show all reservations
    public function index()
@@ -166,13 +178,31 @@ class ReservationController extends Controller
         return view('User.profile.show', compact('reservations'));
     }
 
+    public function checkAvailability(Request $request)
+    {
+    $rooms = Room::where('room_type', $request->room_type)->get();
+    $available = 0;
+
+    foreach ($rooms as $room) {
+        $overlap = Reservation::where('room_id', $room->id)
+        ->where(function ($query) use ($request) {
+            $query->whereBetween('check_in', [$request->check_in, $request->check_out])
+                ->orWhereBetween('check_out', [$request->check_in, $request->check_out])
+                ->orWhere(function ($q) use ($request) {
+                    $q->where('check_in', '<', $request->check_in)
+                    ->where('check_out', '>', $request->check_out);
+                });
+        })
+        ->exists();
+
+        if (!$overlap) $available++;
+    }
+
+    return response()->json(['available' => $available]);
+    }
 
 
-//     public function getHistory()
-// {
-//     $reservations = Reservation::where('email', auth()->user()->email)->orderBy('check_in', 'desc')->get();
-//     return view('User.reservations.reservations_list', compact('reservations'));
-// }
+  
 
       
 }

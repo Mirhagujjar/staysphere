@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('layouts.admin')
 
 @section('content')
 <h3>Past Reservations</h3>

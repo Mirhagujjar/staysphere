@@ -332,6 +332,13 @@
                             </ul>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="{{ route('admin.service-requests.index') }}" class="nav-link">
+                                <i class="bi bi-list-task text-warning"></i> 
+                                <p>Service Requests</p>
+                            </a>
+                        </li>
+
                         <!-- Packages -->
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -433,7 +440,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.gallery') }}">
-                        <i class="fas fa-images"></i>
+                        <i class="bi bi-images text-warning"></i>
                         <p>Gallery</p>
                     </a>
                 </li>

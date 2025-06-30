@@ -61,23 +61,58 @@
     <div class="modal-dialog">
         <div class="modal-content p-4">
             <h4 class="mb-3">Request for {{ $service->title }}</h4>
-            <form>
-                @csrf
-                @foreach($service->modal_fields as $field)
-                    <div class="mb-3">
-                        <label for="{{ $field }}" class="form-label">{{ ucwords(str_replace('_', ' ', $field)) }}</label>
-                        @if($field == 'service_type')
-                            <select class="form-control" name="{{ $field }}">
-                                <option value="Option 1">Option 1</option>
-                                <option value="Option 2">Option 2</option>
+                    <form action="{{ route('services.submit') }}" method="POST">
+                        @csrf
+
+                        <!-- User Name -->
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="Enter your full name" required>
+                        </div>
+
+                        <!-- Email -->
+                        {{-- <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Enter your email address" required>
+                        </div> --}}
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" value="{{ Auth::user()->email }}" readonly required>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" name="phone" class="form-control" placeholder="e.g. 0300-1234567" required>
+                        </div>
+
+                        <!-- Room Number -->
+                        <div class="mb-3">
+                            <label class="form-label">Room Number</label>
+                            <input type="text" name="room_number" class="form-control" placeholder="Your room number" required>
+                        </div>
+
+                        <!-- Select Service -->
+                        <div class="mb-3">
+                            <label class="form-label">Select Service</label>
+                            <select name="service_id" class="form-select" required>
+                                <option value="">-- Select a Service --</option>
+                                @foreach($services as $service)
+                                    <option value="{{ $service->id }}">{{ $service->title }}</option>
+                                @endforeach
                             </select>
-                        @else
-                            <input type="text" class="form-control" name="{{ $field }}" required>
-                        @endif
-                    </div>
-                @endforeach
-                <button type="submit" class="btn btn-warning w-100">Submit Request</button>
-            </form>
+                        </div>
+
+                        <!-- Additional Notes -->
+                        <div class="mb-3">
+                            <label class="form-label">Additional Notes (Optional)</label>
+                            <textarea name="notes" class="form-control" rows="3" placeholder="Any special instructions?"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit Request</button>
+                    </form>
+                
         </div>
     </div>
 </div>

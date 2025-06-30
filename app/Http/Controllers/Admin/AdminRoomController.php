@@ -11,23 +11,47 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 
+use App\Enums\RoomType;
+
+
 class AdminRoomController extends Controller
 {
+    // public function dashboard()
+    // {
+    //     $rooms = Room::with('filterOptions')->latest()->take(5)->get();
+    //     return view('admin.dashboard', compact('rooms'));
+    // }
+
     public function dashboard()
     {
         $rooms = Room::with('filterOptions')->latest()->take(5)->get();
-        return view('admin.dashboard', compact('rooms'));
+        $totalRooms = Room::count();
+        $typeWiseCounts = Room::select('room_type', \DB::raw('count(*) as total'))
+                                ->groupBy('room_type')
+                                ->get();
+
+        return view('admin.dashboard', compact('rooms', 'totalRooms', 'typeWiseCounts'));
     }
+
 
    public function index()
     {
         $rooms = Room::with('filterOptions')->paginate(10);
+
+        $roomTypes = Room::select('room_type')->distinct()->get();
+
         $heroRoom = Room::whereNotNull('hero_title')
                     ->orWhereNotNull('hero_image')
                     ->first();
-        
-        return view('admin.rooms.index', compact('rooms', 'heroRoom'));
+
+         $totalRooms = Room::count(); // ✅ ADD THIS            
+
+        return view('admin.rooms.index', compact('rooms', 'heroRoom', 'roomTypes'));
     }
+
+
+  
+
 
      public function details($id)
     {

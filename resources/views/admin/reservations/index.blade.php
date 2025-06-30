@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container-fluid px-4 py-4">
@@ -156,4 +156,17 @@
     </div>
     @endif
 </div>
+<script>
+    $('#check_in, #check_out, #room_type').change(function() {
+  let data = {
+    check_in: $('#check_in').val(),
+    check_out: $('#check_out').val(),
+    room_type: $('#room_type').val(),
+  };
+  $.get('/check-availability', data, function(res) {
+    $('#availability').text('Available: ' + res.available);
+  });
+});
+
+</script>
 @endsection

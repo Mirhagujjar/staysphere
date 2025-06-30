@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container-fluid">
@@ -65,6 +65,7 @@
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead class="thead-light">
+
                         <tr>
                             <th>#</th>
                             <th>Image</th>
@@ -80,6 +81,7 @@
                     <tbody>
                         @foreach($rooms as $room)
                         <tr>
+                            
                             <td>{{ $loop->iteration }}</td>
                             <td>
                                 <img src="{{ asset($room->image) }}" 
@@ -90,6 +92,7 @@
                             <td>{{ $room->room_type }}</td>
                             <td>Rs. {{ number_format($room->price) }}</td>
                             <td>{{ $room->room_capacity }} Persons</td>
+
                             <td>
                                 @foreach($room->filterOptions->take(3) as $option)
                                     <span class="badge bg-light text-dark mb-1">{{ $option->label }}</span>

@@ -137,6 +137,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/force-delete/{id}', [AdminReservationController::class, 'forceDelete'])->name('forceDelete');
 
 
+
     });
 });
 
@@ -171,6 +172,9 @@ Route::prefix('reservations')->name('user.reservations.')->middleware('auth')->g
     Route::get('/{id}/edit', [ReservationController::class, 'edit'])->name('edit');
     Route::put('/{id}/update', [ReservationController::class, 'update'])->name('update');
     Route::delete('/{id}', [ReservationController::class, 'destroy'])->name('destroy');
+
+    Route::get('/check-availability', [ReservationController::class, 'checkAvailability']);
+
 
     // Route::get('/history', [ReservationController::class, 'getHistory'])->name('history');
 
@@ -208,14 +212,27 @@ use App\Http\Controllers\User\UserServiceController;
 // User-facing service routes
 Route::prefix('services')->group(function () {
 Route::get('/services', [\App\Http\Controllers\User\UserServiceController::class, 'index'])->name('user.services.index');
-    Route::get('/{slug}', [UserServiceController::class, 'show'])->name('services.show');
+// web.php
+// Route::get('/services/request', [UserServiceController::class, 'create'])->name('services.request');
+Route::get('/{slug}', [UserServiceController::class, 'show'])->name('services.show');
+
+Route::post('/services/request', [UserServiceController::class, 'submit'])->name('services.submit');
+
 });
 
 use App\Http\Controllers\Admin\AdminServiceController;
+use App\Http\Controllers\Admin\ServiceRequestController;
+
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('services', AdminServiceController::class)->names('admin.services');
     Route::put('/admin/services/hero-update', [AdminServiceController::class, 'updateHero'])->name('admin.services.hero.update');
+
+    Route::get('/service-requests',[ServiceRequestController::class, 'index'])->name('admin.service-requests.index');
+    Route::put('/admin/service-requests/{id}/status', [ServiceRequestController::class, 'updateStatus'])->name('admin.service-requests.updateStatus');
+    Route::get('/my-requests', [App\Http\Controllers\User\ServiceRequestController::class, 'myRequests'])->name('user.myRequests');
+
+
 
 });
 

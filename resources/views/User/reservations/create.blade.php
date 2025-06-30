@@ -98,9 +98,23 @@
             </div>
 
             <div class="mb-3">
-                <label>Room Type</label>
-                <input type="text" name="room_type" class="form-control" value="{{ $room->roomType->label }}" required>
+                {{-- <label>Room Type</label>
+                <input type="text" name="room_type" class="form-control" value="{{ $room->roomType->label }}" required> --}}
+
+              <label>Room Type</label>
+                <select name="room_type" class="form-control" required>
+                    @foreach($roomTypes as $type)
+                        <option value="{{ $type->value }}"
+                            @if($type->value == $room->roomType->value) selected @endif>
+                            {{ $type->value }}
+                        </option>
+                    @endforeach
+                </select>
+
+
            </div>
+
+            
 
             <div class="mb-3">
                 <label class="form-label">Number of Guests</label>

@@ -116,6 +116,7 @@
         </div>
 
         {{-- Action Buttons --}}
+        {{-- Action Buttons --}}
         <div class="btn-group-custom">
             <a href="{{ route('user.profile.edit') }}" class="btn btn-warning btn-custom">
                 <i class="fas fa-edit me-1"></i> Edit Profile
@@ -125,6 +126,25 @@
                 <i class="fas fa-history me-1"></i> Booking History
             </a>
         </div>
+
+        {{-- Notifications --}}
+        <div class="mt-4 text-start">
+            <h5 class="text-warning mb-3">
+                <i class="fas fa-bell me-2"></i> Notifications
+            </h5>
+            <div class="bg-dark p-3 rounded" style="max-height: 200px; overflow-y: auto;">
+                @forelse(auth()->user()->notifications as $notification)
+                    <div class="alert alert-secondary mb-2 p-2">
+                        {{ $notification->data['message'] ?? 'No message' }}
+                    </div>
+                @empty
+                    <div class="text-muted">No notifications</div>
+                @endforelse
+            </div>
+        </div>
+
+
     </div>
 </div>
+
 @endsection
