@@ -76,15 +76,30 @@ class AdminReservationController extends Controller
     
     public function show($id)
     {
-        $reservation = Reservation::findOrFail($id);
+    $reservation = Reservation::with('room')->findOrFail($id);
+
+// dd($reservation->room->toArray());
+
+    // dd($reservation->room->image);
         return view('admin.reservations.show', compact('reservation'));
     }
 
-    public function edit($id)
-    {
-        $reservation = Reservation::findOrFail($id);
-        return view('admin.reservations.edit', compact('reservation'));
-    }
+//     public function edit($id)
+// {
+//     $reservation = Reservation::findOrFail($id);
+
+//     // Agar reservation accept hone ja raha hai to same type ke available rooms dhoondo
+//     $availableRooms = [];
+//     if ($reservation->status == 'pending' || $reservation->status == 'accepted') {
+//         $availableRooms = Room::where('room_type', $reservation->room_type)
+//             ->whereDoesntHave('reservations', function($q) {
+//                 $q->where('status', 'accepted');
+//             })->get();
+//     }
+
+//     return view('admin.reservations.edit', compact('reservation', 'availableRooms'));
+// }
+
 
    public function update(Request $request, $id)
     {
@@ -135,13 +150,23 @@ class AdminReservationController extends Controller
 
 
 
-    public function updateStatus(Request $request, $id)
-    {
-        $reservation = Reservation::findOrFail($id);
-        $reservation->status = $request->status;
-        $reservation->save();
+   public function updateStatus(Request $request, $id)
+{
+    $reservation = Reservation::findOrFail($id);
 
-        return back()->with('success', 'Reservation status updated successfully.');
+    $reservation->status = $request->status;
+
+    // Agar admin ne accept kiya to room_id bhi assign hoga
+    if ($request->status == 'confirmed') {
+        $reservation->room_id = $request->room_id;  // Room ID select hoga form se
     }
+
+    $reservation->save();
+
+    // TODO: Yahan user ko notification bhejo
+
+    return back()->with('success', 'Reservation status updated successfully.');
+}
+
 
 }

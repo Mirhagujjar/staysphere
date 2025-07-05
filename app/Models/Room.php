@@ -186,4 +186,13 @@ class Room extends Model
                 $q->where('slug', 'view-type');
             });
     }
+
+    // ReservationRoom.php
+public function services() {
+    return $this->belongsToMany(Service::class, 'reservation_services');
+}
+
+public function room() {
+    return $this->belongsTo(Room::class);
+}
 }

@@ -5,7 +5,11 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Reservation;
-use App\Models\Room; 
+use App\Models\Service;
+use App\Models\ReservationRoom; // Assuming you have a model for the pivot table
+use App\Models\Room;
+use App\Models\RoomType;
+
 
 use Illuminate\Support\Facades\Auth;
 
@@ -13,19 +17,28 @@ use Illuminate\Support\Facades\Auth;
 class ReservationController extends Controller
 {
     // Show reservation form
-    public function reservationform(Request $request)
-    {
-        $room_id = $request->input('room_id');
+public function reservationform(Request $request)
+{
+    $room_id = $request->input('room_id');
 
-        $room = Room::findOrFail($room_id); 
+    $room = Room::findOrFail($room_id);
 
-        // $roomTypes = \App\Models\FilterOption::whereHas('filter', fn($q) => $q->where('slug', 'room-type'))->get();
-         $roomTypes = \App\Models\FilterOption::whereHas('filter', function($q) {
-            $q->where('slug', 'room-type');
-        })->get();
+    // ✅ Saare room types (FilterOption se)
+    $roomTypes = \App\Models\FilterOption::whereHas('filter', function($q) {
+        $q->where('slug', 'room-type');
+    })->get();
 
-        return view('User.reservations.create', compact('room','roomTypes','room_id'));
-    }
+    // ✅ Services
+    $services = Service::all();
+
+    // ✅ Auth user ka name/email auto-fill
+    $user = auth()->user();
+
+    return view('User.reservations.create', compact('room', 'roomTypes', 'services', 'user'));
+}
+
+
+
 
     // public function reservationform()
     // {
@@ -55,17 +68,26 @@ class ReservationController extends Controller
 
     // Edit reservation
     public function edit($id)
-    {
-        $reservation = Reservation::with('room')->findOrFail($id);
+{
+    $reservation = Reservation::with('room')->findOrFail($id);
 
-        if (\Carbon\Carbon::parse($reservation->check_out)->isPast()) {
-           return redirect()->route('user.reservations.edit', $id)->with('error', 'This reservation cannot be edited anymore.');
-        }
+    $user = auth()->user();
 
-        return view('user.reservations.edit', compact('reservation'));
+    $roomTypes = \App\Models\FilterOption::whereHas('filter', function($q) {
+        $q->where('slug', 'room-type');
+    })->get();
 
-        
+    $services = \App\Models\Service::all(); // ✅ Load services!
+
+    if (\Carbon\Carbon::parse($reservation->check_out)->isPast()) {
+        return redirect()->route('user.reservations.index')
+            ->with('error', 'This reservation cannot be edited anymore.');
     }
+
+    return view('user.reservations.edit', compact('reservation', 'roomTypes', 'services', 'user'));
+}
+
+
 
 
     // Update reservation
@@ -73,7 +95,6 @@ class ReservationController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'room_id'   => 'required|exists:rooms,id',
             'check_in'  => 'required|date',
             'check_out' => 'required|date|after:check_in',
         ]);
@@ -119,52 +140,39 @@ class ReservationController extends Controller
     }
 
     // Store reservation
-   public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'phone' => 'required|string|between:10,15',
-            'room_id' => 'required|exists:rooms,id',
-            'check_in' => 'required|date',
-            'check_out' => 'required|date|after:check_in',
-            'room_type' => 'required|string',
-            'guests' => 'required|integer|min:1',
-        ]);
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'name'    => 'required|string|max:255',
+        'email'   => 'required|email|max:255',
+        'phone'   => 'required|string|max:20',
+        'rooms.*.room_type' => 'required',
+        'rooms.*.guests'    => 'required|integer|min:1',
+        'check_in'          => 'required|date',
+        'check_out'         => 'required|date|after:check_in',
+    ]);
 
-        // Check room availability first
-       $isBooked = Reservation::where('room_id', $request->room_id)
-        ->where(function ($query) use ($request) {
-            $query->whereBetween('check_in', [$request->check_in, $request->check_out])
-                ->orWhereBetween('check_out', [$request->check_in, $request->check_out])
-                ->orWhere(function ($query) use ($request) {
-                    $query->where('check_in', '<', $request->check_in)
-                            ->where('check_out', '>', $request->check_out);
-                });
-        })
-        ->exists();
-
-
-        if ($isBooked) {
-            return back()->withInput()->with('error', 'This room is already booked for the selected dates.');
-        }
-
-        // Create only once
-        $reservation = Reservation::create([
-            'room_id' => $request->room_id,
-            'user_id' => Auth::id(),
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'check_in' => $request->check_in,
+    foreach ($request->rooms as $roomData) {
+        Reservation::create([
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'phone'     => $request->phone,
+            'room_id'   => null, // ✅ abhi admin allot karega
+            'room_type' => $roomData['room_type'],
+            'guests'    => $roomData['guests'],
+            'service_id'=> $roomData['service_id'] ?? null,
+            'check_in'  => $request->check_in,
             'check_out' => $request->check_out,
-            'room_type' => $request->room_type,
-            'guests' => $request->guests,
-            'status' => 'pending'
+            'user_id'   => Auth::id(),
+            'status'    => 'pending'
         ]);
-
-        return redirect()->route('user.reservations.index')->with('success', 'Room booked successfully!');
     }
+
+    return redirect()->route('user.reservations.index')->with('success', 'Rooms booked successfully!');
+}
+
+
+
 
 
 

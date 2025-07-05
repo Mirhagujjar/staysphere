@@ -82,77 +82,86 @@
             @csrf
             @method('PUT')
 
-            <input type="hidden" name="room_id" value="{{ $reservation->room_id }}">
 
-            <div class="mb-3">
-                <label class="form-label">Full Name</label>
-                <input type="text" name="name" class="form-control" value="{{ $reservation->name }}" required>
+                 <div class="mb-3">
+                <label class="form-label">Your Name</label>
+                <input type="text" name="name" class="form-control" value="{{ auth()->user()->name }}" readonly>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" value="{{ $reservation->email }}" readonly required>
+                <label class="form-label">Your Email</label>
+                <input type="email" name="email" class="form-control" value="{{ auth()->user()->email }}" readonly>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Phone Number</label>
-                <input type="tel" name="phone" class="form-control" 
-                    value="{{ $reservation->phone }}"
-                    pattern="[0-9]{10,15}" 
-                    title="Please enter a valid phone number (10-15 digits)" required>
+                <label class="form-label">Phone</label>
+                <input type="text" name="phone" class="form-control" value="{{ old('phone', $reservation->phone) }}" required>
+            </div>
+
+            <div id="rooms-container">
+                <div class="room-block border p-3 mb-4 rounded">
+                    <h5>Room 1</h5>
+                    <div class="mb-3">
+                        <label class="form-label">Room Type</label>
+                        <select name="rooms[0][room_type]" class="form-control" required>
+                            <option value="">-- Select Room Type --</option>
+                            @foreach($roomTypes as $type)
+                                <option value="{{ $type->label }}">{{ $type->label }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Guests</label>
+                        <input type="number" name="rooms[0][guests]" class="form-control" min="1" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Optional Service</label>
+                        <select name="rooms[0][service_id]" class="form-control">
+                            <option value="">-- None --</option>
+                            @foreach($services as $service)
+                                <option value="{{ $service->id }}">{{ $service->title }} ({{ $service->price }})</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" id="add-room" class="btn btn-secondary mb-3">+ Add Another Room</button>
+
+            <div class="mb-3">
+                <label class="form-label">Check-in</label>
+                <input type="date" name="check_in" class="form-control" required min="{{ now()->toDateString() }}">
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Check-in Date</label>
-                <input type="date" name="check_in" class="form-control" 
-                    value="{{ $reservation->check_in }}" 
-                    min="{{ \Carbon\Carbon::today()->toDateString() }}" required>
+                <label class="form-label">Check-out</label>
+                <input type="date" name="check_out" class="form-control" required min="{{ now()->toDateString() }}">
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Check-out Date</label>
-                <input type="date" name="check_out" class="form-control" 
-                    value="{{ $reservation->check_out }}" 
-                    min="{{ \Carbon\Carbon::today()->toDateString() }}" required>
-            </div>
-
-            <div class="mb-3">
-                <label>Room Type</label>
-                <input type="text" name="room_type" class="form-control" 
-                    value="{{ $reservation->room->roomType->label }}" readonly>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Number of Guests</label>
-                <input type="number" name="guests" class="form-control" 
-                    value="{{ $reservation->guests }}" min="1" required>
-            </div>
-
-            <div class="d-flex justify-content-between">
-                <button type="submit" class="btn btn-submit">Update Reservation</button>
-                <a href="{{ route('user.reservations.index') }}" class="btn btn-cancel">Cancel</a>
-            </div>
+            <button type="submit" class="btn btn-submit w-100">Book Now</button>
         </form>
     </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const checkIn = document.querySelector('input[name="check_in"]');
-    const checkOut = document.querySelector('input[name="check_out"]');
-    
-    // Set initial min date for check-out based on check-in value
-    if (checkIn.value) {
-        checkOut.min = checkIn.value;
-    }
-    
-    checkIn.addEventListener('change', function() {
-        checkOut.min = this.value;
-        if(new Date(checkOut.value) < new Date(this.value)) {
-            checkOut.value = this.value;
-        }
+let roomIndex = 1;
+
+document.getElementById('add-room').addEventListener('click', function() {
+    const container = document.getElementById('rooms-container');
+    const newRoom = container.firstElementChild.cloneNode(true);
+    newRoom.querySelector('h5').innerText = `Room ${roomIndex + 1}`;
+
+    newRoom.querySelectorAll('select, input').forEach(input => {
+        input.name = input.name.replace(/\[\d+\]/, `[${roomIndex}]`);
+        if (input.tagName === 'INPUT') input.value = '';
+        if (input.tagName === 'SELECT') input.selectedIndex = 0;
     });
+
+    container.appendChild(newRoom);
+    roomIndex++;
 });
 </script>
-
+            
 @endsection

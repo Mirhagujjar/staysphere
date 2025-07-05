@@ -110,9 +110,10 @@
                                     {{ $reservation->guests }}
                                 </div>
                                 <div class="detail-item">
-                                    <span class="detail-label">Room_Type:</span>
-                                    {{ $reservation->room->roomType->label }}
+                                    <span class="detail-label">Room Type:</span>
+                                    {{ $reservation->room && $reservation->room->roomType ? $reservation->room->roomType->label : 'N/A' }}
                                 </div>
+
                             </div>
 
                             <div class="d-flex justify-content-between pt-2">

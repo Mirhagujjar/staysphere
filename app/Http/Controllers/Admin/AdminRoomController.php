@@ -328,12 +328,15 @@ class AdminRoomController extends Controller
         }
  
         elseif ($request->has('remove_hero_image')) {
-            // Remove image if checkbox is checked
             if ($room->hero_image) {
-                Storage::delete($room->hero_image);
+                $existingHeroImagePath = public_path($room->hero_image);
+                if (file_exists($existingHeroImagePath)) {
+                    unlink($existingHeroImagePath);
+                }
                 $room->hero_image = null;
             }
         }
+
 
         // Update hero content
         $room->hero_title = $request->hero_title;
