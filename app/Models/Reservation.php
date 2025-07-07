@@ -23,18 +23,29 @@ class Reservation extends Model
         'guests',
         'room_id',
         'status',
-        'service_id',
+        // 'service_id',
+    ];
+
+    protected $casts = [
+        'check_in' => 'date',
+        'check_out' => 'date',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+//     public function user()
+// {
+//     return $this->belongsTo(User::class);
+// }
+
 
     public function room()
     {
         return $this->belongsTo(Room::class);
     }
+    
 
     public function scopeAvailableBetween($query, $roomId, $checkIn, $checkOut, $excludeId = null)
     {
@@ -49,5 +60,14 @@ class Reservation extends Model
     {
         return $this->belongsTo(\App\Models\FilterOption::class, 'room_type', 'id');
     }
+
+   // Reservation.php model mein
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'reservation_service', 'reservation_id', 'service_id');
+    }
+
+
+    
 
 }

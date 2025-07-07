@@ -58,7 +58,7 @@
                                 <div class="d-flex justify-content-between mb-2">
                                     <span class="text-muted">Room Type:</span>
                                     <span class="fw-medium">
-                                        {{ $reservation->room_type_name ?? 'N/A' }}
+                                        {{ $reservation->room_type ?? 'N/A' }}
                                     </span>
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">

@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 // -------- User Side Controllers --------
 use App\Http\Controllers\User\UserReviewController;
 use App\Http\Controllers\User\HeaderReviewController;

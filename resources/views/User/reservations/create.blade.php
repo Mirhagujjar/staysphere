@@ -3,36 +3,36 @@
 @section('content')
 
 <style>
-.form-page {
-    height: 60%;
-    background: url({{ asset('build/assets/images/bg2.jpg') }});
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.form-container {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 30px;
-    border-radius: 15px;
-    width: 100%;
-    max-width: 700px;
-}
-.form-label, .heading {
-    color: #2C3E50;
-}
-.btn-submit {
-    background-color: #F1C40F;
-    color: #2C3E50;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-}
-.btn-submit:hover {
-    background-color: #1ABC9C;
-    color: white;
-}
+    .form-page {
+        height: 60%;
+        background: url({{ asset('build/assets/images/bg2.jpg') }});
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .form-container {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 30px;
+        border-radius: 15px;
+        width: 100%;
+        max-width: 700px;
+    }
+    .form-label, .heading {
+        color: #2C3E50;
+    }
+    .btn-submit {
+        background-color: #F1C40F;
+        color: #2C3E50;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+    }
+    .btn-submit:hover {
+        background-color: #1ABC9C;
+        color: white;
+    }
 </style>
 
 <div class="form-page">
@@ -49,6 +49,8 @@
 
         <form action="{{ route('user.reservations.store') }}" method="POST">
             @csrf
+
+            <input type="hidden" name="room_id" value="{{ $room->id }}">
 
             <div class="mb-3">
                 <label class="form-label">Your Name</label>
@@ -73,7 +75,10 @@
                         <select name="rooms[0][room_type]" class="form-control" required>
                             <option value="">-- Select Room Type --</option>
                             @foreach($roomTypes as $type)
-                                <option value="{{ $type->label }}">{{ $type->label }}</option>
+                                <option value="{{ $type->label }}"
+                                    {{ $room->roomType && $room->roomType->label == $type->label ? 'selected' : '' }}>
+                                    {{ $type->label }}
+                                </option>
                             @endforeach
                         </select>
                     </div>

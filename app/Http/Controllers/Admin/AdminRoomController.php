@@ -10,50 +10,35 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
-
-use App\Enums\RoomType;
+use Illuminate\Support\Facades\DB; 
 
 
 class AdminRoomController extends Controller
 {
-    // public function dashboard()
-    // {
-    //     $rooms = Room::with('filterOptions')->latest()->take(5)->get();
-    //     return view('admin.dashboard', compact('rooms'));
-    // }
-
     public function dashboard()
     {
         $rooms = Room::with('filterOptions')->latest()->take(5)->get();
         $totalRooms = Room::count();
-        $typeWiseCounts = Room::select('room_type', \DB::raw('count(*) as total'))
+        $typeWiseCounts = Room::select('room_type', DB::raw('count(*) as total'))
                                 ->groupBy('room_type')
                                 ->get();
 
         return view('admin.dashboard', compact('rooms', 'totalRooms', 'typeWiseCounts'));
     }
 
-
-   public function index()
+    public function index()
     {
         $rooms = Room::with('filterOptions')->paginate(10);
-
         $roomTypes = Room::select('room_type')->distinct()->get();
-
         $heroRoom = Room::whereNotNull('hero_title')
                     ->orWhereNotNull('hero_image')
                     ->first();
-
-         $totalRooms = Room::count(); // ✅ ADD THIS            
+        $totalRooms = Room::count();
 
         return view('admin.rooms.index', compact('rooms', 'heroRoom', 'roomTypes'));
     }
 
-
-  
-
-
-     public function details($id)
+    public function details($id)
     {
         $room = Room::with([
             'roomType',
@@ -63,7 +48,7 @@ class AdminRoomController extends Controller
             }
         ])->findOrFail($id);
 
-        return view('admin.rooms.details', compact('room'));
+        return view('admin.rooms.show', compact('room'));
     }
 
     public function create()
@@ -124,6 +109,7 @@ class AdminRoomController extends Controller
             'price' => 'required|numeric|min:0',
             'room_capacity' => 'required|integer|min:1',
             'size' => 'required|integer|min:0',
+            'total_quantity' => 'required|integer|min:1',
             'view_type' => [
                 'required',
                 Rule::exists('filter_options', 'value')->where('filter_id', $viewTypeFilterId),
@@ -142,13 +128,11 @@ class AdminRoomController extends Controller
         }
 
         try {
-            // Handle main image upload
             $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
             $destinationPath = public_path('assets/images/room_images');
             $request->file('image')->move($destinationPath, $imageName);
             $imagePath = 'assets/images/room_images/' . $imageName;
 
-            // Handle hero image upload if exists
             $heroImagePath = null;
             if ($request->hasFile('hero_image')) {
                 $heroImageName = time() . '_hero_' . $request->file('hero_image')->getClientOriginalName();
@@ -157,13 +141,14 @@ class AdminRoomController extends Controller
                 $heroImagePath = 'assets/images/hero_images/' . $heroImageName;
             }
 
-            // Create the room
             $room = Room::create([
                 'room_name' => $request->room_name,
                 'room_type' => $request->room_type,
                 'price' => $request->price,
                 'room_capacity' => $request->room_capacity,
                 'size' => $request->size,
+                'total_quantity' => $request->total_quantity,
+                'booked_quantity' => 0,
                 'view_type' => $request->view_type,
                 'description' => $request->description,
                 'image' => $imagePath,
@@ -197,6 +182,7 @@ class AdminRoomController extends Controller
             'price' => 'required|numeric|min:0',
             'room_capacity' => 'required|integer|min:1',
             'size' => 'required|integer|min:0',
+            'total_quantity' => 'required|integer|min:1',
             'view_type' => [
                 'required',
                 Rule::exists('filter_options', 'value')->where('filter_id', $viewTypeFilterId),
@@ -221,38 +207,27 @@ class AdminRoomController extends Controller
                 'price' => $request->price,
                 'room_capacity' => $request->room_capacity,
                 'size' => $request->size,
+                'total_quantity' => $request->total_quantity,
                 'view_type' => $request->view_type,
                 'description' => $request->description,
                 'hero_title' => $request->hero_title,
                 'hero_description' => $request->hero_description,
             ];
 
-            // Handle main image update
             if ($request->hasFile('image')) {
-                // Delete old image
-                $existingImagePath = public_path($room->image);
-                if (file_exists($existingImagePath)) {
-                    unlink($existingImagePath);
+                if (file_exists(public_path($room->image))) {
+                    unlink(public_path($room->image));
                 }
-
-                // Upload new image
                 $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
                 $destinationPath = public_path('assets/images/room_images');
                 $request->file('image')->move($destinationPath, $imageName);
                 $data['image'] = 'assets/images/room_images/' . $imageName;
             }
 
-            // Handle hero image update
             if ($request->hasFile('hero_image')) {
-                // Delete old hero image if exists
-                if ($room->hero_image) {
-                    $existingHeroImagePath = public_path($room->hero_image);
-                    if (file_exists($existingHeroImagePath)) {
-                        unlink($existingHeroImagePath);
-                    }
+                if ($room->hero_image && file_exists(public_path($room->hero_image))) {
+                    unlink(public_path($room->hero_image));
                 }
-
-                // Upload new hero image
                 $heroImageName = time() . '_hero_' . $request->file('hero_image')->getClientOriginalName();
                 $heroDestinationPath = public_path('assets/images/hero_images');
                 $request->file('hero_image')->move($heroDestinationPath, $heroImageName);
@@ -305,12 +280,14 @@ class AdminRoomController extends Controller
             'remove_hero_image' => 'nullable|boolean'
         ]);
 
-        // Get the first room or create a new one if none exists
-        $room = Room::firstOrNew();
+        // Find the first room with hero content or create a new one
+        $room = Room::whereNotNull('hero_title')
+                  ->orWhereNotNull('hero_image')
+                  ->firstOrNew();
 
         // Handle hero image upload
         if ($request->hasFile('hero_image')) {
-            // Delete old hero image manually
+            // Delete old hero image if exists
             if ($room->hero_image) {
                 $existingHeroImagePath = public_path($room->hero_image);
                 if (file_exists($existingHeroImagePath)) {
@@ -318,16 +295,13 @@ class AdminRoomController extends Controller
                 }
             }
 
-            // Upload new hero image manually to public/assets/images/hero_images
+            // Upload new hero image
             $heroImageName = time() . '_hero_' . $request->file('hero_image')->getClientOriginalName();
             $heroDestinationPath = public_path('assets/images/hero_images');
             $request->file('hero_image')->move($heroDestinationPath, $heroImageName);
-
-            // Set public path
             $room->hero_image = 'assets/images/hero_images/' . $heroImageName;
-        }
- 
-        elseif ($request->has('remove_hero_image')) {
+        } elseif ($request->has('remove_hero_image')) {
+            // Remove hero image if requested
             if ($room->hero_image) {
                 $existingHeroImagePath = public_path($room->hero_image);
                 if (file_exists($existingHeroImagePath)) {
@@ -336,7 +310,6 @@ class AdminRoomController extends Controller
                 $room->hero_image = null;
             }
         }
-
 
         // Update hero content
         $room->hero_title = $request->hero_title;

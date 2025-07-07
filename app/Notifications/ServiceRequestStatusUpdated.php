@@ -7,6 +7,8 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Models\ServiceRequest;
+use Illuminate\Support\Facades\DB; 
+
 
 class ServiceRequestStatusUpdated extends Notification
 {

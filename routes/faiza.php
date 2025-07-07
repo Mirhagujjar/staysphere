@@ -7,6 +7,7 @@ use App\Http\Controllers\User\ReservationController;
 use App\Http\Controllers\User\UserPackageController;
 use App\Http\Controllers\User\UserBookingPackageController;
 use App\Http\Controllers\User\UserProfileController;
+use App\Http\Controllers\User\UserNotificationController;
 // use App\Http\Controllers\User\AboutUsController;
 // use App\Http\Controllers\User\BlogController;
 
@@ -30,12 +31,21 @@ use App\Http\Controllers\Admin\FilterController;
 use App\Http\Controllers\Admin\AdminUserController;
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminServiceController;
+use App\Http\Controllers\Admin\ServiceRequestController;
 
 
 
 // -------- Other Controllers --------
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\User\UserServiceController;
+use App\Http\Controllers\Admin\AdminFacilityController;
+
+//user side notifications
+Route::get('/notifications', [UserNotificationController::class, 'index'])->name('notifications.index');
+Route::delete('/notifications/{id}', [UserNotificationController::class, 'destroy'])->name('notifications.destroy');
+
 
 
 //----------------------------------------- gallery---------------------------------
@@ -131,7 +141,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/update/{id}', [AdminReservationController::class, 'update'])->name('update');
         Route::delete('/{id}', [AdminReservationController::class, 'destroy'])->name('destroy');
 
-        Route::patch('/{id}/status', [AdminReservationController::class, 'updateStatus'])->name('updateStatus');
+        Route::patch('/{id}/update-status', [AdminReservationController::class, 'updateStatus'])->name('updateStatus');
+
 
         Route::get('/past', [AdminReservationController::class, 'pastReservations'])->name('past');
         Route::delete('/force-delete/{id}', [AdminReservationController::class, 'forceDelete'])->name('forceDelete');
@@ -175,6 +186,11 @@ Route::prefix('reservations')->name('user.reservations.')->middleware('auth')->g
 
     Route::get('/check-availability', [ReservationController::class, 'checkAvailability']);
 
+    Route::get('/{id}/invoice', [ReservationController::class, 'invoice'])
+    ->name('invoice');
+    Route::get('/{id}/invoice/pdf', [ReservationController::class, 'downloadInvoice'])->name('invoice.pdf');
+
+
 
     // Route::get('/history', [ReservationController::class, 'getHistory'])->name('history');
 
@@ -207,7 +223,6 @@ Route::put('/filter-options/{option}', [FilterController::class, 'updateOption']
 
 
 // --------------------------------------services------------------------------------------
-use App\Http\Controllers\User\UserServiceController;
 
 // User-facing service routes
 Route::prefix('services')->group(function () {
@@ -220,8 +235,7 @@ Route::post('/services/request', [UserServiceController::class, 'submit'])->name
 
 });
 
-use App\Http\Controllers\Admin\AdminServiceController;
-use App\Http\Controllers\Admin\ServiceRequestController;
+
 
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {

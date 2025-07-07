@@ -141,10 +141,10 @@
             <div class="col-lg-5">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h2 class="mb-0">{{ $room->room_name }}</h2>
-                    @if(isset($checkIn) && isset($checkOut) && $room->isBooked($checkIn, $checkOut))
-                        <span class="badge bg-danger availability-badge">Booked</span>
-                    @else
+                    @if($room->available_stock > 0)
                         <span class="badge bg-success availability-badge">Available</span>
+                    @else
+                        <span class="badge bg-danger availability-badge">Fully Booked</span>
                     @endif
                 </div>
 
@@ -180,12 +180,12 @@
                 </div>
 
                 <!-- Book Now Button -->
-                @unless(isset($checkIn) && isset($checkOut) && $room->isBooked($checkIn, $checkOut))
+                {{-- @unless($room->available_stock <= 0)
                     <a href="{{ route('user.reservations.create', ['room_id' => $room->id]) }}" 
-                       class="btn btn-book w-100 py-3">
-                       <i class="bi bi-calendar-check me-2"></i> Book Now
+                    class="btn btn-book w-100 py-3">
+                    <i class="bi bi-calendar-check me-2"></i> Book Now
                     </a>
-                @endunless
+                @endunless --}}
             </div>
         </div>
     </div>

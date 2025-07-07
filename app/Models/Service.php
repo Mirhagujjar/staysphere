@@ -54,4 +54,9 @@ class Service extends Model
     {
         return $this->hero_background ?? $this->detail_image ?? $this->thumbnail;
     }
+
+    public function reservations()
+    {
+        return $this->belongsToMany(Reservation::class, 'reservation_service');
+    }
 }

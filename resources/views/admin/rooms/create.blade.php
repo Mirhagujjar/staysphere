@@ -101,6 +101,26 @@
                                 @enderror
                             </div>
 
+                            <!-- Add after Room Capacity -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Total Units*</label>
+                                <input type="number" name="total_quantity" class="form-control @error('total_quantity') is-invalid @enderror"
+                                    value="{{ old('total_quantity') }}" min="1" required>
+                                @error('total_quantity')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Available Units*</label>
+                                <input type="number" name="available_stock" class="form-control @error('available_stock') is-invalid @enderror"
+                                    value="{{ old('available_stock') }}" min="0" required>
+                                @error('available_stock')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+
                             <!-- Room Size -->
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Room Size (sq.ft)*</label>

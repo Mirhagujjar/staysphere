@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use App\Models\Room;
 use App\Models\Reservation;
+use Illuminate\Support\Facades\DB; 
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
 
          View::composer('admin.dashboard', function ($view) {
             $totalRooms = Room::count();
-            $typeWiseCounts = Room::select('room_type', \DB::raw('count(*) as total'))
+            $typeWiseCounts = Room::select('room_type', DB::raw('count(*) as total'))
                 ->groupBy('room_type')
                 ->get();
 

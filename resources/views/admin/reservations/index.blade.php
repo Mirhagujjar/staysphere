@@ -12,6 +12,9 @@
         </form>
     </div>
 
+    
+
+
     <div class="row g-4">
         @forelse($reservations as $reservation)
         <div class="col-xl-4 col-lg-6 col-md-6">
@@ -47,10 +50,11 @@
                     <div class="mb-3">
                         <h6 class="text-primary mb-2">
                             <i class="bi bi-building me-1"></i>
-                            {{ $reservation->room->name ?? 'Room not specified' }}
-                            <small class="text-muted d-block">
+                            {{ $reservation->roomType->name ?? $reservation->room_type }}
+                            {{-- {{ $reservation->room->name ?? 'Room not specified' }} --}}
+                            {{-- <small class="text-muted d-block">
                                 {{ $reservation->roomType->name ?? $reservation->room_type }}
-                            </small>
+                            </small> --}}
                         </h6>
                         <div class="d-flex justify-content-between">
                             <div>
@@ -91,21 +95,63 @@
                     </div>
 
                     <!-- Status Management -->
-                    <form action="{{ route('admin.reservations.updateStatus', $reservation->id) }}" method="POST" class="mb-3">
+                    <form action="{{ route('admin.reservations.updateStatus', $reservation->id) }}"
+                        method="POST"
+                        class="mb-3 update-status-form">
                         @csrf
                         @method('PATCH')
-                        <div class="input-group input-group-sm">
-                            <select name="status" class="form-select form-select-sm">
+
+                        <div class="input-group input-group-sm mb-2">
+                            <select name="status" class="form-select form-select-sm status-select">
                                 <option value="pending" {{ $reservation->status == 'pending' ? 'selected' : '' }}>Pending</option>
                                 <option value="confirmed" {{ $reservation->status == 'confirmed' ? 'selected' : '' }}>Accepted</option>
                                 <option value="checked_out" {{ $reservation->status == 'checked_out' ? 'selected' : '' }}>Checked Out</option>
                                 <option value="cancelled" {{ $reservation->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                             </select>
+
                             <button type="submit" class="btn btn-sm btn-primary">
                                 <i class="bi bi-arrow-repeat me-1"></i> Update
                             </button>
                         </div>
+
+                        <!-- Room select box (hidden by default) -->
+                        <div class="mb-2 room-select-container d-none">
+                            <label class="small mb-1">Select Room:</label>
+                            <select name="room_id" class="form-select form-select-sm">
+                                <option value="">-- Select Room --</option>
+                               @foreach($rooms->filter(function($room) use ($reservation) {
+                                    return optional($room->roomType)->label === $reservation->room_type;
+                                }) as $room)
+                                    <option value="{{ $room->id }}">
+                                        {{ $room->room_name }} ({{ $room->roomType->label ?? 'N/A' }})
+                                    </option>
+                                @endforeach
+
+                            </select>
+
+
+                        </div>
+
+
+                        {{-- <p><strong>Reservation Room Type:</strong> {{ $reservation->room_type }}</p>
+
+                        <p><strong>Available Rooms:</strong></p>
+                        <ul>
+                            @foreach($rooms as $room)
+                                <p>{{ dump($room->roomType) }} {{ dump($reservation->room_type) }}
+| Relation: {{ optional($room->roomType)->value }}</p>
+                            @endforeach
+                        </ul> --}}
+
+
+
+                        <!-- Rejection reason textarea (hidden by default) -->
+                        <div class="mb-2 reason-container d-none">
+                            <label class="small mb-1">Cancellation Reason:</label>
+                            <textarea name="reason" class="form-control form-control-sm" rows="2"></textarea>
+                        </div>
                     </form>
+
 
                     <!-- Actions -->
                     <div class="d-flex justify-content-between border-top pt-3">
@@ -150,4 +196,29 @@
     </div>
     @endif
 </div>
+
+@push('scripts')
+<script>
+    document.querySelectorAll('.status-select').forEach(function (select) {
+        select.addEventListener('change', function () {
+            const form = this.closest('.update-status-form');
+            const roomBox = form.querySelector('.room-select-container');
+            const reasonBox = form.querySelector('.reason-container');
+
+            if (this.value === 'confirmed') {
+                roomBox.classList.remove('d-none');
+                reasonBox.classList.add('d-none');
+            } else if (this.value === 'cancelled') {
+                reasonBox.classList.remove('d-none');
+                roomBox.classList.add('d-none');
+            } else {
+                roomBox.classList.add('d-none');
+                reasonBox.classList.add('d-none');
+            }
+        });
+    });
+</script>
+@endpush
+
+
 @endsection

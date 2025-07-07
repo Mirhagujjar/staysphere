@@ -90,11 +90,15 @@
                     <div class="reservation-card card">
                         <div class="card-body">
                             <h5 class="card-title d-flex justify-content-between align-items-center">
-                                {{ $reservation->room->name ?? 'Reservation #'.str_pad($reservation->id, 3, '0', STR_PAD_LEFT) }}
-                                <span class="status-badge status-{{ $reservation->status }}">
-                                    {{ ucfirst($reservation->status) }}
+                                {{ $reservation->room->room_name ?? 'Reservation #'.str_pad($reservation->id, 3, '0', STR_PAD_LEFT) }}
+                                <span class="status-badge 
+                                {{ $reservation->status === 'confirmed' ? 'status-approved' : 
+                                    ($reservation->status === 'pending' ? 'status-pending' : 
+                                    ($reservation->status === 'cancelled' ? 'status-cancelled' : 'status-badge')) }}">
+                                {{ ucfirst($reservation->status) }}
                                 </span>
                             </h5>
+
 
                             <div class="mb-3">
                                 <div class="detail-item">

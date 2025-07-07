@@ -123,6 +123,12 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'aliases' => [
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+         'Auth' => Illuminate\Support\Facades\Auth::class,
+
+    ],
+
     'providers' => [
 
         /*
@@ -150,6 +156,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+
 
         /*
         * Package Service Providers...
