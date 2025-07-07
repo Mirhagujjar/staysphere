@@ -101,7 +101,7 @@ class AdminRoomController extends Controller
         $viewTypeFilterId = Filter::where('slug', 'view-type')->value('id');
 
         $validator = Validator::make($request->all(), [
-            'room_name' => 'required|string|max:255',
+            'room_name' => 'required|string',
             'room_type' => [
                 'required',
                 Rule::exists('filter_options', 'value')->where('filter_id', $roomTypeFilterId),
@@ -115,10 +115,10 @@ class AdminRoomController extends Controller
                 Rule::exists('filter_options', 'value')->where('filter_id', $viewTypeFilterId),
             ],
             'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
             'hero_title' => 'nullable|string|max:255',
             'hero_description' => 'nullable|string',
-            'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'features' => 'nullable|array',
             'features.*' => 'exists:filter_options,id',
         ]);
