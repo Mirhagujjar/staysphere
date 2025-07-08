@@ -138,7 +138,7 @@
                                 <strong>{{ $room->room_name }}</strong>
                                 <small class="d-block text-muted">{{ $room->room_number }}</small>
                             </td>
-                            <td>{{ $room->room_type }}</td>
+                            <td>{{ $room->roomType->label }}</td>
                             <td><strong>Rs. {{ number_format($room->price) }}</strong><small class="d-block text-muted">/ night</small></td>
                             <td><span class="badge text-dark badge-info">{{ $room->room_capacity }} Persons</span></td>
                             <td>

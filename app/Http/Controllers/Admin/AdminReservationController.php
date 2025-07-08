@@ -109,7 +109,7 @@ class AdminReservationController extends Controller
         $reservation = Reservation::findOrFail($id);
 
         $request->validate([
-            'status' => 'required|in:pending,confirmed,cancelled,completed',
+            'status' => 'required|in:pending,confirmed,cancelled,completed,checked_out',
             'reason' => 'nullable|string|max:255',
             'room_id' => 'nullable|exists:rooms,id',
         ]);
