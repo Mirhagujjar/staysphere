@@ -1,19 +1,15 @@
-
 @extends('layouts.app')
 
 @section('content')
 
 <style>
-
     .form-page {
         height: 60%;
-        background: url({{ asset('build/assets/images/bg2.jpg') }}) ;
+        background: url({{ asset('build/assets/images/bg2.jpg') }});
         display: flex;
         justify-content: center;
         align-items: center;
     }
-
-
     .form-container {
         margin-top: 15px;
         margin-bottom: 15px;
@@ -22,113 +18,121 @@
         border-radius: 15px;
         width: 100%;
         max-width: 700px;
-
     }
-
     .form-label, .heading {
         color: #2C3E50;
     }
-
-
     .btn-submit {
         background-color: #F1C40F;
         color: #2C3E50;
         font-size: 16px;
-        border:none;
+        border: none;
         border-radius: 5px;
-
     }
-
     .btn-submit:hover {
         background-color: #1ABC9C;
         color: white;
     }
-
 </style>
-
 
 <div class="form-page">
     <div class="form-container">
-        <h2 class="text-center heading mb-4">Book a Room</h2>
-        {{-- Add error messages at the top --}}
+        <h2 class="text-center heading mb-4">Book Your Rooms</h2>
+
         @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
+            <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
         @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
+            <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
 
-        <form action="{{ route('user.reservations.store', ['room_id' => $room->id]) }}" method="POST">
+        <form action="{{ route('user.reservations.store') }}" method="POST">
             @csrf
-           <input type="hidden" name="room_id" value="{{ $room->id }}">
 
+            <input type="hidden" name="room_id" value="{{ $room->id }}">
 
             <div class="mb-3">
-                <label class="form-label">Full Name</label>
-                <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+                <label class="form-label">Your Name</label>
+                <input type="text" name="name" class="form-control" value="{{ $user->name }}" readonly>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" value="{{ Auth::user()->email }}" readonly required>
+                <label class="form-label">Your Email</label>
+                <input type="email" name="email" class="form-control" value="{{ $user->email }}" readonly>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Phone Number</label>
-               {{-- Add phone number validation pattern --}}
-               <input type="tel" name="phone" class="form-control" 
-                    placeholder="Enter your phone number" 
-                    pattern="[0-9]{10,15}" 
-                    title="Please enter a valid phone number (10-15 digits)" required>
+                <label class="form-label">Phone</label>
+                <input type="text" name="phone" class="form-control" required>
+            </div>
+
+            <div id="rooms-container">
+                <div class="room-block border p-3 mb-4 rounded">
+                    <h5>Room 1</h5>
+                    <div class="mb-3">
+                        <label class="form-label">Room Type</label>
+                        <select name="rooms[0][room_type]" class="form-control" required>
+                            <option value="">-- Select Room Type --</option>
+                            @foreach($roomTypes as $type)
+                                <option value="{{ $type->label }}"
+                                    {{ $room->roomType && $room->roomType->label == $type->label ? 'selected' : '' }}>
+                                    {{ $type->label }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Guests</label>
+                        <input type="number" name="rooms[0][guests]" class="form-control" min="1" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Optional Service</label>
+                        <select name="rooms[0][service_id]" class="form-control">
+                            <option value="">-- None --</option>
+                            @foreach($services as $service)
+                                <option value="{{ $service->id }}">{{ $service->title }} ({{ $service->price }})</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" id="add-room" class="btn btn-secondary mb-3">+ Add Another Room</button>
+
+            <div class="mb-3">
+                <label class="form-label">Check-in</label>
+                <input type="date" name="check_in" class="form-control" required min="{{ now()->toDateString() }}">
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Check-in Date</label>
-                <input type="date" name="check_in" class="form-control" min="{{ \Carbon\Carbon::today()->toDateString() }}" required>
+                <label class="form-label">Check-out</label>
+                <input type="date" name="check_out" class="form-control" required min="{{ now()->toDateString() }}">
             </div>
-
-            <div class="mb-3">
-                <label class="form-label">Check-out Date</label>
-                <input type="date" name="check_out" class="form-control" min="{{ \Carbon\Carbon::today()->toDateString() }}" required>
-            </div>
-
-            <div class="mb-3">
-                <label>Room Type</label>
-                <input type="text" name="room_type" class="form-control" value="{{ $room->roomType->label }}" required>
-           </div>
-
-            <div class="mb-3">
-                <label class="form-label">Number of Guests</label>
-                <input type="number" name="guests" class="form-control" min="1" required>
-            </div>
-
 
             <button type="submit" class="btn btn-submit w-100">Book Now</button>
         </form>
     </div>
 </div>
 
-{{-- Enhanced date validation script --}}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const today = new Date().toISOString().split('T')[0];
-    const checkIn = document.querySelector('input[name="check_in"]');
-    const checkOut = document.querySelector('input[name="check_out"]');
-    
-    checkIn.min = today;
-    checkOut.min = today;
-    
-    checkIn.addEventListener('change', function() {
-        checkOut.min = this.value;
-        if(new Date(checkOut.value) < new Date(this.value)) {
-            checkOut.value = this.value;
-        }
+let roomIndex = 1;
+
+document.getElementById('add-room').addEventListener('click', function() {
+    const container = document.getElementById('rooms-container');
+    const newRoom = container.firstElementChild.cloneNode(true);
+    newRoom.querySelector('h5').innerText = `Room ${roomIndex + 1}`;
+
+    newRoom.querySelectorAll('select, input').forEach(input => {
+        input.name = input.name.replace(/\[\d+\]/, `[${roomIndex}]`);
+        if (input.tagName === 'INPUT') input.value = '';
+        if (input.tagName === 'SELECT') input.selectedIndex = 0;
     });
+
+    container.appendChild(newRoom);
+    roomIndex++;
 });
 </script>
 

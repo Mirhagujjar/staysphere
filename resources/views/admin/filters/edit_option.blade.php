@@ -1,5 +1,5 @@
 <!-- resources/views/admin/filters/edit_option.blade.php -->
-@extends('admin.layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container-fluid">

@@ -7,6 +7,7 @@ use App\Http\Controllers\User\ReservationController;
 use App\Http\Controllers\User\UserPackageController;
 use App\Http\Controllers\User\UserBookingPackageController;
 use App\Http\Controllers\User\UserProfileController;
+use App\Http\Controllers\User\UserNotificationController;
 // use App\Http\Controllers\User\AboutUsController;
 // use App\Http\Controllers\User\BlogController;
 
@@ -30,12 +31,21 @@ use App\Http\Controllers\Admin\FilterController;
 use App\Http\Controllers\Admin\AdminUserController;
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminServiceController;
+use App\Http\Controllers\Admin\ServiceRequestController;
 
 
 
 // -------- Other Controllers --------
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\User\UserServiceController;
+use App\Http\Controllers\Admin\AdminFacilityController;
+
+//user side notifications
+Route::get('/notifications', [UserNotificationController::class, 'index'])->name('notifications.index');
+Route::delete('/notifications/{id}', [UserNotificationController::class, 'destroy'])->name('notifications.destroy');
+
 
 
 //----------------------------------------- gallery---------------------------------
@@ -115,6 +125,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // -----------rooms-----------------
     //Admin Room Management
     Route::resource('rooms', AdminRoomController::class)->except(['show']);
+    Route::get('/rooms/{room}/details', [AdminRoomController::class, 'details'])->name('rooms.details');
     Route::post('/rooms/update-hero', [AdminRoomController::class, 'updateHero'])->name('rooms.update-hero');
 
 
@@ -130,10 +141,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/update/{id}', [AdminReservationController::class, 'update'])->name('update');
         Route::delete('/{id}', [AdminReservationController::class, 'destroy'])->name('destroy');
 
-        Route::patch('/{id}/status', [AdminReservationController::class, 'updateStatus'])->name('updateStatus');
+        Route::patch('/{id}/update-status', [AdminReservationController::class, 'updateStatus'])->name('updateStatus');
+
 
         Route::get('/past', [AdminReservationController::class, 'pastReservations'])->name('past');
         Route::delete('/force-delete/{id}', [AdminReservationController::class, 'forceDelete'])->name('forceDelete');
+
 
 
     });
@@ -171,6 +184,14 @@ Route::prefix('reservations')->name('user.reservations.')->middleware('auth')->g
     Route::put('/{id}/update', [ReservationController::class, 'update'])->name('update');
     Route::delete('/{id}', [ReservationController::class, 'destroy'])->name('destroy');
 
+    Route::get('/check-availability', [ReservationController::class, 'checkAvailability']);
+
+    Route::get('/{id}/invoice', [ReservationController::class, 'invoice'])
+    ->name('invoice');
+    Route::get('/{id}/invoice/pdf', [ReservationController::class, 'downloadInvoice'])->name('invoice.pdf');
+
+
+
     // Route::get('/history', [ReservationController::class, 'getHistory'])->name('history');
 
 });
@@ -198,6 +219,35 @@ Route::prefix('admin')->group(function() {
      ->name('admin.filters.options.edit');
 Route::put('/filter-options/{option}', [FilterController::class, 'updateOption'])
      ->name('admin.filters.options.update');
+});
+
+
+// --------------------------------------services------------------------------------------
+
+// User-facing service routes
+Route::prefix('services')->group(function () {
+Route::get('/services', [\App\Http\Controllers\User\UserServiceController::class, 'index'])->name('user.services.index');
+// web.php
+// Route::get('/services/request', [UserServiceController::class, 'create'])->name('services.request');
+Route::get('/{slug}', [UserServiceController::class, 'show'])->name('services.show');
+
+Route::post('/services/request', [UserServiceController::class, 'submit'])->name('services.submit');
+
+});
+
+
+
+
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::resource('services', AdminServiceController::class)->names('admin.services');
+    Route::put('/admin/services/hero-update', [AdminServiceController::class, 'updateHero'])->name('admin.services.hero.update');
+
+    Route::get('/service-requests',[ServiceRequestController::class, 'index'])->name('admin.service-requests.index');
+    Route::put('/admin/service-requests/{id}/status', [ServiceRequestController::class, 'updateStatus'])->name('admin.service-requests.updateStatus');
+    Route::get('/my-requests', [App\Http\Controllers\User\ServiceRequestController::class, 'myRequests'])->name('user.myRequests');
+
+
+
 });
 
 

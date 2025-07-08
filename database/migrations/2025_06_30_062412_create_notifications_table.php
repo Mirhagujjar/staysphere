@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasColumn('reservations', 'user_id')) {
-        Schema::table('reservations', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->nullable()->after('id');
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('type');
+            $table->morphs('notifiable');
+            $table->text('data');
+            $table->timestamp('read_at')->nullable();
+            $table->timestamps();
         });
-    }
     }
 
     /**
@@ -23,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('reservations', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('notifications');
     }
 };

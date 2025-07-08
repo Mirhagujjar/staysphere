@@ -207,13 +207,15 @@
             </button>
 
             {{-- Forgot password --}}
-            @if (Route::has('password.request'))
+            {{-- Forgot password --}}
+            {{-- @if (Route::has('password.request')) --}}
                 <div class="text-center mt-3">
-                    <a href="{{ route('password.request') }}" class="link-text">
-                        Forgot your password?
-                    </a>
+                <a href="{{ route('password.request') }}" class="link-text">
+                    Forgot your password?
+                </a>
                 </div>
-            @endif
+            
+
 
             <div class="divider">or</div>
 

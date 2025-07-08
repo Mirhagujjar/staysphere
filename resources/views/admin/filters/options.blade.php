@@ -1,5 +1,4 @@
-<!-- resources/views/admin/filters/options.blade.php -->
-@extends('admin.dashboard')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container-fluid">
@@ -82,16 +81,14 @@
 </div>
 
 <!-- Edit Option Modal -->
-<div class="modal fade" id="editOptionModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="editOptionModal" tabindex="-1" aria-labelledby="editOptionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <form id="editOptionForm" method="POST">
                 @csrf @method('PUT')
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Option</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="editOptionModalLabel">Edit Option</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -104,7 +101,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                 </div>
             </form>
@@ -114,26 +111,35 @@
 @endsection
 
 @push('scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>
 <script>
-$(function() {
-    // Edit option modal
-    $('.edit-option').click(function() {
+$(document).ready(function() {
+    // Initialize Bootstrap modal
+    var editOptionModal = new bootstrap.Modal(document.getElementById('editOptionModal'));
+    
+    // Edit option button click handler
+    $('.edit-option').on('click', function() {
         var id = $(this).data('id');
         var label = $(this).data('label');
         var value = $(this).data('value');
         
         $('#edit_label').val(label);
         $('#edit_value').val(value);
-        $('#editOptionForm').attr('action', '/admin/filter-options/' + id);
         
-        $('#editOptionModal').modal('show');
+        // Update form action URL
+        var url = "{{ route('admin.filters.options.update', ['option' => ':id']) }}";
+        url = url.replace(':id', id);
+        $('#editOptionForm').attr('action', url);
+        
+        // Show modal
+        editOptionModal.show();
     });
 
-    // Sortable options
-    $('.sortable-options').sortable({
-        itemSelector: '.sortable-item',
-        tolerance: 'pointer',
-        update: function(event, ui) {
+    // Initialize sortable
+    new Sortable(document.querySelector('.sortable-options'), {
+        animation: 150,
+        onEnd: function() {
             var order = [];
             $('.sortable-item').each(function(index, element) {
                 order.push({
@@ -144,7 +150,6 @@ $(function() {
 
             $.ajax({
                 type: "POST",
-                dataType: "json",
                 url: "{{ route('admin.filters.options.update-order') }}",
                 data: {
                     order: order,
@@ -152,8 +157,11 @@ $(function() {
                 },
                 success: function(response) {
                     if (response.success) {
-                        location.reload();
+                        toastr.success('Order updated successfully');
                     }
+                },
+                error: function(xhr) {
+                    toastr.error('Error updating order');
                 }
             });
         }

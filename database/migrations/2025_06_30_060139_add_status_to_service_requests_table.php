@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('reservations', function (Blueprint $table) {
-         $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        Schema::table('service_requests', function (Blueprint $table) {
+          $table->string('status')->default('pending'); // pending, accepted, rejected
 
         });
     }
@@ -22,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('reservations', function (Blueprint $table) {
-           $table->dropForeign(['user_id']);
+        Schema::table('service_requests', function (Blueprint $table) {
+           $table->dropColumn('status');
 
         });
     }

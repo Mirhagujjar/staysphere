@@ -89,7 +89,7 @@
                        Services
                     </a>
                 <ul class="dropdown-menu dropdown-menu-dark">
-                    <li><a class="dropdown-item" href="{{route('services')}}">Services</a></li>
+                    <li><a class="dropdown-item" href="{{route('user.services.index')}}">Services</a></li>
                     <li><a class="dropdown-item" href="{{ route('events') }}">Events</a></li>
 
                 </ul>

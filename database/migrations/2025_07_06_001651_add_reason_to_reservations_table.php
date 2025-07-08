@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('reservations', function (Blueprint $table) {
-           $table->string('room_type')->after('check_out');
+                    $table->text('reason')->nullable()->after('status');
 
         });
     }
@@ -23,8 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('reservations', function (Blueprint $table) {
-                    $table->dropColumn('room_type');
-
+            $table->dropColumn('reason');
         });
     }
 };
