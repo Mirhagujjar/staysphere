@@ -383,7 +383,7 @@
         }
 
         /* -------------------form----------------- */
-        /* .margin_120_95 {
+        .margin_120_95 {
             padding-top: 120px;
             padding-bottom: 95px;
         }
@@ -437,11 +437,11 @@
         #booking_section .col-lg-6 {
             padding: 15px;
 
-        } */
+        }
     </style>
 
     {{-- ----------------------- slider---------------- --}}
-    <div id="carouselExampleDark" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    {{-- <div id="carouselExampleDark" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="2000">
                 <img src="{{ asset('build/assets/images/home/slide1.jpg') }}" class="d-block w-100" alt="First slide">
@@ -498,7 +498,51 @@
                 <a href="{{ route('user.rooms.index') }}" class="btn btn-warning">Check Availability</a>
             </form>
         </div>
+    </div> --}}
+    <div id="mainCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    @if($sliders->count() > 0)
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            @foreach($sliders as $key => $slider)
+                <button type="button"
+                        data-bs-target="#mainCarousel"
+                        data-bs-slide-to="{{ $key }}"
+                        class="{{ $key == 0 ? 'active' : '' }}"></button>
+            @endforeach
+        </div>
+
+        <!-- Slides -->
+        <div class="carousel-inner">
+            @foreach($sliders as $key => $slider)
+                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}" data-bs-interval="3000">
+                    <img src="{{ asset($slider->image) }}" class="d-block w-100" alt="{{ $slider->title }}">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1>{{ $slider->title }}</h1>
+                        <h4>"{{ $slider->subtitle }}"</h4>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- Navigation -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    @else
+        <!-- Fallback if no sliders -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="d-block w-100 bg-light" style="height: 500px;"></div>
+            </div>
+        </div>
+    @endif
     </div>
+
 
     {{-- ---------------------- about us-------------- --}}
     <div class="container section-container">
@@ -525,6 +569,7 @@
             </div>
         </div>
     </div>
+
 
     {{-- ----------------------rooms=--------------------- --}}
     <div class="container py-5">
@@ -820,7 +865,7 @@
     </div>
 
     {{-- -------------------------form---------------------- --}}
-    {{-- <div class="container py-5" id="booking_section">
+    <div class="container py-5" id="booking_section">
         <div class="row justify-content-between align-items-start">
             <div class="col-lg-6 mb-4">
                 <div class="title">
@@ -878,5 +923,5 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 @endsection

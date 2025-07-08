@@ -37,7 +37,7 @@
     <div class="sidebar-wrapper sidebar">
         <nav class="mt-2">
             <ul class="nav flex-column sidebar-menu" data-lte-toggle="treeview" role="menu" data-accordion="false">
-                
+
                 <!-- Dashboard -->
                 @can('access-super-admin')
 
@@ -45,7 +45,7 @@
                             <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                                 <i class="nav-icon bi bi-speedometer text-warning"></i>
                                 <p>Dashboard</p>
-                                
+
                             </a>
                         </li>
 
@@ -102,12 +102,12 @@
                                     </li>
                                 </ul>
                             </li>
-                        
+
                             <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
                         @endif
-                        
+
                         @endauth
 
                                     <!-- Add SweetAlert CSS -->
@@ -116,7 +116,7 @@
 
                         <!-- Add Font Awesome -->
                         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-                        
+
                         <script>
                             function showLogoutConfirmation() {
                                 Swal.fire({
@@ -146,7 +146,7 @@
 
 
 
-                        
+
 
 
                 @endcan
@@ -187,7 +187,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                    
+
                                 <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>
@@ -205,7 +205,7 @@
 
                         <!-- Add Font Awesome -->
                         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-                        
+
                         <script>
                             function showLogoutConfirmation() {
                                 Swal.fire({
@@ -232,8 +232,8 @@
                                 });
                             }
                         </script>
-                    
-                                
+
+
                         <!-- Room Management -->
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -309,7 +309,29 @@
                                 </li>
                             </ul>
                         </li>
-
+ <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon bi bi-door-closed text-warning"></i>
+                                <p>
+                                    Home Management
+                                    <i class="nav-arrow bi bi-chevron-right text-warning"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.sliders.index') }}" class="nav-link">
+                                        <i class="bi bi-arrow-right text-warning"></i>
+                                        <p>View Carousal</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.sliders.create') }}" class="nav-link">
+                                        <i class="bi bi-arrow-right text-warning"></i>
+                                        <p>Add New Carousal</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <!-- Packages -->
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -386,7 +408,7 @@
                     </a>
                 </li>
 
-             
+
 
                 <!-- Users Management -->
                 <li class="nav-item">
@@ -432,7 +454,7 @@
 
 
 
-                
+
             </ul>
         </nav>
     </div>

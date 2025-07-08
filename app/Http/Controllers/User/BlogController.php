@@ -119,6 +119,7 @@ class BlogController extends Controller
     //                 ->orderBy('published_date', 'desc')
     //                 ->get();
 
+<<<<<<< Updated upstream
     //     // Get main page gallery images
     //     $page = PageSetting::where('page_name', 'blog_main')->first();
     //     $mainGallery = [];
@@ -135,4 +136,22 @@ class BlogController extends Controller
     //         'subtitle' => 'Collection of all images from our blog'
     //     ]);
     // }
+=======
+        // Get main page gallery images
+        $page = PageSetting::where('page_name', 'blog_main')->first();
+        $mainGallery = [];
+
+        if ($page) {
+            $settings = is_array($page->settings) ? $page->settings : json_decode($page->settings, true);
+            $mainGallery = $settings['gallery_images'] ?? [];
+        }
+
+        return view('gallery', [
+            'blogs' => $blogs,
+            'mainGallery' => $mainGallery,
+            'title' => 'Our Gallery',
+            'subtitle' => 'Collection of all images from our blog'
+        ]);
+    }
+>>>>>>> Stashed changes
 }
