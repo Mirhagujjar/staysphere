@@ -338,32 +338,7 @@
                 </div>
             </div>
         </div> --}}
-        <div class="container my-5 position-relative">
-        {{-- <div class="row justify-content-center align-items-center">
-            <div class="col-lg-6 col-md-8 col-sm-10 d-flex justify-content-center align-items-center">
-                <img src="{{ asset('storage/'.$settings->contact_image) }}" alt="Contact Image"
-                    class="contact-image img-fluid">
-            </div>
-
-            <div class="col-lg-6 col-md-8 col-sm-10 d-flex justify-content-center">
-                <div class="info-box p-4">
-                    <h3 class="contact-heading mb-4">{{ $settings->contact_info_heading }}</h3>
-                    <div class="info-item d-flex align-items-center mb-3">
-                        <i class="bi bi-geo-alt contact-icon"></i>
-                        <span>{{ $settings->right_section_address }}</span>
-                    </div>
-                    <div class="info-item d-flex align-items-center mb-3">
-                        <i class="bi bi-telephone contact-icon"></i>
-                        <span>{{ $settings->right_section_phone }}</span>
-                    </div>
-                    <div class="info-item d-flex align-items-center mb-3">
-                        <i class="bi bi-envelope contact-icon"></i>
-                        <span>{{ $settings->right_section_email }}</span>
-                    </div>
-                </div>
-            </div>
-          </div>
-        </div> --}}
+        
         <div class="container my-5 position-relative">
     <div class="row justify-content-center align-items-center">
         <div class="col-lg-6 col-md-8 col-sm-10 d-flex justify-content-center align-items-center">
