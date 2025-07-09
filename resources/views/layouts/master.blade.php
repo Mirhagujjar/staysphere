@@ -103,7 +103,7 @@
                     </a>
                 <ul class="dropdown-menu dropdown-menu-dark">
                     <li class="nav-item">
-                        <a class="dropdown-item" href="{{route('contact.index')}}">Contact Us</a>
+                        <a class="dropdown-item" href="{{route('user.contact')}}">Contact Us</a>
                     </li>
                     <li><a class="dropdown-item" href="{{ route('about') }}">About Us</a></li>
                     <li><a class="dropdown-item" href="{{ route('user.review.review') }}">Reviews</a></li>
@@ -170,7 +170,7 @@
         <!-- Support & Legal -->
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">Support</h6>
-          <p><a href="{{ route('contact.index') }}" class="text-decoration-none">Contact</a></p>
+          <p><a href="{{ route('user.contact') }}" class="text-decoration-none">Contact</a></p>
           <p><a href="{{ route('user.review.review') }}" class="text-decoration-none">Reviews</a></p>
           <p><a href="{{ route('user.blogs.index') }}" class="text-decoration-none">Blog</a></p>
           <p><a href="#" class="text-decoration-none">FAQs</a></p>
@@ -222,7 +222,7 @@
   </script> --}}
   <!--End of Tawk.to Script-->
 
-  
+
 
   <script>
     let scrollBtn = document.getElementById("scrollToTop");

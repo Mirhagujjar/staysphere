@@ -13,7 +13,7 @@
         .half-screen-image {
             position: relative;
             height: 70vh;
-            background: url('{{ asset('build/assets/images/contact.jpg') }}') center/cover no-repeat;
+            /* background: url('{{ asset('build/assets/images/contact.jpg') }}') center/cover no-repeat; */
         }
 
         .overlay-text {
@@ -228,7 +228,7 @@
     </style>
     {{-- ------------------------Section1--------------------------- --}}
     <div class="main">
-        <div class="half-screen-image">
+        {{-- <div class="half-screen-image">
             <div class="half-screen-image">
                 <div class="overlay-text">
                     <h1>Contact Us</h1>
@@ -237,29 +237,55 @@
                     </div>
                 </div>
             </div>
+        </div> --}}
+
+        {{-- <div class="half-screen-image">
+            <div class="overlay-text">
+                <h1>{{ $settings->banner_heading }}</h1>
+                <div class="breadcrumb-container">
+                    <a href="/">Home</a> > {{ $settings->breadcrumb }}
+                </div>
+            </div>
+        </div> --}}
+      <div class="half-screen-image">
+    <img src="{{ asset($settings->half_page_image) }}" alt="half page image">
+    <div class="overlay-text">
+        <h1>{{ $settings->banner_heading }}</h1>
+        <div class="breadcrumb-container">
+            <a href="/">Home</a> > {{ $settings->breadcrumb }}
         </div>
+    </div>
+</div>
+
+
+
+
         {{-- ----------------------------------Section2-------------------------------- --}}
         <div class="container my-5">
             <div class="row align-items-center">
                 <!-- Left Column: Text and Image -->
-                <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center text-center ">
+                {{-- <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center text-center ">
                     <h3 class="mb-3 contact-heading" style="color: midnightblue">Let's Start to Give Us a Message and Contact
                         With Us</h3>
-                    {{-- <img src="{{ asset('build/assets/images/mr1.jpg') }}" alt="Contact Image" class="img-fluid contact-img"> --}}
-                </div>
+                </div> --}}
+                <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center text-center">
+                <h3 class="mb-3 contact-heading" style="color: midnightblue">
+                    {{ $settings->left_section_text }}
+                </h3>
+            </div>
 
                 <!-- Right Column: Form -->
                 <div class="col-lg-6">
                     <div class="contact-page">
                         <div class="form-container p-4">
                             <h2 class="text-center">Contact Us</h2>
+                                    @if(session('success'))
+                                        <div class="alert alert-success">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
                             <form action="{{ route('contact.store') }}" method="POST">
                                 @csrf
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Your Name</label>
-                                    <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="Enter your full name" required>
-                                </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Your Email</label>
                                     <input type="email" class="form-control" id="email" name="email"
@@ -284,14 +310,14 @@
         </div>
 
         {{-- ----------------------------------Section3-------------------------------- --}}
-        <div class="container my-5 position-relative">
+        {{-- <div class="container my-5 position-relative">
             <div class="row justify-content-center align-items-center">
                 <!-- Left Column: Contact Info Box -->
                 <div class="col-lg-6 col-md-8 col-sm-10 d-flex justify-content-center align-items-center">
                     <img src="{{ asset('build/assets/images/contact1.jpg') }}" alt="Contact Image"
                         class="contact-image img-fluid">
                 </div>
-               
+
                 <!-- Right Column: Image -->
                 <div class="col-lg-6 col-md-8 col-sm-10 d-flex justify-content-center">
                     <div class="info-box p-4">
@@ -311,7 +337,59 @@
                     </div>
                 </div>
             </div>
+        </div> --}}
+        <div class="container my-5 position-relative">
+        {{-- <div class="row justify-content-center align-items-center">
+            <div class="col-lg-6 col-md-8 col-sm-10 d-flex justify-content-center align-items-center">
+                <img src="{{ asset('storage/'.$settings->contact_image) }}" alt="Contact Image"
+                    class="contact-image img-fluid">
+            </div>
+
+            <div class="col-lg-6 col-md-8 col-sm-10 d-flex justify-content-center">
+                <div class="info-box p-4">
+                    <h3 class="contact-heading mb-4">{{ $settings->contact_info_heading }}</h3>
+                    <div class="info-item d-flex align-items-center mb-3">
+                        <i class="bi bi-geo-alt contact-icon"></i>
+                        <span>{{ $settings->right_section_address }}</span>
+                    </div>
+                    <div class="info-item d-flex align-items-center mb-3">
+                        <i class="bi bi-telephone contact-icon"></i>
+                        <span>{{ $settings->right_section_phone }}</span>
+                    </div>
+                    <div class="info-item d-flex align-items-center mb-3">
+                        <i class="bi bi-envelope contact-icon"></i>
+                        <span>{{ $settings->right_section_email }}</span>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div> --}}
+        <div class="container my-5 position-relative">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-6 col-md-8 col-sm-10 d-flex justify-content-center align-items-center">
+            <img src="{{ asset($settings->contact_section_image) }}" alt="Contact Image" class="contact-image img-fluid">
         </div>
 
+        <div class="col-lg-6 col-md-8 col-sm-10 d-flex justify-content-center">
+            <div class="info-box p-4">
+                <h3 class="contact-heading mb-4">{{ $settings->contact_info_heading }}</h3>
+                <div class="info-item d-flex align-items-center mb-3">
+                    <i class="bi bi-geo-alt contact-icon"></i>
+                    <span>{{ $settings->right_section_address }}</span>
+                </div>
+                <div class="info-item d-flex align-items-center mb-3">
+                    <i class="bi bi-telephone contact-icon"></i>
+                    <span>{{ $settings->right_section_phone }}</span>
+                </div>
+                <div class="info-item d-flex align-items-center mb-3">
+                    <i class="bi bi-envelope contact-icon"></i>
+                    <span>{{ $settings->right_section_email }}</span>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+    </div>
+
 @endsection

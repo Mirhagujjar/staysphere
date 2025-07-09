@@ -309,14 +309,11 @@
                                 </li>
                             </ul>
                         </li>
-
-                       <li class="nav-item">
+                        <!-- Home Management -->
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-door-closed text-warning"></i>
-                                <p>
-                                    Home Management
-                                    <i class="nav-arrow bi bi-chevron-right text-warning"></i>
-                                </p>
+                                <i class="nav-icon bi bi-calendar-check text-warning"></i>
+                                <p>Home Management <i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -329,8 +326,12 @@
                                     <a href="{{ route('admin.sliders.create') }}" class="nav-link">
                                         <i class="bi bi-arrow-right text-warning"></i>
                                         <p>Add New Carousal</p>
-                                    </li>
+                                    </a>
                                 </li>
+                            </ul>
+                        </li>
+
+
                         {{-- services --}}
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -428,6 +429,28 @@
                             </ul>
                         </li>
 
+                         <!-- Contact Us -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon bi bi-info-circle text-warning"></i>
+                                <p>Contact Us <i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('admin.contact.index')}}" class="nav-link">
+                                        <i class="bi bi-arrow-right text-warning"></i>
+                                        <p>View Masseges</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('admin.contact-settings.index')}}" class="nav-link">
+                                        <i class="bi bi-arrow-right text-warning"></i>
+                                        <p>Page Setting</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
                         <!-- Reviews -->
                         <li class="nav-item">
                             <a href="{{ route('admin.review.index') }}" class="nav-link">
@@ -468,91 +491,7 @@
 
                 @endcan
 
-<<<<<<< HEAD
-                <!-- Events -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-calendar-event text-warning"></i>
-                        <p>Events Management <i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.events') }}" class="nav-link">
-                                <i class="bi bi-arrow-right text-warning"></i>
-                                <p>View All Events</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.events.create') }}" class="nav-link">
-                                <i class="bi bi-arrow-right text-warning"></i>
-                                <p>Add New Event</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
 
-                <!-- About Us -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-info-circle text-warning"></i>
-                        <p>About Us <i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('admin.about.show')}}" class="nav-link">
-                                <i class="bi bi-arrow-right text-warning"></i>
-                                <p>View About Us</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route ('admin.about.edit')}}" class="nav-link">
-                                <i class="bi bi-arrow-right text-warning"></i>
-                                <p>Add About Us</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <!-- Reviews -->
-                <li class="nav-item">
-                    <a href="{{ route('admin.review.index') }}" class="nav-link">
-                        <i class="nav-icon bi bi-chat-left-text text-warning"></i>
-                        <p>Reviews</p>
-                    </a>
-                </li>
-
-
-
-                <!-- Users Management -->
-                <li class="nav-item">
-                    <a href="{{ route('admin.users.index') }}" class="nav-link">
-                        <i class="nav-icon bi bi-person text-warning"></i>
-                        <p>Users Management</p>
-                    </a>
-                </li>
-
-                <!-- Blog Management -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-pencil-square text-warning"></i>
-                        <p>Blog Management <i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item"><a href="{{ route('admin.blog.main') }}" class="nav-link"><i class="bi bi-arrow-right text-warning"></i> <p>Edit Main Blog Page</p></a></li>
-                        <li class="nav-item"><a href="{{route('admin.blogs.index')}}" class="nav-link"><i class="bi bi-arrow-right text-warning"></i> <p>View All Blogs</p></a></li>
-                        <li class="nav-item"><a href="{{ route('admin.blogs.create') }}" class="nav-link"><i class="bi bi-arrow-right text-warning"></i> <p>Add New Blog</p></a></li>
-                    </ul>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.gallery') }}">
-                        <i class="fas fa-images"></i>
-                        <p>Gallery</p>
-                    </a>
-                </li>
-=======
-
->>>>>>> 4aa4f20c992bf0d9cda9f6526a0867be1021c5d7
 
 
                 <!-- Analytics -->
