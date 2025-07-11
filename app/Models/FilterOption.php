@@ -13,8 +13,15 @@ class FilterOption extends Model
         'label', 
         'value', 
         'is_active',
-        'order'
+        'order',
+       'capacity',
+
     ];
+
+    public function getCapacityAttribute($value)
+    {
+        return $value ?? 2; // Default capacity of 2 if not set
+    }
 
     /**
      * The filter this option belongs to
@@ -24,6 +31,10 @@ class FilterOption extends Model
         return $this->belongsTo(Filter::class);
     }
 
+    // public function getCapacityAttribute()
+    // {
+    //     return $this->attributes['capacity'] ?? 1; // Default to 1 if not set
+    // }
     /**
      * Rooms that have this option
      */
