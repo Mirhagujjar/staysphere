@@ -24,6 +24,8 @@ class Reservation extends Model
         'room_id',
         'status',
         // 'service_id',
+        'parent_id',
+        'is_parent',
     ];
 
     protected $casts = [
@@ -40,6 +42,16 @@ class Reservation extends Model
 //     return $this->belongsTo(User::class);
 // }
 
+
+     public function parent()
+    {
+        return $this->belongsTo(Reservation::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Reservation::class, 'parent_id');
+    }
 
     public function room()
     {

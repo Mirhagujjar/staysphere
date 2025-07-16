@@ -23,7 +23,7 @@
                 <td>{{ $message->id }}</td>
                 <td>{{ $message->email }}</td>
                 <td>{{ $message->phone }}</td>
-                <td>{{ Str::limit($message->message, 50) }}</td>
+                <td>{{ str($message->message)->limit(50) }}</td>
                 <td>
                     <a href="{{ route('admin.contact.show', $message->id) }}" class="btn btn-primary btn-sm">View</a>
                     <form action="{{ route('admin.contact.destroy', $message->id) }}" method="POST" style="display:inline-block;">

@@ -6,14 +6,21 @@
             font-family: "Montserrat", Helvetica, sans-serif;
         }
 
-        /* .main{
-                background-color:#D9D9D9;
-            } */
-        /* ----------------------------Section1------------------------ */
-        .half-screen-image {
+        /* Section 1 - Banner */
+        /* .half-screen-image {
             position: relative;
             height: 70vh;
-             background: url('{{ asset('build/assets/images/contact.jpg') }}') center/cover no-repeat; 
+
+             background: url('{{ asset('build/assets/images/contact.jpg') }}') center/cover no-repeat;
+
+            overflow: hidden;
+        } */
+
+        .half-screen-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
         }
 
         .overlay-text {
@@ -23,6 +30,8 @@
             transform: translate(-50%, -50%);
             text-align: center;
             color: #F8F9FA;
+            width: 100%;
+            padding: 0 15px;
         }
 
         .overlay-text h1 {
@@ -46,76 +55,99 @@
             color: #1ABC9C;
         }
 
-
-        /* ------------------------------------Section2-------------------------------------- */
-
-
-        /* Contact Section */
-        .container {
-            max-width: 1200px;
-        }
-
-        /* Heading */
+        /* Section 2 - Contact Form */
         .contact-heading {
             font-size: 1.8rem;
             font-weight: bold;
             color: #2C3E50;
-            /* Midnight Blue */
         }
 
-        /* Image Styling */
         .contact-img {
-            max-width: 80%;
+            max-width: 100%;
             border-radius: 15px;
         }
 
-        /* Form Container */
         .form-container {
             background: #2C3E50;
-            /* Midnight Blue */
             color: #f7f9fa;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
         }
 
-        /* Form Fields */
         .form-label {
             font-weight: bold;
         }
 
-        .form-control {
-            border-radius: 5px;
-        }
-
-        /* Submit Button */
         .btn-submit {
             background-color: #F1C40F;
-            /* Soft Gold */
             color: #2C3E50;
             font-weight: bold;
             border: none;
             padding: 10px;
             border-radius: 5px;
-            transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease;
         }
 
         .btn-submit:hover {
             background-color: #1ABC9C;
-            /* Light Teal */
             color: #ffffff;
+        }
+
+        /* Section 3 - Contact Info */
+        .info-box {
+            width: 100%;
+            max-width: 550px;
+            background-color: #343A40;
+            border-radius: 40px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        .info-box .contact-heading {
+            color: #F8F9FA;
+        }
+
+        .info-item {
+            font-size: 1.2rem;
+            color: #F8F9FA;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: #ea3636;
+            margin-right: 10px;
         }
 
         /* Responsive Adjustments */
         @media (max-width: 992px) {
-            .contact-img {
-                max-width: 100%;
+            .overlay-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .info-box {
+                max-width: 90%;
+                border-radius: 30px;
             }
         }
 
         @media (max-width: 768px) {
-            .row {
-                flex-direction: column-reverse;
-                /* Moves form above image on small screens */
+            .half-screen-image {
+                height: 50vh;
+            }
+
+            .overlay-text h1 {
+                font-size: 2rem;
+            }
+
+            .breadcrumb-container {
+                font-size: 16px;
             }
 
             .contact-heading {
@@ -123,102 +155,37 @@
             }
 
             .form-container {
-                padding: 20px;
+                padding: 1.5rem;
+            }
+
+            .info-box {
+                border-radius: 25px;
+                padding: 15px;
+                margin-top: 2rem;
             }
         }
 
         @media (max-width: 576px) {
+            .half-screen-image {
+                height: 40vh;
+            }
+
+            .overlay-text h1 {
+                font-size: 1.8rem;
+            }
+
             .contact-heading {
                 font-size: 1.3rem;
             }
 
-            .btn-submit {
-                font-size: 0.9rem;
-                padding: 8px;
-            }
-        }
-
-        /* -----------------------------------Section3-------------------------------- */
-
-        /* Contact Info Box */
-        .info-box {
-            width: 100%;
-            max-width: 550px;
-            /* Keep size limited */
-            background-color: #343A40;
-            border-radius: 40px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            padding: 20px;
-            position: relative;
-            /* Fixes the overlapping issue */
-        }
-
-        /* Heading */
-        .contact-heading {
-            color: #F8F9FA;
-            font-weight: bold;
-        }
-
-        /* Contact Info */
-        .info-item {
-            font-size: 1.2rem;
-            color: #F8F9FA;
-        }
-
-        /* Icons */
-        .contact-icon {
-            font-size: 1.5rem;
-            color: #ea3636;
-            margin-right: 10px;
-        }
-
-        /* Fix Footer Overlapping */
-        .overlay-on-img {
-            position: relative;
-            /* Instead of absolute */
-            top: auto;
-            left: auto;
-            transform: none;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 992px) {
             .info-box {
-                max-width: 90%;
                 border-radius: 20px;
-                padding: 15px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .row {
-                flex-direction: column-reverse;
-                /* Ensures image appears below info box */
-                text-align: center;
-            }
-
-            .info-box {
-                width: 90%;
-            }
-
-            .contact-icon {
-                font-size: 1.3rem;
+                padding: 15px 10px;
             }
 
             .info-item {
                 font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .info-box {
-                width: 95%;
-                padding: 10px;
-            }
-
-            .contact-heading {
-                font-size: 1.3rem;
+                justify-content: flex-start;
             }
 
             .contact-icon {
@@ -226,118 +193,49 @@
             }
         }
     </style>
-    {{-- ------------------------Section1--------------------------- --}}
-    <div class="main">
-        {{-- <div class="half-screen-image">
-            <div class="half-screen-image">
-                <div class="overlay-text">
-                    <h1>Contact Us</h1>
-                    <div class="breadcrumb-container">
-                        <a href="/">Home</a> > Contact Us
-                    </div>
-                </div>
-            </div>
-        </div> --}}
 
-        {{-- <div class="half-screen-image">
-            <div class="overlay-text">
-                <h1>{{ $settings->banner_heading }}</h1>
-                <div class="breadcrumb-container">
-                    <a href="/">Home</a> > {{ $settings->breadcrumb }}
-                </div>
+    {{-- Section 1 - Banner --}}
+    <div class="half-screen-image">
+        <img src="{{ asset($settings->half_page_image) }}" alt="Contact Banner">
+        <div class="overlay-text">
+            <h1>{{ $settings->banner_heading }}</h1>
+            <div class="breadcrumb-container">
+                <a href="/">Home</a> > {{ $settings->breadcrumb }}
             </div>
-        </div> --}}
-      <div class="half-screen-image">
-    <img src="{{ asset($settings->half_page_image) }}" alt="half page image">
-    <div class="overlay-text">
-        <h1>{{ $settings->banner_heading }}</h1>
-        <div class="breadcrumb-container">
-            <a href="/">Home</a> > {{ $settings->breadcrumb }}
         </div>
     </div>
-</div>
 
-
-
-
-        {{-- ----------------------------------Section2-------------------------------- --}}
-        <div class="container my-5">
-            <div class="row align-items-center">
-                <!-- Left Column: Text and Image -->
-                {{-- <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center text-center ">
-                    <h3 class="mb-3 contact-heading" style="color: midnightblue">Let's Start to Give Us a Message and Contact
-                        With Us</h3>
-                </div> --}}
-                <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center text-center">
-                <h3 class="mb-3 contact-heading" style="color: midnightblue">
-                    {{ $settings->left_section_text }}
-                </h3>
+    {{-- Section 2 - Contact Form --}}
+    <div class="container my-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="text-center">
+                    <h3 class="contact-heading mb-4">{{ $settings->left_section_text }}</h3>
+                </div>
             </div>
 
-                <!-- Right Column: Form -->
-                <div class="col-lg-6">
-                    <div class="contact-page">
-                        <div class="form-container p-4">
-                            <h2 class="text-center">Contact Us</h2>
-                                    @if(session('success'))
-                                        <div class="alert alert-success">
-                                            {{ session('success') }}
-                                        </div>
-                                    @endif
-                            <form action="{{ route('contact.store') }}" method="POST">
-                                @csrf
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Your Email</label>
-                                    <input type="email" class="form-control" id="email" name="email"
-                                        placeholder="Enter your email" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="phone" class="form-label">Phone</label>
-                                    <input type="text" class="form-control" id="phone" name="phone"
-                                        placeholder="Enter phone" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="message" class="form-label">Message</label>
-                                    <textarea class="form-control" id="message" name="message" rows="4" placeholder="Write your message here"
-                                        required></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-submit w-100">Send Message</button>
-                            </form>
+            <div class="col-lg-6">
+                <div class="form-container">
+                    <h2 class="text-center mb-4">Contact Us</h2>
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    <form action="{{ route('contact.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Your Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone" required>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        {{-- ----------------------------------Section3-------------------------------- --}}
-        {{-- <div class="container my-5 position-relative">
-            <div class="row justify-content-center align-items-center">
-                <!-- Left Column: Contact Info Box -->
-                <div class="col-lg-6 col-md-8 col-sm-10 d-flex justify-content-center align-items-center">
-                    <img src="{{ asset('build/assets/images/contact1.jpg') }}" alt="Contact Image"
-                        class="contact-image img-fluid">
-                </div>
-
-                <!-- Right Column: Image -->
-                <div class="col-lg-6 col-md-8 col-sm-10 d-flex justify-content-center">
-                    <div class="info-box p-4">
-                        <h3 class="contact-heading mb-4">Contact Info</h3>
-                        <div class="info-item d-flex align-items-center mb-3">
-                            <i class="bi bi-geo-alt contact-icon"></i>
-                            <span>Lahore, Pakistan</span>
-                        </div>
-                        <div class="info-item d-flex align-items-center mb-3">
-                            <i class="bi bi-telephone contact-icon"></i>
-                            <span>+92 123 456 7890</span>
-                        </div>
-                        <div class="info-item d-flex align-items-center mb-3">
-                            <i class="bi bi-envelope contact-icon"></i>
-                            <span>info@staysphere.com</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
 
         <div class="container my-5 position-relative">
     <div class="row justify-content-center align-items-center">
@@ -359,12 +257,42 @@
                 <div class="info-item d-flex align-items-center mb-3">
                     <i class="bi bi-envelope contact-icon"></i>
                     <span>{{ $settings->right_section_email }}</span>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" name="message" rows="4" placeholder="Write your message here" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-submit w-100">Send Message</button>
+                    </form>
+
                 </div>
             </div>
         </div>
     </div>
-</div>
 
+    {{-- Section 3 - Contact Info --}}
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-6 mb-4 mb-lg-0 d-flex justify-content-center align-items-center">
+                <img src="{{ asset($settings->contact_section_image) }}" alt="Contact Image" class="img-fluid rounded">
+            </div>
+
+            <div class="col-lg-6 d-flex justify-content-center align-items-center">
+                <div class="info-box">
+                    <h3 class="contact-heading mb-4">{{ $settings->contact_info_heading }}</h3>
+                    <div class="info-item">
+                        <i class="bi bi-geo-alt contact-icon"></i>
+                        <span>{{ $settings->right_section_address }}</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="bi bi-telephone contact-icon"></i>
+                        <span>{{ $settings->right_section_phone }}</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="bi bi-envelope contact-icon"></i>
+                        <span>{{ $settings->right_section_email }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
 @endsection

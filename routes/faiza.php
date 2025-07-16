@@ -8,6 +8,8 @@ use App\Http\Controllers\User\UserPackageController;
 use App\Http\Controllers\User\UserBookingPackageController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\User\UserNotificationController;
+use App\Http\Controllers\User\UserServiceController;
+use App\Http\Controllers\User\UserServiceRequestController;
 // use App\Http\Controllers\User\AboutUsController;
 // use App\Http\Controllers\User\BlogController;
 
@@ -39,7 +41,6 @@ use App\Http\Controllers\Admin\ServiceRequestController;
 // -------- Other Controllers --------
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ServicesController;
-use App\Http\Controllers\User\UserServiceController;
 use App\Http\Controllers\Admin\AdminFacilityController;
 
 //user side notifications
@@ -135,20 +136,37 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     //admin Reservation Management
     Route::prefix('reservations')->name('reservations.')->group(function () {
+        // Standard reservation routes
         Route::get('/', [AdminReservationController::class, 'index'])->name('index');
         Route::get('/show/{id}', [AdminReservationController::class, 'show'])->name('show');
         Route::get('/{id}/edit', [AdminReservationController::class, 'edit'])->name('edit');
         Route::put('/update/{id}', [AdminReservationController::class, 'update'])->name('update');
         Route::delete('/{id}', [AdminReservationController::class, 'destroy'])->name('destroy');
+        
+        // Status management
+        // Route::Patch('/{id}/update-status', [AdminReservationController::class, 'updateStatus'])->name('updatestatus');
+        Route::patch('/{reservation}/update-status', [AdminReservationController::class, 'updateStatus'])
+    ->name('updatestatus');
 
-        Route::patch('/{id}/update-status', [AdminReservationController::class, 'updateStatus'])->name('updateStatus');
-
-
+        
+        // Past reservations
         Route::get('/past', [AdminReservationController::class, 'pastReservations'])->name('past');
         Route::delete('/force-delete/{id}', [AdminReservationController::class, 'forceDelete'])->name('forceDelete');
+        
+        // Group reservations
+        Route::get('/create-group', [AdminReservationController::class, 'createGroup'])->name('create-group');
+        Route::post('/create-group', [AdminReservationController::class, 'storeGroup'])->name('store-group');
+        
+        // Room assignment
+        Route::get('/{id}/assign-rooms', [AdminReservationController::class, 'showAssignRooms'])->name('assign-rooms');
+        Route::post('/{id}/assign-rooms', [AdminReservationController::class, 'assignRooms'])->name('assign-rooms.store');
+
+        Route::get('/available-rooms/{type}', [AdminReservationController::class, 'availableRooms'])->name('availableRooms');
+        Route::patch('/{reservation}/assign-room', [AdminReservationController::class, 'assignRoom'])->name('assignRoom');
 
 
-
+        // Route::patch('/{reservation}/update-status', [AdminReservationController::class, 'updateStatus'])
+        // ->name('update-status');
     });
 });
 
@@ -244,11 +262,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/service-requests',[ServiceRequestController::class, 'index'])->name('admin.service-requests.index');
     Route::put('/admin/service-requests/{id}/status', [ServiceRequestController::class, 'updateStatus'])->name('admin.service-requests.updateStatus');
-    Route::get('/my-requests', [App\Http\Controllers\User\ServiceRequestController::class, 'myRequests'])->name('user.myRequests');
-
-
-
 });
+
+Route::get('/my-requests', [UserServiceRequestController::class, 'myRequests'])->name('user.myRequests');
 
 
 //------------------------------------------ Packages Routes-------------------------------

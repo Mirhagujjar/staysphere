@@ -31,6 +31,8 @@ class Service extends Model
     protected $casts = [
         'facilities' => 'array',
         'modal_fields' => 'array',
+            'price' => 'float',
+
     ];
 
     /**
@@ -58,5 +60,10 @@ class Service extends Model
     public function reservations()
     {
         return $this->belongsToMany(Reservation::class, 'reservation_service');
+    }
+
+    public function getPriceAttribute($value)
+    {
+        return (float)$value;
     }
 }
