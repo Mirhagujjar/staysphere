@@ -3,113 +3,95 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\ContactPageSetting;
+use App\Models\HomeSlider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class ContactPageSettingController extends Controller
+class SliderController extends Controller
 {
+    // Show all sliders
     public function index()
     {
-        $settings = ContactPageSetting::first();
-        return view('admin.contact.contact_settings.index', compact('settings'));
+        $sliders = HomeSlider::orderBy('order')->get();
+        return view('admin.sliders.index', compact('sliders'));
     }
 
+    // Show create form
     public function create()
     {
-        return view('admin.contact.contact_settings.create');
+        return view('admin.sliders.create');
     }
 
-        public function store(Request $request)
+    // Store new slider
+    public function store(Request $request)
     {
         $request->validate([
-            'banner_heading'         => 'required|string|max:255',
-            'breadcrumb'             => 'required|string|max:255',
-            'left_section_text'      => 'required|string',
-            'right_section_address'  => 'required|string',
-            'right_section_phone'    => 'required|string',
-            'right_section_email'    => 'required|email',
-            'half_page_image'      => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-            'contact_info_heading'   => 'required|string|max:255',
-            'contact_section_image'          => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'title' => 'required|string|max:255',
+            'subtitle' => 'nullable|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'order' => 'nullable|integer'
+        ]);
+         $imageName = time().'.'.$request->image->extension();
+    $request->image->move(public_path('assets/images/home'), $imageName);
+        HomeSlider::create([
+            'title' => $request->title,
+            'subtitle' => $request->subtitle,
+            'image' => 'assets/images/home/'.$imageName,
+            // 'image' => $imagePath,
+            'order' => $request->order ?? 0
         ]);
 
-        $data = $request->only([
-            'banner_heading',
-            'breadcrumb',
-            'left_section_text',
-            'right_section_address',
-            'right_section_phone',
-            'right_section_email',
-            'contact_info_heading',
-        ]);
-
-        if ($request->hasFile('half_page_image')) {
-            $imageName = time().'_half.'.$request->half_page_image->extension();
-            $request->half_page_image->move(public_path('assets/images/contact'), $imageName);
-            $data['half_page_image'] = 'assets/images/contact/'.$imageName;
-        }
-
-        if ($request->hasFile('contact_section_image')) {
-            $imageName = time().'_contact.'.$request->contact_section_image->extension();
-            $request->contact_section_image->move(public_path('assets/images/contact'), $imageName);
-            $data['contact_section_image'] = 'assets/images/contact/'.$imageName;
-        }
-
-        ContactPageSetting::create($data);
-
-        return redirect()->route('admin.contact-settings.index')
-            ->with('success', 'Contact page settings created successfully.');
+        return redirect()->route('admin.sliders.index')->with('success', 'Slider added!');
     }
 
-
-    public function edit($id)
+    // Delete slider
+    public function destroy($id)
     {
-        $settings = ContactPageSetting::findOrFail($id);
-        return view('admin.contact.contact_settings.edit', compact('settings'));
+        $slider = HomeSlider::findOrFail($id);
+        Storage::disk('public')->delete($slider->image);
+        $slider->delete();
+        return back()->with('success', 'Slider deleted!');
     }
-
-     public function update(Request $request, $id)
+    // Show edit form
+public function edit($id)
 {
-    $request->validate([
-        'banner_heading'         => 'required|string|max:255',
-        'breadcrumb'             => 'required|string|max:255',
-        'left_section_text'      => 'required|string',
-        'right_section_address'  => 'required|string',
-        'right_section_phone'    => 'required|string',
-        'right_section_email'    => 'required|email',
-        'half_page_image'      => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-        'contact_info_heading'   => 'required|string|max:255',
-        'contact_section_image'          => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-    ]);
-
-    $settings = ContactPageSetting::findOrFail($id);
-
-    $data = $request->only([
-        'banner_heading',
-        'breadcrumb',
-        'left_section_text',
-        'right_section_address',
-        'right_section_phone',
-        'right_section_email',
-        'contact_info_heading',
-    ]);
-
-    if ($request->hasFile('half_page_image')) {
-        $imageName = time().'_half.'.$request->half_page_image->extension();
-        $request->half_page_image->move(public_path('assets/images/contact'), $imageName);
-        $data['half_page_image'] = 'assets/images/contact/'.$imageName;
-    }
-
-    if ($request->hasFile('contact_section_image')) {
-        $imageName = time().'_contact.'.$request->contact_section_image->extension();
-        $request->contact_section_image->move(public_path('assets/images/contact'), $imageName);
-        $data['contact_section_image'] = 'assets/images/contact/'.$imageName;
-    }
-
-    $settings->update($data);
-
-    return redirect()->route('admin.contact-settings.index')
-        ->with('success', 'Contact page settings updated successfully.');
+    $slider = HomeSlider::findOrFail($id);
+    return view('admin.sliders.edit', compact('slider'));
 }
 
+// Update slider
+public function update(Request $request, $id)
+{
+    $slider = HomeSlider::findOrFail($id);
+
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'subtitle' => 'nullable|string|max:255',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        'order' => 'nullable|integer'
+    ]);
+
+    $data = [
+        'title' => $request->title,
+        'subtitle' => $request->subtitle,
+        'order' => $request->order ?? $slider->order
+    ];
+
+    if ($request->hasFile('image')) {
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('assets/images/home'), $imageName);
+        // Delete old image if needed
+        $oldImage = HomeSlider::find($id)->image;
+        if (file_exists(public_path($oldImage))) {
+            unlink(public_path($oldImage));
+        }
+        // Update new path
+        $data['image'] = 'assets/images/home/'.$imageName;
+    }
+
+
+    $slider->update($data);
+
+    return redirect()->route('admin.sliders.index')->with('success', 'Slider updated!');
+}
 }

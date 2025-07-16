@@ -13,7 +13,7 @@
         .half-screen-image {
             position: relative;
             height: 70vh;
-            /* background: url('{{ asset('build/assets/images/contact.jpg') }}') center/cover no-repeat; */
+             background: url('{{ asset('build/assets/images/contact.jpg') }}') center/cover no-repeat; 
         }
 
         .overlay-text {
@@ -338,7 +338,7 @@
                 </div>
             </div>
         </div> --}}
-        
+
         <div class="container my-5 position-relative">
     <div class="row justify-content-center align-items-center">
         <div class="col-lg-6 col-md-8 col-sm-10 d-flex justify-content-center align-items-center">

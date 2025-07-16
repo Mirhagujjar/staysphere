@@ -45,12 +45,12 @@
                             <i class="fas fa-cog mr-1"></i> Manage Rooms
                         </a>
                     </div>
-                    
+
                     <div class="d-flex align-items-center mb-4">
                         <div class="stat-value mr-3">{{ $totalRooms }}</div>
                         <div class="text-muted">Total Rooms Available</div>
                     </div>
-                    
+
                     <h5 class="mb-3">Room Type Distribution</h5>
                     <div class="row">
                         @foreach($typeWiseCounts as $type)
@@ -67,7 +67,7 @@
         </div>
 
         <!-- Total Service Requests Card -->
-        <div class="col-12 col-xl-4 mb-4">
+        {{-- <div class="col-12 col-xl-4 mb-4">
             <div class="card h-100">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -76,7 +76,7 @@
                             {{ $totalServiceRequests }} pending
                         </span>
                     </div>
-                    
+
                     <div class="text-center py-4">
                         <div class="stat-value">{{ $totalServiceRequests }}</div>
                         <p class="text-muted mb-4">Total active requests</p>
@@ -84,7 +84,7 @@
                             <i class="fas fa-list mr-1"></i> View Requests
                         </a>
                     </div>
-                    
+
                     <div class="mt-auto pt-3 border-top">
                         <small class="text-muted">
                             <i class="fas fa-info-circle mr-1"></i> Includes all pending service requests
@@ -92,7 +92,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </div>
 </div>
