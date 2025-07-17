@@ -330,7 +330,7 @@
                         <small>{{ $about->faq_section_subtitle }}</small>
                         <h3 class="mb-3">{{ $about->faq_section_title }}</h3>
                         <p>{{ $about->faq_contact_text }}</p>
-                        <a href="{{ route('contact.index') }}" class="btn btn-warning mt-3">Contact Us</a>
+                        <a href="{{ route('user.contact') }}" class="btn btn-warning mt-3">Contact Us</a>
                     </div>
                 </div>
                 <div class="col-lg-7">
@@ -339,14 +339,14 @@
                         <div class="card mb-3">
                             <div class="card-header" id="heading{{ $key }}">
                                 <h5 class="mb-0">
-                                    <button class="btn btn-link text-dark collapsed" data-bs-toggle="collapse" 
-                                            data-bs-target="#collapse{{ $key }}" aria-expanded="false" 
+                                    <button class="btn btn-link text-dark collapsed" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse{{ $key }}" aria-expanded="false"
                                             aria-controls="collapse{{ $key }}">
                                         <i class="bi bi-plus-circle me-2"></i> {{ $faq->question }}
                                     </button>
                                 </h5>
                             </div>
-                            <div id="collapse{{ $key }}" class="collapse" aria-labelledby="heading{{ $key }}" 
+                            <div id="collapse{{ $key }}" class="collapse" aria-labelledby="heading{{ $key }}"
                                  data-bs-parent="#faqAccordion">
                                 <div class="card-body">
                                     {!! nl2br(e($faq->answer)) !!}

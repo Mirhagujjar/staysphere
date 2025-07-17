@@ -1,3 +1,4 @@
+
 @extends('layouts.admin')
 
 @section('content')
@@ -9,7 +10,7 @@
                     <h3 class="mb-0">Contact Page Settings</h3>
                     <p class="mb-0 small">Configure the contact page content and appearance</p>
                 </div>
-                
+
                 <div class="card-body">
                     @if($errors->any())
                         <div class="alert alert-danger alert-dismissible fade show">
@@ -32,12 +33,12 @@
                                 <h5 class="section-title">Banner Settings</h5>
                                 <div class="form-group">
                                     <label for="banner_heading" class="form-label">Banner Heading</label>
-                                    <input type="text" class="form-control" id="banner_heading" name="banner_heading" 
+                                    <input type="text" class="form-control" id="banner_heading" name="banner_heading"
                                            placeholder="Enter banner heading" required>
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="breadcrumb" class="form-label">Breadcrumb Text</label>
-                                    <input type="text" class="form-control" id="breadcrumb" name="breadcrumb" 
+                                    <input type="text" class="form-control" id="breadcrumb" name="breadcrumb"
                                            placeholder="e.g., Home / Contact" required>
                                 </div>
                             </div>
@@ -47,7 +48,7 @@
                                 <h5 class="section-title">Left Section</h5>
                                 <div class="form-group">
                                     <label for="left_section_text" class="form-label">Content Text</label>
-                                    <textarea class="form-control" id="left_section_text" name="left_section_text" 
+                                    <textarea class="form-control" id="left_section_text" name="left_section_text"
                                               rows="5" placeholder="Enter your contact page content" required></textarea>
                                 </div>
                                 <div class="form-group mt-3">
@@ -62,22 +63,22 @@
                                 <h5 class="section-title">Right Section</h5>
                                 <div class="form-group">
                                     <label for="right_section_address" class="form-label">Address</label>
-                                    <input type="text" class="form-control" id="right_section_address" 
+                                    <input type="text" class="form-control" id="right_section_address"
                                            name="right_section_address" placeholder="Enter your address" required>
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="right_section_phone" class="form-label">Phone Number</label>
-                                    <input type="text" class="form-control" id="right_section_phone" 
+                                    <input type="text" class="form-control" id="right_section_phone"
                                            name="right_section_phone" placeholder="Enter phone number" required>
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="right_section_email" class="form-label">Email Address</label>
-                                    <input type="email" class="form-control" id="right_section_email" 
+                                    <input type="email" class="form-control" id="right_section_email"
                                            name="right_section_email" placeholder="Enter email address" required>
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="contact_section_image" class="form-label">Contact Section Image</label>
-                                    <input type="file" class="form-control" id="contact_section_image" 
+                                    <input type="file" class="form-control" id="contact_section_image"
                                            name="contact_section_image">
                                     <small class="text-muted">Recommended size: 400x300px</small>
                                 </div>
@@ -88,7 +89,7 @@
                                 <h5 class="section-title">Contact Information</h5>
                                 <div class="form-group">
                                     <label for="contact_info_heading" class="form-label">Section Heading</label>
-                                    <input type="text" class="form-control" id="contact_info_heading" 
+                                    <input type="text" class="form-control" id="contact_info_heading"
                                            name="contact_info_heading" placeholder="Enter section heading" required>
                                 </div>
                             </div>
