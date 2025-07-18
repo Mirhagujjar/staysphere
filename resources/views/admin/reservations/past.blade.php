@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('layouts.admin')
 
 @section('content')
 <h3>Past Reservations</h3>
@@ -18,7 +18,7 @@
     @foreach($pastReservations as $res)
         <tr>
             <td>{{ $res->id }}</td>
-            <td>{{ $res->room->room_type ?? 'N/A' }}</td>
+            <td>{{ $res->room_type ?? 'N/A' }}</td>
             <td>{{ $res->name }}</td>
             <td>{{ $res->check_in }}</td>
             <td>{{ $res->check_out }}</td>

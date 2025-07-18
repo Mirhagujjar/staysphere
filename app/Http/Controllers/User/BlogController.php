@@ -111,28 +111,30 @@ class BlogController extends Controller
         return view('user.blog.search', compact('blogs', 'settings', 'query'));
     }
 
-    // public function showGallery()
-    // {
-    //     // Get all blog posts with their galleries
-    //     $blogs = Blog::with('gallery')
-    //                 ->whereHas('gallery')
-    //                 ->orderBy('published_date', 'desc')
-    //                 ->get();
+    public function showGallery()
+    {
+        // Get all blog posts with their galleries
+        $blogs = Blog::with('gallery')
+                    ->whereHas('gallery')
+                    ->orderBy('published_date', 'desc')
+                    ->get();
 
-    //     // Get main page gallery images
-    //     $page = PageSetting::where('page_name', 'blog_main')->first();
-    //     $mainGallery = [];
 
-    //     if ($page) {
-    //         $settings = is_array($page->settings) ? $page->settings : json_decode($page->settings, true);
-    //         $mainGallery = $settings['gallery_images'] ?? [];
-    //     }
+        // Get main page gallery images
+        $page = PageSetting::where('page_name', 'blog_main')->first();
+        $mainGallery = [];
 
-    //     return view('gallery', [
-    //         'blogs' => $blogs,
-    //         'mainGallery' => $mainGallery,
-    //         'title' => 'Our Gallery',
-    //         'subtitle' => 'Collection of all images from our blog'
-    //     ]);
-    // }
+        if ($page) {
+            $settings = is_array($page->settings) ? $page->settings : json_decode($page->settings, true);
+            $mainGallery = $settings['gallery_images'] ?? [];
+        }
+
+        return view('gallery', [
+            'blogs' => $blogs,
+            'mainGallery' => $mainGallery,
+            'title' => 'Our Gallery',
+            'subtitle' => 'Collection of all images from our blog'
+        ]);
+    }
+
 }

@@ -124,7 +124,7 @@
         height: 100%;
         background-color: rgba(0, 0, 0, 0.6);
         color: white;
-        display: flex;
+        display: none;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -132,20 +132,20 @@
         transition: opacity 0.3s ease-in-out;
     }
 
-    .card-hover:hover .card-overlay {
+    /* .card-hover:hover .card-overlay {
         opacity: 1;
-    }
+    } */
 
-    .card-overlay .details {
+     .details {
         font-size: 0.9rem;
         margin-bottom: 10px;
         text-align: center;
     }
 
-    .card-overlay .btn-book {
+    .btn-book {
         background-color: #F1C40F;
         color: white;
-        padding: 8px 15px;
+        padding: 8px 8px;
         font-size: 0.9rem;
         border-radius: 5px;
         cursor: pointer;
@@ -395,62 +395,62 @@
                 @if($rooms->count() > 0)
                     <div class="row g-4">
                         @foreach($rooms as $room)
-                        <div class="col-md-4">
-                            <div class="card card-hover h-80">
-                                <!-- Room Image -->
-                                <div class="position-relative" style="height: 200px; overflow: hidden;">
-                                    @if($room->is_new)
-                                    <span class="badge text-bg-success position-absolute top-0 start-0 m-2">NEW</span>
-                                    @endif
-                                    @if($room->on_sale)
-                                    <span class="badge text-bg-danger position-absolute top-0 end-0 m-2">SALE</span>
-                                    @endif
-                                    <img src="{{ asset($room->image ?: 'assets/images/default-room.jpg') }}"
-                                        class="w-100 h-100 object-fit-cover"
-                                        alt="{{ $room->room_name }}">
-                                </div>
+                            <div class="col-md-4">
+                                <div class="card card-hover h-80">
+                                    <!-- Room Image -->
+                                    <div class="position-relative" style="height: 200px; overflow: hidden;">
+                                        @if($room->is_new)
+                                            <span class="badge text-bg-success position-absolute top-0 start-0 m-2">NEW</span>
+                                        @endif
+                                        @if($room->on_sale)
+                                            <span class="badge text-bg-danger position-absolute top-0 end-0 m-2">SALE</span>
+                                        @endif
+                                        <img src="{{ asset($room->image ?: 'assets/images/default-room.jpg') }}"
+                                            class="w-100 h-100 object-fit-cover"
+                                            alt="{{ $room->room_name }}">
+                                    </div>
 
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title">{{ $room->room_name }}</h5>
-                                    <p class="card-text">Rs. {{ number_format($room->price) }} / Per Night</p>
-                                    <div class="card-overlay mt-auto">
-                                        <div class="details">
-                                            <p>{{ $room->room_capacity }} Guests</p>
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title">{{ $room->roomType->label ?? $room->room_type }}</h5>
+                                        <p class="card-text">Rs. {{ number_format($room->price) }} / Per Night</p>
+
+                                        <div class="details mb-2">
                                             @if($room->size)
                                                 <p>{{ $room->size }} ft² Room Size</p>
                                             @endif
-                                            <p>Rs. {{ number_format($room->price) }} / Per Night</p>
+                                            <p>Available: {{ $room->available_stock }}</p>
                                         </div>
-                                        <a href="{{ route('user.rooms.show', $room->id) }}" class="btn-book">View Details</a>
 
-                                        @if(!$room->isBooked())
-                                        <div class="card-footer text-center">
+                                        <a href="{{ route('user.rooms.show', $room->id) }}" class="btn btn-outline-primary mb-2">
+                                            View Details
+                                        </a>
+
+                                        {{-- @if($room->available_stock > 0)
                                             <a href="{{ route('user.reservations.create', ['room_id' => $room->id]) }}"
-                                            class="btn btn-primary">
+                                                class="btn btn-primary">
                                                 Book Now
                                             </a>
-                                        </div>
-                                        @endif
+                                        @else
+                                            <button class="btn btn-secondary" disabled>Fully Booked</button>
+                                        @endif --}}
                                     </div>
                                 </div>
-
-                                
                             </div>
-                        </div>
                         @endforeach
                     </div>
-                    
+
                     <!-- Pagination -->
                     <div class="mt-4">
                         {{ $rooms->appends(request()->query())->links() }}
                     </div>
                 @else
                     <div class="alert alert-info">
-                        No rooms found matching your filters. 
+                        No rooms found matching your filters.
                         <a href="{{ route('user.rooms.index') }}">Clear filters</a> to see all rooms.
                     </div>
                 @endif
             </div>
+
         </div>
     </div>
 

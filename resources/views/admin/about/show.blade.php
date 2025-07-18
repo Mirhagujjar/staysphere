@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('layouts.admin')
 
 @section('content')
 <div class="card">
@@ -10,7 +10,7 @@
             </a>
         </div>
     </div>
-    
+
     <div class="card-body">
         <!-- Banner Section -->
         <section class="mb-5">
@@ -26,14 +26,14 @@
         <section class="mb-5">
             <h2 class="section-title">{{ $about->history_title }}</h2>
             <h4 class="section-subtitle text-muted mb-4">{{ $about->history_subtitle }}</h4>
-            
+
             <div class="row">
                 <div class="col-md-6">
                     <div class="position-relative mb-4">
-                        <img src="{{ $about->main_image ? asset('storage/'.$about->main_image) : asset('images/default-history.jpg') }}" 
+                        <img src="{{ $about->main_image ? asset('storage/'.$about->main_image) : asset('images/default-history.jpg') }}"
                              class="img-fluid rounded shadow" alt="Main Image">
                             <img src="{{ $about->overlay_image ? asset($about->overlay_image) : asset('assets/images/default-overlay.jpg') }}" alt="Overlay Image">
-                             class="img-fluid rounded shadow position-absolute" 
+                             class="img-fluid rounded shadow position-absolute"
                              style="width: 50%; bottom: -20px; right: -20px; border: 5px solid white;">
                     </div>
                 </div>
@@ -49,7 +49,7 @@
         <section class="mb-5">
             <h2 class="section-title">{{ $about->team_section_title }}</h2>
             <h4 class="section-subtitle text-muted mb-4">{{ $about->team_section_subtitle }}</h4>
-            
+
             <div class="row">
                 @foreach($teamMembers as $member)
                 <div class="col-md-4 mb-4">
@@ -82,11 +82,11 @@
         <section class="mb-5">
             <h2 class="section-title">{{ $about->faq_section_title }}</h2>
             <h4 class="section-subtitle text-muted mb-4">{{ $about->faq_section_subtitle }}</h4>
-            
+
             <div class="row">
                 <div class="col-md-5">
                     <p class="lead">{{ $about->faq_contact_text }}</p>
-                    <a href="{{ route('contact.index') }}" class="btn btn-warning">
+                    <a href="{{ route('user.contact') }}" class="btn btn-warning">
                         <i class="fas fa-envelope mr-1"></i> Contact Us
                     </a>
                 </div>
@@ -96,15 +96,15 @@
                         <div class="card mb-2">
                             <div class="card-header" id="heading{{ $key }}">
                                 <h5 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" 
-                                            data-target="#collapse{{ $key }}" aria-expanded="true" 
+                                    <button class="btn btn-link" type="button" data-toggle="collapse"
+                                            data-target="#collapse{{ $key }}" aria-expanded="true"
                                             aria-controls="collapse{{ $key }}">
                                         <i class="fas fa-question-circle mr-2 text-primary"></i>
                                         {{ $faq->question }}
                                     </button>
                                 </h5>
                             </div>
-                            <div id="collapse{{ $key }}" class="collapse" aria-labelledby="heading{{ $key }}" 
+                            <div id="collapse{{ $key }}" class="collapse" aria-labelledby="heading{{ $key }}"
                                  data-parent="#faqAccordion">
                                 <div class="card-body">
                                     {!! nl2br(e($faq->answer)) !!}
@@ -117,7 +117,7 @@
             </div>
         </section>
     </div>
-    
+
     <div class="card-footer text-right">
         <a href="{{ route('admin.about.edit') }}" class="btn btn-primary">
             <i class="fas fa-edit mr-1"></i> Edit Page Content

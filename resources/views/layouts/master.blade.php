@@ -89,7 +89,7 @@
                        Services
                     </a>
                 <ul class="dropdown-menu dropdown-menu-dark">
-                    <li><a class="dropdown-item" href="{{route('services')}}">Services</a></li>
+                    <li><a class="dropdown-item" href="{{route('user.services.index')}}">Services</a></li>
                     <li><a class="dropdown-item" href="{{ route('events') }}">Events</a></li>
 
                 </ul>
@@ -103,7 +103,7 @@
                     </a>
                 <ul class="dropdown-menu dropdown-menu-dark">
                     <li class="nav-item">
-                        <a class="dropdown-item" href="{{route('contact.index')}}">Contact Us</a>
+                        <a class="dropdown-item" href="{{route('user.contact')}}">Contact Us</a>
                     </li>
                     <li><a class="dropdown-item" href="{{ route('about') }}">About Us</a></li>
                     <li><a class="dropdown-item" href="{{ route('user.review.review') }}">Reviews</a></li>
@@ -170,7 +170,7 @@
         <!-- Support & Legal -->
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
           <h6 class="text-uppercase mb-4 font-weight-bold">Support</h6>
-          <p><a href="{{ route('contact.index') }}" class="text-decoration-none">Contact</a></p>
+          <p><a href="{{ route('user.contact') }}" class="text-decoration-none">Contact</a></p>
           <p><a href="{{ route('user.review.review') }}" class="text-decoration-none">Reviews</a></p>
           <p><a href="{{ route('user.blogs.index') }}" class="text-decoration-none">Blog</a></p>
           <p><a href="#" class="text-decoration-none">FAQs</a></p>
@@ -240,6 +240,33 @@
 
 @yield('scripts')
 </body>
+
+
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyD_zZ4AcUMmXr3K86dHhdo6LeacNdgk7W4",
+    authDomain: "staysphere-6a0b7.firebaseapp.com",
+    projectId: "staysphere-6a0b7",
+    storageBucket: "staysphere-6a0b7.firebasestorage.app",
+    messagingSenderId: "863989000171",
+    appId: "1:863989000171:web:1f53a2a1d879c43c551bae",
+    measurementId: "G-Z1JJT7C6CY"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+
 </html>
 
 

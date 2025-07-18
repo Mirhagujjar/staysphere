@@ -192,6 +192,7 @@
 </section>
 
 <!-- Amenities Section -->
+<!-- Amenities Section -->
 @if($room->filterOptions->count() > 0)
 <section class="py-5 bg-light">
     <div class="container">
@@ -201,20 +202,28 @@
         </div>
 
         <div class="row g-4">
-            @foreach($room->filterOptions->groupBy('filter.name') as $filterName => $options)
-            <div class="col-md-6 col-lg-4">
-                <div class="room-feature-card bg-white p-4 h-100">
-                    <h4 class="mb-4"><i class="bi bi-star-fill text-warning me-2"></i>{{ $filterName }}</h4>
-                    <ul class="list-unstyled">
-                        @foreach($options as $option)
-                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>{{ $option->name }}</li>
-                        @endforeach
-                    </ul>
+            @foreach($room->filterOptions->groupBy(function($item) {
+                return $item->filter->name ?? 'Others';
+            }) as $filterName => $options)
+                <div class="col-md-6 col-lg-4">
+                    <div class="room-feature-card bg-white p-4 h-100">
+                        <h4 class="mb-4">
+                            <i class="bi bi-star-fill text-warning me-2"></i>{{ $filterName }}
+                        </h4>
+                        <ul class="list-unstyled">
+                            @foreach($options as $option)
+                                <li class="mb-2">
+                                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                    {{ $option->label ?? $option->name }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
-            </div>
             @endforeach
         </div>
     </div>
 </section>
 @endif
+
 @endsection

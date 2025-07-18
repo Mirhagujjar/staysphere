@@ -1,5 +1,5 @@
 <!-- resources/views/admin/filters/index.blade.php -->
-@extends('admin.dashboard')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container-fluid">

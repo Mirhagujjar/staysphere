@@ -11,34 +11,23 @@ class Room extends Model
 {
     use HasFactory;
 
-    // protected $fillable = [
-    //     'room_name',
-    //     'room_type',
-    //     'price',
-    //     'room_capacity',
-    //     'facilities', 
-    //     'has_view',
-    //     'image',
-    //     'size',
-    //      'hero_title',
-    //     'hero_description', 
-    //     'hero_image',
-    // ];
-
     protected $fillable = [
-    'room_name',
-    'room_type',
-    'price',
-    'room_capacity',
-    'size',
-    'view_type',
-    'description',
-    'image',
-    'hero_title',
-    'hero_description',
-    'hero_image',
-    'is_booked'
-];
+        'room_name',
+        'room_type',
+        'price',
+        'room_capacity',
+        'size',
+        'view_type',
+        'description',
+        'image',
+        'hero_title',
+        'hero_description',
+        'hero_image',
+        'status',
+        'is_featured',
+        'total_quantity',
+        'booked_quantity'
+    ];
 
     protected $casts = [
         'has_view' => 'boolean',
@@ -62,36 +51,23 @@ class Room extends Model
     }
 
     /**
-     * Check if the room is booked for a given date range.
+     * Check if enough stock is available for requested quantity.
      */
-    public function isBooked($checkIn = null, $checkOut = null): bool
+    public function hasAvailableStock($quantity = 1): bool
     {
-        if (!$checkIn || !$checkOut) {
-            return false;
-        }
-    
-        return $this->reservations()
-            ->where('status', 'confirmed')
-            ->where(function ($query) use ($checkIn, $checkOut) {
-                $query->whereBetween('check_in', [$checkIn, $checkOut])
-                      ->orWhereBetween('check_out', [$checkIn, $checkOut]);
-            })
-            ->exists();
+        return $this->total_quantity > ($this->booked_quantity + $quantity - 1);
     }
 
     /**
-     * Scope to exclude booked rooms until their checkout date
+     * Scope: Only rooms with available stock.
      */
     public function scopeAvailable($query)
     {
-        return $query->whereDoesntHave('reservations', function ($q) {
-            $q->where('status', 'confirmed')
-              ->where('check_out', '>=', now());
-        });
+        return $query->whereRaw('total_quantity > booked_quantity');
     }
 
     /**
-     * Scope to filter rooms by filter options with priority
+     * Scope to filter rooms by dynamic filters.
      */
     public function scopeWithFilters($query, array $filters = null)
     {
@@ -99,44 +75,31 @@ class Room extends Model
             return $query;
         }
 
-        // First priority: Price range
-        if (isset($filters['min_price']) || isset($filters['max_price'])) {
-            $query->when(isset($filters['min_price']), function ($q) use ($filters) {
-                $q->where('price', '>=', $filters['min_price']);
-            })
-            ->when(isset($filters['max_price']), function ($q) use ($filters) {
-                $q->where('price', '<=', $filters['max_price']);
-            });
+        if (isset($filters['min_price'])) {
+            $query->where('price', '>=', $filters['min_price']);
         }
 
-        // Second priority: Room type
+        if (isset($filters['max_price'])) {
+            $query->where('price', '<=', $filters['max_price']);
+        }
+
         if (isset($filters['room_type'])) {
             $query->where('room_type', $filters['room_type']);
         }
 
-        // Third priority: View type
         if (isset($filters['view_type'])) {
-              $query->where('view_type', $filters['view_type']);
-            }
+            $query->where('view_type', $filters['view_type']);
+        }
 
-        // Fourth priority: Star Rating, Special Offers, Packages and other filters
         $otherFilters = array_diff_key($filters, array_flip(['min_price', 'max_price', 'room_type', 'view_type']));
-        
+
         if (!empty($otherFilters)) {
             $query->where(function ($q) use ($otherFilters) {
-                $first = true;
                 foreach ($otherFilters as $filterSlug => $options) {
                     if (is_array($options) && !empty($options)) {
-                        if ($first) {
-                            $q->whereHas('filterOptions', function ($subQ) use ($options) {
-                                $subQ->whereIn('filter_options.id', $options);
-                            });
-                            $first = false;
-                        } else {
-                            $q->orWhereHas('filterOptions', function ($subQ) use ($options) {
-                                $subQ->whereIn('filter_options.id', $options);
-                            });
-                        }
+                        $q->whereHas('filterOptions', function ($subQ) use ($options) {
+                            $subQ->whereIn('filter_options.id', $options);
+                        });
                     }
                 }
             });
@@ -146,44 +109,51 @@ class Room extends Model
     }
 
     /**
-     * Scope to filter by price range
+     * Filter by price range.
      */
     public function scopePriceRange($query, $min = null, $max = null)
     {
-        return $query->when($min, function ($query) use ($min) {
-                $query->where('price', '>=', $min);
-            })
-            ->when($max, function ($query) use ($max) {
-                $query->where('price', '<=', $max);
-            });
+        return $query->when($min, fn($q) => $q->where('price', '>=', $min))
+                     ->when($max, fn($q) => $q->where('price', '<=', $max));
     }
 
-    /**
-     * Get all active filters associated with this room
-     */
     public function getActiveFiltersAttribute()
     {
         return $this->filterOptions()
-            ->whereHas('filter', function ($q) {
-                $q->where('is_active', true);
-            })
+            ->whereHas('filter', fn($q) => $q->where('is_active', true))
             ->with('filter')
             ->get()
             ->groupBy('filter.name');
     }
 
-    // Add these relationships
     public function roomType()
     {
         return $this->belongsTo(FilterOption::class, 'room_type', 'value')
             ->whereHas('filter', fn($q) => $q->where('slug', 'room-type'));
     }
 
-  public function viewType()
+    public function viewType()
     {
         return $this->belongsTo(FilterOption::class, 'view_type', 'value')
-            ->whereHas('filter', function($q) {
-                $q->where('slug', 'view-type');
-            });
+            ->whereHas('filter', fn($q) => $q->where('slug', 'view-type'));
+    }
+
+#
+
+    public function isBooked($checkIn, $checkOut)
+    {
+        return $this->reservations()
+            ->where(function($q) use ($checkIn, $checkOut) {
+                $q->whereBetween('check_in', [$checkIn, $checkOut])
+                ->orWhereBetween('check_out', [$checkIn, $checkOut])
+                ->orWhere(function ($query) use ($checkIn, $checkOut) {
+                    $query->where('check_in', '<=', $checkIn)
+                            ->where('check_out', '>=', $checkOut);
+                });
+            })->exists();
+    }
+    public function getAvailableStockAttribute()
+    {
+        return $this->total_quantity - $this->booked_quantity;
     }
 }
