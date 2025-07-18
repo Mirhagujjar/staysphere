@@ -199,7 +199,7 @@
 </div>
 
 <!------------------2nd Section------------------------ -->
-<div class="container mt-5">
+{{-- <div class="container mt-5">
     <div class="text-section mt-3">
         <h2>Social Events</h2>
         <p>Celebrate special moments, big and small.</p>
@@ -217,6 +217,9 @@
                             </div>
                         </div>
                     </div>
+
+
+
                     <div class="col-md-4">
                         <div class="card position-relative">
                             <img src="{{ asset('build/assets/images/events/saminar.jpg') }}" height="234vh" class="card-img-top" alt="Seminars">
@@ -275,7 +278,7 @@
             <button type="button" data-bs-target="#eventCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
         </div>
     </div>
-</div>
+</div> --}}
 
 <!--  .......................3rd section........................  -->
 <div class="container py-5">
@@ -284,6 +287,15 @@
         <p>Get inspired: Trends, tips and more.</p>
     </div>
     <div class="card-container1">
+        @foreach($events as $event)
+            <div class="custom-card1">
+                <img src="{{ asset('build/assets/images/events/' . $event->image) }}" alt="{{ $event->title }}">
+                <div class="bottom-text1">{{ $event->title }}</div>
+            </div>
+        @endforeach
+    </div>
+
+    {{-- <div class="card-container1">
         <!-- Card 1 -->
         <div class="custom-card1">
             <img src="{{ asset('build/assets/images/events/manageevents.jpg') }}" alt="Card Image 1">
@@ -304,7 +316,7 @@
             <img src="{{ asset('build/assets/images/events/Exhibition1.jpg') }}" alt="Card Image 4">
             <div class="bottom-text1">Exhibitions</div>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 <!--  ............................4th section............................  -->
