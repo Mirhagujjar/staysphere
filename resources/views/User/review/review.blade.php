@@ -11,6 +11,7 @@
         background-color:#343A40;
         /* background-color: rgb(232, 235, 235); */
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 50px;
     }
     /* ------------- 3. Filters & Search Bar------------- - */
     .box1{
@@ -165,11 +166,8 @@
     </div>
 </div> --}}
 <!------------- 3. Filters & Search Bar------------- -->
-<div class="container my-4">
+{{-- <div class="container my-4">
     <div class="d-flex justify-content-between">
-        {{-- Search bar (optional, abhi commented hai) --}}
-        {{-- <input type="text" class="box1 form-control w-50" placeholder="Search reviews..."> --}}
-
         <form method="GET" action="{{ route('user.review.review') }}" class="w-25">
             <select name="sort" class="box2 form-select" onchange="this.form.submit()">
                 <option value="">Sort by</option>
@@ -179,7 +177,7 @@
             </select>
         </form>
     </div>
-</div>
+</div> --}}
 
 
 <!------------- 4. Customer Reviews Section ------------>
@@ -291,8 +289,20 @@
     <div class="modal-dialog">
         <div class="modal-content p-4">
             <h4 class="mb-3">Write a Review</h4>
-<form method="POST" action="{{ route('review.store') }}">
+   <form method="POST" action="{{ route('review.store') }}">
     @csrf
+    <div class="mb-3">
+    <label>Select Booking</label>
+    <select name="reservation_id" class="form-select" required>
+        @forelse($completedBookings as $booking)
+            <option value="{{ $booking->id }}">
+                Booking #{{ $booking->id }} - {{ $booking->check_in }} to {{ $booking->check_out }}
+            </option>
+        @empty
+            <option disabled>No completed bookings found</option>
+        @endforelse
+    </select>
+   </div>
     <div class="mb-3">
         <label>Your Name</label>
         <input type="text" name="name" class="form-control" required>
@@ -301,16 +311,6 @@
         <label>Email</label>
         <input type="email" name="email" class="form-control" required>
     </div>
-    {{-- <div class="mb-3">
-        <label>Stay Type</label>
-        <select name="stay_type" class="form-select">
-            <option>Solo</option>
-            <option>Family</option>
-            <option>Business</option>
-            <option>Friends</option>
-            <option>Couples</option>
-        </select>
-    </div> --}}
 
     <div class="mb-3">
         <label>Rating</label>
@@ -327,9 +327,9 @@
         <textarea name="comment" class="form-control" rows="3" required></textarea>
     </div>
     <button type="submit" class="btn btn-warning w-100">Submit Review</button>
-</form>
-</div>
-</div>
+       </form>
+    </div>
+  </div>
 </div>
 
 

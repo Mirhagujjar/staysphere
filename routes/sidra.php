@@ -19,7 +19,7 @@ use App\Http\Controllers\HomeController;
 // ---------------------------- user Routes ----------------------------
                     // reviews
 Route::post('/submit-review', [UserReviewController::class, 'store'])->name('review.store');
-Route::get('user/review', [UserReviewController::class, 'index'])->name('user.review.review');
+Route::get('user/review', [UserReviewController::class, 'index'])->middleware('auth')->name('user.review.review');
 Route::get('/review', [UserReviewController::class, 'showreview']);
 
                    //homeSlider
@@ -38,11 +38,12 @@ Route::get('/contact', [App\Http\Controllers\User\UserContactController::class, 
 
 // --------------------- Admin Routes ----------------------------
                    // reviews
+Route::group(['middleware' => 'auth'], function () {
  Route::get('/admin/review', [AdminReviewController::class, 'index'])->name('admin.review.index');
  Route::get('/admin/review/approve/{id}', [AdminReviewController::class, 'approve'])->name('admin.review.approve');
  Route::get('/admin/review/reject/{id}', [AdminReviewController::class, 'reject'])->name('admin.review.reject');
  Route::delete('/admin/review/delete/{id}', [AdminReviewController::class, 'destroy'])->name('admin.review.delete');
-
+});
  //homeSlider
      Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/sliders', [\App\Http\Controllers\Admin\SliderController::class, 'index'])->name('admin.sliders.index');

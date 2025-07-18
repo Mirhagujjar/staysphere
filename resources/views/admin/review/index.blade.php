@@ -17,6 +17,7 @@
                 <th>Email</th>
                 <th>Comment</th>
                 <th>Status</th>
+                <th>Booking ID</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -33,6 +34,8 @@
                         <span class="badge bg-secondary">Not Approved</span>
                     @endif
                 </td>
+                <td>{{ $review->reservation_id }}</td>
+
                 <td>
                     @if(!$review->is_approved)
                         <a href="{{ route('admin.review.approve', $review->id) }}" class="btn btn-sm btn-success">Approve</a>

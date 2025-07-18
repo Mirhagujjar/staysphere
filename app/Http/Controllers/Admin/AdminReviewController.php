@@ -9,7 +9,8 @@ class AdminReviewController extends Controller
 
     public function index()
     {
-        $reviews = Review::all();
+        // $reviews = Review::all();
+        $reviews = Review::with(['booking', 'user'])->get();
         return view('admin.review.index', compact('reviews'));
     }
 
@@ -39,4 +40,5 @@ class AdminReviewController extends Controller
         Review::destroy($id);
         return back()->with('success', 'Review deleted!');
     }
+   
 }

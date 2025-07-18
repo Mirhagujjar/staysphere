@@ -9,8 +9,22 @@ class UserReviewController extends Controller
 {
     public function index()
 {
+    $user = auth()->user();
+
+    if (!$user) {
+        abort(403, 'You must be logged in.');
+    }
+
+    $completedBookings = $user->reservations()
+        ->where('status', 'completed')
+        ->get();
+
+    // agar kuch nahi mila to empty collection bhejo
+    if ($completedBookings->isEmpty()) {
+        $completedBookings = collect();
+    }
     $reviews = Review::where('is_approved', true)->latest()->get();
-    return view('user.review.review', compact('reviews'));
+    return view('user.review.review', compact('reviews','completedBookings'));
 }
     public function store(Request $request)
     {
@@ -19,7 +33,23 @@ class UserReviewController extends Controller
             'email' => 'required|email',
             'rating' => 'required|integer',
             'comment' => 'required',
+            'reservation_id' => 'required|exists:reservations,id',
         ]);
+        $reservation = auth()->user()->reservations()
+        ->where('id', $request->reservation_id)
+        ->where('status', 'completed')
+        ->first();
+
+    if (!$reservation) {
+        return back()->with('error', 'Invalid or incomplete booking.');
+    }
+
+    $alreadyReviewed = Review::where('reservation_id', $reservation->id)->exists();
+
+    if ($alreadyReviewed) {
+        return back()->with('error', 'You have already submitted a review for this booking.');
+    }
+
 
 
         Review::create([
@@ -27,7 +57,9 @@ class UserReviewController extends Controller
             'email' => $request->email,
             'rating' => $request->rating,
             'comment' => $request->comment,
-            'is_approved' => 0, 
+            'is_approved' => 0,
+            'reservation_id' => $reservation->id,
+            'user_id' => auth()->id(),
         ]);
 
         return redirect()->back()->with('success', 'Review submitted successfully, pending approval!');
