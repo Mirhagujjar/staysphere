@@ -363,6 +363,13 @@
                 </li> --}}
 
 
+
+                <li class="nav-item">
+    <a href="{{ route('admin.event-bookings.index') }}" class="nav-link">
+        <i class="nav-icon fas fa-calendar-check text-warning"></i>
+        <p>User Event Bookings</p>
+    </a>
+</li>
                 <!-- About Us -->
                 <li class="nav-item">
                     <a href="#" class="nav-link">

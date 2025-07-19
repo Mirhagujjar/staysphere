@@ -107,6 +107,7 @@
                     </li>
                     <li><a class="dropdown-item" href="{{ route('about') }}">About Us</a></li>
                     <li><a class="dropdown-item" href="{{ route('user.review.review') }}">Reviews</a></li>
+                    <li><a class="dropdown-item" href="{{ route('user.dashboard') }}">User Dashboard</a></li>
 
                 </ul>
                </li>
