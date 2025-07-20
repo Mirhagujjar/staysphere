@@ -12,24 +12,24 @@ class AdminProfileController extends Controller
 {
     public function show()
     {
-        $admin = auth()->user(); // Get the currently logged-in admin
+        $admin = Auth::user(); // Get the currently logged-in admin
         return view('admin.profile.show', compact('admin')); // Separate show page
     }
 
     public function edit()
     {
-        $admin = auth()->user(); // Get the currently logged-in admin
+        $admin = Auth::user(); // Get the currently logged-in admin
         return view('admin.profile.edit', compact('admin')); // Separate edit page
     }
 
     public function update(Request $request)
     {
-        $admin = Auth::user();
+        $admin = Auth::guard('admin')->user();
 
         // Validate inputs
         $request->validate([
             'name' => 'required|string|max:255',
-            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png',
             'current_password' => 'nullable|required_with:password|string',
             'password' => 'nullable|string|min:8|confirmed',
         ], [
@@ -61,7 +61,7 @@ class AdminProfileController extends Controller
             $admin->password = Hash::make($request->password);
         }
 
-        $admin->save();
+        // $admin->save();
 
         return redirect()->route('admin.profile.show')->with('success', 'Profile updated successfully!');
     }

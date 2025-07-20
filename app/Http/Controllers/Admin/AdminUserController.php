@@ -9,12 +9,13 @@ use App\Models\User;
 
 class AdminUserController extends Controller
 {
-    public function index(Request $request)
+   public function index(Request $request)
     {
         $search = $request->input('search');
         $status = $request->input('status');
 
         $users = User::query()
+            ->where('role', 'user') // Add this line to only get users with 'user' role
             ->when($search, function ($query, $search) {
                 $query->where('name', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%");

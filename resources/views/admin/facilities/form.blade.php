@@ -126,44 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // const imageUpload = document.getElementById('image-upload');
-    // const previewImage = document.getElementById('preview-image');
-    // const imagePreview = document.getElementById('image-preview');
-
-    // if (imageUpload) {
-    //     imageUpload.addEventListener('change', function(e) {
-    //         const file = e.target.files[0];
-    //         if (file) {
-    //             const reader = new FileReader();
-    //             reader.onload = function(event) {
-    //                 if (previewImage) {
-    //                     previewImage.src = event.target.result;
-    //                     imagePreview.style.display = 'block';
-    //                 }
-    //             };
-    //             reader.readAsDataURL(file);
-    //         }
-    //     });
-    // }
 });
 </script>
 @endpush
 
-{{-- @push('styles')
-<style>
-    .image-upload-container {
-        border: 2px dashed #dee2e6;
-        border-radius: 5px;
-        padding: 15px;
-        text-align: center;
-    }
-    .image-preview img {
-        max-width: 100%;
-        height: auto;
-    }
-    .input-group-text i {
-        width: 1.2em;
-        text-align: center;
-    }
-</style>
-@endpush --}}

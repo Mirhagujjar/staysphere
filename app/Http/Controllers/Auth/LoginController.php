@@ -8,28 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -46,16 +27,16 @@ class LoginController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        $user = \App\Models\User::where('email', $credentials['email'])->first();
+        $user = User::where('email', $credentials['email'])->first();
 
         // Check if user exists and is banned
         if ($user && $user->is_banned) {
             return back()->withErrors(['email' => 'Your account has been banned. Please contact support.']);
         }
 
-        if (\Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/'); // ya user side ka intended page
+        if (Auth::attempt($credentials)) {
+            return $this->authenticated($request, Auth::user())
+                ?: redirect()->intended($this->redirectPath());
         }
 
         return back()->withErrors([
@@ -63,4 +44,31 @@ class LoginController extends Controller
         ]);
     }
 
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->role === 'super_admin' || $user->role === 'admin') {
+            return redirect()->intended('/admin/dashboard');
+        }
+        
+        return redirect()->intended('/home');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/home');
+    }
+
+    /**
+     * Get the post-login redirect path.
+     *
+     * @return string
+     */
+    protected function redirectTo()
+    {
+        // This is a fallback if authenticated() doesn't return a response
+        return '/home';
+    }
 }

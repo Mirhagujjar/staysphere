@@ -6,10 +6,51 @@ namespace App\Http;
 // use Spatie\Permission\Middlewares\PermissionMiddleware;
 // use Spatie\Permission\Middlewares\RoleOrPermissionMiddleware;
 
+
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
+    protected $middleware = [
+        \Illuminate\Http\Middleware\TrustHosts::class,
+        \Illuminate\Http\Middleware\TrustProxies::class,
+        \Illuminate\Http\Middleware\HandleCors::class,
+        \Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance::class,
+        \Illuminate\Http\Middleware\ValidatePostSize::class,
+        \Illuminate\Foundation\Http\Middleware\TrimStrings::class,
+        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+    ];    
+
+    protected $middlewareGroups = [
+        'web' => [
+            \Illuminate\Cookie\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ],
+
+        'api' => [
+            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            'throttle:api',
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ],
+    ];
+
+    protected $routeMiddleware = [
+        // 'auth' => \App\Http\Middleware\Authenticate::class,
+        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        // 'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'user' => \App\Http\Middleware\UserMiddleware::class,
+        'super_admin' => \App\Http\Middleware\SuperAdminMiddleware::class,
+    ];
+}
+
+// class Kernel extends HttpKernel
+// {
     // protected $middleware = [
     //     \Illuminate\Http\Middleware\TrustHosts::class,
     //     \Illuminate\Http\Middleware\TrustProxies::class,
@@ -37,18 +78,18 @@ class Kernel extends HttpKernel
     //     ],
     // ];
 
-    protected $routeMiddleware = [
+    // protected $routeMiddleware = [
         // 'auth' => \App\Http\Middleware\Authenticate::class,
         // 'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         // 'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         // 'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'admin' => \App\Http\Middleware\AdminMiddleware::class,
-        'user' => \App\Http\Middleware\UserMiddleware::class,
+        // 'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        // 'user' => \App\Http\Middleware\UserMiddleware::class,
 
-        'super_admin' => \App\Http\Middleware\SuperAdminMiddleware::class,
+        // 'super_admin' => \App\Http\Middleware\SuperAdminMiddleware::class,
 
         // 'role' => \App\Http\Middleware\RoleMiddleware::class,
         // 'permission' => PermissionMiddleware::class,
         // 'role_or_permission' => RoleOrPermissionMiddleware::class,
-    ];
-}
+//     ];
+// }

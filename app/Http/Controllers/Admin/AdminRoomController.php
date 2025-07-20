@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Room;
 use App\Models\Filter;
 use App\Models\FilterOption;
+use App\Models\Facility;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -35,7 +37,10 @@ class AdminRoomController extends Controller
                     ->first();
         $totalRooms = Room::count();
 
-        return view('admin.rooms.index', compact('rooms', 'heroRoom', 'roomTypes'));
+        $facilities = Facility::orderBy('sort_order')->get();
+        $background = Facility::whereNotNull('background_image')->first();
+        
+        return view('admin.rooms.index', compact('rooms', 'heroRoom', 'roomTypes','facilities', 'background'));
     }
 
     public function details($id)

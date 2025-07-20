@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('content')
 <div class="container py-5">
@@ -111,4 +111,4 @@
         opacity: 0.1;
     }
 </style>
-@endsection
+@endsection --}}

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
-
+use Illuminate\Support\Facades\Auth;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,14 +13,12 @@ class SuperAdminMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+     public function handle(Request $request, Closure $next)
     {
-       
-        if (auth()->user()->role !== 'super_admin') {
-            abort(403);
+        if (Auth::check() && Auth::user()->role === 'super_admin') {
+            return $next($request);
         }
-    
-        return $next($request);
+        abort(403, 'Super admin access required');
     }
     
     public function login(Request $request)
