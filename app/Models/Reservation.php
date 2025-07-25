@@ -80,6 +80,12 @@ class Reservation extends Model
     }
 
 
+    public function review()
+    {
+        return $this->hasOne(Review::class, 'reservation_id');
+    }
+
+
     
 
 }

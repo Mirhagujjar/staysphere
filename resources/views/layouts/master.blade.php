@@ -346,74 +346,140 @@
 </footer>
 
 <!-- Scroll to Top Button -->
-<a href="#"
+{{-- <a href="#"
   id="scrollToTop"
   class="btn position-fixed bottom-0 end-0 m-3"
   style="background-color: transparent; color: #F1C40F; width: 60px; height: 60px; border-radius: 50%; border: 4px solid #F1C40F; display: flex; align-items: center; justify-content: center; font-weight: bold; transition: background-color 0.3s;background-color:#2C3E50">
   ↑
+</a> --}}
+
+<!-- Scroll To Top Button -->
+<!-- Scroll to Top Button -->
+<a href="#" id="scrollToTop"
+   class="position-fixed bottom-0 end-0 m-4 d-flex align-items-center justify-content-center rounded-4 shadow"
+   style="z-index: 1050; width: 3.3rem; height: 3.3rem; background-color: #1A1A40; display: none; overflow: hidden;">
+
+  <!-- Fill Background -->
+  <div class="position-absolute top-0 start-0 w-100 scroll-fill"
+       style="height: 0%; background-color: #d3d3d3;"></div>
+
+  <!-- Arrow Icon -->
+  <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+    <svg style="width: 1.3rem;" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8.87975 23.0051C9.50041 23.6398 10.5084 23.6398 11.129 23.0051L19.0735 14.8801C19.6941 14.2453 19.6941 13.2145 19.0735 12.5797C18.4528 11.9449 17.4449 11.9449 16.8242 12.5797L11.5908 17.9371V2.35742C11.5908 1.45859 10.8808 0.732422 10.0019 0.732422C9.12305 0.732422 8.41301 1.45859 8.41301 2.35742V17.932L3.17961 12.5848C2.55895 11.95 1.551 11.95 0.930339 12.5848C0.309679 13.2195 0.309679 14.2504 0.930339 14.8852L8.87478 23.0102L8.87975 23.0051Z"
+            fill="white" />
+    </svg>
+  </div>
+  <div class="arrow-icon" style="transition: transform 0.3s;">
+    <svg style="width: 1.3rem;" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8.87975 23.0051C9.50041 23.6398 10.5084 23.6398 11.129 23.0051L19.0735 14.8801C19.6941 14.2453 19.6941 13.2145 19.0735 12.5797C18.4528 11.9449 17.4449 11.9449 16.8242 12.5797L11.5908 17.9371V2.35742C11.5908 1.45859 10.8808 0.732422 10.0019 0.732422C9.12305 0.732422 8.41301 1.45859 8.41301 2.35742V17.932L3.17961 12.5848C2.55895 11.95 1.551 11.95 0.930339 12.5848C0.309679 13.2195 0.309679 14.2504 0.930339 14.8852L8.87478 23.0102L8.87975 23.0051Z" fill="white" />
+    </svg>
+  </div>
+
 </a>
 
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const scrollBtn = document.getElementById("scrollToTop");
+      const scrollFill = scrollBtn.querySelector(".scroll-fill");
+
+      window.addEventListener("scroll", () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+
+        // Show button after 200px scroll
+        if (scrollTop > 200) {
+          scrollBtn.style.display = "flex";
+        } else {
+          scrollBtn.style.display = "none";
+        }
+
+        // Fill animation
+        scrollFill.style.height = scrollPercent + "%";
+      });
+
+      // Smooth scroll
+      scrollBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      });
+    });
+  </script>
+
+
+
+
+
+
 <script>
-  // Sidebar functionality
-  const sidebar = document.getElementById('sidebar');
-  const sidebarToggle = document.getElementById('sidebarToggle');
-  const sidebarClose = document.getElementById('sidebarClose');
-  const overlay = document.getElementById('overlay');
+  document.addEventListener("DOMContentLoaded", function () {
+    const scrollBtn = document.getElementById("scrollToTop");
+    const scrollFill = scrollBtn.querySelector(".scroll-fill");
 
-  sidebarToggle.addEventListener('click', () => {
-    sidebar.classList.add('active');
-    overlay.classList.add('active');
-  });
+    const arrowIcon = scrollBtn.querySelector(".arrow-icon");
+    arrowIcon.style.transform = scrollTop > 200 ? "rotate(0deg)" : "rotate(180deg)";
 
-  sidebarClose.addEventListener('click', () => {
-    sidebar.classList.remove('active');
-    overlay.classList.remove('active');
-  });
 
-  overlay.addEventListener('click', () => {
-    sidebar.classList.remove('active');
-    overlay.classList.remove('active');
-  });
+    window.addEventListener("scroll", () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
 
-  // Scroll to top button
-  let scrollBtn = document.getElementById("scrollToTop");
-
-  window.onscroll = function () {
-    let scrollTop = document.documentElement.scrollTop;
-    let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    let scrollPercentage = (scrollTop / scrollHeight) * 100;
-
-    scrollBtn.style.display = scrollPercentage > 10 ? "flex" : "none";
-  };
-
-  // Notification modal
-  const modal = document.getElementById('notificationModal');
-  const confirmBtn = document.getElementById('confirmBtn');
-  const cancelBtn = document.getElementById('cancelBtn');
-  
-  if (Notification.permission !== 'granted') {
-    modal.style.display = 'flex';
-  }
-
-  confirmBtn.addEventListener('click', async () => {
-    modal.style.display = 'none';
-    try {
-      const permission = await Notification.requestPermission();
-      if (permission === 'granted') {
-        console.log('✅ Permission granted');
+      // Show button after 200px scroll
+      if (scrollTop > 200) {
+        scrollBtn.style.display = "flex";
       } else {
-        console.log('❌ Permission not granted');
+        scrollBtn.style.display = "none";
       }
-    } catch (err) {
-      console.error('Error requesting permission:', err);
-    }
+
+      // Update fill height
+      scrollFill.style.height = scrollPercent + "%";
+    });
+
+    // Smooth scroll
+    scrollBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
   });
 
-  cancelBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-    console.log('User dismissed notification modal.');
+  document.addEventListener("DOMContentLoaded", () => {
+  const scrollBtn = document.getElementById("scrollToTop");
+  const scrollFill = scrollBtn.querySelector(".scroll-fill");
+  const arrowIcon = scrollBtn.querySelector(".arrow-icon");
+
+  window.addEventListener("scroll", () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+
+    scrollBtn.style.display = scrollTop > 200 ? "flex" : "none";
+    scrollFill.style.height = scrollPercent + "%";
+
+    // Rotate arrow
+    arrowIcon.style.transform = scrollTop > 200 ? "rotate(0deg)" : "rotate(180deg)";
   });
+
+  scrollBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+});
+
 </script>
+
 
 @yield('scripts')
 

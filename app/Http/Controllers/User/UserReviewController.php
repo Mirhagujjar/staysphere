@@ -5,151 +5,87 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Review;
+use App\Models\Reservation;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
+
 class UserReviewController extends Controller
 {
     public function index()
-{
-    $user = auth()->user();
+    {
+        $user = Auth::user();
 
-    if (!$user) {
-        abort(403, 'You must be logged in.');
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'You must be logged in to submit reviews.');
+        }
+
+        // Get completed bookings that haven't been reviewed yet
+        // Alternative approach in controller
+        $completedBookings = Reservation::where('user_id', $user->id)
+            ->where('status', 'checked_out')
+            ->whereDoesntHave('review')
+            ->latest()
+            ->get();
+
+        // Get approved reviews with eager loading
+        $reviews = Review::with(['user', 'reservation'])
+            ->where('is_approved', true)
+            ->latest()
+            ->paginate(10);
+
+        return view('user.review.review', compact('reviews', 'completedBookings'));
     }
 
-    $completedBookings = $user->reservations()
-        ->where('status', 'completed')
-        ->get();
-
-    // agar kuch nahi mila to empty collection bhejo
-    if ($completedBookings->isEmpty()) {
-        $completedBookings = collect();
-    }
-    $reviews = Review::where('is_approved', true)->latest()->get();
-    return view('user.review.review', compact('reviews','completedBookings'));
-}
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'rating' => 'required|integer',
-            'comment' => 'required',
+        $user = Auth::user();
+        
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'You must be logged in to submit reviews.');
+        }
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:100',
+            'email' => 'required|email|max:100',
+            'rating' => 'required|integer|between:1,5',
+            'comment' => 'required|string|min:10|max:1000',
             'reservation_id' => 'required|exists:reservations,id',
+            'consent' => 'required|accepted'
         ]);
-        $reservation = auth()->user()->reservations()
-        ->where('id', $request->reservation_id)
-        ->where('status', 'completed')
-        ->first();
 
-    if (!$reservation) {
-        return back()->with('error', 'Invalid or incomplete booking.');
-    }
+        // Verify the reservation belongs to the user and is completed
+        $reservation = Reservation::where('id', $validated['reservation_id'])
+            ->where('user_id', $user->id)
+            ->where('status', 'checked_out')
+            ->first();
 
-    $alreadyReviewed = Review::where('reservation_id', $reservation->id)->exists();
+        if (!$reservation) {
+            return back()
+                ->withInput()
+                ->with('error', 'Invalid or incomplete booking selected.');
+        }
 
-    if ($alreadyReviewed) {
-        return back()->with('error', 'You have already submitted a review for this booking.');
-    }
+        // Check if review already exists for this reservation
+        if ($reservation->review()->exists()) {
+            return back()
+                ->withInput()
+                ->with('error', 'You have already submitted a review for this booking.');
+        }
 
-
-
+        // Create the review
         Review::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'rating' => $request->rating,
-            'comment' => $request->comment,
-            'is_approved' => 0,
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'rating' => $validated['rating'],
+            'comment' => $validated['comment'],
+            'is_approved' => false,
             'reservation_id' => $reservation->id,
-            'user_id' => auth()->id(),
+            'user_id' => $user->id,
         ]);
 
-        return redirect()->back()->with('success', 'Review submitted successfully, pending approval!');
+        return redirect()
+            ->route('user.reviews.review')
+            ->with('success', 'Thank you! Your review has been submitted and is pending approval.');
     }
-    public function showreview()
-{
-    // sirf approved reviews fetch ho rahe hain
-    $reviews = Review::where('is_approved', 1)->latest()->get();
-    return view('user.review.review', compact('review'));
 }
-
-}
-
-// namespace App\Http\Controllers\User;
-
-// use App\Http\Controllers\Controller;
-// use Illuminate\Http\Request;
-// use App\Models\Review;
-// // use App\Models\Header;
-// // use App\Models\Carousel;
-
-// class UserReviewController extends Controller
-// {
-//     public function index()
-//     {
-//         // Fetch only approved reviews and display them
-//         $reviews = Review::where('is_approved', true)->latest()->get();
-
-
-
-//         // $filters = [
-//         //     'newest' => 'Newest',
-//         //     'highest_rated' => 'Highest Rated',
-//         //     'lowest_rated' => 'Lowest Rated',
-//         // ];
-//         if (request('sort') == 'highest') {
-//             $reviews = $reviews->orderByDesc('rating');
-//         } elseif (request('sort') == 'lowest') {
-//             $reviews = $reviews->orderBy('rating');
-//         } else {
-//             $review = Review::where('is_approved', true)->latest()->first();
-
-//         }
-
-
-
-//     // $filter = $request->input('filter');
-
-//     // if ($filter == 'newest') {
-//     //     $reviews = Review::orderBy('created_at', 'desc')->get();
-//     // } elseif ($filter == 'highest_rated') {
-//     //     $reviews = Review::orderBy('rating', 'desc')->get();
-//     // } elseif ($filter == 'most_helpful') {
-//     //     $reviews = Review::where('is_approved', 1)->get();
-//     // } else {
-//     //     $reviews = Review::all();
-//     // }
-
-//         // Return view with reviews, header, carousel items, and filter options
-//         return view('user.review.review', compact('reviews'));
-//     }
-
-//     public function store(Request $request)
-//     {
-//         // Validate form data
-//         $request->validate([
-//             'name' => 'required',
-//             'email' => 'required|email',
-//             'rating' => 'required|integer',
-//             'comment' => 'required',
-//         ]);
-
-//         // Store the review in the database
-//         Review::create([
-//             'name' => $request->name,
-//             'email' => $request->email,
-//             'rating' => $request->rating,
-//             'comment' => $request->comment,
-//             'is_approved' => 0, // Review is pending approval
-//         ]);
-
-//         return redirect()->back()->with('success', 'Review submitted successfully, pending approval!');
-//     }
-
-//     public function showreview()
-//     {
-//         // Fetch only approved reviews
-//         $reviews = Review::where('is_approved', 1)->latest()->get();
-
-//         // Return the reviews to the view
-//         return view('user.review.review', compact('reviews'));
-//     }
-// }
