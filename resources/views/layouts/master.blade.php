@@ -354,131 +354,84 @@
 </a> --}}
 
 <!-- Scroll To Top Button -->
-<!-- Scroll to Top Button -->
-<a href="#" id="scrollToTop"
-   class="position-fixed bottom-0 end-0 m-4 d-flex align-items-center justify-content-center rounded-4 shadow"
+<!-- Scroll Button -->
+{{-- <a href="#" id="scrollBtn"
+   class="position-fixed bottom-4 end-4 d-flex align-items-center justify-content-center rounded-4 shadow"
    style="z-index: 1050; width: 3.3rem; height: 3.3rem; background-color: #1A1A40; display: none; overflow: hidden;">
 
-  <!-- Fill Background -->
+  <!-- Progress Fill -->
   <div class="position-absolute top-0 start-0 w-100 scroll-fill"
-       style="height: 0%; background-color: #d3d3d3;"></div>
+       style="height: 0%; background-color: rgba(255, 255, 255, 0.3); z-index: 1;"></div>
 
-  <!-- Arrow Icon -->
-  <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-    <svg style="width: 1.3rem;" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon (changes dynamically) -->
+  <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
+       style="z-index: 2;" id="scrollIcon">
+    <!-- Default: arrow up -->
+    <svg width="20" height="20" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M8.87975 23.0051C9.50041 23.6398 10.5084 23.6398 11.129 23.0051L19.0735 14.8801C19.6941 14.2453 19.6941 13.2145 19.0735 12.5797C18.4528 11.9449 17.4449 11.9449 16.8242 12.5797L11.5908 17.9371V2.35742C11.5908 1.45859 10.8808 0.732422 10.0019 0.732422C9.12305 0.732422 8.41301 1.45859 8.41301 2.35742V17.932L3.17961 12.5848C2.55895 11.95 1.551 11.95 0.930339 12.5848C0.309679 13.2195 0.309679 14.2504 0.930339 14.8852L8.87478 23.0102L8.87975 23.0051Z"
             fill="white" />
     </svg>
   </div>
-  <div class="arrow-icon" style="transition: transform 0.3s;">
-    <svg style="width: 1.3rem;" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8.87975 23.0051C9.50041 23.6398 10.5084 23.6398 11.129 23.0051L19.0735 14.8801C19.6941 14.2453 19.6941 13.2145 19.0735 12.5797C18.4528 11.9449 17.4449 11.9449 16.8242 12.5797L11.5908 17.9371V2.35742C11.5908 1.45859 10.8808 0.732422 10.0019 0.732422C9.12305 0.732422 8.41301 1.45859 8.41301 2.35742V17.932L3.17961 12.5848C2.55895 11.95 1.551 11.95 0.930339 12.5848C0.309679 13.2195 0.309679 14.2504 0.930339 14.8852L8.87478 23.0102L8.87975 23.0051Z" fill="white" />
-    </svg>
-  </div>
-
 </a>
 
-
-  <!-- JavaScript -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const scrollBtn = document.getElementById("scrollToTop");
-      const scrollFill = scrollBtn.querySelector(".scroll-fill");
-
-      window.addEventListener("scroll", () => {
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrollPercent = (scrollTop / docHeight) * 100;
-
-        // Show button after 200px scroll
-        if (scrollTop > 200) {
-          scrollBtn.style.display = "flex";
-        } else {
-          scrollBtn.style.display = "none";
-        }
-
-        // Fill animation
-        scrollFill.style.height = scrollPercent + "%";
-      });
-
-      // Smooth scroll
-      scrollBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-      });
-    });
-  </script>
-
-
-
-
-
-
+<!-- Script -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const scrollBtn = document.getElementById("scrollToTop");
+    const scrollBtn = document.getElementById("scrollBtn");
     const scrollFill = scrollBtn.querySelector(".scroll-fill");
+    const scrollIcon = document.getElementById("scrollIcon");
 
-    const arrowIcon = scrollBtn.querySelector(".arrow-icon");
-    arrowIcon.style.transform = scrollTop > 200 ? "rotate(0deg)" : "rotate(180deg)";
+    // Initialize button state
+    updateScrollButton();
 
+    window.addEventListener("scroll", updateScrollButton);
 
-    window.addEventListener("scroll", () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = (scrollTop / docHeight) * 100;
+    function updateScrollButton() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrollPercent = Math.min(100, (scrollTop / scrollHeight) * 100);
 
-      // Show button after 200px scroll
-      if (scrollTop > 200) {
-        scrollBtn.style.display = "flex";
-      } else {
-        scrollBtn.style.display = "none";
-      }
+      // Show button after 200px
+      scrollBtn.style.display = scrollTop > 200 ? "flex" : "none";
 
-      // Update fill height
-      scrollFill.style.height = scrollPercent + "%";
-    });
+      // Progress Fill
+      scrollFill.style.height = `${scrollPercent}%`;
 
-    // Smooth scroll
-    scrollBtn.addEventListener("click", (e) => {
+      // Change icon (top or bottom)
+      scrollIcon.innerHTML = scrollTop < scrollHeight - 300
+        ? `
+          <!-- Scroll to Bottom Icon -->
+          <svg width="20" height="20" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.1203 0.994906C10.4996 0.360194 9.49165 0.360194 8.871 0.994906L0.926513 9.11994C0.305853 9.75465 0.305853 10.7855 0.926513 11.4203C1.54717 12.0551 2.55512 12.0551 3.17578 11.4203L8.40918 6.06294V21.6426C8.40918 22.5414 9.11922 23.2676 9.99805 23.2676C10.8769 23.2676 11.587 22.5414 11.587 21.6426V6.06801L16.8204 11.4152C17.4411 12.05 18.449 12.05 19.0697 11.4152C19.6903 10.7805 19.6903 9.74963 19.0697 9.11491L11.1252 0.989844L11.1203 0.994906Z"
+              fill="white" />
+          </svg>`
+        : `
+          <!-- Scroll to Top Icon -->
+          <svg width="20" height="20" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.87975 23.0051C9.50041 23.6398 10.5084 23.6398 11.129 23.0051L19.0735 14.8801C19.6941 14.2453 19.6941 13.2145 19.0735 12.5797C18.4528 11.9449 17.4449 11.9449 16.8242 12.5797L11.5908 17.9371V2.35742C11.5908 1.45859 10.8808 0.732422 10.0019 0.732422C9.12305 0.732422 8.41301 1.45859 8.41301 2.35742V17.932L3.17961 12.5848C2.55895 11.95 1.551 11.95 0.930339 12.5848C0.309679 13.2195 0.309679 14.2504 0.930339 14.8852L8.87478 23.0102L8.87975 23.0051Z"
+              fill="white" />
+          </svg>`;
+    }
+
+    scrollBtn.addEventListener("click", function (e) {
       e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
+      if (scrollTop < scrollHeight - 300) {
+        // Scroll to Bottom
+        window.scrollTo({ top: scrollHeight, behavior: "smooth" });
+      } else {
+        // Scroll to Top
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     });
   });
+</script> --}}
 
-  document.addEventListener("DOMContentLoaded", () => {
-  const scrollBtn = document.getElementById("scrollToTop");
-  const scrollFill = scrollBtn.querySelector(".scroll-fill");
-  const arrowIcon = scrollBtn.querySelector(".arrow-icon");
 
-  window.addEventListener("scroll", () => {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = (scrollTop / docHeight) * 100;
 
-    scrollBtn.style.display = scrollTop > 200 ? "flex" : "none";
-    scrollFill.style.height = scrollPercent + "%";
 
-    // Rotate arrow
-    arrowIcon.style.transform = scrollTop > 200 ? "rotate(0deg)" : "rotate(180deg)";
-  });
-
-  scrollBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  });
-});
-
-</script>
 
 
 @yield('scripts')
@@ -506,5 +459,8 @@
   const app = initializeApp(firebaseConfig);
   const messaging = getMessaging(app);
 </script>
+
+    @include('components.scroll-to-top')
+
 </body>
 </html>

@@ -230,6 +230,12 @@
                     <i class="fas fa-file-invoice me-1"></i> View Invoice
                 </a>
             </div>
+            <div class="mt-2 mt-md-0">
+                <a href="{{ route('user.review.review', $reservation->id) }}" 
+                   class="btn btn-primary">
+                    <i class="fas fa-file-invoice me-1"></i> Review
+                </a>
+            </div>
         </div>
 
         <div class="reservation-body">
