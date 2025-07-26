@@ -407,6 +407,21 @@
                     </ul>
                 </li>
 
+                 <li class="nav-item">
+                    <a href="{{ route('admin.services.index') }}" class="nav-link">
+                        <i class="nav-icon bi bi-person text-warning"></i>
+                        <p>Services</p>
+                    </a>
+                </li>
+
+                 <li class="nav-item">
+                    <a href="{{ route('admin.sliders.index') }}" class="nav-link">
+                        <i class="nav-icon bi bi-person text-warning"></i>
+                        <p>Home Management</p>
+                    </a>
+                </li>
+
+
                 <!-- Reviews -->
                 <li class="nav-item">
                     <a href="{{ route('admin.review.index') }}" class="nav-link">
