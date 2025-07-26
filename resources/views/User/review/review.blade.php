@@ -285,52 +285,148 @@
 </div>
 
 <!------------6. Write a Review Form---------------->
-<div class="modal fade" id="reviewModal">
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content p-4">
-            <h4 class="mb-3">Write a Review</h4>
-   <form method="POST" action="{{ route('review.store') }}">
-    @csrf
-    <div class="mb-3">
-    <label>Select Booking</label>
-    <select name="reservation_id" class="form-select" required>
-        @forelse($completedBookings as $booking)
-            <option value="{{ $booking->id }}">
-                Booking #{{ $booking->id }} - {{ $booking->check_in }} to {{ $booking->check_out }}
-            </option>
-        @empty
-            <option disabled>No completed bookings found</option>
-        @endforelse
-    </select>
-   </div>
-    <div class="mb-3">
-        <label>Your Name</label>
-        <input type="text" name="name" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label>Email</label>
-        <input type="email" name="email" class="form-control" required>
-    </div>
+        <div class="modal-content p-4 rounded-4 shadow">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="reviewModalLabel">Write a Review</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
-    <div class="mb-3">
-        <label>Rating</label>
-        <select name="rating" class="form-select" required>
-            <option value="5">⭐⭐⭐⭐⭐</option>
-            <option value="4">⭐⭐⭐⭐☆</option>
-            <option value="3">⭐⭐⭐☆☆</option>
-            <option value="2">⭐⭐☆☆☆</option>
-            <option value="1">⭐☆☆☆☆</option>
-        </select>
+            <form method="POST" action="{{ route('review.store') }}" class="needs-validation" novalidate>
+                @csrf
+                <div class="modal-body">
+                    {{-- Booking Selector --}}
+                    <div class="mb-3">
+                        <label for="reservation_id" class="form-label">Select Booking</label>
+                        <select name="reservation_id" id="reservation_id" class="form-select" required>
+                            @forelse($completedBookings as $booking)
+                                <option value="{{ $booking->id }}">
+                                    Booking #{{ $booking->id }} - {{ $booking->room_type }} 
+                                    ({{ $booking->check_in->format('M d, Y') }} to {{ $booking->check_out->format('M d, Y') }})
+                                </option>
+                            @empty
+                                <option value="" disabled selected>No completed bookings available for review</option>
+                            @endforelse
+                        </select>
+                        @error('reservation_id')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Name --}}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" name="name" id="name" class="form-control"
+                               value="{{ old('name', auth()->user()->name ?? '') }}" 
+                               required minlength="2" maxlength="100">
+                        @error('name')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Email --}}
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" id="email" class="form-control"
+                               value="{{ old('email', auth()->user()->email ?? '') }}" 
+                               required>
+                        @error('email')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Rating --}}
+                    <div class="mb-3">
+                        <label class="form-label">Rating</label>
+                        <select name="rating" class="form-control" required>
+                            <option value="">Select rating</option>
+                            @for($i = 1; $i <= 5; $i++)
+                                <option value="{{ $i }}">{{ $i }} Star{{ $i > 1 ? 's' : '' }}</option>
+                            @endfor
+                        </select>
+                        @error('rating')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Comment --}}
+                    <div class="mb-3">
+                        <label for="comment" class="form-label">Your Review</label>
+                        <textarea name="comment" id="comment" class="form-control" rows="5"
+                                  required minlength="10" maxlength="1000">{{ old('comment') }}</textarea>
+                        <small class="form-text text-muted">Minimum 10 characters.</small>
+                        @error('comment')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Consent --}}
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="consent" name="consent" 
+                               {{ old('consent') ? 'checked' : '' }} required>
+                        <label class="form-check-label" for="consent">
+                            I confirm this review is based on my personal experience.
+                        </label>
+                        @error('consent')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                {{-- Submit Button --}}
+                <div class="modal-footer border-0 pt-0">
+                    <button type="submit" class="btn btn-primary w-100 py-2">
+                        <i class="fas fa-paper-plane me-2"></i> Submit Review
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="mb-3">
-        <label>Review</label>
-        <textarea name="comment" class="form-control" rows="3" required></textarea>
-    </div>
-    <button type="submit" class="btn btn-warning w-100">Submit Review</button>
-       </form>
-    </div>
-  </div>
 </div>
+
+{{-- Star Rating Styles --}}
+<style>
+    .star-rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: start;
+        font-size: 1.5rem;
+    }
+    .star-rating input {
+        display: none;
+    }
+    .star-rating label {
+        color: #ddd;
+        cursor: pointer;
+        margin: 0 2px;
+    }
+    .star-rating input:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+        color: #ffc107;
+    }
+</style>
+
+{{-- Client-side Validation Script --}}
+<script>
+    (() => {
+        'use strict';
+        window.addEventListener('load', () => {
+            const forms = document.getElementsByClassName('needs-validation');
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                });
+            });
+        });
+    })();
+</script>
+
 
 
 <!--------------7. Footer CTA -------------->

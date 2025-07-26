@@ -43,6 +43,11 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\Admin\AdminFacilityController;
 
+
+
+// Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
 //user side notifications
 Route::get('/notifications', [UserNotificationController::class, 'index'])->name('notifications.index');
 Route::delete('/notifications/{id}', [UserNotificationController::class, 'destroy'])->name('notifications.destroy');

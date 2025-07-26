@@ -10,7 +10,7 @@ class AdminReviewController extends Controller
     public function index()
     {
         // $reviews = Review::all();
-        $reviews = Review::with(['booking', 'user'])->get();
+        $reviews = Review::with(['reservation', 'user'])->get();
         return view('admin.review.index', compact('reviews'));
     }
 

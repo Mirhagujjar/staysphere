@@ -41,37 +41,16 @@
                 <!-- Dashboard -->
                 @can('access-super-admin')
 
-                        <li class="nav-item">
-                            <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-speedometer text-warning"></i>
-                                <p>Dashboard</p>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                            <i class="nav-icon bi bi-speedometer text-warning"></i>
+                            <p>Super Admin Dashboard</p>
 
-                            </a>
-                        </li>
+                        </a>
+                    </li>
 
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-person-circle text-warning"></i>
-                                <p>Admins<i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.superadmin.list') }}" class="nav-link">
-                                        <i class="bi bi-arrow-right text-warning"></i>
-                                        <p>View All Admins</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.superadmin.create') }}" class="nav-link">
-                                        <i class="bi bi-arrow-right text-warning"></i>
-                                        <p>Create new Admin</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        @auth
-                            @if(in_array(Auth::user()->role, [ 'super_admin']))
+                    {{-- @auth
+                        @if(in_array(Auth::user()->role, [ 'super_admin']))
                             @php
                                 $admin = Auth::user();
                             @endphp
@@ -108,58 +87,81 @@
                             </form>
                         @endif
 
-                        @endauth
+                    @endauth
 
-                                    <!-- Add SweetAlert CSS -->
-                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                    <!-- Add SweetAlert CSS -->
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-                        <!-- Add Font Awesome -->
-                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                    <!-- Add Font Awesome -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-                        <script>
-                            function showLogoutConfirmation() {
-                                Swal.fire({
-                                    title: 'Logout Confirmation',
-                                    text: "Are you sure you want to logout?",
-                                    icon: 'question',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Yes, Logout',
-                                    cancelButtonText: 'Cancel',
-                                    background: '#f8f9fa',
-                                    color: '#343a40',
-                                    // backdrop: `
-                                    //     rgba(0,0,0,0.4)
-                                    //     url("https://i.gifer.com/origin/b4/b4d657e7ef262b88eb5f7ac021edda87.gif")
-                                    //     left top
-                                    //     no-repeat
-                                    // `
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        document.getElementById('logout-form').submit();
-                                    }
-                                });
-                            }
-                        </script>
+                    <script>
+                        function showLogoutConfirmation() {
+                            Swal.fire({
+                                title: 'Logout Confirmation',
+                                text: "Are you sure you want to logout?",
+                                icon: 'question',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Yes, Logout',
+                                cancelButtonText: 'Cancel',
+                                background: '#f8f9fa',
+                                color: '#343a40',
+                                // backdrop: `
+                                //     rgba(0,0,0,0.4)
+                                //     url("https://i.gifer.com/origin/b4/b4d657e7ef262b88eb5f7ac021edda87.gif")
+                                //     left top
+                                //     no-repeat
+                                // `
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    document.getElementById('logout-form').submit();
+                                }
+                            });
+                        }
+                    </script> --}}
 
-
-
-
-
-
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon bi bi-person-circle text-warning"></i>
+                            <p>Admins<i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.superadmin.list') }}" class="nav-link">
+                                    <i class="bi bi-arrow-right text-warning"></i>
+                                    <p>View All Admins</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.superadmin.create') }}" class="nav-link">
+                                    <i class="bi bi-arrow-right text-warning"></i>
+                                    <p>Create new Admin</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 @endcan
 
 
 
                <!-- Sidebar with Login/Profile Dropdown -->
                 @can('access-admin')
-                        @auth
+                        {{-- @auth
                             @if(Auth::user()->role === 'admin')
                                 @php
                                     $admin = Auth::user();
                                 @endphp
+
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-speedometer text-warning"></i>
+                                        <p>Admin Dashboard</p>
+
+                                    </a>
+                                </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         @if ($admin->profile_image)
@@ -198,8 +200,8 @@
                                     <i class="fas fa-sign-in-alt me-1"></i>Login
                                 </a>
                             </li>
-                        @endauth
-                                            <!-- Add SweetAlert CSS -->
+                        @endauth --}}
+                                            {{-- <!-- Add SweetAlert CSS -->
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
                         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -231,7 +233,7 @@
                                     }
                                 });
                             }
-                        </script>
+                        </script> --}}
 
 
                         <!-- Room Management -->
@@ -281,12 +283,12 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{ route('admin.facilities.index') }}" class="nav-link">
                                 <i class="nav-icon bi bi-building text-warning"></i>
                                 <p>Facilities</p>
                             </a>
-                        </li>
+                        </li> --}}
 
                         <!-- Reservations -->
                         <li class="nav-item">
@@ -378,11 +380,11 @@
 
 
                 <li class="nav-item">
-    <a href="{{ route('admin.event-bookings.index') }}" class="nav-link">
-        <i class="nav-icon fas fa-calendar-check text-warning"></i>
-        <p>User Event Bookings</p>
-    </a>
-</li>
+                    <a href="{{ route('admin.event-bookings.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-calendar-check text-warning"></i>
+                        <p>User Event Bookings</p>
+                    </a>
+                </li>
                 <!-- About Us -->
                 <li class="nav-item">
                     <a href="#" class="nav-link">
@@ -436,9 +438,16 @@
                     </ul>
                 </li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.gallery') }}">
                         <i class="fas fa-images"></i>
+                        <p>Gallery</p>
+                    </a>
+                </li> --}}
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.gallery') }}" class="nav-link">
+                        <i class="nav-icon fas fa-images text-warning"></i>
                         <p>Gallery</p>
                     </a>
                 </li>

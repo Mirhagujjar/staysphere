@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
 use App\Models\Reservation;
+use App\Models\User;
 
 class UserProfileController extends Controller
 {
@@ -21,14 +22,15 @@ class UserProfileController extends Controller
 
     public function show()
     {
-        $user = Auth::user();
+        $user = User::find(Auth::id());
+        $user = User::find(Auth::id());
         $reservations = Reservation::where('user_id', $user->id)->with('room')->get();
         return view('User.profile.show', compact('user', 'reservations'));
     }
 
     public function edit()
     {
-        $user = auth()->user();
+        $user = User::find(Auth::id());
         return view('user.profile.edit', compact('user')); // Separate edit page
     }
 
@@ -72,7 +74,7 @@ class UserProfileController extends Controller
             $user->password = Hash::make($request->password);
         }
 
-        $user->save();
+        // $user->save();
 
         return redirect()->route('user.profile.show')->with('success', 'Profile updated successfully!');
     }
@@ -87,8 +89,8 @@ class UserProfileController extends Controller
 
     public function showProfile()
     {
-        $user = auth()->user();
-        $reservations = \App\Models\Reservation::where('user_id', auth()->id())->with('room')->get();
+        $user = Auth::user();
+        $reservations = \App\Models\Reservation::where('user_id', Auth::id())->with('room')->get();
         return view('User.profile.show', compact('user', 'reservations'));
     }
     

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 @extends('user.layout.master')
+=======
+{{-- @extends('layouts.app')
+>>>>>>> 2fcfbcbdc883ef75f5de2b9dcd00e12bee55a97d
 
 @section('content')
 <div class="container py-5">
@@ -111,4 +115,4 @@
         opacity: 0.1;
     }
 </style>
-@endsection
+@endsection --}}
