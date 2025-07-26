@@ -32,13 +32,13 @@
                                 <input type="text" name="name" class="form-control" value="{{ old('name', $package->name) }}" required>
                             </div>
 
-                        
+
                             <div class="col-12">
                                 <label class="form-label fw-bold">Description</label>
                                 <textarea name="description" id="summernote" class="form-control" rows="4" required>{{ old('description', $package->description) }}</textarea>
                             </div>
 
-    
+
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Package Price (PKR)</label>
                                 <div class="input-group">
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
 
-                            
+
                             <div class="col-12">
                                 <label class="form-label fw-bold">Package Image</label>
                                 <div class="d-flex flex-column flex-md-row gap-3">

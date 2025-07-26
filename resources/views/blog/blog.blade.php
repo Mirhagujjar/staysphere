@@ -216,7 +216,7 @@
                {{-- ------- Image Gallery--------- --}}
         <section class="gallery-section">
             <h2>Gallery</h2>
-            <div class="gallery-grid">
+            <div class="gallery-grid"> 
                 <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/R1.jpg') }}" alt="room 1"></div>
                 <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/H1.jpg') }}" alt="room 2"></div>
                 <div class="gallery-item"><img src="{{ asset('build/assets/images/blog/G2.jpg') }}" alt="room 3"></div>

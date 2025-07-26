@@ -11,30 +11,80 @@ use App\Http\Controllers\Admin\AdminEventController;
 
 Route::get('/events', [EventController::class, 'index'])->name('events');
 
-
-
-
-
-Route::prefix('admin')->middleware(['auth'])->group(function () {
-    Route::get('/events', [AdminEventController::class, 'index'])->name('admin.events.index');
-    Route::get('/events/create', [AdminEventController::class, 'create'])->name('admin.events.create');
-    Route::post('/events', [AdminEventController::class, 'store'])->name('admin.events.store');
-    Route::get('/events/{id}/edit', [AdminEventController::class, 'edit'])->name('admin.events.edit');
-    Route::put('/events/{id}', [AdminEventController::class, 'update'])->name('admin.events.update');
-    Route::delete('/events/{id}', [AdminEventController::class, 'destroy'])->name('admin.events.destroy');
-});
+// Admin Hero Section
 use App\Http\Controllers\Admin\HeroSectionController;
 
-Route::get('/hero-section', [HeroSectionController::class, 'index'])->name('admin.hero.index');
-Route::post('/hero-section', [HeroSectionController::class, 'store'])->name('admin.hero.store');
-Route::get('/hero-section/edit/{id}', [HeroSectionController::class, 'edit'])->name('admin.hero.edit');
-Route::put('/hero-section/update/{id}', [HeroSectionController::class, 'update'])->name('admin.hero.update');
+Route::prefix('admin/hero-section')->controller(App\Http\Controllers\Admin\HeroSectionController::class)->group(function () {
+    Route::post('/store', 'store')->name('admin.hero.store');
+    Route::get('/delete/{id}', 'destroy')->name('admin.hero.delete');
+});
+
+// Admin Experience Cards
+Route::prefix('admin/experience')->controller(App\Http\Controllers\Admin\ExperienceCardController::class)->group(function () {
+    Route::post('/store', 'store')->name('admin.experience.store');
+    Route::get('/delete/{id}', 'destroy')->name('admin.experience.delete');
+});
+
+// Admin Events
+Route::prefix('admin/event')->controller(App\Http\Controllers\Admin\AdminEventController::class)->group(function () {
+    Route::post('/store', 'store')->name('admin.event.store');
+    Route::get('/delete/{id}', 'destroy')->name('admin.event.delete');
+});
+
+// Admin unified view
+Route::get('/admin/events-page', [App\Http\Controllers\Admin\EventPageController::class, 'index'])->name('admin.event.page');
 
 
+Route::get('/admin/event-content', [App\Http\Controllers\Admin\ContentManageController::class, 'index'])->name('admin.event.content');
 
+
+use App\Http\Controllers\Admin\PageBuilderController;
+
+// Grouped under admin middleware
+Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function () {
+    Route::get('/page-builder', [PageBuilderController::class, 'index'])->name('page.builder'); // show form to add
+    Route::post('/page-builder/hero', [PageBuilderController::class, 'storeHero'])->name('page.hero.store');
+    Route::post('/page-builder/card', [PageBuilderController::class, 'storeCard'])->name('page.card.store');
+    Route::post('/page-builder/event', [PageBuilderController::class, 'storeEvent'])->name('page.event.store');
+
+    Route::get('/page-content', [PageBuilderController::class, 'showContent'])->name('page.content'); // list added items
+    Route::delete('/page-content/{type}/{id}', [PageBuilderController::class, 'destroy'])->name('page.content.delete');
+});
+
+
+// Delete & Edit Routes (Already defined earlier, but you can add update too if needed)
+
+
+// Route::prefix('admin')->middleware(['auth'])->group(function () {
+//     Route::get('/events', [AdminEventController::class, 'index'])->name('admin.events.index');
+//     Route::get('/events/create', [AdminEventController::class, 'create'])->name('admin.events.create');
+//     Route::post('/events', [AdminEventController::class, 'store'])->name('admin.events.store');
+//     Route::get('/events/{id}/edit', [AdminEventController::class, 'edit'])->name('admin.events.edit');
+//     Route::put('/events/{id}', [AdminEventController::class, 'update'])->name('admin.events.update');
+//     Route::delete('/events/{id}', [AdminEventController::class, 'destroy'])->name('admin.events.destroy');
+// });
+// use App\Http\Controllers\Admin\HeroSectionController;
+
+// Route::get('/hero-section', [HeroSectionController::class, 'index'])->name('admin.hero.index');
+// Route::post('/hero-section', [HeroSectionController::class, 'store'])->name('admin.hero.store');
+// Route::get('/hero-section/edit/{id}', [HeroSectionController::class, 'edit'])->name('admin.hero.edit');
+// Route::put('/hero-section/update/{id}', [HeroSectionController::class, 'update'])->name('admin.hero.update');
+
+
+// booking event
 use App\Http\Controllers\User\UserDashboardController;
 
 Route::get('/user/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+// booking user panel package
+use App\Http\Controllers\User\UserFormPackageController;
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/user/add-package', [UserFormPackageController::class, 'create'])->name('user.add.package');
+    Route::post('/user/book-package', [UserFormPackageController::class, 'store'])->name('user.book.package');
+});
+
+    Route::get('/bookings', [UserFormPackageController::class, 'index'])->name('booking.index');
 
 
 

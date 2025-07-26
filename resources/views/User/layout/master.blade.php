@@ -155,6 +155,18 @@
         <a href="#"><i class="fas fa-home"></i> Dashboard</a>
 
         <a href="#"><i class="fas fa-box-open"></i> Packages</a>
+        <!-- package Dropdown -->
+
+        <div class="user-section">
+            <div class="user-btn" onclick="toggleEventDropdown(this)">
+                <span><i class="fas fa-box-open"></i> Package</span>
+                <i class="fas fa-angle-right arrow"></i>
+            </div>
+            <div class="user-dropdown">
+                <a href="{{ route('user.add.package') }}"><i class="fas fa-plus-circle"></i> Add Package</a>
+                <a href="{{ route('booking.index') }}"><i class="fas fa-list"></i> View All Packages</a>
+            </div>
+        </div>
         <a href="#"><i class="fas fa-concierge-bell"></i> Services</a>
 <!-- Event Booking Dropdown -->
 <div class="user-section">
@@ -228,3 +240,4 @@
 
 </body>
 </html>
+

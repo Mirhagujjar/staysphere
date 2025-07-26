@@ -335,13 +335,13 @@
                 @endcan
 
                 <!-- Events -->
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('admin.events.index') }}" class="nav-link">
                         <i class="nav-icon bi bi-calendar-event text-warning"></i>
                         <p>Events Management</p>
                     </a>
 
-                    {{-- <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('admin.events') }}" class="nav-link">
                                 <i class="bi bi-arrow-right text-warning"></i>
@@ -354,13 +354,26 @@
                                 <p>Add New Event</p>
                             </a>
                         </li>
-                    </ul> --}}
-                </li>
+                    </ul>
+                </li> --}}
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.events.index') }}">
                         <i class="bi bi-calendar-event"></i> Events
                     </a>
                 </li> --}}
+                <li class="nav-item">
+                    <a href="{{ route('admin.event.page') }}" class="nav-link">
+                        <i class="nav-icon bi bi-layout-text-window text-warning"></i>
+                        <p>Page Builder</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.event.content') }}" class="nav-link">
+                        <i class="nav-icon bi bi-table text-warning"></i>
+                        <p>View Page Content</p>
+                    </a>
+                </li>
 
 
 

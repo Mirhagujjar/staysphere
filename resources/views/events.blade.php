@@ -294,6 +294,7 @@
             </div>
         @endforeach
     </div>
+    
 
     {{-- <div class="card-container1">
         <!-- Card 1 -->
@@ -319,6 +320,7 @@
     </div> --}}
 </div>
 
+
 <!--  ............................4th section............................  -->
 <div class="alternate py-6">
     <div class="text-section text-center mb-5">
@@ -326,7 +328,32 @@
         <p>Enhance your stay with our thoughtfully curated events and experiences.</p>
     </div>
 
-    <!-- First Row -->
+
+
+    @foreach($experiences as $index => $experience)
+    <div class="row align-items-center mb-5">
+        @if($index % 2 === 0)
+            <div class="col-md-6 image-section">
+                <img src="{{ asset('storage/experiences/' . $experience->image) }}" alt="{{ $experience->title }}" class="img-fluid rounded">
+            </div>
+            <div class="col-md-6 text-section text-center">
+                <h2>{{ $experience->title }}</h2>
+                <p>{{ $experience->description }}</p>
+            </div>
+        @else
+            <div class="col-md-6 order-md-2 text-section text-center">
+                <h2>{{ $experience->title }}</h2>
+                <p>{{ $experience->description }}</p>
+            </div>
+            <div class="col-md-6 order-md-1 image-section">
+                <img src="{{ asset('storage/experiences/' . $experience->image) }}" alt="{{ $experience->title }}" class="img-fluid rounded">
+            </div>
+        @endif
+    </div>
+@endforeach
+
+
+    {{-- <!-- First Row -->
     <div class="row align-items-center mb-5">
         <div class="col-md-6 image-section">
             <img src="{{ asset('build/assets/images/events/professionalconference.jpg') }}" alt="Business Meetings" class="img-fluid rounded">
@@ -346,10 +373,10 @@
         <div class="col-md-6 order-md-1 image-section">
             <img src="{{ asset('build/assets/images/events/luxurygathering.jpg') }}" alt="Luxury Gatherings" class="img-fluid rounded">
         </div>
-    </div>
+    </div> --}}
 
     <!-- Third Row -->
-    <div class="row align-items-center mb-5">
+    {{-- <div class="row align-items-center mb-5">
         <div class="col-md-6 image-section">
             <img src="{{ asset('build/assets/images/events/13.jpg') }}" alt="Cultural Nights" class="img-fluid rounded">
         </div>
@@ -357,11 +384,11 @@
             <h2>Cultural Evenings</h2>
             <p>Experience mesmerizing Sufi musical performances and explore rich cultural traditions.</p>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 <!--  ....................form section....................................  -->
-<div class="container mt-5">
+{{-- <div class="container mt-5">
     <div class="booking-form p-3">
         <form class="row g-2 align-items-center">
             <div class="col-md-3">
@@ -395,6 +422,6 @@
             </div>
         </form>
     </div>
-</div>
+</div> --}}
 
 @endsection

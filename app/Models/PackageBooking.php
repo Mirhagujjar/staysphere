@@ -10,13 +10,16 @@ class PackageBooking extends Model {
 
     protected $fillable = [
         'package_id',
-        'full_name', 
-        'email',     
-        'phone',     
+        'user_id',
+        'full_name',
+        'email',
+        'phone',
         'check_in',
         'check_out',
         'payment_method',
-        'special_requests'
+
+        'special_requests',
+        'status'
     ];
 
     // public function package() {

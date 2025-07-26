@@ -9,10 +9,13 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <script src="{{ asset('build/assets/js/bootstrap.bundle.min.js')}}"></script>
   <link rel="icon" type="image/x-icon" href="{{ asset('build/assets/images/SSlogo9.png')}}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
         font-family: Arial, sans-serif;
     }
+
+
     .navbar {
       background-color: #2C3E50;
       padding: 0.3rem 1rem;
@@ -107,7 +110,7 @@
                     </li>
                     <li><a class="dropdown-item" href="{{ route('about') }}">About Us</a></li>
                     <li><a class="dropdown-item" href="{{ route('user.review.review') }}">Reviews</a></li>
-                    <li><a class="dropdown-item" href="{{ route('user.dashboard') }}">User Dashboard</a></li>
+                    
 
                 </ul>
                </li>

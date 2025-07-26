@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('user.layout.master')
 
 @section('content')
 <style>
@@ -85,7 +85,7 @@
 
 
 <div class="container py-5">
-   
+
     <div class="profile-card">
 
          @if(session('success'))
@@ -97,7 +97,7 @@
 
         {{-- Profile Image --}}
         @if(auth()->user()->profile_image)
-            <img src="{{ asset('assets/profile_images/' . auth()->user()->profile_image) }}" 
+            <img src="{{ asset('assets/profile_images/' . auth()->user()->profile_image) }}"
                  class="profile-img" alt="Profile Image">
         @else
             <p>No profile image uploaded.</p>
@@ -125,7 +125,7 @@
             <a href="{{ route('user.reservations.index') }}" class="btn btn-primary btn-custom">
                 <i class="fas fa-history me-1"></i> Booking History
             </a>
-           
+
 
         </div>
 

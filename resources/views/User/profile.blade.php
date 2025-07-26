@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('user.layout.master')
 
 @section('content')
 <div class="container py-5">

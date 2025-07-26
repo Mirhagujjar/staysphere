@@ -8,7 +8,7 @@ use App\Models\PackageBooking;
 
 class AdminBookingPackageController extends Controller {
     public function index() {
-        $bookings = PackageBooking::all(); 
+        $bookings = PackageBooking::all();
         return view('admin.bookingspackages.index', compact('bookings'));
     }
 
@@ -37,6 +37,20 @@ class AdminBookingPackageController extends Controller {
 
         return redirect()->route('admin.bookingspackages.index')->with('success', 'Booking updated successfully!');
     }
+//     public function update(Request $request, $id)
+// {
+//     $request->validate([
+//         'status' => 'required|in:pending,confirmed,cancelled'
+//     ]);
+
+//     $booking = PackageBooking::findOrFail($id);
+//     $booking->status = $request->status;
+//     $booking->save();
+
+//     return redirect()->route('admin.bookingspackages.index')
+//         ->with('success', 'Booking status updated successfully!');
+// }
+
 
     public function destroy($id) {
         PackageBooking::findOrFail($id)->delete();
