@@ -60,5 +60,13 @@ class User extends Authenticatable
         return $this->hasMany(Reservation::class);
     }
 
+    // app/Models/User.php
+
+    public function serviceRequests()
+    {
+        return $this->hasMany(ServiceRequest::class);
+    }
+
+
     
 }

@@ -24,7 +24,7 @@ class UserServiceController extends Controller
     public function show($slug)
     {
         $service = Service::where('slug', $slug)->firstOrFail();
-        $service->facilities = explode(',', $service->facilities);
+        // $service->facilities = explode(',', $service->facilities);
 
         $otherServices = Service::where('slug', '!=', $slug)->latest()->get();
 

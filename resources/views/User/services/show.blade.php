@@ -10,6 +10,26 @@
         padding: 100px 20px;
     }
 </style>
+<style>
+    .service-description {
+        line-height: 1.8;
+        color: #555;
+    }
+    
+    .service-description p {
+        margin-bottom: 1.2rem;
+    }
+    
+    .service-description ul, 
+    .service-description ol {
+        padding-left: 1.5rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .service-description li {
+        margin-bottom: 0.5rem;
+    }
+</style>
 
 <div class="hero-section">
     <h1 class="display-4">{{ $service->title }}</h1>
@@ -27,15 +47,23 @@
         <div class="col-lg-7 col-md-12 p-2">
             <div class="card shadow-lg p-2">
                 <img src="{{ asset('storage/' . $service->detail_image) }}" class="card-img-top" alt="Service Image">
-                <div class="card-body p-2">
-                    <h2 class="card-title">{{ $service->title }}</h2>
-                    <p>{{ $service->long_description }}</p>
-                    <h4>Our Facilities</h4>
-                    <ul class="list-unstyled">
-                        @foreach($service->facilities ?? [] as $facility)
-                            <li><i class="bi bi-check-circle"></i> {{ $facility }}</li>
+                <div class="card-body p-4">
+                    <h2 class="card-title mb-4">{{ $service->title }}</h2>
+                    <div class="service-description">
+                        {!! $service->long_description !!}
+                    </div>
+                    
+                    @if(!empty($service->facilities))
+                    <h4 class="mt-5 mb-3">Our Facilities</h4>
+                    <div class="d-flex flex-wrap gap-2">
+                        @foreach($service->formatted_facilities as $facility)
+                            <span class="badge bg-light text-dark border py-2 px-3">
+                                <i class="bi bi-check-circle me-1 text-success"></i> 
+                                {{ $facility }}
+                            </span>
                         @endforeach
-                    </ul>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -73,7 +101,11 @@
                                 <option value="Option 2">Option 2</option>
                             </select>
                         @else
-                            <input type="text" class="form-control" name="{{ $field }}" required>
+                        <input type="{{ $field == 'email' ? 'email' : 'text' }}" 
+                            class="form-control" 
+                            name="{{ $field }}" 
+                            placeholder="Enter {{ ucwords(str_replace('_', ' ', $field)) }}" 
+                            required>
                         @endif
                     </div>
                 @endforeach
