@@ -17,9 +17,14 @@ class AdminEventController extends Controller
         'image' => 'nullable|image'
     ]);
 
+    // if ($request->hasFile('image')) {
+    //     $data['image'] = $request->file('image')->store('events', 'public');
+    // }
     if ($request->hasFile('image')) {
-        $data['image'] = $request->file('image')->store('events', 'public');
+        $imagePath = $request->file('image')->store('events', 'public');
+        $data['image'] = $imagePath;
     }
+
 
     Event::create($data);
     return back()->with('success', 'Event Added');

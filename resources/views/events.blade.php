@@ -2,23 +2,26 @@
 @section('content')
 
 <style>
-    * {
-        font-family: Arial, sans-serif;
-    }
 
     .hero-section {
-        background: url('{{ asset('build/assets/images/events/1.jpg') }}') no-repeat center center;
-        background-size: cover;
-        color: white;
-        text-align: center;
-        padding: 100px 20px; /* Adjusted padding for smaller screens */
-        height: auto; /* Changed to auto for better responsiveness */
-    }
+    background-size: cover;
+    background-position: center;
+    height: 450px; /* 👈 Increase this value for more height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
 
-    .hero-section h1 {
-        font-size: 2.5rem; /* Adjusted font size for smaller screens */
-        font-weight: bold;
-    }
+.hero-text h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.hero-text p {
+    font-size: 20px;
+}
 
     /* ------------------------------2nd section------------------------ */
     .card-text-overlay {
@@ -190,13 +193,22 @@
 </style>
 
 <!----------------- Hero Section ------------->
-<div class="hero-section">
+{{-- <div class="hero-section">
     <h1>Plan Your Events</h1>
     <p>Discover venues and services that make your events unforgettable.</p>
     <div class="breadcrumb-container">
         <a href="/">Home</a> > Events
     </div>
-</div>
+</div> --}}
+<section class="hero-section" style="background-image: url('{{ asset('storage/' . $hero->hero_image) }}')">
+    <div class="hero-text">
+        <h1>{{ $hero->hero_title }}</h1>
+        <p>{{ $hero->hero_description }}</p>
+        <a href="/">Home</a> > Events
+
+    </div>
+</section>
+
 
 <!------------------2nd Section------------------------ -->
 {{-- <div class="container mt-5">
@@ -289,12 +301,14 @@
     <div class="card-container1">
         @foreach($events as $event)
             <div class="custom-card1">
-                <img src="{{ asset('build/assets/images/events/' . $event->image) }}" alt="{{ $event->title }}">
+                <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}">
+
+                {{-- <img src="{{ asset('build/assets/images/events/' . $event->image) }}" alt="{{ $event->title }}"> --}}
                 <div class="bottom-text1">{{ $event->title }}</div>
             </div>
         @endforeach
     </div>
-    
+
 
     {{-- <div class="card-container1">
         <!-- Card 1 -->
@@ -334,7 +348,11 @@
     <div class="row align-items-center mb-5">
         @if($index % 2 === 0)
             <div class="col-md-6 image-section">
-                <img src="{{ asset('storage/experiences/' . $experience->image) }}" alt="{{ $experience->title }}" class="img-fluid rounded">
+                <img src="{{ asset('storage/' . $experience->image) }}" alt="{{ $experience->title }}">
+
+                {{-- <img src="{{ asset('storage/experiences/' . $experience->image) }}" alt="{{ $experience->title }}" class="img-fluid rounded"> --}}
+                {{-- <img src="{{ asset('storage/events/experiences/' . $experience->image) }}"> --}}
+
             </div>
             <div class="col-md-6 text-section text-center">
                 <h2>{{ $experience->title }}</h2>
@@ -346,7 +364,8 @@
                 <p>{{ $experience->description }}</p>
             </div>
             <div class="col-md-6 order-md-1 image-section">
-                <img src="{{ asset('storage/experiences/' . $experience->image) }}" alt="{{ $experience->title }}" class="img-fluid rounded">
+                <img src="{{ asset('storage/' . $experience->image) }}" alt="{{ $experience->title }}">
+                {{-- <img src="{{ asset('storage/experiences/' . $experience->image) }}" alt="{{ $experience->title }}" class="img-fluid rounded"> --}}
             </div>
         @endif
     </div>

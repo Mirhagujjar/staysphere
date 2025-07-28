@@ -10,6 +10,9 @@ use App\Models\HeroSection;
 class HeroSectionController extends Controller
 {
 
+
+
+
     public function store(Request $request)
 {
     $data = $request->validate([

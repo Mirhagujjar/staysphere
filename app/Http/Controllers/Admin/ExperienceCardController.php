@@ -15,9 +15,13 @@ class ExperienceCardController extends Controller
         'image' => 'nullable|image'
     ]);
 
+    // if ($request->hasFile('image')) {
+    //     $data['image'] = $request->file('image')->store('experiences', 'public');
+    // }
     if ($request->hasFile('image')) {
-        $data['image'] = $request->file('image')->store('experiences', 'public');
+        $data['image'] = $request->file('image')->store('events/experiences', 'public');
     }
+
 
     ExperienceCard::create($data);
     return back()->with('success', 'Experience Card Added');
