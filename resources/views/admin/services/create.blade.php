@@ -7,6 +7,7 @@
     @csrf
 
         @include('admin.services.form')
+        @include('components.summernote')
         <button class="btn btn-success mt-3">Create</button>
     </form>
 </div>

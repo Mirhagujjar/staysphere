@@ -265,7 +265,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('services', AdminServiceController::class)->names('admin.services');
     Route::put('/admin/services/hero-update', [AdminServiceController::class, 'updateHero'])->name('admin.services.hero.update');
 
-    Route::get('/service-requests',[ServiceRequestController::class, 'index'])->name('admin.service-requests.index');
+    Route::get('/service-requests',[ServiceRequestController::class, 'index'])->name('admin.service_requests.index');
     Route::put('/admin/service-requests/{id}/status', [ServiceRequestController::class, 'updateStatus'])->name('admin.service-requests.updateStatus');
 });
 

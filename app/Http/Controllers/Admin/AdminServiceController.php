@@ -8,13 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-
 class AdminServiceController extends Controller
 {
     public function index()
     {
         $services = Service::orderBy('id', 'desc')->get();
-        $hero = Service::first(); // can also be fetched via a separate model if needed
+        $hero = Service::first();
         return view('admin.services.index', compact('services', 'hero'));
     }
 
@@ -23,22 +22,10 @@ class AdminServiceController extends Controller
         $data = $request->only(['hero_title', 'hero_subtitle']);
 
         if ($request->hasFile('hero_background')) {
-            $data['hero_background'] = $request->file('hero_background')->store('services/hero', 'public');
+            $data['hero_background'] = $this->handleImageUpload($request, 'hero_background', 'services/hero');
         }
 
-        $hero = Service::first();
-
-        if (!$hero) {
-            // Create a placeholder service if none exists
-            $hero = new Service();
-            $hero->title = 'Default Hero';
-            $hero->slug = 'default-hero-' . uniqid();
-            $hero->short_description = 'Default';
-            $hero->long_description = 'Default';
-            $hero->price = '0';
-            $hero->modal_fields = [];
-        }
-
+        $hero = Service::firstOrNew([]);
         $hero->fill($data)->save();
 
         return redirect()->back()->with('success', 'Hero section updated successfully.');
@@ -56,40 +43,40 @@ class AdminServiceController extends Controller
             'short_description' => 'required|string|max:255',
             'long_description' => 'required|string',
             'price' => 'required|string',
-            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'detail_image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'facilities' => 'nullable|string', // comma-separated string
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'detail_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'facilities' => 'nullable|string',
             'modal_button_text' => 'nullable|string',
-            'modal_fields' => 'required|string', // JSON string
+            'modal_fields' => 'required|string',
         ]);
 
         $data = $request->only([
             'title', 'short_description', 'long_description', 'price', 'modal_button_text'
         ]);
 
-        // Convert comma-separated facilities to array
-        $data['facilities'] = array_map('trim', explode(',', $request->input('facilities', '')));
+        try {
+            $data['facilities'] = $this->cleanFacilitiesInput($request->input('facilities'));
+            $data['modal_fields'] = $this->parseModalFields($request->input('modal_fields'));
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['modal_fields' => 'Invalid format for modal fields']);
+        }
 
-        // Decode modal fields JSON
-        $data['modal_fields'] = json_decode($request->input('modal_fields'), true);
-
-        // Handle images
         if ($request->hasFile('thumbnail')) {
-            $data['thumbnail'] = $request->file('thumbnail')->store('services/thumbnails', 'public');
+            $data['thumbnail'] = $this->handleImageUpload($request, 'thumbnail', 'services/thumbnails');
         }
 
         if ($request->hasFile('detail_image')) {
-            $data['detail_image'] = $request->file('detail_image')->store('services/details', 'public');
+            $data['detail_image'] = $this->handleImageUpload($request, 'detail_image', 'services/details');
         }
 
-        // Save to DB
+        $data['slug'] = Str::slug($data['title']) . '-' . uniqid();
+
         Service::create($data);
 
         return redirect()->route('admin.services.index')->with('success', 'Service created successfully.');
     }
-
-
-
 
     public function edit(Service $service)
     {
@@ -106,38 +93,34 @@ class AdminServiceController extends Controller
             'price' => 'required|string|max:50',
             'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'detail_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'hero_title' => 'nullable|string|max:255',
-            'hero_subtitle' => 'nullable|string|max:255',
-            'hero_background' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'modal_button_text' => 'nullable|string|max:255',
             'facilities' => 'nullable|string',
-            'modal_fields' => 'required|string', // string to parse
+            'modal_fields' => 'required|string',
         ]);
 
-        $data = $request->except(['thumbnail', 'detail_image']);
+        $data = $request->only([
+            'title', 'slug', 'short_description', 'long_description', 
+            'price', 'modal_button_text'
+        ]);
+
+        try {
+            $data['facilities'] = $this->cleanFacilitiesInput($request->input('facilities'));
+            $data['modal_fields'] = $this->parseModalFields($request->input('modal_fields'));
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['modal_fields' => 'Invalid format for modal fields']);
+        }
 
         if ($request->hasFile('thumbnail')) {
-            $data['thumbnail'] = $request->file('thumbnail')->store('services/thumbnails', 'public');
+            $this->deleteImageIfExists($service->thumbnail);
+            $data['thumbnail'] = $this->handleImageUpload($request, 'thumbnail', 'services/thumbnails');
         }
 
         if ($request->hasFile('detail_image')) {
-            $data['detail_image'] = $request->file('detail_image')->store('services/details', 'public');
+            $this->deleteImageIfExists($service->detail_image);
+            $data['detail_image'] = $this->handleImageUpload($request, 'detail_image', 'services/details');
         }
-
-        if ($request->hasFile('hero_background')) {
-            $data['hero_background'] = $request->file('hero_background')->store('services/hero', 'public');
-        }
-
-       // Before saving to database, convert comma-separated string into array, then to JSON:
-        if ($request->has('facilities')) {
-            $facilitiesArray = explode(',', $request->input('facilities'));
-            $data['facilities'] = json_encode(array_map('trim', $facilitiesArray));
-        } else {
-            $data['facilities'] = json_encode([]);
-        }
-
-
-        $data['modal_fields'] = json_decode($request->input('modal_fields'), true);
 
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['title']) . '-' . uniqid();
@@ -150,7 +133,68 @@ class AdminServiceController extends Controller
 
     public function destroy(Service $service)
     {
+        $this->deleteImageIfExists($service->thumbnail);
+        $this->deleteImageIfExists($service->detail_image);
+        $this->deleteImageIfExists($service->hero_background);
+        
         $service->delete();
+        
         return redirect()->route('admin.services.index')->with('success', 'Service deleted successfully.');
+    }
+
+    // Helper Methods
+    private function cleanFacilitiesInput($input)
+    {
+        if (empty($input)) {
+            return [];
+        }
+
+        $facilities = preg_split('/\r\n|[\r\n,]/', $input);
+        
+        return array_values(array_filter(array_map(function($item) {
+            $cleaned = trim($item, " \t\n\r\0\x0B\"'[]");
+            return !empty($cleaned) ? $cleaned : null;
+        }, $facilities)));
+    }
+
+    private function parseModalFields($input)
+    {
+        if (is_array($input)) {
+            return $input;
+        }
+
+        $decoded = json_decode($input, true);
+        
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            $lines = preg_split('/\r\n|[\r\n]/', $input);
+            $fields = [];
+            
+            foreach ($lines as $line) {
+                $line = trim($line);
+                if (!empty($line)) {
+                    $fields[] = $line;
+                }
+            }
+            
+            return $fields;
+        }
+        
+        return $decoded;
+    }
+
+    private function handleImageUpload($request, $fieldName, $storagePath)
+    {
+        if (!$request->hasFile($fieldName)) {
+            return null;
+        }
+
+        return $request->file($fieldName)->store($storagePath, 'public');
+    }
+
+    private function deleteImageIfExists($path)
+    {
+        if ($path && Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+        }
     }
 }

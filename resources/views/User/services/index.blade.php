@@ -38,11 +38,18 @@
             <small style="color: #b2956e; font-weight: bold;">FROM {{ $service->price }}</small>
             <h2 class="mt-2 text-dark">{{ $service->title }}</h2>
             <p class="text-muted">{{ $service->short_description }}</p>
-            <div class="d-flex justify-content-start gap-4 mb-4">
-                <h6>Facilities:</h6>
-                @foreach(explode(',', $service->facilities) as $facility)
-                    <li><i class="bi bi-check-circle"></i> {{ trim($facility) }}</li>
-                @endforeach
+           <div class="d-flex justify-content-start gap-4 mb-4">
+                <div>
+                    <h6 class="mb-2">Facilities:</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        @foreach($service->formatted_facilities as $facility)
+                            <span class="badge bg-light text-dark border py-2 px-3">
+                                <i class="bi bi-check-circle me-1 text-success"></i> 
+                                {{ $facility }}
+                            </span>
+                        @endforeach
+                    </div>
+                </div>
             </div>
             <div class="d-flex justify-content-between align-items-center">
                 <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#modal{{ $service->id }}">
