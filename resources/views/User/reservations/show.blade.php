@@ -538,12 +538,12 @@
                                 </a>
                                 
                                 @if($reservation->status == 'confirmed' && $reservation->check_in <= now() && $reservation->check_out >= now())
-                                    <a href="#" class="action-btn btn btn-primary mb-2">
+                                    <a href="{{route('user.services.index')}}" class="action-btn btn btn-primary mb-2">
                                         <i class="fas fa-concierge-bell me-1"></i> Request Service
                                     </a>
                                 @endif
                                 
-                                <a href="#" class="action-btn btn btn-outline-secondary mb-2">
+                                <a href="{{route('user.contact')}}" class="action-btn btn btn-outline-secondary mb-2">
                                     <i class="fas fa-question-circle me-1"></i> Get Help
                                 </a>
                             </div>

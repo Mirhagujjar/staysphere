@@ -193,10 +193,10 @@ class AdminRoomController extends Controller
                 Rule::exists('filter_options', 'value')->where('filter_id', $viewTypeFilterId),
             ],
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'hero_title' => 'nullable|string|max:255',
             'hero_description' => 'nullable|string',
-            'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'features' => 'nullable|array',
             'features.*' => 'exists:filter_options,id',
         ]);
@@ -279,9 +279,9 @@ class AdminRoomController extends Controller
     public function updateHero(Request $request)
     {
         $request->validate([
-            'hero_title' => 'required|string|max:255',
+            'hero_title' => 'required|string',
             'hero_description' => 'required|string',
-            'hero_image' => 'nullable|image|max:2048',
+            'hero_image' => 'nullable|image',
             'remove_hero_image' => 'nullable|boolean'
         ]);
 

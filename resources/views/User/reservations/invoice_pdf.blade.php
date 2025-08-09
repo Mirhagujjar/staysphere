@@ -7,67 +7,72 @@
         body {
             font-family: 'DejaVu Sans', sans-serif;
             color: #333;
-            line-height: 1.6;
+            line-height: 1.4;
+            margin: 5% 5%;
+            padding: 0;
+            font-size: 12px;
         }
         .invoice-container {
-            max-width: 800px;
+            width: 100%;
             margin: 0 auto;
-            padding: 20px;
+            padding: 15px;
+            box-sizing: border-box;
         }
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
         .hotel-name {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: bold;
             color: #4f46e5;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
         .invoice-title {
-            font-size: 20px;
-            margin: 20px 0;
+            font-size: 16px;
+            margin: 10px 10px;
             color: #333;
         }
         .status-badge {
-            font-size: 0.8rem;
-            padding: 0.4rem 0.9rem;
+            font-size: 0.7rem;
+            padding: 0.3rem 0.7rem;
             border-radius: 50px;
             font-weight: 500;
             display: inline-block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .status-confirmed {
             background-color: #e6f7ee;
             color: #28a745;
         }
         .section {
-            margin-bottom: 30px;
+            margin-bottom: 15px;
         }
         .section-title {
             border-bottom: 1px solid #e9ecef;
-            padding-bottom: 5px;
-            margin-bottom: 15px;
+            padding-bottom: 3px;
+            margin-bottom: 10px;
             font-weight: 600;
+            font-size: 13px;
         }
         .row {
             display: flex;
             flex-wrap: wrap;
-            margin-right: -15px;
-            margin-left: -15px;
         }
         .col-md-6 {
             flex: 0 0 50%;
             max-width: 50%;
-            padding: 0 15px;
+            padding: 0 5px;
+            box-sizing: border-box;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            font-size: 11px;
         }
         table th, table td {
-            padding: 10px;
+            padding: 6px;
             border: 1px solid #ddd;
             text-align: left;
         }
@@ -76,27 +81,34 @@
             font-weight: 600;
         }
         .total-table {
-            width: 60%;
+            width: 50%;
             margin-left: auto;
             border: 1px solid #ddd;
+            font-size: 11px;
         }
         .total-table td {
-            padding: 8px 15px;
+            padding: 5px 10px;
         }
         .total-table tr:last-child td {
             font-weight: bold;
-            font-size: 1.1em;
             border-top: 2px solid #333;
         }
         .text-right {
             text-align: right;
         }
         .footer {
-            margin-top: 50px;
-            padding-top: 20px;
+            margin-top: 20px;
+            padding-top: 10px;
             border-top: 1px solid #eee;
-            font-size: 0.9em;
+            font-size: 10px;
             color: #666;
+        }
+        p {
+            margin: 3px 0;
+        }
+        @page {
+            size: A4 portrait;
+            margin: 0;
         }
     </style>
 </head>
@@ -104,7 +116,7 @@
     <div class="invoice-container">
         <!-- Header -->
         <div class="header">
-            <div class="hotel-name">Your Hotel Name</div>
+            <div class="hotel-name">Stay Sphere</div>
             <div>123 Hotel Street, City, Country</div>
             <div>Phone: +123 456 7890 | Email: info@hotel.com</div>
             

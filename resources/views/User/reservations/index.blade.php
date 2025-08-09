@@ -8,20 +8,32 @@
         overflow: hidden;
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease;
-        height: 100%;
         margin-bottom: 1.5rem;
         border-left: 4px solid transparent;
     }
-    .reservation-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    .group-card {
+        border-left: 4px solid #0d6efd;
     }
-    .card-title {
+    .room-card {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        height: 100%;
+    }
+    .room-img-container {
+        height: 120px;
+        overflow: hidden;
+    }
+    .room-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .section-title {
         font-weight: 600;
         color: #2d3748;
-        margin-bottom: 1.25rem;
+        margin: 2rem 0 1.5rem;
         padding-bottom: 0.75rem;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
     .status-badge {
         font-size: 0.75rem;
@@ -45,16 +57,6 @@
         background-color: #e6f3ff;
         color: #007bff;
     }
-    .detail-item {
-        margin-bottom: 0.75rem;
-        color: #6c757d;
-        display: flex;
-    }
-    .detail-label {
-        color: #495057;
-        font-weight: 500;
-        min-width: 100px;
-    }
     .empty-state {
         text-align: center;
         padding: 4rem 2rem;
@@ -68,43 +70,9 @@
         margin-bottom: 1.5rem;
         color: #adb5bd;
     }
-    .action-btn {
-        border-radius: 6px;
-        font-size: 0.85rem;
-        padding: 0.4rem 0.8rem;
-        margin-right: 0.5rem;
-        margin-bottom: 0.5rem;
-    }
-    .room-badge {
-        background-color: #f0f8ff;
-        color: #1e88e5;
-        padding: 0.25rem 0.5rem;
-        border-radius: 4px;
-        font-size: 0.75rem;
-        margin-right: 0.5rem;
-        margin-bottom: 0.5rem;
-        display: inline-block;
-    }
     .search-container {
         max-width: 400px;
         margin-left: auto;
-    }
-    .section-title {
-        font-weight: 600;
-        color: #2d3748;
-        margin: 2.5rem 0 1.5rem;
-        padding-bottom: 0.75rem;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        position: relative;
-    }
-    .section-title:after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -1px;
-        width: 50px;
-        height: 2px;
-        background: #007bff;
     }
     .reservation-card.confirmed {
         border-left-color: #28a745;
@@ -126,16 +94,17 @@
         font-weight: 600;
         color: #1e88e5;
     }
-    .date-range {
-        font-weight: 500;
-    }
-    .guest-count {
-        font-weight: 500;
-    }
     .card-actions {
         border-top: 1px solid rgba(0, 0, 0, 0.05);
         padding-top: 1rem;
         margin-top: 1rem;
+    }
+    .action-btn {
+        border-radius: 6px;
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
     }
     @media (max-width: 767.98px) {
         .search-container {
@@ -145,6 +114,27 @@
         .d-flex.justify-content-between {
             flex-direction: column;
         }
+    }
+    .pagination-sm .pagination {
+        font-size: 0.875rem;
+        padding: 0.25rem 0.5rem;
+    }
+    .pagination-sm .page-link {
+        padding: 0.25rem 0.5rem;
+    }
+    .pagination-sm .page-item.active .page-link {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+    .detail-item {
+        margin-bottom: 0.75rem;
+        color: #6c757d;
+        display: flex;
+    }
+    .detail-label {
+        color: #495057;
+        font-weight: 500;
+        min-width: 100px;
     }
 </style>
 
@@ -201,95 +191,123 @@
         <h4 class="section-title">
             <i class="fas fa-calendar-check me-2"></i> Upcoming Reservations
         </h4>
-        
-        @if($groupedReservations->isEmpty() && $currentReservations->isEmpty())
+
+        @php
+            // Separate group reservations into true groups and singles
+            $trueGroups = $groupedReservations->filter(function($group) {
+                return $group->children->count() > 1;
+            });
+
+            $singleReservations = $groupedReservations->filter(function($group) {
+                return $group->children->count() == 1;
+            });
+        @endphp
+
+        @if($trueGroups->isEmpty() && $singleReservations->isEmpty() && $currentReservations->isEmpty())
             <div class="alert alert-info shadow-sm">
                 <i class="fas fa-info-circle me-2"></i> You don't have any upcoming reservations.
             </div>
         @else
             <div class="row">
-                @foreach($groupedReservations as $group)
-                    <div class="col-md-12">
-                        <div class="reservation-card card {{ $group->status }}">
-                            <div class="card-body">
-                                <h5 class="card-title d-flex justify-content-between align-items-center">
-                                    <span>
-                                        <i class="fas fa-users me-2"></i> Group Reservation #{{ $group->id }}
-                                    </span>
+                {{-- Group Reservations (2+ rooms) --}}
+                @foreach($trueGroups as $group)
+                    <div class="col-12 mb-4">
+                        <div class="card reservation-card group-card {{ $group->status }}">
+                            <div class="card-header bg-light">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="mb-1"><i class="fas fa-users me-2"></i> Group Reservation #{{ $group->id }}</h5>
+                                        <small class="text-muted">{{ $group->check_in->format('M d, Y') }} - {{ $group->check_out->format('M d, Y') }}</small>
+                                    </div>
                                     <span class="status-badge status-{{ str_replace(' ', '_', $group->status) }}">
                                         {{ ucfirst($group->status) }}
                                     </span>
-                                </h5>
+                                </div>
+                            </div>
 
-                                <div class="row">
-                                    <!-- Group Summary -->
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <div class="detail-item">
+                                            <span class="detail-label"><i class="fas fa-user me-2"></i>Name:</span>
+                                            <span>{{ $group->name }}</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label"><i class="fas fa-envelope me-2"></i>Email:</span>
+                                            <span>{{ $group->email }}</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label"><i class="fas fa-phone me-2"></i>Phone:</span>
+                                            <span>{{ $group->phone }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="detail-item">
+                                            <span class="detail-label"><i class="fas fa-user-friends me-2"></i>Total Guests:</span>
+                                            <span>{{ $group->children->sum('guests') }}</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label"><i class="fas fa-door-open me-2"></i>Total Rooms:</span>
+                                            <span>{{ $group->children->count() }}</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-label"><i class="fas fa-hashtag me-2"></i>Reference:</span>
+                                            <span>{{ $group->reference_number }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h6 class="mb-3"><i class="fas fa-door-open me-2"></i> Rooms in this Group:</h6>
+                                <div class="row g-3">
+                                    @foreach($group->children as $child)
                                     <div class="col-md-4">
-                                        <div class="group-summary mb-4">
+                                        <div class="room-card p-3">
+                                            <h6>{{ $child->room_type }}</h6>
+                                            @if($child->room && $child->room->image)
+                                            <div class="room-img-container mb-2 rounded">
+                                                <img src="{{ asset($child->room->image) }}" class="room-img" alt="Room">
+                                            </div>
+                                            @endif
                                             <div class="detail-item">
-                                                <span class="detail-label"><i class="far fa-calendar-alt me-2"></i>Dates:</span>
-                                                <span class="date-range">
-                                                    {{ $group->check_in->format('M j, Y') }} - {{ $group->check_out->format('M j, Y') }}
-                                                </span>
+                                                <span class="detail-label"><i class="fas fa-user-friends me-2"></i>Guests:</span>
+                                                <span>{{ $child->guests }}</span>
                                             </div>
                                             <div class="detail-item">
-                                                <span class="detail-label"><i class="fas fa-user-friends me-2"></i>Total Guests:</span>
-                                                <span class="guest-count">
-                                                    {{ $group->children->sum('guests') }}
-                                                </span>
+                                                <span class="detail-label"><i class="fas fa-calendar-check me-2"></i>Check-in:</span>
+                                                <span>{{ $child->check_in->format('M d, Y') }}</span>
                                             </div>
                                             <div class="detail-item">
-                                                <span class="detail-label"><i class="fas fa-door-open me-2"></i>Total Rooms:</span>
-                                                <span class="room-count">
-                                                    {{ $group->children->count() }}
-                                                </span>
+                                                <span class="detail-label"><i class="fas fa-calendar-check me-2"></i>Check-out:</span>
+                                                <span>{{ $child->check_out->format('M d, Y') }}</span>
                                             </div>
-                                        </div>
-                                    </div>
+                                            @if($child->room && $child->status === 'confirmed')
+                                            <div class="detail-item">
+                                                <span class="detail-label"><i class="fas fa-hashtag me-2"></i>Room:</span>
+                                                <span class="room-number">{{ $child->room->room_name }}</span>
+                                            </div>
+                                            @endif
 
-                                    <!-- Individual Rooms -->
-                                    <div class="col-md-8">
-                                        <h6 class="mb-3"><i class="fas fa-door-open me-2"></i>Rooms in this reservation:</h6>
-                                        <div class="rooms-container">
-                                            @foreach($group->children as $roomReservation)
-                                                <div class="room-card mb-3 p-3 border rounded">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div>
-                                                            <strong>{{ $roomReservation->room_type }}</strong>
-                                                            <span class="ms-2 badge bg-light text-dark">
-                                                                {{ $roomReservation->guests }} guest(s)
-                                                            </span>
-                                                            @if($roomReservation->room && $roomReservation->status === 'confirmed')
-                                                                <span class="ms-2 room-number">
-                                                                    <i class="fas fa-hashtag"></i> {{ $roomReservation->room->room_number }}
-                                                                </span>
-                                                            @endif
-                                                        </div>
-                                                        <span class="status-badge status-{{ str_replace(' ', '_', $roomReservation->status) }}">
-                                                            {{ ucfirst($roomReservation->status) }}
-                                                        </span>
-                                                    </div>
-                                                    <div class="mt-2">
-                                                        <small class="text-muted">
-                                                            <i class="far fa-calendar-alt me-1"></i>
-                                                            {{ $roomReservation->check_in->format('M j, Y') }} - {{ $roomReservation->check_out->format('M j, Y') }}
-                                                        </small>
-                                                    </div>
-                                                    <div class="mt-2 room-actions">
-                                                        <a href="{{ route('user.reservations.show', $roomReservation->id) }}" 
-                                                        class="btn btn-sm btn-outline-secondary">
-                                                            <i class="fas fa-eye"></i> Details
-                                                        </a>
-                                                        @if($roomReservation->status == 'pending')
-                                                            <a href="{{ route('user.reservations.edit', $roomReservation->id) }}" 
-                                                            class="btn btn-sm btn-outline-primary ms-1">
-                                                                <i class="fas fa-edit"></i> Modify
-                                                            </a>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            @endforeach
+                                            <div class="d-flex flex-wrap mt-2">
+                                                <a href="{{ route('user.reservations.show', $child->id) }}" 
+                                                class="btn btn-sm btn-outline-secondary me-2 mb-2">
+                                                    <i class="fas fa-eye"></i> Details
+                                                </a>
+                                                @if($child->status == 'pending')
+                                                    <a href="{{ route('user.reservations.edit', $child->id) }}" 
+                                                    class="btn btn-sm btn-outline-primary me-2 mb-2">
+                                                        <i class="fas fa-edit"></i> Modify
+                                                    </a>
+                                                    <form action="{{ route('user.reservations.destroy', $child->id) }}" method="POST">
+                                                        @csrf @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger mb-2">
+                                                            <i class="fas fa-times"></i> Cancel
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
+                                    @endforeach
                                 </div>
 
                                 <div class="card-actions d-flex flex-wrap mt-3">
@@ -302,17 +320,82 @@
                                         <i class="fas fa-file-invoice me-1"></i> Group Invoice
                                     </a>
                                     @if($group->status == 'pending')
-                                    <a href="{{ route('user.reservations.edit', $group->id) }}" 
-                                    class="action-btn btn btn-outline-info">
-                                        <i class="fas fa-edit me-1"></i> Edit Group
+                                        <a href="{{ route('user.reservations.edit', $group->id) }}" 
+                                        class="action-btn btn btn-outline-info">
+                                            <i class="fas fa-edit me-1"></i> Edit Group
+                                        </a>
+                                        <form action="{{ route('user.reservations.destroy', $group->id) }}" method="POST">
+                                            @csrf @method('DELETE')
+                                            <button type="submit" class="action-btn btn btn-outline-danger" 
+                                                    onclick="return confirm('Are you sure you want to cancel this entire group reservation?')">
+                                                <i class="fas fa-times me-1"></i> Cancel Group
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+                {{-- Single Room Reservations --}}
+                @foreach($singleReservations as $reservation)
+                    @php
+                        $roomReservation = $reservation->children->first();
+                    @endphp
+                    <div class="col-xl-4 col-lg-6 col-md-6 mb-4">
+                        <div class="card reservation-card {{ $roomReservation->status }}">
+                            <div class="position-relative">
+                                @if($roomReservation->room && $roomReservation->room->image)
+                                <img src="{{ asset($roomReservation->room->image) }}" class="card-img-top" alt="Room image" style="height: 180px; object-fit: cover;">
+                                @else
+                                <div class="bg-light d-flex align-items-center justify-content-center" style="height: 180px;">
+                                    <span class="text-muted">No image</span>
+                                </div>
+                                @endif
+                            </div>
+
+                            <div class="card-body">
+                                <h5>{{ $roomReservation->room_type }}</h5>
+                                <div class="detail-item">
+                                    <span class="detail-label"><i class="fas fa-user-friends me-2"></i>Guests:</span>
+                                    <span>{{ $roomReservation->guests }}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label"><i class="fas fa-calendar-check me-2"></i>Check-in:</span>
+                                    <span>{{ $roomReservation->check_in->format('M d, Y') }}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label"><i class="fas fa-calendar-check me-2"></i>Check-out:</span>
+                                    <span>{{ $roomReservation->check_out->format('M d, Y') }}</span>
+                                </div>
+                                @if($roomReservation->room && $roomReservation->status === 'confirmed')
+                                <div class="detail-item">
+                                    <span class="detail-label"><i class="fas fa-hashtag me-2"></i>Room:</span>
+                                    <span class="room-number">{{ $roomReservation->room->room_name }}</span>
+                                </div>
+                                @endif
+
+                                <div class="d-flex flex-wrap mt-3">
+                                    <a href="{{ route('user.reservations.show', $roomReservation->id) }}" 
+                                    class="btn btn-sm btn-outline-secondary me-2 mb-2">
+                                        <i class="fas fa-eye"></i> Details
                                     </a>
-                                    <form action="{{ route('user.reservations.destroy', $group->id) }}" method="POST">
-                                        @csrf @method('DELETE')
-                                        <button type="submit" class="action-btn btn btn-outline-danger" 
-                                                onclick="return confirm('Are you sure you want to cancel this entire group reservation?')">
-                                            <i class="fas fa-times me-1"></i> Cancel Group
-                                        </button>
-                                    </form>
+                                    <a href="{{ route('user.reservations.invoice', $roomReservation->id) }}" 
+                                    class="btn btn-sm btn-outline-primary me-2 mb-2">
+                                        <i class="fas fa-file-invoice"></i> Invoice
+                                    </a>
+                                    @if($roomReservation->status == 'pending')
+                                        <a href="{{ route('user.reservations.edit', $roomReservation->id) }}" 
+                                        class="btn btn-sm btn-outline-info me-2 mb-2">
+                                            <i class="fas fa-edit"></i> Modify
+                                        </a>
+                                        <form action="{{ route('user.reservations.destroy', $roomReservation->id) }}" method="POST">
+                                            @csrf @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger mb-2">
+                                                <i class="fas fa-times"></i> Cancel
+                                            </button>
+                                        </form>
                                     @endif
                                 </div>
                             </div>
@@ -321,9 +404,12 @@
                 @endforeach
             </div>
 
+            {{-- Pagination --}}
             @if($currentReservations->hasPages())
                 <div class="d-flex justify-content-center mt-4">
-                    {{ $currentReservations->withQueryString()->links() }}
+                    <div class="pagination-sm">
+                        {{ $currentReservations->withQueryString()->links() }}
+                    </div>
                 </div>
             @endif
         @endif
@@ -335,7 +421,51 @@
             </h4>
             <div class="row">
                 @foreach($pastReservations as $reservation)
-                    <!-- Your past reservation card stays the same -->
+                <div class="col-xl-4 col-lg-6 col-md-6 mb-4">
+                    <div class="card reservation-card">
+                        <div class="position-relative">
+                            @if($reservation->room && $reservation->room->image)
+                            <img src="{{ asset($reservation->room->image) }}" class="card-img-top" alt="Room image" style="height: 180px; object-fit: cover;">
+                            @else
+                            <div class="bg-light d-flex align-items-center justify-content-center" style="height: 180px;">
+                                <span class="text-muted">No image available</span>
+                            </div>
+                            @endif
+                            <span class="position-absolute top-0 end-0 m-2 badge rounded-pill bg-secondary">
+                                Completed
+                            </span>
+                        </div>
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $reservation->room_type }}</h5>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <p class="small text-muted mb-1">Check-in</p>
+                                        <p><i class="fas fa-calendar-day me-1"></i> {{ $reservation->check_in->format('M d, Y') }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="small text-muted mb-1">Check-out</p>
+                                        <p><i class="fas fa-calendar-day me-1"></i> {{ $reservation->check_out->format('M d, Y') }}</p>
+                                    </div>
+                                </div>
+                                <p class="mb-1"><i class="fas fa-user-friends me-1"></i> {{ $reservation->guests }} guest{{ $reservation->guests > 1 ? 's' : '' }}</p>
+                                @if($reservation->room)
+                                <p class="mb-1"><i class="fas fa-hashtag me-1"></i> Room {{ $reservation->room->room_name }}</p>
+                                @endif
+                            </div>
+                            
+                            <div class="d-flex flex-wrap border-top pt-3">
+                                <a href="{{ route('user.reservations.show', $reservation->id) }}" class="btn btn-outline-secondary me-2">
+                                    <i class="fas fa-eye me-1"></i> Details
+                                </a>
+                                <a href="{{ route('user.reservations.invoice', $reservation->id) }}" class="btn btn-outline-primary">
+                                    <i class="fas fa-file-invoice me-1"></i> Invoice
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 @endforeach
             </div>
 
@@ -347,6 +477,7 @@
         @endif
     @endif
 </div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Add confirmation for cancellation buttons
@@ -360,8 +491,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-
 @endsection
-
-
-

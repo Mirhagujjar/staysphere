@@ -10,10 +10,12 @@ use Carbon\Carbon;
 use App\Models\Room;
 use App\Models\RoomType;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Notifications\ReservationCancelled;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\StatusNotification;
+// use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -226,7 +228,7 @@ class AdminReservationController extends Controller
                 'check_out' => $request->check_out,
                 'is_parent' => true,
                 'status' => 'pending',
-                'user_id' => auth()->id()
+                'user_id' => Auth::id()
             ]);
 
             foreach ($request->rooms as $room) {
@@ -240,7 +242,7 @@ class AdminReservationController extends Controller
                     'guests' => $room['guests'],
                     'parent_id' => $parentReservation->id,
                     'status' => 'pending',
-                    'user_id' => auth()->id()
+                    'user_id' => Auth::id()
                 ]);
             }
         });

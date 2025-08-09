@@ -3,7 +3,7 @@
 @section('nav-content')
    @guest
     <li class="nav-item">
-        <a class="nav-link btn btn-outline-primary px-3" href="{{ route('login') }}">
+        <a class="nav-link btn btn-outline-warning px-3" href="{{ route('login') }}">
             <i class="fas fa-sign-in-alt me-1"></i> {{ __('Login') }}
         </a>
     </li>
@@ -19,7 +19,7 @@
                         width="36" 
                         height="36">
                 @else
-                    <div class="avatar-placeholder rounded-circle d-flex align-items-center justify-content-center bg-primary text-white"
+                    <div class="avatar-placeholder rounded-circle d-flex align-items-center justify-content-center bg-warning text-dark"
                          style="width: 36px; height: 36px;">
                         {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                     </div>
@@ -40,7 +40,7 @@
                             height="80"
                             alt="{{ Auth::user()->name }}">
                     @else
-                        <div class="avatar-placeholder rounded-circle d-flex align-items-center justify-content-center bg-primary text-white mx-auto"
+                        <div class="avatar-placeholder rounded-circle d-flex align-items-center justify-content-center bg-warning text-dark mx-auto"
                              style="width: 80px; height: 80px; font-size: 2rem;">
                             {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                         </div>

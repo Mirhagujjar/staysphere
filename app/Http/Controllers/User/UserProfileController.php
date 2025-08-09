@@ -23,7 +23,7 @@ class UserProfileController extends Controller
     public function show()
     {
         $user = User::find(Auth::id());
-        $user = User::find(Auth::id());
+        // $user = User::find(Auth::id());
         $reservations = Reservation::where('user_id', $user->id)->with('room')->get();
         return view('User.profile.show', compact('user', 'reservations'));
     }
@@ -40,7 +40,7 @@ class UserProfileController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png',
 
             // Password fields
             'current_password' => 'nullable|required_with:password|string',
@@ -79,13 +79,6 @@ class UserProfileController extends Controller
         return redirect()->route('user.profile.show')->with('success', 'Profile updated successfully!');
     }
 
-
-
-
-
-
-
-   
 
     public function showProfile()
     {
