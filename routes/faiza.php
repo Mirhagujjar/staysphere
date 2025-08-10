@@ -48,6 +48,33 @@ use App\Http\Controllers\Admin\AdminFacilityController;
 // Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
+
+// *Sub Route*
+
+use Kreait\Firebase\Factory;
+use Illuminate\Http\Request;
+
+Route::post('/subscribe-topic', function (Request $request) {
+    $validated = $request->validate([
+        'token' => 'required|string',
+    ]);
+
+    $messaging = (new Factory)
+        ->withServiceAccount(base_path('login-app-adminsdk.json'))
+        ->createMessaging();
+
+    try {
+        $respone[] = $messaging->subscribeToTopic('broadcast', [$validated['token']]);
+        $respone[] = $messaging->subscribeToTopic('abc', [$validated['token']]);
+        return response()->json($respone);
+    } catch (\Throwable $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});
+
+
+
+
 //user side notifications
 Route::get('/notifications', [UserNotificationController::class, 'index'])->name('notifications.index');
 Route::delete('/notifications/{id}', [UserNotificationController::class, 'destroy'])->name('notifications.destroy');
@@ -131,6 +158,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // -----------rooms-----------------
     //Admin Room Management
     Route::resource('rooms', AdminRoomController::class)->except(['show']);
+
     Route::get('/rooms/{room}/details', [AdminRoomController::class, 'details'])->name('rooms.details');
     Route::post('/rooms/update-hero', [AdminRoomController::class, 'updateHero'])->name('rooms.update-hero');
 
@@ -144,6 +172,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Standard reservation routes
         Route::get('/', [AdminReservationController::class, 'index'])->name('index');
         Route::get('/show/{id}', [AdminReservationController::class, 'show'])->name('show');
+        Route::get('/admin/reservations/group/{id}', [AdminReservationController::class, 'groupDetail'])->name('groupdetail');
+
         Route::get('/{id}/edit', [AdminReservationController::class, 'edit'])->name('edit');
         Route::put('/update/{id}', [AdminReservationController::class, 'update'])->name('update');
         Route::delete('/{id}', [AdminReservationController::class, 'destroy'])->name('destroy');
@@ -151,7 +181,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Status management
         // Route::Patch('/{id}/update-status', [AdminReservationController::class, 'updateStatus'])->name('updatestatus');
         Route::patch('/{reservation}/update-status', [AdminReservationController::class, 'updateStatus'])
-    ->name('updatestatus');
+        ->name('updatestatus');
+        Route::get('/{id}/invoice', [AdminReservationController::class, 'invoice'])
+        ->name('invoice');
+        Route::get('/{id}/invoice/pdf', [AdminReservationController::class, 'downloadInvoice'])->name('invoice.pdf');
 
         
         // Past reservations
