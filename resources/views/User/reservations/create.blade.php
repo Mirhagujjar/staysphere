@@ -118,12 +118,17 @@
 
                     <div class="mb-3">
                         <label class="form-label">Optional Service</label>
-                        <select name="rooms[0][service_id]" class="form-control">
-                            <option value="">-- None --</option>
+                        <div>
                             @foreach($services as $service)
-                                <option value="{{ $service->id }}">{{ $service->title }} (Rs. {{ $service->price }})</option>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="rooms[0][service_ids][]" 
+                                        id="service_{{ $service->id }}" value="{{ $service->id }}">
+                                    <label class="form-check-label" for="service_{{ $service->id }}">
+                                        {{ $service->title }} (Rs. {{ $service->price }})
+                                    </label>
+                                </div>
                             @endforeach
-                        </select>
+                        </div>
                     </div>
                 </div>
             </div>

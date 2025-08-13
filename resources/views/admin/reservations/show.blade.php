@@ -11,6 +11,10 @@
                         <a href="{{ route('admin.reservations.index') }}" class="btn btn-outline-secondary">
                             <i class="bi bi-arrow-left me-1"></i> Back to Reservations
                         </a>
+                         <a href="{{ route('admin.reservations.invoice', $reservation->id) }}" 
+                        class="btn btn-sm btn-outline-secondary me-2">
+                            <i class="fas fa-file-invoice"></i> Invoice
+                        </a>
                     </div>
                 </div>
 
@@ -130,8 +134,13 @@
                         </form>
                         @endif
 
-                        <a href="#" onclick="window.print();" class="btn btn-primary">
+                        {{-- <a href="#" onclick="window.print();" class="btn btn-primary">
                             <i class="bi bi-printer me-1"></i> Print
+                        </a> --}}
+
+                         <a href="{{ route('admin.reservations.invoice', $reservation->id) }}" 
+                        class="btn btn-sm btn-outline-secondary me-2">
+                            <i class="fas fa-file-invoice"></i> Invoice
                         </a>
 
                         {{-- <a href="{{ route('admin.reservations.edit', $reservation->id) }}" class="btn btn-outline-primary">

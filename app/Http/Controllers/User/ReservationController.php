@@ -10,11 +10,20 @@ use App\Models\RoomType;
 use App\Models\FilterOption;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Display the specified reservation.
+ *
+ * @param int $id
+ * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
+ *
+ * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+ */
 class ReservationController extends Controller
 {
     public function reservationform(Request $request)
@@ -34,7 +43,7 @@ class ReservationController extends Controller
         });
 
         $services = Service::all();
-        $user = auth()->user();
+        $user = Auth::user();
 
         return view('user.reservations.create', compact('room', 'roomTypes', 'services', 'user'));
     }
@@ -44,7 +53,7 @@ class ReservationController extends Controller
             $search = $request->input('search');
 
             $groupedReservations = Reservation::with(['children', 'children.room'])
-                ->where('user_id', auth()->id())
+                ->where('user_id', Auth::id())
                 ->where('is_parent', true)
                 ->whereDate('check_out', '>=', now())
                 ->when($search, function ($query) use ($search) {
@@ -54,7 +63,7 @@ class ReservationController extends Controller
                 ->get();
 
             $currentReservations = Reservation::with(['room'])
-                ->where('user_id', auth()->id())
+                ->where('user_id', Auth::id())
                 ->where('is_parent', false)
                 ->whereDate('check_out', '>=', now())
                 ->when($search, function ($query) use ($search) {
@@ -64,7 +73,7 @@ class ReservationController extends Controller
                 ->paginate(10);
 
             $pastReservations = Reservation::with(['room'])
-                ->where('user_id', auth()->id())
+                ->where('user_id', Auth::id())
                 ->whereDate('check_out', '<', now())
                 ->when($search, function ($query) use ($search) {
                     $query->where('id', $search);
@@ -82,17 +91,17 @@ class ReservationController extends Controller
     public function show($id)
     {
         $reservation = Reservation::with(['room', 'services', 'children'])
-            ->where('user_id', auth()->id())
+            ->where('user_id', Auth::id())
             ->findOrFail($id);
 
              $groupedReservations = Reservation::where('is_parent', true)
-        ->where('user_id', auth()->id())
+        ->where('user_id', Auth::id())
         ->with('children')
         ->get();
 
-            $reservations = Reservation::where('user_id', auth()->id())->get();
+            $reservations = Reservation::where('user_id', Auth::id())->get();
 
-            $pastReservations = Reservation::where('user_id', auth()->id())
+            $pastReservations = Reservation::where('user_id', Auth::id())
             ->where('check_out', '<', now())
             ->paginate(10);
 
@@ -138,7 +147,7 @@ class ReservationController extends Controller
 
             // Create parent reservation
             $parentReservation = Reservation::create([
-                'user_id' => auth()->id(),
+                'user_id' => Auth::id(),
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
@@ -161,7 +170,7 @@ class ReservationController extends Controller
                     
                     $reservation = Reservation::create([
                         'parent_id' => $parentReservation->id,
-                        'user_id' => auth()->id(),
+                        'user_id' => Auth::id(),
                         'room_id' => null, // No room assigned yet
                         'name' => $request->name,
                         'email' => $request->email,
@@ -195,26 +204,34 @@ class ReservationController extends Controller
         }
     }
 
+ 
+
     public function edit($id)
     {
-        $reservation = Reservation::with('room', 'services')
-            ->where('user_id', auth()->id())
+        $reservation = Reservation::with(['room', 'services'])
+            ->where('user_id', Auth::id())
             ->findOrFail($id);
 
-        if (Carbon::parse($reservation->check_out)->isPast()) {
-            return redirect()->route('user.reservations.index')
+        // Prevent editing past reservations
+        if ($reservation->check_out && Carbon::parse($reservation->check_out)->isPast()) {
+            return redirect()
+                ->route('user.reservations.index')
                 ->with('error', 'This reservation cannot be edited anymore.');
         }
 
-        $roomTypes = FilterOption::whereHas('filter', function($q) {
-            $q->where('slug', 'room-type');
-        })->get();
-        
-        $services = Service::all();
-        $user = auth()->user();
+        $roomTypes = FilterOption::whereHas('filter', fn($q) => 
+            $q->where('slug', 'room-type')
+        )->get();
 
-        return view('user.reservations.edit', compact('reservation', 'roomTypes', 'services', 'user'));
+        $services = Service::all();
+        $user = Auth::user();
+
+        return view('user.reservations.edit', compact(
+            'reservation', 'roomTypes', 'services', 'user'
+        ));
     }
+
+
 
     public function update(Request $request, $id)
     {
@@ -223,7 +240,7 @@ class ReservationController extends Controller
             'check_out' => 'required|date|after:check_in',
         ]);
 
-        $reservation = Reservation::where('user_id', auth()->id())->findOrFail($id);
+        $reservation = Reservation::where('user_id', Auth::id())->findOrFail($id);
 
         if (Carbon::parse($reservation->check_out)->isPast()) {
             return redirect()->route('user.reservations.edit', $id)
@@ -242,8 +259,8 @@ class ReservationController extends Controller
 
     public function destroy($id)
     {
-        $reservation = Reservation::where('user_id', auth()->id())->findOrFail($id);
-        
+        $reservation = Reservation::where('user_id', Auth::id())->findOrFail($id);
+
         if ($reservation->status !== 'pending') {
             return back()->with('error', 'Only pending reservations can be cancelled.');
         }
@@ -256,7 +273,7 @@ class ReservationController extends Controller
 
     public function myBookings()
     {
-        $reservations = Reservation::where('user_id', auth()->id())
+        $reservations = Reservation::where('user_id', Auth::id())
             ->orderBy('check_in', 'desc')
             ->get();
             
@@ -290,7 +307,7 @@ class ReservationController extends Controller
     public function invoice($id)
     {
         $reservation = Reservation::with(['room', 'services'])
-            ->where('user_id', auth()->id())
+            ->where('user_id', Auth::id())
             ->findOrFail($id);
 
         return view('user.reservations.invoice', compact('reservation'));
@@ -301,7 +318,7 @@ class ReservationController extends Controller
     public function downloadInvoice($id)
     {
         $reservation = Reservation::with('services', 'room')
-            ->where('user_id', auth()->id())
+            ->where('user_id', Auth::id())
             ->findOrFail($id);
 
         $roomTotal = $reservation->room->price ?? 0;

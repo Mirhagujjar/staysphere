@@ -245,10 +245,6 @@
                     </li>
                     <li><a class="dropdown-item" href="{{ route('about') }}">About Us</a></li>
                     <li><a class="dropdown-item" href="{{ route('user.review.review') }}">Reviews</a></li>
-<<<<<<< HEAD
-                    
-=======
->>>>>>> 2fcfbcbdc883ef75f5de2b9dcd00e12bee55a97d
 
                 </ul>
                </li>

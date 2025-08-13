@@ -10,70 +10,97 @@ use Carbon\Carbon;
 use App\Models\Room;
 use App\Models\RoomType;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Notifications\ReservationCancelled;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\StatusNotification;
+// use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminReservationController extends Controller
 {
-  public function index(Request $request)
+    public function index(Request $request)
     {
-                $today = Carbon::today();
+        $today = Carbon::today();
 
-                $query = Reservation::with(['room', 'user'])
-                    ->whereDate('check_out', '>=', $today)
-                    ->whereNull('deleted_at')
-                    ->where('is_parent', false);
+        // Fetch all parent reservations with children eager loaded
+        $allGroups = Reservation::with(['room', 'user', 'children'])
+            ->where('is_parent', true)
+            ->whereDate('check_out', '>=', $today)
+            ->whereNull('deleted_at')
+            ->get();
 
-                if ($request->has('search')) {
-                    $search = $request->search;
-                    $query->where(function ($q) use ($search) {
-                        $q->where('name', 'like', "%$search%")
-                        ->orWhere('email', 'like', "%$search%")
-                        ->orWhere('phone', 'like', "%$search%")
-                        ->orWhere('status', 'like', "%$search%")
-                        ->orWhere('room_type', 'like', "%$search%");
-                    });
-                }
+        // Filter groups with 2 or more children (meaning 2+ rooms in group)
+        $groupedReservations = $allGroups->filter(function ($group) {
+            return $group->children->count() >= 2;
+        });
 
-                $rooms = Room::with('roomType')
-                            ->where('is_booked', false)
-                            ->get();
+        // Groups with only 1 child will be considered single reservations
+        $singleChildGroups = $allGroups->filter(function ($group) {
+            return $group->children->count() === 1;
+        });
 
-                $groupedReservations = Reservation::with(['room', 'user', 'children'])
-                    ->where('is_parent', true)
-                    ->whereDate('check_out', '>=', $today)
-                    ->whereNull('deleted_at')
-                    ->paginate(10);
+        // Extract the single reservations from those single-child groups
+        $singleFromGroups = $singleChildGroups->map(function ($group) {
+            return $group->children->first();
+        });
 
-                $pastReservations = Reservation::with('room')
-                    ->onlyTrashed()
-                    ->orWhereDate('check_out', '<', $today)
-                    ->paginate(10);
+        // Fetch single reservations that are not part of any group (no parent)
+        $singleReservationsQuery = Reservation::with('room', 'user')
+            ->where('is_parent', false)
+            ->whereNull('parent_id')
+            ->whereDate('check_out', '>=', $today)
+            ->whereNull('deleted_at');
 
-                $reservations = $query->get();
+        if ($request->has('search')) {
+            $search = $request->search;
+            $singleReservationsQuery->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%$search%")
+                    ->orWhere('email', 'like', "%$search%")
+                    ->orWhere('phone', 'like', "%$search%")
+                    ->orWhere('status', 'like', "%$search%")
+                    ->orWhere('room_type', 'like', "%$search%");
+            });
+        }
 
-                $parentReservations = Reservation::where('is_parent', 1)
-                    ->whereDate('check_out', '>=', now()->toDateString())
-                    ->paginate(10);
-                    
+        $singleReservations = $singleReservationsQuery->get();
 
-                $currentReservations = Reservation::where('is_parent', 0)
-                    ->whereDate('check_out', '>=', now()->toDateString())
-                    ->paginate(10);
+        // Merge single reservations from groups with single reservations
+        $reservations = $singleReservations->merge($singleFromGroups);
 
-                return view('admin.reservations.index', compact(
-                    'reservations',
-                    'rooms',
-                    'pastReservations',
-                    'groupedReservations',
-                    'parentReservations',
-                    'currentReservations'
-                ));
+        // The rest unchanged
+        $rooms = Room::with('roomType')
+            ->where('is_booked', false)
+            ->get();
+
+        $pastReservations = Reservation::with('room')
+            ->onlyTrashed()
+            ->orWhereDate('check_out', '<', $today)
+            ->paginate(10);
+
+        $parentReservations = Reservation::where('is_parent', 1)
+            ->whereDate('check_out', '>=', now()->toDateString())
+            ->paginate(10);
+
+        $currentReservations = Reservation::where('is_parent', 0)
+            ->whereDate('check_out', '>=', now()->toDateString())
+            ->paginate(10);
+
+        return view('admin.reservations.index', compact(
+            'reservations',
+            'rooms',
+            'pastReservations',
+            'groupedReservations',
+            'parentReservations',
+            'currentReservations',
+            'singleReservations'
+        ));
     }
+
+
 
     public function show($id)
     {
@@ -226,7 +253,7 @@ class AdminReservationController extends Controller
                 'check_out' => $request->check_out,
                 'is_parent' => true,
                 'status' => 'pending',
-                'user_id' => auth()->id()
+                'user_id' => Auth::id()
             ]);
 
             foreach ($request->rooms as $room) {
@@ -240,7 +267,7 @@ class AdminReservationController extends Controller
                     'guests' => $room['guests'],
                     'parent_id' => $parentReservation->id,
                     'status' => 'pending',
-                    'user_id' => auth()->id()
+                    'user_id' => Auth::id()
                 ]);
             }
         });
@@ -306,4 +333,41 @@ class AdminReservationController extends Controller
 
         return back()->with('success', 'Reservation updated.');
     }
+
+    // public function groupDetail($id)
+    // {
+    //     $group = Reservation::with('children')->findOrFail($id);
+    //     // pass $group to a view for showing group details
+    //     return view('admin.reservations.groupdetail', compact('group'));
+    // }
+
+    // AdminReservationController.php
+    public function invoice($id)
+    {
+        $reservation = Reservation::with(['room', 'services'])
+            ->findOrFail($id);
+
+        return view('admin.reservations.invoice', compact('reservation'));
+    }
+
+    public function downloadInvoice($id)
+    {
+        $reservation = Reservation::with('services', 'room')
+            ->findOrFail($id);
+
+        $roomTotal = $reservation->room->price ?? 0;
+        $servicesTotal = $reservation->services->sum('price');
+        $total = $roomTotal + $servicesTotal;
+
+        $pdf = Pdf::loadView('admin.reservations.invoice_pdf', [
+            'reservation' => $reservation,
+            'roomTotal' => $roomTotal,
+            'servicesTotal' => $servicesTotal,
+            'total' => $total,
+        ]);
+
+        return $pdf->download('invoice_' . $reservation->id . '.pdf');
+    }
+
+
 }

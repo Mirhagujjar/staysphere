@@ -41,9 +41,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 mb-0"><i class="fas fa-calendar-alt me-2"></i> Reservations Management</h1>
         <div>
-            <a href="{{ route('admin.reservations.create-group') }}" class="btn btn-sm btn-success me-2">
-                <i class="fas fa-plus-circle me-1"></i> Add Group
-            </a>
+            
             <form method="GET" action="{{ route('admin.reservations.index') }}" class="d-flex mb-0">
                 <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm me-2" placeholder="Search reservations..." style="width: 200px;">
                 <button type="submit" class="btn btn-sm btn-primary">
@@ -148,8 +146,8 @@
     <h4 class="section-title"><i class="fas fa-calendar-check me-2"></i> Single Reservations</h4>
     <div class="row">
         @forelse($reservations as $reservation)
-        <div class="col-xl-4 col-lg-6 col-md-6 mb-4">
-            <div class="card reservation-card">
+        <div class="col-xl-4 col-lg-6 col-md-6 mb-4 ">
+            <div class="card reservation-card h-100">
                 <div class="position-relative">
                     @if($reservation->room && $reservation->room->image)
                     <img src="{{ asset($reservation->room->image) }}" class="card-img-top" alt="Room image" style="height: 180px; object-fit: cover;">
@@ -171,12 +169,15 @@
                     <!-- Single status form -->
                     <form method="POST" action="{{ route('admin.reservations.updatestatus', $reservation->id) }}" class="d-flex mb-2">
                         @csrf @method('PATCH')
-                        <select name="status" class="form-select form-select-sm me-2">
+                        <select name="status" class="form-select form-select-sm me-2 status-select"
+                            data-id="{{ $reservation->id }}"
+                            data-roomtype="{{ $reservation->room_type }}">
                             <option value="pending" {{ $reservation->status == 'pending' ? 'selected' : '' }}>Pending</option>
                             <option value="confirmed" {{ $reservation->status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
                             <option value="checked_out" {{ $reservation->status == 'checked_out' ? 'selected' : '' }}>Checked Out</option>
                             <option value="cancelled" {{ $reservation->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                         </select>
+
 
 
                         <button type="submit" class="btn btn-sm btn-outline-primary">Save</button>
@@ -185,6 +186,10 @@
                     <div class="d-flex flex-wrap">
                         <a href="{{ route('admin.reservations.show', $reservation->id) }}" class="btn btn-sm btn-outline-secondary me-2">
                             <i class="fas fa-eye"></i>
+                        </a>
+                        <a href="{{ route('admin.reservations.invoice', $reservation->id) }}" 
+                        class="btn btn-sm btn-outline-secondary me-2">
+                            <i class="fas fa-file-invoice"></i> Invoice
                         </a>
                         <form action="{{ route('admin.reservations.destroy', $reservation->id) }}" method="POST">
                             @csrf @method('DELETE')
@@ -209,7 +214,7 @@
         <div class="row">
             @foreach($pastReservations as $reservation)
             <div class="col-xl-4 col-lg-6 col-md-6 mb-4">
-                <div class="card reservation-card">
+                <div class="card reservation-card h-100">
                     <div class="position-relative">
                         @if($reservation->room && $reservation->room->image)
                         <img src="{{ asset($reservation->room->image) }}" class="card-img-top" alt="Room image" style="height: 180px; object-fit: cover;">

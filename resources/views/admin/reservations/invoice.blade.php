@@ -108,11 +108,11 @@
                     </span>
                 </div>
                 <div class="mt-2 mt-md-0 no-print">
-                    <a href="{{ route('user.reservations.invoice.pdf', $reservation->id) }}" 
+                    <a href="{{ route('admin.reservations.invoice.pdf', $reservation->id) }}" 
                        class="btn btn-light">
                         <i class="fas fa-file-pdf me-1"></i> Download PDF
                     </a>
-                    <a href="{{ route('user.reservations.index') }}" 
+                    <a href="{{ route('admin.reservations.index') }}" 
                        class="btn btn-outline-light">
                         <i class="fas fa-arrow-left me-1"></i> Back
                     </a>
