@@ -108,3 +108,28 @@ Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     Route::get('/event-bookings', [UserEventBookingController::class, 'index'])->name('event-booking.index');
 });
 
+// booking services
+
+
+// Show form page
+Route::get('/user/services/add', [App\Http\Controllers\User\ServiceRequestController::class, 'create'])->name('user.services.create');
+
+// Handle form submission
+Route::post('/user/services/submit', [App\Http\Controllers\User\ServiceRequestController::class, 'store'])->name('services.submit');
+
+
+Route::get('/user/services/requests', [App\Http\Controllers\User\ServiceRequestController::class, 'index'])->name('user.services.requests');
+
+// room booking
+
+use App\Http\Controllers\User\Reservationbookingcontroller;
+
+Route::middleware(['auth'])->group(function () {
+    // Show reservation form
+    Route::get('/user/reservations/create', [Reservationbookingcontroller::class, 'create'])->name('user.reservations.create');
+
+    // Handle form submission
+    Route::post('/user/reservations', [Reservationbookingcontroller::class, 'store'])->name('user.reservations.store');
+});
+
+Route::get('/user/my-reservations', [Reservationbookingcontroller::class, 'index'])->name('user.my_reservations');

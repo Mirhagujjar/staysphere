@@ -337,33 +337,29 @@
                 @endcan
 
                 <!-- Events -->
-                {{-- <li class="nav-item">
-                    <a href="{{ route('admin.events.index') }}" class="nav-link">
+               <li class="nav-item">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-calendar-event text-warning"></i>
-                        <p>Events Management</p>
+                        <p>Events Management<i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
                     </a>
 
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('admin.events') }}" class="nav-link">
+                            <a href="{{ route('admin.event.content') }}" class="nav-link">
                                 <i class="bi bi-arrow-right text-warning"></i>
                                 <p>View All Events</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.events.create') }}" class="nav-link">
+                            <a href="{{ route('admin.event.page') }}" class="nav-link">
                                 <i class="bi bi-arrow-right text-warning"></i>
                                 <p>Add New Event</p>
                             </a>
                         </li>
                     </ul>
-                </li> --}}
+                </li>
+
                 {{-- <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.events.index') }}">
-                        <i class="bi bi-calendar-event"></i> Events
-                    </a>
-                </li> --}}
-                <li class="nav-item">
                     <a href="{{ route('admin.event.page') }}" class="nav-link">
                         <i class="nav-icon bi bi-layout-text-window text-warning"></i>
                         <p>Page Builder</p>
@@ -375,7 +371,7 @@
                         <i class="nav-icon bi bi-table text-warning"></i>
                         <p>View Page Content</p>
                     </a>
-                </li>
+                </li> --}}
 
 
 
@@ -432,7 +428,7 @@
                                 <p>Manage All Services</p>
                             </a>
                         </li>
-                        
+
                     </ul>
                 </li>
 

@@ -154,7 +154,6 @@
 
         <a href="#"><i class="fas fa-home"></i> Dashboard</a>
 
-        <a href="#"><i class="fas fa-box-open"></i> Packages</a>
         <!-- package Dropdown -->
 
         <div class="user-section">
@@ -167,7 +166,17 @@
                 <a href="{{ route('booking.index') }}"><i class="fas fa-list"></i> View All Packages</a>
             </div>
         </div>
-        <a href="#"><i class="fas fa-concierge-bell"></i> Services</a>
+        {{-- services --}}
+        <div class="user-section">
+            <div class="user-btn" onclick="toggleEventDropdown(this)">
+                <span><i class="fas fa-concierge-bell"></i> Services</span>
+                <i class="fas fa-angle-right arrow"></i>
+            </div>
+            <div class="user-dropdown">
+                <a href="{{ route('user.services.create') }}"><i class="fas fa-plus-circle"></i> Add services</a>
+                <a href="{{ route('user.services.requests') }}"><i class="fas fa-list"></i> View All services</a>
+            </div>
+        </div>
 <!-- Event Booking Dropdown -->
 <div class="user-section">
     <div class="user-btn" onclick="toggleEventDropdown(this)">
@@ -179,8 +188,18 @@
         <a href="{{ route('user.event-booking.index') }}"><i class="fas fa-list"></i> View All Events</a>
     </div>
 </div>
-        <a href="#"><i class="fas fa-bed"></i> Room Booking</a>
+{{-- room booking --}}
 
+        <div class="user-section">
+            <div class="user-btn" onclick="toggleEventDropdown(this)">
+                <span><i class="fas fa-bed"></i> Room Booking</span>
+                <i class="fas fa-angle-right arrow"></i>
+            </div>
+            <div class="user-dropdown">
+                <a href="{{ route('user.reservations.create') }}"><i class="fas fa-plus-circle"></i>Booking Room</a>
+                <a href="{{ route('user.my_reservations') }}"><i class="fas fa-list"></i> View All Booking</a>
+            </div>
+        </div>
     </div>
 
     <!-- Right Content Area -->
@@ -189,6 +208,7 @@
         <!-- Top Navbar -->
         <div class="topbar">
             <div><strong>User Panel</strong></div>
+            <div>home</div>
 
             <div class="user-dropdown-wrapper">
                 <div class="user-btn">

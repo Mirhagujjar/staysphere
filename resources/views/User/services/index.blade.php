@@ -44,7 +44,7 @@
                     <div class="d-flex flex-wrap gap-2">
                         @foreach($service->formatted_facilities as $facility)
                             <span class="badge bg-light text-dark border py-2 px-3">
-                                <i class="bi bi-check-circle me-1 text-success"></i> 
+                                <i class="bi bi-check-circle me-1 text-success"></i>
                                 {{ $facility }}
                             </span>
                         @endforeach
@@ -119,7 +119,7 @@
 
                         <button type="submit" class="btn btn-primary">Submit Request</button>
                     </form>
-                
+
         </div>
     </div>
 </div>

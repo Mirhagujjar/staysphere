@@ -16,6 +16,7 @@ class ServiceRequest extends Model
         'room_number',
         'service_id',
         'notes',
+        'user_id',
         'status',
     ];
 
