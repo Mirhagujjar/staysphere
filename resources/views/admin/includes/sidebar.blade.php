@@ -337,7 +337,7 @@
                 @endcan
 
                 <!-- Events -->
-               <li class="nav-item">
+                   {{-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-calendar-event text-warning"></i>
                         <p>Events Management<i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
@@ -357,16 +357,21 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.events.index') }}">
+                        <i class="bi bi-calendar-event"></i> Events
+                    </a>
+                </li> --}}
                 {{-- <li class="nav-item">
                     <a href="{{ route('admin.event.page') }}" class="nav-link">
                         <i class="nav-icon bi bi-layout-text-window text-warning"></i>
                         <p>Page Builder</p>
                     </a>
-                </li>
+                </li> --}} 
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('admin.event.content') }}" class="nav-link">
                         <i class="nav-icon bi bi-table text-warning"></i>
                         <p>View Page Content</p>
@@ -375,11 +380,39 @@
 
 
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('admin.event-bookings.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-calendar-check text-warning"></i>
                         <p>User Event Bookings</p>
                     </a>
+                </li> --}}
+
+                {{-- Event management --}}
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon bi bi-layout-text-window text-warning"></i>
+                        <p>Event Management <i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.event.page') }}" class="nav-link">
+                                <i class="bi bi-arrow-right text-warning"></i>
+                                <p>Event Page Builder</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route ('admin.event.content')}}" class="nav-link">
+                                <i class="bi bi-arrow-right text-warning"></i>
+                                <p>View Event Content</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route ('admin.event-bookings.index')}}" class="nav-link">
+                                <i class="bi bi-arrow-right text-warning"></i>
+                                <p>User Event Bookings</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <!-- About Us -->
                 <li class="nav-item">
@@ -403,6 +436,41 @@
                     </ul>
                 </li>
 
+                {{-- contact info --}}
+
+                {{-- <li class="nav-item">
+                    <a href="{{ route('admin.contact.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-calendar-check text-warning"></i>
+                        <p>Contact Info</p>
+                    </a>
+                </li> --}}
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon bi bi-list text-warning"></i>
+                        <p>Contact Info <i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('admin.contact.index')}}" class="nav-link">
+                                <i class="bi bi-arrow-right text-warning"></i>
+                                <p>View Contacts list</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.contact-settings.index')}}" class="nav-link">
+                                <i class="bi bi-arrow-right text-warning"></i>
+                                <p>Show Contact Page</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route ('admin.contact-settings.create')}}" class="nav-link">
+                                <i class="bi bi-arrow-right text-warning"></i>
+                                <p>Create Contact Page</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                  {{-- <li class="nav-item">
                     <a href="{{ route('admin.services.index') }}" class="nav-link">
                         <i class="nav-icon bi bi-person text-warning"></i>
@@ -412,7 +480,7 @@
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-info-circle text-warning"></i>
+                        <i class="nav-icon bi bi-headset text-warning"></i>
                         <p>Services<i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
                     </a>
                     <ul class="nav nav-treeview">

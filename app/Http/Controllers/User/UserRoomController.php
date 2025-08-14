@@ -9,6 +9,9 @@ use App\Models\Reservation;
 use App\Models\Facility;
 use App\Models\Filter;
 use App\Models\FilterOption;
+use Illuminate\Support\Facades\Auth;
+ use Illuminate\Pagination\Paginator;
+
 
 class UserRoomController extends Controller 
 {
@@ -102,9 +105,7 @@ class UserRoomController extends Controller
 
         return view('user.rooms.details', compact('room', 'roomTypes'));
     }
-
-
-   
+ 
 
 
     public function store(Request $request)
@@ -126,7 +127,7 @@ class UserRoomController extends Controller
         }
 
         $reservation = Reservation::create([
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'room_id' => $room->id,
             'name' => $request->name,
             'email' => $request->email,
@@ -142,4 +143,10 @@ class UserRoomController extends Controller
         return redirect()->route('user.reservations.show', $reservation->id)
                          ->with('success', 'Room booked successfully!');
     }
+
+    public function boot(): void
+    {
+        Paginator::useBootstrapFive(); // or Paginator::useBootstrapFour();
+    }
+
 }

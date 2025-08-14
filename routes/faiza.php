@@ -60,7 +60,7 @@ Route::post('/subscribe-topic', function (Request $request) {
     ]);
 
     $messaging = (new Factory)
-        ->withServiceAccount(base_path('login-app-adminsdk.json'))
+        ->withServiceAccount(base_path('staysphere-6a0b7-firebase-adminsdk-fbsvc-4e9a10beee.json'))
         ->createMessaging();
 
     try {

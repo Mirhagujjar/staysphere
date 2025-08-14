@@ -274,14 +274,19 @@
 </nav>
 
 <!-- Notification Modal -->
-<div id="notificationModal">
-  <div class="modal-content">
-    <h3>Enable Notifications</h3>
-    <p>To stay updated, please enable browser notifications.</p>
-    <button id="confirmBtn" class="btn btn-custom">Enable</button>
-    <button id="cancelBtn" class="btn btn-secondary">Cancel</button>
+
+
+{{-- <h2>Notifications</h2> --}}
+  <div id="notificationModal">
+    <div class="modal-content">
+      <h3>Enable Notifications</h3>
+      <p>To stay updated, please enable browser notifications.</p>
+      <button id="confirmBtn">Enable</button>
+      <button id="cancelBtn">Cancel</button>
+    </div>
   </div>
-</div>
+
+</body>
 
 <!-- Main Content -->
 <main>
@@ -348,89 +353,7 @@
   </div>
 </footer>
 
-<!-- Scroll to Top Button -->
-{{-- <a href="#"
-  id="scrollToTop"
-  class="btn position-fixed bottom-0 end-0 m-3"
-  style="background-color: transparent; color: #F1C40F; width: 60px; height: 60px; border-radius: 50%; border: 4px solid #F1C40F; display: flex; align-items: center; justify-content: center; font-weight: bold; transition: background-color 0.3s;background-color:#2C3E50">
-  ↑
-</a> --}}
 
-<!-- Scroll To Top Button -->
-<!-- Scroll Button -->
-{{-- <a href="#" id="scrollBtn"
-   class="position-fixed bottom-4 end-4 d-flex align-items-center justify-content-center rounded-4 shadow"
-   style="z-index: 1050; width: 3.3rem; height: 3.3rem; background-color: #1A1A40; display: none; overflow: hidden;">
-
-  <!-- Progress Fill -->
-  <div class="position-absolute top-0 start-0 w-100 scroll-fill"
-       style="height: 0%; background-color: rgba(255, 255, 255, 0.3); z-index: 1;"></div>
-
-  <!-- Icon (changes dynamically) -->
-  <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
-       style="z-index: 2;" id="scrollIcon">
-    <!-- Default: arrow up -->
-    <svg width="20" height="20" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8.87975 23.0051C9.50041 23.6398 10.5084 23.6398 11.129 23.0051L19.0735 14.8801C19.6941 14.2453 19.6941 13.2145 19.0735 12.5797C18.4528 11.9449 17.4449 11.9449 16.8242 12.5797L11.5908 17.9371V2.35742C11.5908 1.45859 10.8808 0.732422 10.0019 0.732422C9.12305 0.732422 8.41301 1.45859 8.41301 2.35742V17.932L3.17961 12.5848C2.55895 11.95 1.551 11.95 0.930339 12.5848C0.309679 13.2195 0.309679 14.2504 0.930339 14.8852L8.87478 23.0102L8.87975 23.0051Z"
-            fill="white" />
-    </svg>
-  </div>
-</a>
-
-<!-- Script -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const scrollBtn = document.getElementById("scrollBtn");
-    const scrollFill = scrollBtn.querySelector(".scroll-fill");
-    const scrollIcon = document.getElementById("scrollIcon");
-
-    // Initialize button state
-    updateScrollButton();
-
-    window.addEventListener("scroll", updateScrollButton);
-
-    function updateScrollButton() {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrollPercent = Math.min(100, (scrollTop / scrollHeight) * 100);
-
-      // Show button after 200px
-      scrollBtn.style.display = scrollTop > 200 ? "flex" : "none";
-
-      // Progress Fill
-      scrollFill.style.height = `${scrollPercent}%`;
-
-      // Change icon (top or bottom)
-      scrollIcon.innerHTML = scrollTop < scrollHeight - 300
-        ? `
-          <!-- Scroll to Bottom Icon -->
-          <svg width="20" height="20" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11.1203 0.994906C10.4996 0.360194 9.49165 0.360194 8.871 0.994906L0.926513 9.11994C0.305853 9.75465 0.305853 10.7855 0.926513 11.4203C1.54717 12.0551 2.55512 12.0551 3.17578 11.4203L8.40918 6.06294V21.6426C8.40918 22.5414 9.11922 23.2676 9.99805 23.2676C10.8769 23.2676 11.587 22.5414 11.587 21.6426V6.06801L16.8204 11.4152C17.4411 12.05 18.449 12.05 19.0697 11.4152C19.6903 10.7805 19.6903 9.74963 19.0697 9.11491L11.1252 0.989844L11.1203 0.994906Z"
-              fill="white" />
-          </svg>`
-        : `
-          <!-- Scroll to Top Icon -->
-          <svg width="20" height="20" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8.87975 23.0051C9.50041 23.6398 10.5084 23.6398 11.129 23.0051L19.0735 14.8801C19.6941 14.2453 19.6941 13.2145 19.0735 12.5797C18.4528 11.9449 17.4449 11.9449 16.8242 12.5797L11.5908 17.9371V2.35742C11.5908 1.45859 10.8808 0.732422 10.0019 0.732422C9.12305 0.732422 8.41301 1.45859 8.41301 2.35742V17.932L3.17961 12.5848C2.55895 11.95 1.551 11.95 0.930339 12.5848C0.309679 13.2195 0.309679 14.2504 0.930339 14.8852L8.87478 23.0102L8.87975 23.0051Z"
-              fill="white" />
-          </svg>`;
-    }
-
-    scrollBtn.addEventListener("click", function (e) {
-      e.preventDefault();
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-
-      if (scrollTop < scrollHeight - 300) {
-        // Scroll to Bottom
-        window.scrollTo({ top: scrollHeight, behavior: "smooth" });
-      } else {
-        // Scroll to Top
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    });
-  });
-</script> --}}
 
 
 
@@ -439,7 +362,7 @@
 
 @yield('scripts')
 
-<script type="module">
+{{-- <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import {
@@ -461,9 +384,109 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const messaging = getMessaging(app);
+</script> --}}
+
+
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getMessaging,
+    getToken,
+    onMessage
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+
+
+  };
+
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const messaging = getMessaging(app);
+
+  onMessage(messaging, (payload) => {
+    console.log('Message received. ', payload);
+    Toastify({
+      text: `${payload.data.title}: ${payload.data.body}`,
+      duration: 4000,
+      gravity: "top",
+      position: "right",
+    }).showToast();
+    // alert(payload.data.title + '\n' + payload.data.body);
+  });
+  navigator.serviceWorker.register('/firebase-messaging-sw.js').then((registration) => {
+    console.log(registration.scope);
+
+    getToken(messaging, {
+        vapidKey: 'BALVfi0N8H64t2MF-0C2-fvwi8_fJWLNGchnxRWdBJ_cJ3SqQqPCNmKAxXfBVN8vV7aiNmMnx35GDTLIPFO07uE',
+        serviceWorkerRegistration: registration,
+      })
+      .then(token => {
+        console.log('FCM Token:', token);
+
+        // Send this token to the server
+        fetch("/subscribe-topic", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRF-TOKEN": '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+              token
+            })
+
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+          });
+      })
+      .catch(err => console.error('Permission denied', err));
+
+
+  });
+
+  const modal = document.getElementById('notificationModal');
+  const confirmBtn = document.getElementById('confirmBtn');
+  const cancelBtn = document.getElementById('cancelBtn');
+  if (Notification.permission !== 'granted') {
+    modal.style.display = 'flex';
+  }
+
+  confirmBtn.addEventListener('click', async () => {
+    modal.style.display = 'none';
+    try {
+      const permission = await Notification.requestPermission();
+      if (permission === 'granted') {
+        console.log('✅ Permission granted');
+
+      } else {
+        console.log('❌ Permission not granted');
+      }
+    } catch (err) {
+      console.error('Error requesting permission:', err);
+    }
+  });
+
+  // Cancel clicked
+  cancelBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    console.log('User dismissed notification modal.');
+  });
 </script>
 
     @include('components.scroll-to-top')
+
+
 
 </body>
 </html>
