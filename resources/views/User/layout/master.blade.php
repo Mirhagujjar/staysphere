@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>User Dashboard - StaySphere</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('build/assets/images/SSlogo9.png')}}">
+
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -82,26 +84,26 @@
             align-items: center;
         }
         .user-section {
-    margin-top: 10px;
-}
+            margin-top: 10px;
+        }
 
-.user-section .user-dropdown {
-    display: none;
-    margin-left: 20px;
-}
+        .user-section .user-dropdown {
+            display: none;
+            margin-left: 20px;
+        }
 
-.user-section .user-dropdown.show {
-    display: block;
-}
+        .user-section .user-dropdown.show {
+            display: block;
+        }
 
-.user-section .arrow {
-    margin-left: auto;
-    transition: transform 0.3s ease;
-}
+        .user-section .arrow {
+            margin-left: auto;
+            transition: transform 0.3s ease;
+        }
 
-.user-section .arrow.rotate {
-    transform: rotate(90deg);
-}
+        .user-section .arrow.rotate {
+            transform: rotate(90deg);
+        }
 
 
         .user-btn i {
@@ -152,7 +154,7 @@
             <span><strong>StaySphere</strong></span>
         </div>
 
-        <a href="#"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="{{ route('user.dashboard') }}"><i class="fas fa-home"></i> User Panel</a>
 
         <!-- package Dropdown -->
 
@@ -197,7 +199,7 @@
             </div>
             <div class="user-dropdown">
                 <a href="{{ route('user.reservations.create') }}"><i class="fas fa-plus-circle"></i>Booking Room</a>
-                <a href="{{ route('user.my_reservations') }}"><i class="fas fa-list"></i> View All Booking</a>
+                <a href="{{ route('user.reservations.index') }}"><i class="fas fa-list"></i> View All Booking</a>
             </div>
         </div>
     </div>
@@ -208,7 +210,8 @@
         <!-- Top Navbar -->
         <div class="topbar">
             <div><strong>User Panel</strong></div>
-            <div>home</div>
+        
+            <li class="nav-item d-none d-md-block"><a href="{{ url('/home') }}" class="nav-link">Home</a></li>
 
             <div class="user-dropdown-wrapper">
                 <div class="user-btn">
@@ -216,7 +219,7 @@
                     <i class="fas fa-angle-down"></i>
                 </div>
                 <div class="user-menu">
-                    <a href="#"><i class="fas fa-user"></i> Profile</a>
+                    <a href="{{route('user.profile.show')}}"><i class="fas fa-user"></i> Profile</a>
                     <a href="{{ route('logout') }}"
                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fas fa-sign-out-alt"></i> Logout
