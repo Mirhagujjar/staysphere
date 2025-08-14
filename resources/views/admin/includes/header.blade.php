@@ -178,9 +178,13 @@
                                 <a href="{{ route('admin.profile.show') }}" class="btn btn-default btn-flat">
                                     <i class="fas fa-user me-2"></i> Profile
                                 </a>
-                                <a href="#" class="btn btn-default btn-flat float-end" 
+                                {{-- <a href="#" class="btn btn-default btn-flat float-end" 
                                 onclick="event.preventDefault(); showLogoutConfirmation();">
                                     <i class="fas fa-sign-out-alt me-2"></i> Sign out
+                                </a> --}}
+                                <a class="btn btn-default btn-flat float-end" href="#" onclick="showLogoutConfirmation(event)">
+                                    <i class="fas fa-sign-out-alt me-2"></i>
+                                    <span>{{ __('Logout') }}</span>
                                 </a>
                             </li>
                         </ul>
@@ -194,14 +198,14 @@
                     </a>
                 @endauth
 
-                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                
+
+
+                {{-- <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
 
-                <!-- SweetAlert & FontAwesome -->
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                
 
                 <script>
                     function showLogoutConfirmation() {
@@ -222,7 +226,7 @@
                             }
                         });
                     }
-                </script>
+                </script> --}}
 
                 <style>
                     .user-image {

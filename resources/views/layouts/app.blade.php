@@ -68,17 +68,17 @@
             <hr class="dropdown-divider my-1">
             
             <!-- Logout -->
-            <a class="dropdown-item d-flex align-items-center py-2 text-danger" href="#" 
-               onclick="showLogoutConfirmation(event)">
+            <a class="dropdown-item d-flex align-items-center py-2 text-danger" href="#" onclick="showLogoutConfirmation(event)">
                 <i class="fas fa-sign-out-alt me-2"></i>
                 <span>{{ __('Logout') }}</span>
             </a>
+
         </div>
     </li>
     
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
-    </form>
+    </form> --}}
 @endguest
 
 @section('styles')
@@ -131,8 +131,8 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+{{-- <script>
     function showLogoutConfirmation(event) {
         event.preventDefault();
         Swal.fire({
@@ -161,7 +161,7 @@
             }
         });
     }
-</script>
+</script> --}}
 @endsection
 @endsection
 

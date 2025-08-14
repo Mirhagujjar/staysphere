@@ -36,7 +36,7 @@ class UserProfileController extends Controller
 
    public function update(Request $request)
     {
-        $user = Auth::user();
+        $user = User::find(Auth::id());
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -74,7 +74,7 @@ class UserProfileController extends Controller
             $user->password = Hash::make($request->password);
         }
 
-        // $user->save();
+        $user->save();
 
         return redirect()->route('user.profile.show')->with('success', 'Profile updated successfully!');
     }

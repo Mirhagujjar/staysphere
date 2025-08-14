@@ -10,6 +10,8 @@
   <script src="{{ asset('build/assets/js/bootstrap.bundle.min.js')}}"></script>
   <link rel="icon" type="image/x-icon" href="{{ asset('build/assets/images/SSlogo9.png')}}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <style>
     * {
         font-family: Arial, sans-serif;
@@ -485,6 +487,7 @@
 </script>
 
     @include('components.scroll-to-top')
+    @include('components.logout-confirmation')
 
 
 

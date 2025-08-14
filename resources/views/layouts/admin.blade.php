@@ -3,6 +3,8 @@
 <!--begin::Head-->
 <head>
     @include('admin.includes.head')
+    @include('components.logout-confirmation')
+
 
      <!--  Custom CSS (agar koi ho) -->
      {{-- <link rel="stylesheet" href="{{ asset('css/custom.css') }}"> --}}

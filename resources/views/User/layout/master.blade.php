@@ -8,7 +8,12 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <!-- SweetAlert & FontAwesome -->
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    @include('components.logout-confirmation')
     <style>
         body {
             margin: 0;
@@ -178,19 +183,19 @@
                 <a href="{{ route('user.services.create') }}"><i class="fas fa-plus-circle"></i> Add services</a>
                 <a href="{{ route('user.services.requests') }}"><i class="fas fa-list"></i> View All services</a>
             </div>
+    </div>
+    <!-- Event Booking Dropdown -->
+    <div class="user-section">
+        <div class="user-btn" onclick="toggleEventDropdown(this)">
+            <span><i class="fas fa-calendar-alt"></i> Event Booking</span>
+            <i class="fas fa-angle-right arrow"></i>
         </div>
-<!-- Event Booking Dropdown -->
-<div class="user-section">
-    <div class="user-btn" onclick="toggleEventDropdown(this)">
-        <span><i class="fas fa-calendar-alt"></i> Event Booking</span>
-        <i class="fas fa-angle-right arrow"></i>
+        <div class="user-dropdown">
+            <a href="{{ route('user.event-booking.create') }}"><i class="fas fa-plus-circle"></i> Add New Event</a>
+            <a href="{{ route('user.event-booking.index') }}"><i class="fas fa-list"></i> View All Events</a>
+        </div>
     </div>
-    <div class="user-dropdown">
-        <a href="{{ route('user.event-booking.create') }}"><i class="fas fa-plus-circle"></i> Add New Event</a>
-        <a href="{{ route('user.event-booking.index') }}"><i class="fas fa-list"></i> View All Events</a>
-    </div>
-</div>
-{{-- room booking --}}
+    {{-- room booking --}}
 
         <div class="user-section">
             <div class="user-btn" onclick="toggleEventDropdown(this)">
@@ -198,13 +203,13 @@
                 <i class="fas fa-angle-right arrow"></i>
             </div>
             <div class="user-dropdown">
-                <a href="{{ route('user.reservations.create') }}"><i class="fas fa-plus-circle"></i>Booking Room</a>
+                <a href="{{ route('user.rooms.index') }}"><i class="fas fa-plus-circle"></i>Booking Room</a>
                 <a href="{{ route('user.reservations.index') }}"><i class="fas fa-list"></i> View All Booking</a>
             </div>
         </div>
-    </div>
+ </div>
 
-    <!-- Right Content Area -->
+<!-- Right Content Area -->
     <div class="content-area">
 
         <!-- Top Navbar -->
@@ -220,13 +225,14 @@
                 </div>
                 <div class="user-menu">
                     <a href="{{route('user.profile.show')}}"><i class="fas fa-user"></i> Profile</a>
-                    <a href="{{ route('logout') }}"
-                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="fas fa-sign-out-alt"></i> Logout
+                    <a class="dropdown-item d-flex align-items-center py-2 text-danger" href="#" onclick="showLogoutConfirmation(event)">
+                        <i class="fas fa-sign-out-alt me-2"></i>
+                        <span>{{ __('Logout') }}</span>
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+
+                    {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
-                    </form>
+                    </form> --}}
                 </div>
             </div>
         </div>

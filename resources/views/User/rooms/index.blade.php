@@ -269,45 +269,12 @@
         margin-left: 20px;
     }
 
-/* ----------- Pagination Overrides ----------- */
-/* Custom Pagination Styles */
-.custom-pagination {
-    --bs-pagination-padding-x: 0.5rem;
-    --bs-pagination-padding-y: 0.25rem;
-    --bs-pagination-font-size: 0.75rem;
-    --bs-pagination-border-radius: 0.25rem;
-    display: flex;
-    gap: 0.25rem;
-}
-
-.custom-pagination .page-link {
-    min-width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
-    font-size: var(--bs-pagination-font-size);
-    line-height: 1;
-}
-
-.custom-pagination .page-item.active .page-link {
-    background-color: #007bff;
-    border-color: #007bff;
-}
-
-.custom-pagination .page-link:hover {
-    color: #fff;
-    background-color: #007bff;
-}
-
-/* Mobile adjustments */
-@media (max-width: 575.98px) {
-    .custom-pagination .page-link {
-        min-width: 26px;
-        height: 26px;
+    /* Custom Pagination Styles */
+    .custom-pagination svg {
+        width: 12px !important;
+        height: 12px !important;
     }
-}
+
 
 
 
@@ -484,18 +451,17 @@
                     </div>
 
                     <!-- Pagination -->
-<!-- Pagination -->
-<!-- Pagination -->
-<div class="mt-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
-    <div class="mb-2 mb-md-0">
-        <p class="small text-muted mb-0">
-            Showing {{ $rooms->firstItem() }} to {{ $rooms->lastItem() }} of {{ $rooms->total() }} results
-        </p>
-    </div>
-    <div>
-        {{ $rooms->onEachSide(1)->links() }}
-    </div>
-</div>
+                    <div class="mt-4 d-flex flex-column flex-md-row justify-content-between align-items-center">
+                        <div class="mb-2 mb-md-0">
+                            {{-- <p class="small text-muted mb-0">
+                                Showing {{ $rooms->firstItem() }} to {{ $rooms->lastItem() }} of {{ $rooms->total() }} results
+                            </p> --}}
+                        </div>
+                        <div>
+                            {{ $rooms->onEachSide(1)->links('pagination::bootstrap-5') }}
+                        </div>
+                    </div>
+
 
 
                 @else
