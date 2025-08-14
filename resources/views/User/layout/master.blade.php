@@ -209,9 +209,9 @@
 
         <!-- Top Navbar -->
         <div class="topbar">
-            <div><strong>User Panel</strong></div>
+            <div><li class="nav-item d-none d-md-block"><a href="{{ url('/home') }}" class="nav-link">Home</a></li></div>
         
-            <li class="nav-item d-none d-md-block"><a href="{{ url('/home') }}" class="nav-link">Home</a></li>
+            
 
             <div class="user-dropdown-wrapper">
                 <div class="user-btn">
