@@ -64,9 +64,9 @@ Route::post('/subscribe-topic', function (Request $request) {
         ->createMessaging();
 
     try {
-        $respone[] = $messaging->subscribeToTopic('broadcast', [$validated['token']]);
-        $respone[] = $messaging->subscribeToTopic('abc', [$validated['token']]);
-        return response()->json($respone);
+        $response[] = $messaging->subscribeToTopic('broadcast', [$validated['token']]);
+        $response[] = $messaging->subscribeToTopic('abc', [$validated['token']]);
+        return response()->json($response);
     } catch (\Throwable $e) {
         return response()->json(['error' => $e->getMessage()], 500);
     }

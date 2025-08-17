@@ -26,6 +26,10 @@
                 <td>{{ str($message->message)->limit(50) }}</td>
                 <td>
                     <a href="{{ route('admin.contact.show', $message->id) }}" class="btn btn-primary btn-sm">View</a>
+                    <a href="mailto:{{ $message->email }}?subject=Re: {{ $message->subject }}" 
+                    class="btn btn-sm btn-warning">
+                    Reply
+                    </a>
                     <form action="{{ route('admin.contact.destroy', $message->id) }}" method="POST" style="display:inline-block;">
                         @csrf
                         @method('DELETE')

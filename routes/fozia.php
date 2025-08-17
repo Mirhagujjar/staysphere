@@ -122,14 +122,14 @@ Route::get('/user/services/requests', [App\Http\Controllers\User\ServiceRequestC
 
 // room booking
 
-use App\Http\Controllers\User\Reservationbookingcontroller;
+// use App\Http\Controllers\User\Reservationbookingcontroller;
 
-Route::middleware(['auth'])->group(function () {
-    // Show reservation form
-    Route::get('/user/reservations/create', [Reservationbookingcontroller::class, 'create'])->name('user.reservations.create');
+// Route::middleware(['auth'])->group(function () {
+//     // Show reservation form
+//     Route::get('/user/reservations/create', [Reservationbookingcontroller::class, 'create'])->name('user.reservations.create');
 
-    // Handle form submission
-    Route::post('/user/reservations', [Reservationbookingcontroller::class, 'store'])->name('user.reservations.store');
-});
+//     // Handle form submission
+//     Route::post('/user/reservations', [Reservationbookingcontroller::class, 'store'])->name('user.reservations.store');
+// });
 
-Route::get('/user/my-reservations', [Reservationbookingcontroller::class, 'index'])->name('user.my_reservations');
+// Route::get('/user/my-reservations', [Reservationbookingcontroller::class, 'index'])->name('user.my_reservations');

@@ -364,102 +364,68 @@
 
 @yield('scripts')
 
-{{-- <script type="module">
-  // Import the functions you need from the SDKs you need
+<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import {
-    getMessaging,
-    getToken
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js";
-  
-  // Your web app's Firebase configuration
+  import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js";
+
+  // ✅ Your Firebase Config
   const firebaseConfig = {
     apiKey: "AIzaSyD_zZ4AcUMmXr3K86dHhdo6LeacNdgk7W4",
     authDomain: "staysphere-6a0b7.firebaseapp.com",
     projectId: "staysphere-6a0b7",
-    storageBucket: "staysphere-6a0b7.firebasestorage.app",
+    storageBucket: "staysphere-6a0b7.appspot.com", // ✅ FIXED
     messagingSenderId: "863989000171",
     appId: "1:863989000171:web:1f53a2a1d879c43c551bae",
     measurementId: "G-Z1JJT7C6CY"
   };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const messaging = getMessaging(app);
-</script> --}}
-
-
-
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import {
-    initializeApp
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import {
-    getMessaging,
-    getToken,
-    onMessage
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-
-
-  };
-
-
-  // Initialize Firebase
+  // ✅ Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const messaging = getMessaging(app);
 
+  // ✅ Handle foreground messages
   onMessage(messaging, (payload) => {
-    console.log('Message received. ', payload);
+    console.log('📩 Message received:', payload);
     Toastify({
-      text: `${payload.data.title}: ${payload.data.body}`,
+      text: `${payload.notification?.title || payload.data.title}: ${payload.notification?.body || payload.data.body}`,
       duration: 4000,
       gravity: "top",
       position: "right",
     }).showToast();
-    // alert(payload.data.title + '\n' + payload.data.body);
   });
+
+  // ✅ Register service worker
   navigator.serviceWorker.register('/firebase-messaging-sw.js').then((registration) => {
-    console.log(registration.scope);
+    console.log("Service Worker registered:", registration.scope);
 
+    // ✅ Get FCM Token
     getToken(messaging, {
-        vapidKey: 'BALVfi0N8H64t2MF-0C2-fvwi8_fJWLNGchnxRWdBJ_cJ3SqQqPCNmKAxXfBVN8vV7aiNmMnx35GDTLIPFO07uE',
-        serviceWorkerRegistration: registration,
+      vapidKey: 'BALVfi0N8H64t2MF-0C2-fvwi8_fJWLNGchnxRWdBJ_cJ3SqQqPCNmKAxXfBVN8vV7aiNmMnx35GDTLIPFO07uE',
+      serviceWorkerRegistration: registration,
+    })
+    .then(token => {
+      console.log('✅ FCM Token:', token);
+
+      // Send token to server
+      fetch("/subscribe-topic", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-TOKEN": '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({ token })
       })
-      .then(token => {
-        console.log('FCM Token:', token);
-
-        // Send this token to the server
-        fetch("/subscribe-topic", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "X-CSRF-TOKEN": '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({
-              token
-            })
-
-          })
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
-          });
-      })
-      .catch(err => console.error('Permission denied', err));
-
-
+      .then(response => response.json())
+      .then(data => console.log('Server response:', data));
+    })
+    .catch(err => console.error('❌ Error getting token:', err));
   });
 
+  // ✅ Permission modal logic
   const modal = document.getElementById('notificationModal');
   const confirmBtn = document.getElementById('confirmBtn');
   const cancelBtn = document.getElementById('cancelBtn');
+
   if (Notification.permission !== 'granted') {
     modal.style.display = 'flex';
   }
@@ -470,7 +436,6 @@
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
         console.log('✅ Permission granted');
-
       } else {
         console.log('❌ Permission not granted');
       }
@@ -479,12 +444,13 @@
     }
   });
 
-  // Cancel clicked
   cancelBtn.addEventListener('click', () => {
     modal.style.display = 'none';
     console.log('User dismissed notification modal.');
   });
 </script>
+
+
 
     @include('components.scroll-to-top')
     @include('components.logout-confirmation')

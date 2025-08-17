@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AdminProfileController extends Controller
 {
@@ -24,8 +25,11 @@ class AdminProfileController extends Controller
 
     public function update(Request $request)
     {
-        $admin = Auth::guard('admin')->user();
+        $admin = User::find(Auth::id()); // Ensure $admin is an Eloquent model instance
 
+        if (!$admin || !in_array($admin->role, ['admin', 'super_admin'])) {
+            return redirect()->route('admin.login')->with('error', 'Unauthorized access');
+        }
         // Validate inputs
         $request->validate([
             'name' => 'required|string|max:255',
@@ -61,7 +65,7 @@ class AdminProfileController extends Controller
             $admin->password = Hash::make($request->password);
         }
 
-        // $admin->save();
+        $admin->save();
 
         return redirect()->route('admin.profile.show')->with('success', 'Profile updated successfully!');
     }
