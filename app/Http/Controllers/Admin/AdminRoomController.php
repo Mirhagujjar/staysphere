@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB; 
+use App\Models\Reservation;
+
 
 
 class AdminRoomController extends Controller
@@ -324,4 +326,49 @@ class AdminRoomController extends Controller
         return redirect()->route('admin.rooms.index')
                     ->with('success', 'Hero section updated successfully!');
     }
+
+
+    public function checkAvailability(Request $request)
+    {
+        $request->validate([
+            'room_id'   => 'required|exists:rooms,id',
+            'check_in'  => 'required|date|after_or_equal:today',
+            'check_out' => 'required|date|after:check_in',
+        ]);
+
+        $roomId   = $request->room_id;
+        $checkIn  = $request->check_in;
+        $checkOut = $request->check_out;
+
+        // Use Reservation scope
+        $conflicts = Reservation::availableBetween($roomId, $checkIn, $checkOut)->exists();
+
+        if ($conflicts) {
+            return response()->json([
+                'available' => false,
+                'message'   => 'Room is not available for the selected dates.',
+            ]);
+        }
+
+        return response()->json([
+            'available' => true,
+            'message'   => 'Room is available!',
+        ]);
+    }
+
+    // public function publishRoom($id)
+    // {
+    //     $room = Room::find($id);
+
+    //     if (!$room) {
+    //         return redirect()->back()->with('error', 'Room not found!');
+    //     }
+
+    //     $room->status = 'published';
+    //     $room->save();
+
+    //     return redirect()->back()->with('success', 'Room published successfully!');
+    // }
+
+
 }

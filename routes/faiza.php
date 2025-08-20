@@ -161,6 +161,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/rooms/{room}/details', [AdminRoomController::class, 'details'])->name('rooms.details');
     Route::post('/rooms/update-hero', [AdminRoomController::class, 'updateHero'])->name('rooms.update-hero');
+    Route::post('/admin/rooms/check-availability', [AdminRoomController::class, 'checkAvailability'])
+     ->name('rooms.checkAvailability');
+    //  Route::get('/admin/rooms/publish/{id}', [AdminRoomController::class, 'publishRoom'])->name('rooms.publish');
+
+     
+
 
 
 
@@ -180,11 +186,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
         
         // Status management
         // Route::Patch('/{id}/update-status', [AdminReservationController::class, 'updateStatus'])->name('updatestatus');
-        Route::patch('/{reservation}/update-status', [AdminReservationController::class, 'updateStatus'])
+        Route::patch('/{id}/update-status', [AdminReservationController::class, 'updateStatus'])
         ->name('updatestatus');
+        
         Route::get('/{id}/invoice', [AdminReservationController::class, 'invoice'])
         ->name('invoice');
         Route::get('/{id}/invoice/pdf', [AdminReservationController::class, 'downloadInvoice'])->name('invoice.pdf');
+        Route::put('/reservations/{id}/cancel', [ReservationController::class, 'cancel'])
+        ->name('cancel');
+        
+
 
         
         // Past reservations

@@ -23,9 +23,11 @@ class Reservation extends Model
         'guests',
         'room_id',
         'status',
+        'reason',
         // 'service_id',
         'parent_id',
         'is_parent',
+        
     ];
 
     protected $casts = [

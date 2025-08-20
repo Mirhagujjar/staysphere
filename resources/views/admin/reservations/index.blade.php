@@ -265,58 +265,59 @@
 
 
 
-<!-- Room Assignment Modal -->
-<div class="modal fade" id="assignRoomModal" tabindex="-1" aria-labelledby="assignRoomModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="assignRoomModalLabel">Assign Room</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form id="assignRoomForm" method="POST" action="">
-                @csrf
-                @method('PATCH')
-                <input type="hidden" name="status" id="modal_status" value="">
 
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="room_id" class="form-label">Select Room</label>
-                            <select name="room_id" id="room_id" class="form-select" required>
-                            <option value="">-- Select a Room --</option>
-                            <!-- Rooms will be populated via JavaScript -->
-                        </select>
-                    </div>
-                    <div id="reasonContainer" class="mb-3 d-none">
-                        <label for="reason" class="form-label">Cancellation Reason</label>
-                        <textarea name="reason" id="reason" class="form-control" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 
 
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // First, extract room type for each reservation and add it as a data attribute
+    document.querySelectorAll('.status-select').forEach(function(select) {
+        const form = select.closest('form');
+        const roomTypeInput = form.querySelector('input[name="room_type"]');
+        if (roomTypeInput) {
+            select.dataset.roomtype = roomTypeInput.value;
+        }
+    });
+
     document.querySelectorAll('.status-select').forEach(function(select) {
         select.addEventListener('change', function() {
             const status = this.value;
             const reservationId = this.dataset.id;
-            const roomType = this.dataset.roomtype;
+            const roomType = this.dataset.roomtype; // Get room type from data attribute
             const form = this.closest('form');
-            
+
+            const modal = new bootstrap.Modal(document.getElementById('assignRoomModal'));
+            const modalForm = document.getElementById('assignRoomForm');
+            const reasonContainer = document.getElementById('reasonContainer');
+            const roomSelect = document.getElementById('room_id');
+            const roomSelectContainer = roomSelect.closest('.mb-3');
+
+            modalForm.action = `/admin/reservations/${reservationId}/update-status`;
+            document.getElementById('modal_status').value = status;
+
+            // Reset validation and visibility
+            roomSelect.required = false;
+            document.getElementById('reason').required = false;
+            roomSelectContainer.classList.add('d-none');
+            reasonContainer.classList.add('d-none');
+
             if (status === 'confirmed') {
                 // Show loading state
-                const originalText = this.nextElementSibling.innerHTML;
-                this.nextElementSibling.innerHTML = 'Loading...';
-                this.disabled = true;
+                const saveButton = form.querySelector('button[type="submit"]');
+                const originalText = saveButton.innerHTML;
+                saveButton.innerHTML = 'Loading...';
+                saveButton.disabled = true;
+                
+                // Check if roomType is available
+                if (!roomType) {
+                    alert('Error: Room type information is missing');
+                    this.value = 'pending';
+                    saveButton.innerHTML = originalText;
+                    saveButton.disabled = false;
+                    return;
+                }
                 
                 fetch(`/admin/reservations/available-rooms/${encodeURIComponent(roomType)}`)
                 .then(response => {
@@ -328,7 +329,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     return response.json();
                 })
                 .then(data => {
-                    const roomSelect = document.getElementById('room_id');
                     roomSelect.innerHTML = '<option value="">-- Select a Room --</option>';
                     
                     if (data.rooms && data.rooms.length > 0) {
@@ -336,23 +336,16 @@ document.addEventListener('DOMContentLoaded', function() {
                             const option = document.createElement('option');
                             option.value = room.id;
                             option.textContent = `Room ${room.room_name} (${room.room_type})`;
-
                             roomSelect.appendChild(option);
                         });
                         
+                        roomSelect.required = true;
+                        roomSelectContainer.classList.remove('d-none');
+                        reasonContainer.classList.add('d-none');
+                        modal.show();
                     } else {
-                        throw new Error(data.message || 'No available rooms found');
+                        throw new Error(data.message || 'No available rooms found for this room type');
                     }
-                    
-                    const modal = new bootstrap.Modal(document.getElementById('assignRoomModal'));
-                    const modalForm = document.getElementById('assignRoomForm');
-                    const reasonContainer = document.getElementById('reasonContainer');
-                    
-                    modalForm.action = `/admin/reservations/${reservationId}/update-status`;
-                    document.getElementById('modal_status').value = status;
-                    document.querySelector('#room_id').closest('.mb-3').classList.remove('d-none');
-                    reasonContainer.classList.add('d-none');
-                    modal.show();
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -360,64 +353,69 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.value = 'pending';
                 })
                 .finally(() => {
-                    this.nextElementSibling.innerHTML = originalText;
-                    this.disabled = false;
+                    saveButton.innerHTML = originalText;
+                    saveButton.disabled = false;
                 });
-        
-         
             }
-            // ... rest of your code
-            else if (status === 'checked_out') {
-                // Set up the modal for check-out
-                const modal = new bootstrap.Modal(document.getElementById('assignRoomModal'));
-                const modalForm = document.getElementById('assignRoomForm');
-                const roomSelectContainer = document.querySelector('#room_id').closest('.mb-3');
-                const reasonContainer = document.getElementById('reasonContainer');
-                
-                // Update form action
-                modalForm.action = `/admin/reservations/${reservationId}/update-status`;
-                document.getElementById('modal_status').value = status;
-                
-                // Hide reason, show room select
-                reasonContainer.classList.add('d-none');
-                roomSelectContainer.classList.remove('d-none');
-                
-                // Show modal
-                modal.show();
-            } 
+            // else if (status === 'checked_out') {
+            //     roomSelect.required = true;
+            //     roomSelectContainer.classList.remove('d-none');
+            //     reasonContainer.classList.add('d-none');
+            //     modal.show();
+            // }
             else if (status === 'cancelled') {
-                // Set up the modal for cancellation
-                const modal = new bootstrap.Modal(document.getElementById('assignRoomModal'));
-                const modalForm = document.getElementById('assignRoomForm');
-                const roomSelectContainer = document.querySelector('#room_id').closest('.mb-3');
-                const reasonContainer = document.getElementById('reasonContainer');
-                
-                // Update form action
-                modalForm.action = `/admin/reservations/${reservationId}/update-status`;
-                document.getElementById('modal_status').value = status;
-                
-                // Show reason, hide room select
+                document.getElementById('reason').required = true;
                 reasonContainer.classList.remove('d-none');
                 roomSelectContainer.classList.add('d-none');
-                
-                // Show modal
                 modal.show();
-            } 
+            }
             else {
-                // For other statuses, submit the form directly
+                // pending or others → submit form directly
                 form.submit();
             }
         });
     });
-    
-    // Handle modal form submission
-    document.getElementById('assignRoomForm')?.addEventListener('submit', function(e) {
-        // The form will submit to the updateStatus route with all necessary data
-        // No need for additional JavaScript handling here
-    });
 });
-
 </script>
 @endpush
+
+<!-- Modal -->
+<div class="modal fade" id="assignRoomModal" tabindex="-1" aria-labelledby="assignRoomModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="assignRoomForm" method="POST" action="">
+                @csrf
+                @method('PATCH')
+                <input type="hidden" name="status" id="modal_status">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Reservation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="room_id" class="form-label">Select Room</label>
+                        <select name="room_id" id="room_id" class="form-select">
+                            <option value="">-- Select a Room --</option>
+                        </select>
+                    </div>
+                    <div id="reasonContainer" class="mb-3 d-none">
+                        <label for="reason" class="form-label">Cancellation Reason</label>
+                        <textarea name="reason" id="reason" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
 
 @endsection
