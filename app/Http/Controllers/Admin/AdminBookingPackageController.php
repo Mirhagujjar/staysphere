@@ -51,6 +51,20 @@ class AdminBookingPackageController extends Controller {
 //         ->with('success', 'Booking status updated successfully!');
 // }
 
+    public function updateStatus(Request $request, $id)
+        {
+            $booking = PackageBooking::findOrFail($id);
+
+            $request->validate([
+                'status' => 'required|string',
+            ]);
+
+            $booking->status = $request->status;
+            $booking->save();
+
+            return redirect()->back()->with('success', 'Booking status updated successfully.');
+        }
+
 
     public function destroy($id) {
         PackageBooking::findOrFail($id)->delete();

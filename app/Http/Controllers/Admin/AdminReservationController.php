@@ -169,30 +169,30 @@ class AdminReservationController extends Controller
         return back()->with('success', 'Reservation permanently deleted!');
     }
 
-public function updateStatus(Request $request, $id)
-{
-    $reservation = Reservation::findOrFail($id);
+    public function updateStatus(Request $request, $id)
+    {
+        $reservation = Reservation::findOrFail($id);
 
-    $request->validate([
-        'status' => 'required|string',
-        'reason' => $request->status === 'cancelled' ? 'required|string' : 'nullable',
-        'room_id' => $request->status === 'confirmed' ? 'required|exists:rooms,id' : 'nullable',
-    ]);
+        $request->validate([
+            'status' => 'required|string',
+            'reason' => $request->status === 'cancelled' ? 'required|string' : 'nullable',
+            'room_id' => $request->status === 'confirmed' ? 'required|exists:rooms,id' : 'nullable',
+        ]);
 
-    $reservation->status = $request->status;
+        $reservation->status = $request->status;
 
-    if ($request->status === 'cancelled') {
-        $reservation->reason = $request->reason;
-        $reservation->room_id = null; // clear any assigned room
-    } elseif ($request->status === 'confirmed') {
-        $reservation->room_id = $request->room_id;
-        $reservation->reason = null; // clear reason if previously cancelled
+        if ($request->status === 'cancelled') {
+            $reservation->reason = $request->reason;
+            $reservation->room_id = null; // clear any assigned room
+        } elseif ($request->status === 'confirmed') {
+            $reservation->room_id = $request->room_id;
+            $reservation->reason = null; // clear reason if previously cancelled
+        }
+
+        $reservation->save();
+
+        return redirect()->back()->with('success', 'Reservation updated successfully!');
     }
-
-    $reservation->save();
-
-    return redirect()->back()->with('success', 'Reservation updated successfully!');
-}
 
 
 

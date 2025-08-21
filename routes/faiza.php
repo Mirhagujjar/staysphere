@@ -63,6 +63,7 @@ Route::post('/subscribe-topic', function (Request $request) {
         ->withServiceAccount(base_path('staysphere-6a0b7-firebase-adminsdk-fbsvc-4e9a10beee.json'))
         ->createMessaging();
 
+        // dd($validated['token']);
     try {
         $response[] = $messaging->subscribeToTopic('broadcast', [$validated['token']]);
         $response[] = $messaging->subscribeToTopic('abc', [$validated['token']]);
@@ -71,6 +72,8 @@ Route::post('/subscribe-topic', function (Request $request) {
         return response()->json(['error' => $e->getMessage()], 500);
     }
 });
+
+
 
 
 
@@ -342,6 +345,9 @@ Route::prefix('admin/')->name('admin.bookingspackages.')->group(function () {
     // Route::get('/edit/{id}', [AdminBookingPackageController::class, 'edit'])->name('edit');
     // Route::put('/update/{id}', [AdminBookingPackageController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [AdminBookingPackageController::class, 'destroy'])->name('destroy');
+    Route::patch('/bookingspackages/{id}/update-status', [App\Http\Controllers\Admin\AdminBookingPackageController::class, 'updateStatus'])
+    ->name('updatestatus');
+
 });
 
 
