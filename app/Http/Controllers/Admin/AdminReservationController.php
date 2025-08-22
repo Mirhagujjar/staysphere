@@ -12,6 +12,7 @@ use App\Models\RoomType;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\NotificationHelper;
 use App\Notifications\ReservationCancelled;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\StatusNotification;
@@ -19,6 +20,8 @@ use App\Notifications\StatusNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Barryvdh\DomPDF\Facade\Pdf;
+// use App\Helpers\NotificationHelper;
+
 
 class AdminReservationController extends Controller
 {
@@ -190,6 +193,8 @@ class AdminReservationController extends Controller
         }
 
         $reservation->save();
+        $response =  NotificationHelper::sendNotificationWithPayload('u-'.$reservation->user_id, "Booking Status Update", "Your booking ".$request->status);
+    // dd($response);
 
         return redirect()->back()->with('success', 'Reservation updated successfully!');
     }

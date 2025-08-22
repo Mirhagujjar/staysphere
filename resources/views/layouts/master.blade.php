@@ -106,17 +106,45 @@
 
     /* Notification modal */
     #notificationModal {
-        display: none;
+        display: none; /* hidden by default */
         position: fixed;
-        z-index: 999;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.6);
         justify-content: center;
         align-items: center;
-    }
+        z-index: 9999;
+      }
+
+      #notificationModal .modal-content {
+        background: #fff;
+        padding: 20px 30px;
+        border-radius: 12px;
+        text-align: center;
+        max-width: 400px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      }
+
+      #notificationModal button {
+        margin: 10px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      #confirmBtn {
+        background: #28a745;
+        color: white;
+      }
+
+      #cancelBtn {
+        background: #dc3545;
+        color: white;
+      }
+
+
     .modal-content {
         background: white;
         padding: 20px;
@@ -278,17 +306,18 @@
 <!-- Notification Modal -->
 
 
-{{-- <h2>Notifications</h2> --}}
+  {{-- <h2>Notifications</h2> --}}
   <div id="notificationModal">
     <div class="modal-content">
-      <h3>Enable Notifications</h3>
+      <h3>🔔 Enable Notifications</h3>
       <p>To stay updated, please enable browser notifications.</p>
       <button id="confirmBtn">Enable</button>
       <button id="cancelBtn">Cancel</button>
     </div>
   </div>
 
-</body>
+
+
 
 <!-- Main Content -->
 <main>
@@ -365,90 +394,105 @@
 @yield('scripts')
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js";
+    // Import Firebase SDKs
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-messaging.js";
 
-  // ✅ Your Firebase Config
-  const firebaseConfig = {
-       apiKey: "AIzaSyD_zZ4AcUMmXr3K86dHhdo6LeacNdgk7W4",
-  authDomain: "staysphere-6a0b7.firebaseapp.com",
-  projectId: "staysphere-6a0b7",
-  storageBucket: "staysphere-6a0b7.firebasestorage.app",
-  messagingSenderId: "863989000171",
-  appId: "1:863989000171:web:1f53a2a1d879c43c551bae",
-  measurementId: "G-Z1JJT7C6CY"
-  };
+    // Your Firebase config
+    const firebaseConfig = {
+        apiKey: "AIzaSyD_zZ4AcUMmXr3K86dHhdo6LeacNdgk7W4",
+        authDomain: "staysphere-6a0b7.firebaseapp.com",
+        projectId: "staysphere-6a0b7",
+        storageBucket: "staysphere-6a0b7.firebasestorage.app",
+        messagingSenderId: "863989000171",
+        appId: "1:863989000171:web:1f53a2a1d879c43c551bae",
+        measurementId: "G-Z1JJT7C6CY"
+    };
 
-  // ✅ Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const messaging = getMessaging(app);
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const messaging = getMessaging(app);
 
-  // ✅ Handle foreground messages
-  onMessage(messaging, (payload) => {
-    console.log('📩 Message received:', payload);
-    Toastify({
-      text: `${payload.notification?.title || payload.data.title}: ${payload.notification?.body || payload.data.body}`,
-      duration: 4000,
-      gravity: "top",
-      position: "right",
-    }).showToast();
-  });
+    // Foreground message handler
+    onMessage(messaging, (payload) => {
+        console.log('📩 Message received: ', payload);
 
-  // ✅ Register service worker
-  navigator.serviceWorker.register('/firebase-messaging-sw.js').then((registration) => {
-    console.log("Service Worker registered:", registration.scope);
+        if (typeof Toastify !== 'undefined') {
+            Toastify({
+                text: `${payload.notification?.title || payload.data?.title}: ${payload.notification?.body || payload.data?.body}`,
+                duration: 4000,
+                gravity: "top",
+                position: "right",
+            }).showToast();
+        } else {
+            alert(`${payload.notification?.title || payload.data?.title}: ${payload.notification?.body || payload.data?.body}`);
+        }
+    });
 
-    // ✅ Get FCM Token
-    getToken(messaging, {
-      vapidKey: 'BALVfi0N8H64t2MF-0C2-fvwi8_fJWLNGchnxRWdBJ_cJ3SqQqPCNmKAxXfBVN8vV7aiNmMnx35GDTLIPFO07uE',
-      serviceWorkerRegistration: registration,
-    })
-    .then(token => {
-      console.log('✅ FCM Token:', token);
+    // Register Service Worker + get FCM token
+    navigator.serviceWorker.register('/firebase-messaging-sw.js')
+        .then((registration) => {
+            console.log('✅ Service Worker registered:', registration.scope);
 
-      // Send token to server
-      fetch("/subscribe-topic", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-TOKEN": '{{ csrf_token() }}'
-        },
-        body: JSON.stringify({ token })
-      })
-      .then(response => response.json())
-      .then(data => console.log('Server response:', data));
-    })
-    .catch(err => console.error('❌ Error getting token:', err));
-  });
+            getToken(messaging, {
+                vapidKey: 'BDoVrdle2s9PfzTAtMe3Dmhs4FPMtacceJVaLEHzVvQLbAnZXE8FsrOsILhNq_t8rX6312Kyv37qnRDWBQyB86E',
+                serviceWorkerRegistration: registration,
+            })
+            .then(token => {
+                console.log('✅ FCM Token:', token);
 
-  // ✅ Permission modal logic
-  const modal = document.getElementById('notificationModal');
-  const confirmBtn = document.getElementById('confirmBtn');
-  const cancelBtn = document.getElementById('cancelBtn');
+                // Send token to server
+                fetch("/subscribe-topic", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ token })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('✅ Server response:', data);
+                })
+                .catch(err => console.error('❌ Error sending token:', err));
+            })
+            .catch(err => console.error('❌ Permission denied or token error:', err));
+        })
+        .catch(err => console.error('❌ Service Worker registration failed:', err));
 
-  if (Notification.permission !== 'granted') {
-    modal.style.display = 'flex';
-  }
+    // Notification permission modal logic
+    const modal = document.getElementById('notificationModal');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
 
-  confirmBtn.addEventListener('click', async () => {
-    modal.style.display = 'none';
-    try {
-      const permission = await Notification.requestPermission();
-      if (permission === 'granted') {
-        console.log('✅ Permission granted');
-      } else {
-        console.log('❌ Permission not granted');
-      }
-    } catch (err) {
-      console.error('Error requesting permission:', err);
+    if (modal && Notification.permission !== 'granted') {
+        modal.style.display = 'flex';
     }
-  });
 
-  cancelBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-    console.log('User dismissed notification modal.');
-  });
+    if (confirmBtn) {
+        confirmBtn.addEventListener('click', async () => {
+            if (modal) modal.style.display = 'none';
+            try {
+                const permission = await Notification.requestPermission();
+                if (permission === 'granted') {
+                    console.log('✅ Permission granted');
+                } else {
+                    console.log('❌ Permission not granted');
+                }
+            } catch (err) {
+                console.error('Error requesting permission:', err);
+            }
+        });
+    }
+
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => {
+            if (modal) modal.style.display = 'none';
+            console.log('User dismissed notification modal.');
+        });
+    }
 </script>
+
 
 
 

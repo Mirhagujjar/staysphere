@@ -53,28 +53,229 @@ use App\Http\Controllers\Admin\AdminFacilityController;
 
 use Kreait\Firebase\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
+use App\Models\NotificationHelper;
+
+Route::get('/send', function () {
+    return NotificationHelper::sendNotificationWithPayload("broadcast", "asdhash", 'ksajdjhsadh');
+});
 Route::post('/subscribe-topic', function (Request $request) {
     $validated = $request->validate([
         'token' => 'required|string',
     ]);
 
     $messaging = (new Factory)
-        ->withServiceAccount(base_path('staysphere-6a0b7-firebase-adminsdk-fbsvc-4e9a10beee.json'))
+        ->withServiceAccount(base_path('login-app-adminsdk.json'))
         ->createMessaging();
 
-        // dd($validated['token']);
     try {
-        $response[] = $messaging->subscribeToTopic('broadcast', [$validated['token']]);
-        $response[] = $messaging->subscribeToTopic('abc', [$validated['token']]);
-        return response()->json($response);
+        $respone[] = $messaging->subscribeToTopic('broadcast', [$validated['token']]);
+        if (Auth::id()) {
+            $respone[] = $messaging->subscribeToTopic('u-' . Auth::id(), [$validated['token']]);
+        }
+        return response()->json($respone);
     } catch (\Throwable $e) {
         return response()->json(['error' => $e->getMessage()], 500);
     }
 });
 
+// Route::post('/subscribe-topic', function (Request $request) {
+//     $validated = $request->validate([
+//         'token' => 'required|string',
+//     ]);
+
+//     $messaging = (new Factory)
+//         ->withServiceAccount(base_path('login-app-adminsdk.json'))
+//         ->createMessaging();
+
+//         // dd($validated['token']);
+//     try {
+//         $response[] = $messaging->subscribeToTopic('broadcast', [$validated['token']]);
+//         $response[] = $messaging->subscribeToTopic('abc', [$validated['token']]);
+//         return response()->json($response);
+//     } catch (\Throwable $e) {
+//         return response()->json(['error' => $e->getMessage()], 500);
+//     }
+// });
+
+// Route::post('/subscribe-topic', function(Request $request) {
+//     try {
+//         $token = $request->input('token');
+        
+//         return response()->json([
+//             'success' => true,
+//             'message' => 'Token registered successfully',
+//             'token' => $token
+//         ]);
+        
+//     } catch (\Exception $e) {
+//         return response()->json([
+//             'success' => false,
+//             'error' => $e->getMessage()
+//         ], 500);
+//     }
+// });
 
 
+
+// Route::post('/subscribe-topic', function (Request $request) {
+//     try {
+//         // Validate the request
+//         $validated = $request->validate([
+//             'token' => 'required|string',
+//         ]);
+
+//         // Check if the service account file exists
+//         $serviceAccountPath = base_path('login-app-adminsdk.json'); // Using the filename from your uploaded file
+        
+//         if (!file_exists($serviceAccountPath)) {
+//             return response()->json([
+//                 'success' => false,
+//                 'error' => 'Firebase service account file not found'
+//             ], 500);
+//         }
+
+//         // Initialize Firebase Admin SDK
+//         $messaging = (new Factory)
+//             ->withServiceAccount($serviceAccountPath)
+//             ->createMessaging();
+
+//         // Subscribe to topics
+//         $responses = [];
+        
+//         // Subscribe to 'broadcast' topic
+//         $broadcastResponse = $messaging->subscribeToTopic('broadcast', [$validated['token']]);
+//         $responses['broadcast'] = [
+//             'topic' => 'broadcast',
+//             'success_count' => $broadcastResponse->successCount(),
+//             'failure_count' => $broadcastResponse->failureCount(),
+//             'errors' => $broadcastResponse->hasFailures() ? $broadcastResponse->failures() : []
+//         ];
+
+//         // Subscribe to 'abc' topic
+//         $abcResponse = $messaging->subscribeToTopic('abc', [$validated['token']]);
+//         $responses['abc'] = [
+//             'topic' => 'abc', 
+//             'success_count' => $abcResponse->successCount(),
+//             'failure_count' => $abcResponse->failureCount(),
+//             'errors' => $abcResponse->hasFailures() ? $abcResponse->failures() : []
+//         ];
+
+//         return response()->json([
+//             'success' => true,
+//             'message' => 'Token subscribed to topics successfully',
+//             'token' => $validated['token'],
+//             'subscriptions' => $responses
+//         ]);
+
+//     } catch (\Illuminate\Validation\ValidationException $e) {
+//         return response()->json([
+//             'success' => false,
+//             'error' => 'Validation failed',
+//             'details' => $e->errors()
+//         ], 422);
+        
+//     } catch (\Kreait\Firebase\Exception\MessagingException $e) {
+//         return response()->json([
+//             'success' => false,
+//             'error' => 'Firebase messaging error: ' . $e->getMessage()
+//         ], 500);
+        
+//     } catch (\Exception $e) {
+//         return response()->json([
+//             'success' => false,
+//             'error' => 'Server error: ' . $e->getMessage()
+//         ], 500);
+//     }
+// });
+
+// Route::post('/subscribe-topic', function (Request $request) {
+//     // Validate the incoming request
+//     $validated = $request->validate([
+//         'token' => 'required|string|min:10', // Added minimum length for FCM tokens
+//     ]);
+
+//     try {
+//         // Initialize Firebase Admin SDK with proper error handling
+//         $serviceAccountPath = base_path('login-app-adminsdk.json');
+        
+//         // Check if service account file exists
+//         if (!file_exists($serviceAccountPath)) {
+//             return response()->json([
+//                 'error' => 'Firebase service account file not found',
+//                 'success' => false
+//             ], 500);
+//         }
+
+//         // Create messaging instance
+//         $messaging = (new Factory)
+//             ->withServiceAccount($serviceAccountPath)
+//             ->createMessaging();
+
+//         // Initialize response array
+//         $responses = [];
+//         $errors = [];
+
+//         // Subscribe to topics with individual error handling
+//         $topics = ['broadcast', 'abc']; // Define topics in array for better maintainability
+        
+//         foreach ($topics as $topic) {
+//             try {
+//                 $result = $messaging->subscribeToTopic($topic, [$validated['token']]);
+//                 $responses[$topic] = [
+//                     'success' => true,
+//                     'result' => $result
+//                 ];
+//             } catch (\Exception $e) {
+//                 $errors[$topic] = [
+//                     'success' => false,
+//                     'error' => $e->getMessage()
+//                 ];
+//             }
+//         }
+
+//         // Return appropriate response based on results
+//         if (empty($errors)) {
+//             return response()->json([
+//                 'success' => true,
+//                 'message' => 'Successfully subscribed to all topics',
+//                 'subscriptions' => $responses
+//             ], 200);
+//         } else {
+//             return response()->json([
+//                 'success' => false,
+//                 'message' => 'Some subscriptions failed',
+//                 'subscriptions' => $responses,
+//                 'errors' => $errors
+//             ], 207); // 207 Multi-Status for partial success
+//         }
+
+//     } catch (\Kreait\Firebase\Exception\InvalidArgumentException $e) {
+//         return response()->json([
+//             'error' => 'Invalid Firebase configuration: ' . $e->getMessage(),
+//             'success' => false
+//         ], 500);
+        
+//     } catch (\Kreait\Firebase\Exception\MessagingException $e) {
+//         return response()->json([
+//             'error' => 'Firebase messaging error: ' . $e->getMessage(),
+//             'success' => false
+//         ], 500);
+        
+//     } catch (\Exception $e) {
+//         // Log the error for debugging
+//         \Log::error('Firebase subscription error: ' . $e->getMessage(), [
+//             'token' => substr($validated['token'], 0, 10) . '...', // Log partial token for debugging
+//             'trace' => $e->getTraceAsString()
+//         ]);
+        
+//         return response()->json([
+//             'error' => 'An unexpected error occurred while subscribing to topics',
+//             'success' => false
+//         ], 500);
+//     }
+// });
 
 
 

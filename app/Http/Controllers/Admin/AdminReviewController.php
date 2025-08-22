@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Review;
+use App\Models\NotificationHelper;
+
 class AdminReviewController extends Controller
 {
 
@@ -20,6 +22,9 @@ class AdminReviewController extends Controller
         $review = Review::findOrFail($id);
         $review->is_approved = 1;
         $review->save();
+
+        $response =  NotificationHelper::sendNotificationWithPayload('u-'.$review->user_id, "Review Status Update", "Your review has been approved.");
+    // dd($response);
 
         return back()->with('success', 'Review approved!');
     }

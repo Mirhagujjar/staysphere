@@ -1,33 +1,30 @@
-// ✅ CDN se Firebase SDK load karo
-importScripts("https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js");
-importScripts("https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js");
+// Import Firebase scripts (compat version for service workers)
+importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
 
-// ✅ Config sahi likho
-const firebaseConfig = {
-    apiKey: "AIzaSyD_zZ4AcUMmXr3K86dHhdo6LeacNdgk7W4",
-  authDomain: "staysphere-6a0b7.firebaseapp.com",
-  projectId: "staysphere-6a0b7",
-  storageBucket: "staysphere-6a0b7.firebasestorage.app",
-  messagingSenderId: "863989000171",
-  appId: "1:863989000171:web:1f53a2a1d879c43c551bae",
-  measurementId: "G-Z1JJT7C6CY"
-};
+// Your Firebase configuration
+firebase.initializeApp({
+    apiKey: "AIzaSyBLOnKTDW2rbgEY-19q_DyB2Edot2YPNRY",
+    authDomain: "login-app-4a65e.firebaseapp.com",
+    projectId: "login-app-4a65e",
+    storageBucket: "login-app-4a65e.appspot.com",
+    messagingSenderId: "444785180257",
+    appId: "1:444785180257:web:3e14ff06fe649528483420"
+});
 
-// ✅ Initialize Firebase inside SW
-firebase.initializeApp(firebaseConfig);
-
-// ✅ Messaging instance banao
+// Initialize Firebase Messaging
 const messaging = firebase.messaging();
 
-// ✅ Background messages handle karo
+// Handle background messages
 messaging.onBackgroundMessage((payload) => {
-  console.log("📩 Received background message ", payload);
+    console.log('[firebase-messaging-sw.js] Received background message ', payload);
 
-  const notificationTitle = payload.notification?.title || payload.data?.title || "Notification";
-  const notificationOptions = {
-    body: payload.notification?.body || payload.data?.body || "",
-    icon: "/build/assets/images/SSlogo9.png" // apna icon
-  };
+    const notificationTitle = payload.notification?.title || "New Notification";
+    const notificationOptions = {
+        body: payload.notification?.body || "You have a new message.",
+        icon: payload.notification?.icon || "/firebase-logo.png"
+    };
 
-  self.registration.showNotification(notificationTitle, notificationOptions);
+    // Show the notification
+    self.registration.showNotification(notificationTitle, notificationOptions);
 });
