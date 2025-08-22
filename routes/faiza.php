@@ -365,6 +365,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/rooms/{room}/details', [AdminRoomController::class, 'details'])->name('rooms.details');
     Route::post('/rooms/update-hero', [AdminRoomController::class, 'updateHero'])->name('rooms.update-hero');
+    Route::post('/rooms/store', [AdminRoomController::class, 'store'])->name('rooms.store');
+
     Route::post('/admin/rooms/check-availability', [AdminRoomController::class, 'checkAvailability'])
      ->name('rooms.checkAvailability');
     //  Route::get('/admin/rooms/publish/{id}', [AdminRoomController::class, 'publishRoom'])->name('rooms.publish');
