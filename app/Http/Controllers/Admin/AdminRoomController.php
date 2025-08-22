@@ -14,6 +14,8 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB; 
 use App\Models\Reservation;
+use Illuminate\Support\Facades\Log;
+
 
 
 
@@ -102,78 +104,93 @@ class AdminRoomController extends Controller
         return view('admin.rooms.edit', compact('room', 'roomTypes', 'viewTypes', 'featureFilters', 'currentFeatures'));
     }
 
+
     public function store(Request $request)
     {
-        $roomTypeFilterId = Filter::where('slug', 'room-type')->value('id');
-        $viewTypeFilterId = Filter::where('slug', 'view-type')->value('id');
+    $roomTypeFilterId = Filter::where('slug', 'room-type')->value('id');
+    $viewTypeFilterId = Filter::where('slug', 'view-type')->value('id');
 
-        $validator = Validator::make($request->all(), [
-            'room_name' => 'required|string',
-            'room_type' => [
-                'required',
-                Rule::exists('filter_options', 'value')->where('filter_id', $roomTypeFilterId),
-            ],
-            'price' => 'required|numeric|min:0',
-            'room_capacity' => 'required|integer|min:1',
-            'size' => 'required|integer|min:0',
-            'total_quantity' => 'required|integer|min:1',
-            'view_type' => [
-                'required',
-                Rule::exists('filter_options', 'value')->where('filter_id', $viewTypeFilterId),
-            ],
-            'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
-            'hero_title' => 'nullable|string|max:255',
-            'hero_description' => 'nullable|string',
-            'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'features' => 'nullable|array',
-            'features.*' => 'exists:filter_options,id',
+    $validator = Validator::make($request->all(), [
+        'room_name' => 'required|string',
+        'room_type' => [
+            'required',
+            Rule::exists('filter_options', 'value')->where('filter_id', $roomTypeFilterId),
+        ],
+        'price' => 'required|numeric|min:0',
+        'room_capacity' => 'required|integer|min:1',
+        'size' => 'required|integer|min:0',
+        'total_quantity' => 'required|integer|min:1',
+        'view_type' => [
+            'required',
+            Rule::exists('filter_options', 'value')->where('filter_id', $viewTypeFilterId),
+        ],
+        'description' => 'required|string',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+        'hero_title' => 'nullable|string|max:255',
+        'hero_description' => 'nullable|string',
+        'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+        'features' => 'nullable|array',
+        'features.*' => 'exists:filter_options,id',
+    ]);
+
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    try {
+        // Ensure directories exist
+        if (!file_exists(public_path('assets/images/room_images'))) {
+            mkdir(public_path('assets/images/room_images'), 0777, true);
+        }
+        if (!file_exists(public_path('assets/images/hero_images'))) {
+            mkdir(public_path('assets/images/hero_images'), 0777, true);
+        }
+
+        // Upload main image
+        $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+        $destinationPath = public_path('assets/images/room_images');
+        $request->file('image')->move($destinationPath, $imageName);
+        $imagePath = 'assets/images/room_images/' . $imageName;
+
+        // Upload hero image (optional)
+        $heroImagePath = null;
+        if ($request->hasFile('hero_image')) {
+            $heroImageName = time() . '_hero_' . $request->file('hero_image')->getClientOriginalName();
+            $heroDestinationPath = public_path('assets/images/hero_images');
+            $request->file('hero_image')->move($heroDestinationPath, $heroImageName);
+            $heroImagePath = 'assets/images/hero_images/' . $heroImageName;
+        }
+
+        // Create Room
+        $room = Room::create([
+            'room_name' => $request->room_name,
+            'room_type' => $request->room_type,
+            'price' => $request->price,
+            'room_capacity' => $request->room_capacity,
+            'size' => $request->size,
+            'total_quantity' => $request->total_quantity,
+            'booked_quantity' => 0,
+            'view_type' => $request->view_type,
+            'description' => $request->description,
+            'image' => $imagePath,
+            'hero_title' => $request->hero_title,
+            'hero_description' => $request->hero_description,
+            'hero_image' => $heroImagePath,
+            'is_booked' => false,
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+        if ($request->has('features')) {
+            $room->filterOptions()->attach($request->features);
         }
 
-        try {
-            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-            $destinationPath = public_path('assets/images/room_images');
-            $request->file('image')->move($destinationPath, $imageName);
-            $imagePath = 'assets/images/room_images/' . $imageName;
+        return redirect()->route('admin.rooms.index')->with('success', 'Room created successfully!');
 
-            $heroImagePath = null;
-            if ($request->hasFile('hero_image')) {
-                $heroImageName = time() . '_hero_' . $request->file('hero_image')->getClientOriginalName();
-                $heroDestinationPath = public_path('assets/images/hero_images');
-                $request->file('hero_image')->move($heroDestinationPath, $heroImageName);
-                $heroImagePath = 'assets/images/hero_images/' . $heroImageName;
-            }
-
-            $room = Room::create([
-                'room_name' => $request->room_name,
-                'room_type' => $request->room_type,
-                'price' => $request->price,
-                'room_capacity' => $request->room_capacity,
-                'size' => $request->size,
-                'total_quantity' => $request->total_quantity,
-                'booked_quantity' => 0,
-                'view_type' => $request->view_type,
-                'description' => $request->description,
-                'image' => $imagePath,
-                'hero_title' => $request->hero_title,
-                'hero_description' => $request->hero_description,
-                'hero_image' => $heroImagePath,
-                'is_booked' => false
-            ]);
-
-            if ($request->has('features')) {
-                $room->filterOptions()->attach($request->features);
-            }
-
-            return redirect()->route('admin.rooms.index')->with('success', 'Room created successfully!');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error creating room: ' . $e->getMessage())->withInput();
-        }
+    } catch (\Exception $e) {
+        Log::error('Error creating room: '.$e->getMessage(), ['trace' => $e->getTraceAsString()]);
+        return redirect()->back()->with('error', 'Error creating room: '.$e->getMessage())->withInput();
     }
+    }
+
 
     public function update(Request $request, Room $room)
     {

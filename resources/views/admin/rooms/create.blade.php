@@ -2,6 +2,34 @@
 
 @section('content')
 <div class="container-fluid py-4">
+    {{-- Success Message --}}
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    {{-- General Error (from exceptions) --}}
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    {{-- Validation Errors --}}
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <strong>There were some issues with your submission:</strong>
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    {{-- Page Title --}}
+
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
             <div class="card shadow-sm">
