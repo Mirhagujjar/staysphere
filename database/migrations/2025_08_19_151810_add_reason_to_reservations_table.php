@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('reservations', function (Blueprint $table) {
-            $table->text('reason')->nullable()->after('status');
+       Schema::table('package_bookings', function (Blueprint $table) {
+    if (!Schema::hasColumn('package_bookings', 'user_id')) {
+        $table->unsignedBigInteger('user_id')->after('id');
+    }
+    if (!Schema::hasColumn('package_bookings', 'status')) {
+        $table->string('status')->default('pending')->after('user_id');
+    }
+});
 
-        });
     }
 
     /**
