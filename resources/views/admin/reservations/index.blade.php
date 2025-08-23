@@ -65,16 +65,16 @@
                     </div>
                     <form method="POST" action="{{ route('admin.reservations.updatestatus', $group->id) }}" class="d-flex align-items-center">
                         @csrf @method('PATCH')
-                        <select name="status" class="form-select form-select-sm me-2">
+                        <select name="status" class="form-select form-select-sm me-2 group-status-select">
                             <option value="pending" {{ $group->status == 'pending' ? 'selected' : '' }}>Pending</option>
                             <option value="confirmed" {{ $group->status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
                             <option value="checked_out" {{ $group->status == 'checked_out' ? 'selected' : '' }}>Checked Out</option>
                             <option value="cancelled" {{ $group->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                         </select>
-                        <button type="submit" class="btn btn-sm btn-outline-primary">
-                            Update
-                        </button>
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Update</button>
                     </form>
+
+
                 </div>
 
                 <div class="card-body">
@@ -280,6 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
             select.dataset.roomtype = roomTypeInput.value;
         }
     });
+    
 
     document.querySelectorAll('.status-select').forEach(function(select) {
         select.addEventListener('change', function() {

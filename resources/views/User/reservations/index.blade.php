@@ -41,22 +41,11 @@
         border-radius: 50px;
         font-weight: 500;
     }
-    .status-confirmed {
-        background-color: #e6f7ee;
-        color: #28a745;
-    }
-    .status-pending {
-        background-color: #fff8e6;
-        color: #ffc107;
-    }
-    .status-cancelled {
-        background-color: #fdecea;
-        color: #dc3545;
-    }
-    .status-checked_out, .status-completed {
-        background-color: #e6f3ff;
-        color: #007bff;
-    }
+    .status-confirmed { background-color: #e6f7ee; color: #28a745; }
+    .status-pending { background-color: #fff8e6; color: #ffc107; }
+    .status-cancelled { background-color: #fdecea; color: #dc3545; }
+    .status-checked_out, .status-completed { background-color: #e6f3ff; color: #007bff; }
+
     .empty-state {
         text-align: center;
         padding: 4rem 2rem;
@@ -70,22 +59,17 @@
         margin-bottom: 1.5rem;
         color: #adb5bd;
     }
+
     .search-container {
         max-width: 400px;
         margin-left: auto;
     }
-    .reservation-card.confirmed {
-        border-left-color: #28a745;
-    }
-    .reservation-card.pending {
-        border-left-color: #ffc107;
-    }
-    .reservation-card.cancelled {
-        border-left-color: #dc3545;
-    }
-    .reservation-card.completed {
-        border-left-color: #007bff;
-    }
+
+    .reservation-card.confirmed { border-left-color: #28a745; }
+    .reservation-card.pending { border-left-color: #ffc107; }
+    .reservation-card.cancelled { border-left-color: #dc3545; }
+    .reservation-card.completed { border-left-color: #007bff; }
+
     .no-reservations {
         font-size: 1.1rem;
         margin-bottom: 1rem;
@@ -106,6 +90,8 @@
         margin-right: 0.5rem;
         margin-bottom: 0.5rem;
     }
+
+    /* 📱 Mobile responsiveness */
     @media (max-width: 767.98px) {
         .search-container {
             max-width: 100%;
@@ -113,23 +99,28 @@
         }
         .d-flex.justify-content-between {
             flex-direction: column;
+            align-items: stretch;
+        }
+        .card-body h5 {
+            font-size: 1rem;
+        }
+        .room-img-container {
+            height: 180px;
         }
     }
-    .pagination-sm .pagination {
-        font-size: 0.875rem;
-        padding: 0.25rem 0.5rem;
-    }
-    .pagination-sm .page-link {
-        padding: 0.25rem 0.5rem;
-    }
+
+    .pagination-sm .pagination { font-size: 0.875rem; }
+    .pagination-sm .page-link { padding: 0.25rem 0.5rem; }
     .pagination-sm .page-item.active .page-link {
         background-color: #007bff;
         border-color: #007bff;
     }
+
     .detail-item {
         margin-bottom: 0.75rem;
         color: #6c757d;
         display: flex;
+        flex-wrap: wrap;
     }
     .detail-label {
         color: #495057;
@@ -137,6 +128,7 @@
         min-width: 100px;
     }
 </style>
+
 
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">

@@ -17,12 +17,15 @@
     }
 </style>
 
-<div class="hero-section">
+<div class="hero-section"
+     style="background: url('{{ $hero && $hero->hero_background ? asset('storage/' . $hero->hero_background) : asset('default-hero.jpg') }}') center/cover no-repeat;">
+    
     <div class="overlay-text">
-        <h1>Services</h1>
-        <p>"Experience Luxury, Comfort, and Excellence <br> Our Services, Your Satisfaction!"</p>
+        <h1>{{ $hero->hero_title ?? 'Services' }}</h1>
+        <p>{{ $hero->hero_subtitle ?? '"Experience Luxury, Comfort, and Excellence – Our Services, Your Satisfaction!"' }}</p>
+        
         <div class="breadcrumb-container">
-            <a href="{{ asset('home') }}">Home</a> > services
+            <a href="{{ url('/') }}">Home</a> > Services
         </div>
     </div>
 </div>
@@ -52,9 +55,13 @@
                 </div>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-                <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#modal{{ $service->id }}">
+                {{-- <button class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#modal{{ $service->id }}">
                     {{ $service->modal_button_text ?? 'Get Services Now' }}
-                </button>
+                </button> --}}
+                <a href="{{ route('user.services.create') }}" class="btn btn-warning mt-3">
+                    {{ $service->modal_button_text ?? 'Get Services Now' }}
+                </a>
+
                 <a href="{{ route('services.show', $service->slug) }}" class="text-decoration-none text-warning fw-bold">
                     Read more →
                 </a>
@@ -72,9 +79,20 @@
                         @csrf
 
                         <!-- User Name -->
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label class="form-label">Full Name</label>
                             <input type="text" name="name" class="form-control" placeholder="Enter your full name" required>
+                        </div> --}}
+                         <!-- name -->
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            @auth
+                                <input type="text" name="name" class="form-control" 
+                                    value="{{ Auth::user()->name }}" readonly required>
+                            @else
+                                <input type="text" name="name" class="form-control" 
+                                    placeholder="Enter your full name" required>
+                            @endauth
                         </div>
 
                         <!-- Email -->
@@ -83,9 +101,16 @@
                             <input type="email" name="email" class="form-control" placeholder="Enter your email address" required>
                         </div> --}}
 
+                         <!-- Email -->
                         <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" value="{{ Auth::user()->email }}" readonly required>
+                            @auth
+                                <input type="email" name="email" class="form-control" 
+                                    value="{{ Auth::user()->email }}" readonly required>
+                            @else
+                                <input type="email" name="email" class="form-control" 
+                                    placeholder="Enter your email address" required>
+                            @endauth
                         </div>
 
                         <!-- Phone -->

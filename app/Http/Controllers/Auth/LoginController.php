@@ -42,7 +42,11 @@ class LoginController extends Controller
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
+        return redirect()->back();
     }
+
+
+
 
     protected function authenticated(Request $request, $user)
     {
@@ -50,7 +54,7 @@ class LoginController extends Controller
             return redirect()->intended('/admin/dashboard');
         }
         
-        return redirect()->intended('/home');
+        return redirect()->back();
     }
 
     public function logout(Request $request)
@@ -58,7 +62,7 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/home');
+        return redirect()->back();
     }
 
     /**
@@ -69,6 +73,6 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         // This is a fallback if authenticated() doesn't return a response
-        return '/home';
+        return '/';
     }
 }

@@ -504,7 +504,9 @@ Route::get('/services', [\App\Http\Controllers\User\UserServiceController::class
 // Route::get('/services/request', [UserServiceController::class, 'create'])->name('services.request');
 Route::get('/{slug}', [UserServiceController::class, 'show'])->name('services.show');
 
-Route::post('/services/request', [UserServiceController::class, 'submit'])->name('services.submit');
+Route::post('/services/submit', [UserServiceController::class, 'submit'])
+    ->middleware('auth')
+    ->name('services.submit');
 
 });
 

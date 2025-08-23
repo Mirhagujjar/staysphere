@@ -1,19 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-
 <style>
     .form-page {
-        height: 60%;
-        background: url({{ asset('build/assets/images/bg2.jpg') }});
+        min-height: 100vh; /* full viewport height */
+        background: url({{ asset('build/assets/images/bg2.jpg') }}) center/cover no-repeat;
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 20px; /* spacing on smaller screens */
     }
+
+
+
     .form-container {
-        margin-top: 15px;
-        margin-bottom: 15px;
-        background-color: rgba(255, 255, 255, 0.8);
+        margin: 15px auto;
+        background-color: rgba(255, 255, 255, 0.9);
         padding: 30px;
         border-radius: 15px;
         width: 100%;
@@ -45,7 +47,28 @@
         margin-bottom: 15px;
         background-color: #f8f9fa;
     }
+
+    /* 📱 Mobile responsiveness */
+    @media (max-width: 576px) {
+        .form-container {
+            padding: 15px;
+        }
+        .form-container h2 {
+            font-size: 1.5rem;
+        }
+        .room-block {
+            padding: 10px;
+        }
+        .btn, .btn-submit {
+            font-size: 14px;
+            padding: 8px 12px;
+        }
+        .alert {
+            font-size: 0.85rem;
+        }
+    }
 </style>
+
 
 <div class="form-page">
     <div class="form-container">

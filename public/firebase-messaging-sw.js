@@ -25,6 +25,5 @@ messaging.onBackgroundMessage((payload) => {
         icon: payload.notification?.icon || "/firebase-logo.png"
     };
 
-    // Show the notification
     self.registration.showNotification(notificationTitle, notificationOptions);
 });

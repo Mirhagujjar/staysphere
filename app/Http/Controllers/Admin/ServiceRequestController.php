@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ServiceRequest;
  use App\Models\User;
 use App\Notifications\ServiceRequestStatusUpdated;
+use App\Models\NotificationHelper;
 
 
 class ServiceRequestController extends Controller
@@ -35,6 +36,7 @@ public function updateStatus(Request $request, $id)
         // Debug karo
         logger('User not found for email: ' . $serviceRequest->email);
     }
+    $response =  NotificationHelper::sendNotificationWithPayload('u-'.$serviceRequest->user_id, "Service Request Status Update", "Your service request is now ".$request->status);
 
     return redirect()->back()->with('success', 'Status updated and user notified.');
 }
