@@ -64,14 +64,14 @@
                         </div> --}}
                         <div class="row g-3">
                             <!-- Basic Room Info -->
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <label class="form-label fw-bold">Room Name*</label>
                                 <input type="text" name="room_name" class="form-control @error('room_name') is-invalid @enderror" 
                                        value="{{ old('room_name') }}" required>
                                 @error('room_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> --}}
 
                             <!-- Room Type with Validation -->
                             <div class="col-md-6">
@@ -135,6 +135,53 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+
+                            {{-- rooms names  --}}
+                            <div class="col-12 mt-3">
+                                <label class="form-label fw-bold">Room Names*</label>
+                                <div id="room-names-container">
+                                    <!-- Room name inputs will be generated here -->
+                                </div>
+                                @error('room_names')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            @push('scripts')
+                            <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const totalInput = document.querySelector('input[name="total_quantity"]');
+                                const container = document.getElementById('room-names-container');
+
+                                function renderRoomInputs() {
+                                    container.innerHTML = ''; // clear old inputs
+                                    let total = parseInt(totalInput.value) || 0;
+
+                                    for (let i = 1; i <= total; i++) {
+                                        let div = document.createElement('div');
+                                        div.classList.add('mb-2');
+                                        div.innerHTML = `
+                                            <input type="text" 
+                                                name="room_names[]" 
+                                                class="form-control" 
+                                                placeholder="Enter Room ${i} Name" 
+                                                required>
+                                        `;
+                                        container.appendChild(div);
+                                    }
+                                }
+
+                                // Render inputs when admin changes total_quantity
+                                totalInput.addEventListener('input', renderRoomInputs);
+
+                                // Render if old value exists (validation fail)
+                                if (totalInput.value) {
+                                    renderRoomInputs();
+                                }
+                            });
+                            </script>
+                            @endpush
+
 
 
                             <!-- Room Size -->
