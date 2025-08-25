@@ -69,7 +69,7 @@ class Room extends Model
     /**
      * Scope to filter rooms by dynamic filters.
      */
-    public function scopeWithFilters($query, array $filters = null)
+    public function scopeWithFilters($query, $filters = null)
     {
         if (!$filters) {
             return $query;
@@ -156,4 +156,17 @@ class Room extends Model
     {
         return $this->total_quantity - $this->booked_quantity;
     }
+
+    /**
+     * Scope: Get rooms that are available between two dates
+     */
+    public function scopeAvailableBetween($query, $checkIn, $checkOut)
+    {
+        return $query->whereDoesntHave('reservations', function ($q) use ($checkIn, $checkOut) {
+            $q->where('check_in', '<', $checkOut)
+            ->where('check_out', '>', $checkIn);
+        });
+    }
+
+
 }

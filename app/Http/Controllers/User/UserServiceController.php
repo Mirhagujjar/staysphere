@@ -15,8 +15,13 @@ class UserServiceController extends Controller
     {
         $services = Service::orderBy('id', 'desc')->get();
 
-        return view('user.services.index', compact('services'));
-    }
+        // Pick first service with hero fields
+        $hero = Service::whereNotNull('hero_background')->first();
+
+        return view('user.services.index', compact('services', 'hero'));
+}
+
+
 
     /**
      * Display details of a specific service.

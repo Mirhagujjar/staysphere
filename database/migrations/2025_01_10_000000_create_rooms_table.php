@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('facilities')->nullable();
             $table->boolean('has_view')->default(false);
             $table->string('image')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

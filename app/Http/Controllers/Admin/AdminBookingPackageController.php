@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PackageBooking;
+use App\Models\NotificationHelper;  
 
 class AdminBookingPackageController extends Controller {
     public function index() {
@@ -34,6 +35,7 @@ class AdminBookingPackageController extends Controller {
         }
 
         $booking->save();
+        
 
         return redirect()->route('admin.bookingspackages.index')->with('success', 'Booking updated successfully!');
     }
@@ -50,6 +52,22 @@ class AdminBookingPackageController extends Controller {
 //     return redirect()->route('admin.bookingspackages.index')
 //         ->with('success', 'Booking status updated successfully!');
 // }
+
+    public function updateStatus(Request $request, $id)
+        {
+            $booking = PackageBooking::findOrFail($id);
+
+            $request->validate([
+                'status' => 'required|string',
+            ]);
+
+            $booking->status = $request->status;
+            $booking->save();
+            $response =  NotificationHelper::sendNotificationWithPayload('u-'.$booking->user_id, "Booking Status Update", "Your booking ".$request->status);
+            // dd($response);
+
+            return redirect()->back()->with('success', 'Booking status updated successfully.');
+        }
 
 
     public function destroy($id) {

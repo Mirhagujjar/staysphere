@@ -57,6 +57,23 @@
                                 </div>
                             </td>
                             <td>
+                                <!-- Single status form -->
+                    <form method="POST" action="{{ route('admin.bookingspackages.updatestatus', $booking->id)}}" class="d-flex mb-2">
+                        @csrf 
+                        @method('PATCH')
+                        <select name="status" class="form-select form-select-sm me-2 status-select"
+                            data-id="{{ $booking->id }}"
+                            data-roomtype="{{ $booking->package->type ?? '' }}">
+                            <option value="pending" {{ $booking->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="confirmed" {{ $booking->status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                            <option value="checked_out" {{ $booking->status == 'checked_out' ? 'selected' : '' }}>Checked Out</option>
+                            <option value="cancelled" {{ $booking->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Save</button>
+                    </form>
+
+
                                 <div class="d-flex flex-wrap gap-2">
                                     {{-- <a href="{{ route('admin.bookingspackages.edit', $booking->id) }}"" class="btn btn-sm btn-primary" title="Edit">Edit
                                         <i class="fas fa-edit"></i>
@@ -78,6 +95,152 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+</div>
+
+{{-- @push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // First, extract room type for each reservation and add it as a data attribute
+    document.querySelectorAll('.status-select').forEach(function(select) {
+        const form = select.closest('form');
+        const roomTypeInput = form.querySelector('input[name="room_type"]');
+        if (roomTypeInput) {
+            select.dataset.roomtype = roomTypeInput.value;
+        }
+    });
+
+    document.querySelectorAll('.status-select').forEach(function(select) {
+        select.addEventListener('change', function() {
+            const status = this.value;
+            const reservationId = this.dataset.id;
+            const roomType = this.dataset.roomtype; // Get room type from data attribute
+            const form = this.closest('form');
+
+            const modal = new bootstrap.Modal(document.getElementById('assignRoomModal'));
+            const modalForm = document.getElementById('assignRoomForm');
+            const reasonContainer = document.getElementById('reasonContainer');
+            const roomSelect = document.getElementById('room_id');
+            const roomSelectContainer = roomSelect.closest('.mb-3');
+
+            modalForm.action = `/admin/reservations/${reservationId}/update-status`;
+            document.getElementById('modal_status').value = status;
+
+            // Reset validation and visibility
+            roomSelect.required = false;
+            document.getElementById('reason').required = false;
+            roomSelectContainer.classList.add('d-none');
+            reasonContainer.classList.add('d-none');
+
+            if (status === 'confirmed') {
+                // Show loading state
+                const saveButton = form.querySelector('button[type="submit"]');
+                const originalText = saveButton.innerHTML;
+                saveButton.innerHTML = 'Loading...';
+                saveButton.disabled = true;
+                
+                // Check if roomType is available
+                if (!roomType) {
+                    alert('Error: Room type information is missing');
+                    this.value = 'pending';
+                    saveButton.innerHTML = originalText;
+                    saveButton.disabled = false;
+                    return;
+                }
+                
+                fetch(`/admin/reservations/available-rooms/${encodeURIComponent(roomType)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(err => {
+                            throw new Error(err.message || `Server returned ${response.status}`);
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    roomSelect.innerHTML = '<option value="">-- Select a Room --</option>';
+                    
+                    if (data.rooms && data.rooms.length > 0) {
+                        data.rooms.forEach(room => {
+                            const option = document.createElement('option');
+                            option.value = room.id;
+                            option.textContent = `Room ${room.room_name} (${room.room_type})`;
+                            roomSelect.appendChild(option);
+                        });
+                        
+                        roomSelect.required = true;
+                        roomSelectContainer.classList.remove('d-none');
+                        reasonContainer.classList.add('d-none');
+                        modal.show();
+                    } else {
+                        throw new Error(data.message || 'No available rooms found for this room type');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(`Error: ${error.message}`);
+                    this.value = 'pending';
+                })
+                .finally(() => {
+                    saveButton.innerHTML = originalText;
+                    saveButton.disabled = false;
+                });
+            }
+            // else if (status === 'checked_out') {
+            //     roomSelect.required = true;
+            //     roomSelectContainer.classList.remove('d-none');
+            //     reasonContainer.classList.add('d-none');
+            //     modal.show();
+            // }
+            else if (status === 'cancelled') {
+                document.getElementById('reason').required = true;
+                reasonContainer.classList.remove('d-none');
+                roomSelectContainer.classList.add('d-none');
+                modal.show();
+            }
+            else {
+                // pending or others → submit form directly
+                form.submit();
+            }
+        });
+    });
+});
+</script>
+@endpush --}}
+
+<!-- Modal -->
+<div class="modal fade" id="assignRoomModal" tabindex="-1" aria-labelledby="assignRoomModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="assignRoomForm" method="POST" action="">
+                @csrf
+                @method('PATCH')
+                <input type="hidden" name="status" id="modal_status">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Reservation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="room_id" class="form-label">Select Room</label>
+                        <select name="room_id" id="room_id" class="form-select">
+                            <option value="">-- Select a Room --</option>
+                        </select>
+                    </div>
+                    <div id="reasonContainer" class="mb-3 d-none">
+                        <label for="reason" class="form-label">Cancellation Reason</label>
+                        <textarea name="reason" id="reason" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -9,22 +9,30 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::table('package_bookings', function (Blueprint $table) {
+   public function up(): void
+{
+    Schema::table('package_bookings', function (Blueprint $table) {
+        if (!Schema::hasColumn('package_bookings', 'user_id')) {
             $table->unsignedBigInteger('user_id')->after('id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('status')->default('Pending')->after('special_requests');
-        });
-    }
+        }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('package_bookings', function (Blueprint $table) {
-            //
-        });
-    }
+        if (!Schema::hasColumn('package_bookings', 'status')) {
+            $table->string('status')->default('pending')->after('user_id');
+        }
+    });
+}
+
+public function down(): void
+{
+    Schema::table('package_bookings', function (Blueprint $table) {
+        if (Schema::hasColumn('package_bookings', 'user_id')) {
+            $table->dropColumn('user_id');
+        }
+
+        if (Schema::hasColumn('package_bookings', 'status')) {
+            $table->dropColumn('status');
+        }
+    });
+}
+
 };

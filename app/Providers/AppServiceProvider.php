@@ -14,22 +14,31 @@ class AppServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-       
         if (Schema::hasTable('reservations')) {
-            View::composer('admin.includes.sidebar', function ($view) {
-                $view->with('reservations', Reservation::all());
+            // Share latest reservations across all admin views
+            View::composer('admin.*', function ($view) {
+                $latestReservations = Reservation::with(['user', 'room'])
+                    ->latest()
+                    ->take(5)
+                    ->get();
+
+                $view->with('latestReservations', $latestReservations);
             });
         }
 
-         View::composer('admin.dashboard', function ($view) {
-            $totalRooms = Room::count();
-            $typeWiseCounts = Room::select('room_type', DB::raw('count(*) as total'))
-                ->groupBy('room_type')
-                ->get();
+        if (Schema::hasTable('rooms')) {
+            View::composer('admin.dashboard', function ($view) {
+                $totalRooms = Room::count();
+                $typeWiseCounts = Room::select('room_type', DB::raw('count(*) as total'))
+                    ->groupBy('room_type')
+                    ->get();
 
-            $view->with('totalRooms', $totalRooms)
-                ->with('typeWiseCounts', $typeWiseCounts);
-        });
-
+                $view->with([
+                    'totalRooms' => $totalRooms,
+                    'typeWiseCounts' => $typeWiseCounts,
+                ]);
+            });
+        }
     }
+
 }

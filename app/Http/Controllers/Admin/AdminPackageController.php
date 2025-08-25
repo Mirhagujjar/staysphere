@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Package;
 use App\Models\PackageBooking;
 use Illuminate\Support\Facades\File;
+use App\Models\NotificationHelper;
 
 class AdminPackageController extends Controller
 {
@@ -73,6 +74,7 @@ class AdminPackageController extends Controller
         }
 
         $package->save();
+        $response =  NotificationHelper::sendNotificationWithPayload('u-'.$package->user_id, "Booking Status Update", "Your booking ".$request->status);
 
         return redirect()->route('admin.packages.index')->with('success', 'Package updated successfully.');
     }

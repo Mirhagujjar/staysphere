@@ -12,6 +12,7 @@ use App\Models\RoomType;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\NotificationHelper;
 use App\Notifications\ReservationCancelled;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\StatusNotification;
@@ -19,6 +20,8 @@ use App\Notifications\StatusNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Barryvdh\DomPDF\Facade\Pdf;
+// use App\Helpers\NotificationHelper;
+
 
 class AdminReservationController extends Controller
 {
@@ -72,9 +75,7 @@ class AdminReservationController extends Controller
         $reservations = $singleReservations->merge($singleFromGroups);
 
         // The rest unchanged
-        $rooms = Room::with('roomType')
-            ->where('is_booked', false)
-            ->get();
+        $rooms = Room::all();
 
         $pastReservations = Reservation::with('room')
             ->onlyTrashed()
@@ -173,63 +174,36 @@ class AdminReservationController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        //  dd($request->all());
         $reservation = Reservation::findOrFail($id);
 
         $request->validate([
-            'status' => 'required|in:pending,confirmed,cancelled,checked_out',
-            'reason' => 'nullable|string|max:255',
-            'room_id' => 'nullable|exists:rooms,id',
+            'status' => 'required|string',
+            'reason' => $request->status === 'cancelled' ? 'required|string' : 'nullable',
+            'room_id' => $request->status === 'confirmed' ? 'required|exists:rooms,id' : 'nullable',
         ]);
 
-        DB::transaction(function () use ($request, $reservation) {
-            $oldStatus = $reservation->status; // get BEFORE changing
-            $reservation->status = $request->status;
+        $reservation->status = $request->status;
 
-            if ($request->status === 'confirmed' && $request->filled('room_id')) {
-                // If already assigned, free old room
-                if ($reservation->room_id) {
-                    $oldRoom = Room::find($reservation->room_id);
-                    if ($oldRoom) {
-                        $oldRoom->is_booked = false;
-                        $oldRoom->save();
-                    }
-                }
+        if ($request->status === 'cancelled') {
+            $reservation->reason = $request->reason;
+            $reservation->room_id = null; // clear any assigned room
+        } elseif ($request->status === 'confirmed') {
+            $reservation->room_id = $request->room_id;
+            $reservation->reason = null; // clear reason if previously cancelled
+        }
 
-                // Assign new room
-                $reservation->room_id = $request->room_id;
-                $room = Room::find($request->room_id);
-                $room->is_booked = true;
-                $room->save();
+        $reservation->save();
+        $response =  NotificationHelper::sendNotificationWithPayload('u-'.$reservation->user_id, "Booking Status Update", "Your booking ".$request->status);
+    // dd($response);
 
-                // Notify user
-                if ($reservation->user) {
-                    $reservation->user->notify(new StatusNotification(
-                        'Room Assigned',
-                        'Your reservation has been confirmed and room '.$room->name.' has been assigned to you.',
-                        route('user.reservations.show', $reservation->id)
-                    ));
-                }
-            }
-
-            elseif ($request->status === 'cancelled') {
-                $reservation->reason = $request->reason;
-
-                if ($reservation->room_id) {
-                    $room = Room::find($reservation->room_id);
-                    if ($room) {
-                        $room->is_booked = false;
-                        $room->save();
-                    }
-                    $reservation->room_id = null; // optional: clear assignment
-                }
-            }
-
-            $reservation->save();
-        });
-
-        return back()->with('success', 'Reservation status updated.');
+        return redirect()->back()->with('success', 'Reservation updated successfully!');
     }
+
+
+
+
+
+
 
      public function createGroupReservation(Request $request)
     {
@@ -295,8 +269,9 @@ class AdminReservationController extends Controller
             }
 
             $rooms = Room::where('room_type', $typeValue)
-                        ->where('is_booked', false)
-                        ->get(['id', 'room_name', 'room_type']);
+             ->whereColumn('booked_quantity', '<', 'total_quantity')
+             ->get(['id', 'room_name', 'room_type']);
+
 
             return response()->json([
                 'message' => $rooms->isEmpty() ? 'No available rooms found' : 'Rooms found',
@@ -311,28 +286,42 @@ class AdminReservationController extends Controller
         }
     }
 
-    public function assignRoom(Request $request, Reservation $reservation)
-    {
-        if ($request->has('room_id')) {
-            $request->validate(['room_id' => 'required|exists:rooms,id']);
+    // public function assignRoom(Request $request, Reservation $reservation)
+    // {
+    //     if ($request->has('room_id')) {
+    //         $request->validate(['room_id' => 'required|exists:rooms,id']);
 
-            $room = Room::find($request->room_id);
-            $room->is_booked = true;
-            $room->save();
+    //         $room = Room::find($request->room_id);
+    //         $room->is_booked = true;
+    //         $room->save();
 
-            $reservation->room_id = $room->id;
-            $reservation->status = 'confirmed';
-        }
+    //         $reservation->room_id = $room->id;
+    //         $reservation->status = 'confirmed';
+    //     }
 
-        if ($request->has('reason')) {
-            $reservation->status = 'cancelled';
-            $reservation->cancellation_reason = $request->reason;
-        }
+    //     if ($request->has('reason')) {
+    //         $reservation->status = 'cancelled';
+    //         $reservation->cancellation_reason = $request->reason;
+    //     }
 
-        $reservation->save();
+    //     $reservation->save();
 
-        return back()->with('success', 'Reservation updated.');
-    }
+    //     return back()->with('success', 'Reservation updated.');
+    // }
+
+    
+    // public function cancel(Request $request, $id)
+    // {
+    //     $reservation = Reservation::findOrFail($id);
+
+    //     $reservation->status = 'cancelled';
+    //     $reservation->reason = $request->reason; // save reason
+    //     $reservation->save();
+
+    //     return redirect()->back()->with('success', 'Reservation cancelled with reason saved.');
+    // }
+
+
 
     // public function groupDetail($id)
     // {

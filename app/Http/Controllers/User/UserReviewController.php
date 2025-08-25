@@ -85,7 +85,7 @@ class UserReviewController extends Controller
         ]);
 
         return redirect()
-            ->route('user.reviews.review')
+            ->route('user.review.review')
             ->with('success', 'Thank you! Your review has been submitted and is pending approval.');
     }
 }

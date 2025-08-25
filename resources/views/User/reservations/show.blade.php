@@ -346,6 +346,9 @@
                                             {{ $reservation->room->facilities ?? 'Standard amenities' }}
                                         </div>
                                     </div>
+                                 @elseif($reservation->status === 'cancelled')
+                                 <h5 class="timeline-title">Reservation Cancelled</h5>
+                                            <p class="text-danger">Cancel Reason: {{ $reservation->reason ?? 'No reason provided' }}</p>
                                 @else
                                     <div class="p-3 unassigned-room mt-3">
                                         <strong>
@@ -357,6 +360,7 @@
                                         </div>
                                     </div>
                                 @endif
+                                
                             </div>
                         </div>
                     @endif
@@ -413,8 +417,8 @@
                                             {{ $reservation->updated_at->format('M j, Y \a\t g:i A') }}
                                         </div>
                                         <h5 class="timeline-title">Reservation Cancelled</h5>
-                                        @if($reservation->reason)
-                                            <p class="mb-0">Reason: {{ $reservation->reason }}</p>
+                                         @if($reservation->status === 'cancelled')
+                                            <p class="text-danger">Cancel Reason: {{ $reservation->reason ?? 'No reason provided' }}</p>
                                         @endif
                                     </div>
                                 </div>

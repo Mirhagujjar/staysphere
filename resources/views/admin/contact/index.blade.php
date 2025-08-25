@@ -30,10 +30,10 @@
                     class="btn btn-sm btn-warning">
                     Reply
                     </a>
-                    <form action="{{ route('admin.contact.destroy', $message->id) }}" method="POST" style="display:inline-block;">
+                    <form action="{{ route('admin.contact.destroy', $message->id) }}" method="POST" style="display:inline-block">
                         @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger btn-sm" onclick="return confirm('Delete this message?')">Delete</button>
+                        @method ('DELETE')
+                        <button class="btn btn-danger btn-sm" onclick=" return confirm('Delete this message?') "> Delete </button>
                     </form>
                 </td>
             </tr>

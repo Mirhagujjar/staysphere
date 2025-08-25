@@ -37,14 +37,14 @@ class ServiceRequestController extends Controller
         return redirect()->route('user.services.create')->with('success', 'Service request submitted successfully!');
     }
     public function index()
-{
-    $requests = \App\Models\ServiceRequest::with('service')
-                    ->where('user_id', auth()->id())
-                    ->latest()
-                    ->get();
+    {
+        $requests = \App\Models\ServiceRequest::with('service')
+                        ->where('user_id', Auth::id())
+                        ->latest()
+                        ->get();
 
-    return view('user.bookingservices.index', compact('requests'));
-}
+        return view('user.bookingservices.index', compact('requests'));
+    }
 
 }
 

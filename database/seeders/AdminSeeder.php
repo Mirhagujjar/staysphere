@@ -12,7 +12,7 @@ class AdminSeeder extends Seeder
     {
         User::create([
             'name' => 'Super Admin',
-            'email' => 'gmirha60@gmail.com',
+            'email' => 'admin@example.com',
             'password' => Hash::make('password123'),
             'role' => 'super_admin', // Only include this if your `users` table has a `role` column
         ]);
