@@ -244,14 +244,8 @@
     <div class="content-area" id="content">
         <!-- Topbar -->
         <div class="topbar">
-<<<<<<< Updated upstream
-            <div><li class="nav-item d-none d-md-block"><a href="{{ url('/home') }}" class="nav-link">Home</a></li></div>
-        
-            
-=======
             <span class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></span>
             <div><a href="{{ url('/home') }}" class="nav-link">Home</a></div>
->>>>>>> Stashed changes
 
             <div class="user-dropdown-wrapper">
                 <div class="user-btn">
