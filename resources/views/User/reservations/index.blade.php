@@ -174,7 +174,7 @@
             <i class="fas fa-calendar-times"></i>
             <h4 class="no-reservations">You have no reservations yet</h4>
             <p class="mb-4">Start by browsing our available rooms and make your first reservation</p>
-            <a href="{{ route('rooms.index') }}" class="btn btn-primary px-4">
+            <a href="{{ route('user.rooms.index') }}" class="btn btn-primary px-4">
                 <i class="fas fa-door-open me-2"></i> Browse Rooms
             </a>
         </div>
@@ -233,6 +233,56 @@
                                             <span>{{ $group->phone }}</span>
                                         </div>
                                     </div>
+
+
+
+
+
+
+
+
+                                    {{-- @if($reservation->is_parent)
+                                    @php
+                                        $roomTotal = $reservation->children->sum(function($child) use ($reservation) {
+                                            return ($child->room ? $child->room->price : 0) * $reservation->check_in->diffInDays($reservation->check_out);
+                                        });
+                                    @endphp
+                                @else
+                                    @php
+                                        $roomTotal = ($reservation->room ? $reservation->room->price : 0) * $reservation->check_in->diffInDays($reservation->check_out);
+                                    @endphp
+                                @endif --}}
+                                
+                                {{-- @php
+                                    $servicesTotal = $reservation->services->sum('price');
+                                    $subtotal = $roomTotal + $servicesTotal;
+                                    $tax = $subtotal * 0.10;
+                                    $grandTotal = $subtotal + $tax;
+                                @endphp --}}
+
+                                {{-- <div class="d-flex justify-content-between fw-bold fs-5 border-top pt-2 mt-2">
+                                    <span>Total:</span>
+                                    <span>Rs {{ number_format($grandTotal, 2) }}</span>
+                                </div> --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                     <div class="col-md-6">
                                         <div class="detail-item">
                                             <span class="detail-label"><i class="fas fa-user-friends me-2"></i>Total Guests:</span>
@@ -264,6 +314,7 @@
                                                 <span class="detail-label"><i class="fas fa-user-friends me-2"></i>Guests:</span>
                                                 <span>{{ $child->guests }}</span>
                                             </div>
+                                           
                                             <div class="detail-item">
                                                 <span class="detail-label"><i class="fas fa-calendar-check me-2"></i>Check-in:</span>
                                                 <span>{{ $child->check_in->format('M d, Y') }}</span>
@@ -276,6 +327,12 @@
                                             <div class="detail-item">
                                                 <span class="detail-label"><i class="fas fa-hashtag me-2"></i>Room:</span>
                                                 <span class="room-number">{{ $child->room->room_name }}</span>
+                                            </div>
+                                            @endif
+                                           @if($child->room && $child->room->price)
+                                            <div class="detail-item">
+                                                <span class="detail-label"><i class="fas fa-hashtag me-2"></i>Price:</span>
+                                                <span class="room-price">{{ $child->price }}</span>
                                             </div>
                                             @endif
 
@@ -354,6 +411,10 @@
                                     <span>{{ $roomReservation->guests }}</span>
                                 </div>
                                 <div class="detail-item">
+                                    <span class="detail-label"><i class="bi-icon bi bi-Dollar me-2"></i>Price:</span>
+                                    <span>{{$roomReservation->room->price }}</span>
+                                </div>
+                                <div class="detail-item">
                                     <span class="detail-label"><i class="fas fa-calendar-check me-2"></i>Check-in:</span>
                                     <span>{{ $roomReservation->check_in->format('M d, Y') }}</span>
                                 </div>
@@ -361,6 +422,7 @@
                                     <span class="detail-label"><i class="fas fa-calendar-check me-2"></i>Check-out:</span>
                                     <span>{{ $roomReservation->check_out->format('M d, Y') }}</span>
                                 </div>
+                                
                                 @if($roomReservation->room && $roomReservation->status === 'confirmed')
                                 <div class="detail-item">
                                     <span class="detail-label"><i class="fas fa-hashtag me-2"></i>Room:</span>

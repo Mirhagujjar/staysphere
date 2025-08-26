@@ -148,9 +148,7 @@
                             <th>Type</th>
                             <th>Price</th>
                             <th>Capacity</th>
-                            <th>Availability</th>
-                            <th>Features</th>
-                            <th>Status</th>
+                            {{-- <th>Status</th> --}}
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -168,7 +166,7 @@
                             <td>{{ $room->roomType->label }}</td>
                             <td><strong>Rs. {{ number_format($room->price) }}</strong><small class="d-block text-muted">/ night</small></td>
                             <td><span class="badge text-dark badge-info">{{ $room->room_capacity }} Persons</span></td>
-                            <td>
+                            {{-- <td>
                                 @php
                                     $available = $room->total_quantity - $room->booked_quantity;
                                     $percentage = ($room->total_quantity > 0) ? ($available / $room->total_quantity) * 100 : 0;
@@ -178,18 +176,18 @@
                                     <div class="mb-1">
                                         <small><strong>{{ $available }}</strong> of {{ $room->total_quantity }} available</small>
                                     </div>
-                                    {{-- <div class="progress" style="height: 18px;">
+                                    <div class="progress" style="height: 18px;">
                                         <div class="progress-bar {{ $percentage < 30 ? 'bg-danger' : 'bg-success' }}" role="progressbar" style="width: {{ $percentage }}%">
                                             {{ round($percentage) }}%
                                         </div>
-                                    </div> --}}
+                                    </div>
                                 @else
                                     <span class="badge badge-danger text-dark">Fully Booked</span>
                                     <small class="d-block text-muted">0 of {{ $room->total_quantity }}</small>
                                 @endif
-                            </td>
+                            </td> --}}
 
-                            <td>
+                            {{-- <td>
                                 @forelse($room->filterOptions->take(3) as $option)
                                 <span class="badge text-dark badge-secondary mb-1">{{ $option->label }}</span>
                                 @empty
@@ -198,14 +196,14 @@
                                 @if($room->filterOptions->count() > 3)
                                 <span class="badge text-dark badge-info">+{{ $room->filterOptions->count() - 3 }} more</span>
                                 @endif
-                            </td>
-                            <td>
+                            </td> --}}
+                            {{-- <td>
                                 @if($available > 0)
                                 <span class="badge text-dark badge-success">Available</span>
                                 @else
                                 <span class="badge badge-danger text-dark">Fully Booked</span>
                                 @endif
-                            </td>
+                            </td> --}}
                             <td>
                                 <div class="btn-group btn-group-sm">
                                     <a href="{{ route('admin.rooms.details', $room->id) }}" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>

@@ -1,57 +1,26 @@
+
 @extends('layouts.admin')
 
 @section('content')
 <style>
-    .reservation-card {
-        border: none;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s ease;
-        margin-bottom: 1.5rem;
-        border-left: 4px solid transparent;
-    }
-    .group-card {
-        border-left: 4px solid #0d6efd;
-    }
-    .room-card {
-        background-color: #f8f9fa;
-        border-radius: 8px;
-        height: 100%;
-    }
-    .room-img-container {
-        height: 120px;
-        overflow: hidden;
-    }
-    .room-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    .section-title {
-        font-weight: 600;
-        color: #2d3748;
-        margin: 2rem 0 1.5rem;
-        padding-bottom: 0.75rem;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    }
+    .reservation-card { border: none; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.08); margin-bottom:1.5rem; border-left:4px solid transparent; }
+    .group-card { border-left:4px solid #0d6efd; }
+    .room-card { background-color:#f8f9fa; border-radius:8px; height:100%; }
+    .room-img-container { height:120px; overflow:hidden; }
+    .room-img { width:100%; height:100%; object-fit:cover; }
+    .section-title { font-weight:600; color:#2d3748; margin:2rem 0 1.5rem; padding-bottom:0.75rem; border-bottom:1px solid rgba(0,0,0,0.1); }
 </style>
 
 <div class="container-fluid px-4 py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 mb-0"><i class="fas fa-calendar-alt me-2"></i> Reservations Management</h1>
-        <div>
-            
-            <form method="GET" action="{{ route('admin.reservations.index') }}" class="d-flex mb-0">
-                <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm me-2" placeholder="Search reservations..." style="width: 200px;">
-                <button type="submit" class="btn btn-sm btn-primary">
-                    <i class="fas fa-search me-1"></i> Search
-                </button>
-            </form>
-        </div>
+        <form method="GET" action="{{ route('admin.reservations.index') }}" class="d-flex mb-0">
+            <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-sm me-2" placeholder="Search reservations..." style="width:200px;">
+            <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-search me-1"></i> Search</button>
+        </form>
     </div>
 
-    <!-- Group Reservations -->
+    {{-- Group Reservations --}}
     @if($groupedReservations->isNotEmpty())
     <h4 class="section-title"><i class="fas fa-users me-2"></i> Group Reservations</h4>
     <div class="row">
@@ -73,8 +42,16 @@
                         </select>
                         <button type="submit" class="btn btn-sm btn-outline-primary">Update</button>
                     </form>
-
-
+                    <a href="{{ route('admin.reservations.grouped-reservation', $group->id) }}" class="btn btn-sm btn-outline-secondary me-2">
+                        <i class="fas fa-eye"></i> View Group
+                    </a>
+                    <a href="{{ route('admin.reservations.invoice', $group->id) }}" class="btn btn-outline-primary">
+                        <i class="fas fa-file-invoice me-1"></i> Invoice
+                    </a>
+                    <form action="{{ route('admin.reservations.destroy', $group->id) }}" method="POST">
+                        @csrf @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    </form>
                 </div>
 
                 <div class="card-body">
@@ -106,12 +83,10 @@
                                 <p>Check-in: {{ $child->check_in->format('M d, Y') }}</p>
                                 <p>Check-out: {{ $child->check_out->format('M d, Y') }}</p>
 
-                                <!-- Child status form -->
+                                {{-- Child status form --}}
                                 <form method="POST" action="{{ route('admin.reservations.updatestatus', $child->id) }}" class="d-flex mb-2">
                                     @csrf @method('PATCH')
-                                    <select name="status" class="form-select form-select-sm me-2 status-select"
-                                        data-id="{{ $child->id }}"
-                                        data-roomtype="{{ $child->room_type }}">
+                                    <select name="status" class="form-select form-select-sm me-2 status-select" data-id="{{ $child->id }}" data-roomtype="{{ $child->room_type }}">
                                         <option value="pending" {{ $child->status == 'pending' ? 'selected' : '' }}>Pending</option>
                                         <option value="confirmed" {{ $child->status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
                                         <option value="checked_out" {{ $child->status == 'checked_out' ? 'selected' : '' }}>Checked Out</option>
@@ -120,15 +95,24 @@
                                     <button type="submit" class="btn btn-sm btn-outline-primary">Save</button>
                                 </form>
 
+                                <button type="button" 
+                                        class="btn btn-primary" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#assignRoomModal-{{ $child->id }}">
+                                    Assign Room
+                                </button>
+
+                                <a href="{{ route('admin.reservations.invoice', $child->id) }}" class="btn btn-outline-primary">
+                                    <i class="fas fa-file-invoice me-1"></i> Invoice
+                                </a>
+
+
+
                                 <div class="d-flex flex-wrap">
-                                    <a href="{{ route('admin.reservations.show', $child->id) }}" class="btn btn-sm btn-outline-secondary me-2">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
+                                    <a href="{{ route('admin.reservations.show', $child->id) }}" class="btn btn-sm btn-outline-secondary me-2"><i class="fas fa-eye"></i></a>
                                     <form action="{{ route('admin.reservations.destroy', $child->id) }}" method="POST">
                                         @csrf @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
                                     </form>
                                 </div>
                             </div>
@@ -142,7 +126,8 @@
     </div>
     @endif
 
-    <!-- Individual Reservations -->
+    {{-- Single Reservations --}}
+        <!-- Individual Reservations -->
     <h4 class="section-title"><i class="fas fa-calendar-check me-2"></i> Single Reservations</h4>
     <div class="row">
         @forelse($reservations as $reservation)
@@ -178,10 +163,17 @@
                             <option value="cancelled" {{ $reservation->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                         </select>
 
-
-
                         <button type="submit" class="btn btn-sm btn-outline-primary">Save</button>
                     </form>
+
+                         <button type="button" 
+                                class="btn btn-primary" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#assignRoomModal-{{ $reservation->id }}">
+                            Assign Room
+                        </button>
+
+
 
                     <div class="d-flex flex-wrap">
                         <a href="{{ route('admin.reservations.show', $reservation->id) }}" class="btn btn-sm btn-outline-secondary me-2">
@@ -251,9 +243,13 @@
                             <a href="{{ route('admin.reservations.show', $reservation->id) }}" class="btn btn-outline-secondary me-2">
                                 <i class="fas fa-eye me-1"></i> Details
                             </a>
-                            {{-- <a href="{{ route('admin.reservations.invoice', $reservation->id) }}" class="btn btn-outline-primary">
+                             <form action="{{ route('admin.reservations.destroy', $reservation->id) }}" method="POST">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                            </form>
+                            <a href="{{ route('admin.reservations.invoice', $reservation->id) }}" class="btn btn-outline-primary">
                                 <i class="fas fa-file-invoice me-1"></i> Invoice
-                            </a> --}}
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -263,160 +259,6 @@
     @endif
 </div>
 
-
-
-
-
-
-
-@push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // First, extract room type for each reservation and add it as a data attribute
-    document.querySelectorAll('.status-select').forEach(function(select) {
-        const form = select.closest('form');
-        const roomTypeInput = form.querySelector('input[name="room_type"]');
-        if (roomTypeInput) {
-            select.dataset.roomtype = roomTypeInput.value;
-        }
-    });
-    
-
-    document.querySelectorAll('.status-select').forEach(function(select) {
-        select.addEventListener('change', function() {
-            const status = this.value;
-            const reservationId = this.dataset.id;
-            const roomType = this.dataset.roomtype; // Get room type from data attribute
-            const form = this.closest('form');
-
-            const modal = new bootstrap.Modal(document.getElementById('assignRoomModal'));
-            const modalForm = document.getElementById('assignRoomForm');
-            const reasonContainer = document.getElementById('reasonContainer');
-            const roomSelect = document.getElementById('room_id');
-            const roomSelectContainer = roomSelect.closest('.mb-3');
-
-            modalForm.action = `/admin/reservations/${reservationId}/update-status`;
-            document.getElementById('modal_status').value = status;
-
-            // Reset validation and visibility
-            roomSelect.required = false;
-            document.getElementById('reason').required = false;
-            roomSelectContainer.classList.add('d-none');
-            reasonContainer.classList.add('d-none');
-
-            if (status === 'confirmed') {
-                // Show loading state
-                const saveButton = form.querySelector('button[type="submit"]');
-                const originalText = saveButton.innerHTML;
-                saveButton.innerHTML = 'Loading...';
-                saveButton.disabled = true;
-                
-                // Check if roomType is available
-                if (!roomType) {
-                    alert('Error: Room type information is missing');
-                    this.value = 'pending';
-                    saveButton.innerHTML = originalText;
-                    saveButton.disabled = false;
-                    return;
-                }
-                
-                fetch(`/admin/reservations/available-rooms/${encodeURIComponent(roomType)}`)
-                .then(response => {
-                    if (!response.ok) {
-                        return response.json().then(err => {
-                            throw new Error(err.message || `Server returned ${response.status}`);
-                        });
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    roomSelect.innerHTML = '<option value="">-- Select a Room --</option>';
-                    
-                    if (data.rooms && data.rooms.length > 0) {
-                        data.rooms.forEach(room => {
-                            const option = document.createElement('option');
-                            option.value = room.id;
-                            option.textContent = `Room ${room.room_name} (${room.room_type})`;
-                            roomSelect.appendChild(option);
-                        });
-                        
-                        roomSelect.required = true;
-                        roomSelectContainer.classList.remove('d-none');
-                        reasonContainer.classList.add('d-none');
-                        modal.show();
-                    } else {
-                        throw new Error(data.message || 'No available rooms found for this room type');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert(`Error: ${error.message}`);
-                    this.value = 'pending';
-                })
-                .finally(() => {
-                    saveButton.innerHTML = originalText;
-                    saveButton.disabled = false;
-                });
-            }
-            // else if (status === 'checked_out') {
-            //     roomSelect.required = true;
-            //     roomSelectContainer.classList.remove('d-none');
-            //     reasonContainer.classList.add('d-none');
-            //     modal.show();
-            // }
-            else if (status === 'cancelled') {
-                document.getElementById('reason').required = true;
-                reasonContainer.classList.remove('d-none');
-                roomSelectContainer.classList.add('d-none');
-                modal.show();
-            }
-            else {
-                // pending or others → submit form directly
-                form.submit();
-            }
-        });
-    });
-});
-</script>
-@endpush
-
-<!-- Modal -->
-<div class="modal fade" id="assignRoomModal" tabindex="-1" aria-labelledby="assignRoomModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id="assignRoomForm" method="POST" action="">
-                @csrf
-                @method('PATCH')
-                <input type="hidden" name="status" id="modal_status">
-
-                <div class="modal-header">
-                    <h5 class="modal-title">Update Reservation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="room_id" class="form-label">Select Room</label>
-                        <select name="room_id" id="room_id" class="form-select">
-                            <option value="">-- Select a Room --</option>
-                        </select>
-                    </div>
-                    <div id="reasonContainer" class="mb-3 d-none">
-                        <label for="reason" class="form-label">Cancellation Reason</label>
-                        <textarea name="reason" id="reason" class="form-control" rows="3"></textarea>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-
-
+@include('admin.reservations.partials.assign-room-modal')
 @endsection
+

@@ -373,7 +373,8 @@
               console.log('✅ Service Worker registered:', registration.scope);
 
               getToken(messaging, {
-                  vapidKey: 'BL6NgYsmMcEKnYPTs4MNKtBLkOrsycZyUAMGl5jSPCPXefNoB2OJTGnlAjvc2RZkKxbAdu5F1bjRyt3xsLlPVPM',
+                  vapidKey:
+                 'BPHn07RL8np8vjB-5Z33GgocTUEBHBmO6MlIT5nkwitnavOJgHDHvmUBLNWXiHhDdnsjA0jFgVFATP_XRYdYxvk',
                   serviceWorkerRegistration: registration,
               })
               .then(token => {

@@ -398,8 +398,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/{id}/invoice', [AdminReservationController::class, 'invoice'])
         ->name('invoice');
         Route::get('/{id}/invoice/pdf', [AdminReservationController::class, 'downloadInvoice'])->name('invoice.pdf');
-        Route::put('/reservations/{id}/cancel', [ReservationController::class, 'cancel'])
+        Route::put('/{id}/cancel', [ReservationController::class, 'cancel'])
         ->name('cancel');
+        // AJAX call to get available rooms for a reservation
+        Route::get('/{id}/available-rooms', [AdminReservationController::class, 'availableRoomsForReservation'])
+        ->name('availableRoomsForReservation');
+
         
 
 
