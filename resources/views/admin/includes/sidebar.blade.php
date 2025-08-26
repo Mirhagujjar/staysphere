@@ -44,12 +44,86 @@
                     <li class="nav-item">
                         <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                             <i class="nav-icon bi bi-speedometer text-warning"></i>
-                            <p>Admin Dashboard</p>
+                            <p>Super Admin Dashboard</p>
 
                         </a>
                     </li>
 
-                    {{-- <li class="nav-item">
+                    {{-- @auth
+                        @if(in_array(Auth::user()->role, [ 'super_admin']))
+                            @php
+                                $admin = Auth::user();
+                            @endphp
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @if ($admin->profile_image)
+                                        <img src="{{ asset('uploads/profile/' . $admin->profile_image) }}"
+                                            class="rounded-circle me-2" width="40" height="40" alt="Profile Image">
+                                    @else
+                                        <div class="rounded-circle bg-secondary d-flex justify-content-center align-items-center me-2" style="width: 40px; height: 40px;">
+                                            <i class="fas fa-user text-white"></i>
+                                        </div>
+                                    @endif
+                                    <span class="d-none d-lg-inline">{{ $admin->name }}</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('admin.profile.show') }}">
+                                            <i class="fas fa-user me-2"></i>My Profile
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('admin.logout') }}"
+                                        onclick="event.preventDefault(); showLogoutConfirmation();">
+                                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        @endif
+
+                    @endauth
+
+                    <!-- Add SweetAlert CSS -->
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                    <!-- Add Font Awesome -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+                    <script>
+                        function showLogoutConfirmation() {
+                            Swal.fire({
+                                title: 'Logout Confirmation',
+                                text: "Are you sure you want to logout?",
+                                icon: 'question',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Yes, Logout',
+                                cancelButtonText: 'Cancel',
+                                background: '#f8f9fa',
+                                color: '#343a40',
+                                // backdrop: `
+                                //     rgba(0,0,0,0.4)
+                                //     url("https://i.gifer.com/origin/b4/b4d657e7ef262b88eb5f7ac021edda87.gif")
+                                //     left top
+                                //     no-repeat
+                                // `
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    document.getElementById('logout-form').submit();
+                                }
+                            });
+                        }
+                    </script> --}}
+
+                    <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon bi bi-person-circle text-warning"></i>
                             <p>Admins<i class="nav-arrow bi bi-chevron-right text-warning"></i></p>
@@ -68,7 +142,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li> --}}
+                    </li>
                 @endcan
 
 

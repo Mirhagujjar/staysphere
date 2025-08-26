@@ -16,7 +16,8 @@ class PackageBooking extends Model {
         'phone',
         'check_in',
         'check_out',
-        // 'payment_method',
+        'payment_method',
+
         'special_requests',
         'status'
     ];

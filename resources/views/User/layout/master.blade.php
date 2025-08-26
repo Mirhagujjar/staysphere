@@ -215,8 +215,8 @@
         <!-- Top Navbar -->
         <div class="topbar">
             <div><li class="nav-item d-none d-md-block"><a href="{{ url('/home') }}" class="nav-link">Home</a></li></div>
-
-
+        
+            
 
             <div class="user-dropdown-wrapper">
                 <div class="user-btn">

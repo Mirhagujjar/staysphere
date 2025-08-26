@@ -364,8 +364,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('rooms', AdminRoomController::class)->except(['show']);
 
     Route::get('/rooms/{room}/details', [AdminRoomController::class, 'details'])->name('rooms.details');
-     Route::get('/rooms/type/{type}', [AdminRoomController::class, 'typeDetails'])->name('rooms.typeDetails');
-
     Route::post('/rooms/update-hero', [AdminRoomController::class, 'updateHero'])->name('rooms.update-hero');
     Route::post('/rooms/store', [AdminRoomController::class, 'store'])->name('rooms.store');
 
@@ -386,7 +384,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Standard reservation routes
         Route::get('/', [AdminReservationController::class, 'index'])->name('index');
         Route::get('/show/{id}', [AdminReservationController::class, 'show'])->name('show');
-        
         Route::get('/admin/reservations/group/{id}', [AdminReservationController::class, 'groupDetail'])->name('groupdetail');
 
         Route::get('/{id}/edit', [AdminReservationController::class, 'edit'])->name('edit');
@@ -395,10 +392,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         
         // Status management
         // Route::Patch('/{id}/update-status', [AdminReservationController::class, 'updateStatus'])->name('updatestatus');
-        Route::put('/{id}/update-status', [AdminReservationController::class, 'updateStatus'])
+        Route::patch('/{id}/update-status', [AdminReservationController::class, 'updateStatus'])
         ->name('updatestatus');
-        // Route::match(['put', 'patch'], '/{reservation}/update-status', [AdminReservationController::class, 'updateStatus'])
-        //  ->name('updatestatus');
         
         Route::get('/{id}/invoice', [AdminReservationController::class, 'invoice'])
         ->name('invoice');
@@ -414,23 +409,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/force-delete/{id}', [AdminReservationController::class, 'forceDelete'])->name('forceDelete');
         
         // Group reservations
-        Route::get('/create-group', [AdminReservationController::class, 'createGroupReservation'])->name('create-group');
+        Route::get('/create-group', [AdminReservationController::class, 'createGroup'])->name('create-group');
         Route::post('/create-group', [AdminReservationController::class, 'storeGroup'])->name('store-group');
-        Route::get('/grouped/{id}', [AdminReservationController::class, 'showGrouped'])
-         ->name('grouped-reservation');
-
         
         // Room assignment
         Route::get('/{id}/assign-rooms', [AdminReservationController::class, 'showAssignRooms'])->name('assign-rooms');
         Route::post('/{id}/assign-rooms', [AdminReservationController::class, 'assignRooms'])->name('assign-rooms.store');
 
-        Route::get('/{reservation}/available-rooms', [AdminReservationController::class, 'getAvailableRooms'])
-            ->name('available-rooms');   
-            // Add this route to your existing web.php file in the admin reservations group
-        Route::get('/debug-availability/{id}', [AdminReservationController::class, 'debugRoomAvailability'])->name('debugAvailability');
-            // Add this to your routes/web.php file
-        // Route::get('/debug-availability/{id}', [AdminReservationController::class, 'debugRoomAvailability'])->name('admin.reservations.debug');  
-            Route::patch('/{reservation}/assign-room', [AdminReservationController::class, 'assignRoom'])->name('assignRoom');
+        Route::get('/available-rooms/{type}', [AdminReservationController::class, 'availableRooms'])->name('availableRooms');
+        Route::patch('/{reservation}/assign-room', [AdminReservationController::class, 'assignRoom'])->name('assignRoom');
 
 
         // Route::patch('/{reservation}/update-status', [AdminReservationController::class, 'updateStatus'])

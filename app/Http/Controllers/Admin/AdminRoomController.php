@@ -46,13 +46,6 @@ class AdminRoomController extends Controller
         
         return view('admin.rooms.index', compact('rooms', 'heroRoom', 'roomTypes','facilities', 'background'));
     }
-    public function typeDetails($type)
-    {
-        // Get all rooms of this type
-        $rooms = \App\Models\Room::where('room_type', $type)->get();
-
-        return view('admin.rooms.type-details', compact('rooms', 'type'));
-    }
 
     public function details($id)
     {

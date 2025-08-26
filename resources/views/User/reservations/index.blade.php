@@ -1,4 +1,4 @@
-@extends('user.layout.master')
+@extends('layouts.app')
 
 @section('content')
 <style>
@@ -397,13 +397,13 @@
             </div>
 
             {{-- Pagination --}}
-            {{-- @if($currentReservations->hasPages())
+            @if($currentReservations->hasPages())
                 <div class="d-flex justify-content-center mt-4">
                     <div class="pagination-sm">
                         {{ $currentReservations->withQueryString()->links() }}
                     </div>
                 </div>
-            @endif --}}
+            @endif
         @endif
 
         <!-- Past Reservations -->

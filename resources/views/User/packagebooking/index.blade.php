@@ -9,7 +9,6 @@
         <thead>
             <tr>
                 <th>Package Name</th>
-               <th>Price</th>
                 <th>Check-in</th>
                 <th>Check-out</th>
                 <th>Status</th>
@@ -19,8 +18,7 @@
         <tbody>
             @foreach ($bookings as $booking)
                 <tr>
-                    <td>{{ $booking->package->name ?? 'N/A' }}</td>
-                     <td>{{ $booking->package->price ?? 'N/A' }}</td>
+                    <td>{{ $booking->package->title ?? 'N/A' }}</td>
                     <td>{{ $booking->check_in }}</td>
                     <td>{{ $booking->check_out }}</td>
                     <td>{{ $booking->status }}</td>
