@@ -4,7 +4,7 @@
 
 <style>
     .hero-section {
-        background: url('{{ asset('build/assets/images/service4.jpg') }}') no-repeat center center;
+        background: url('{{ asset('build/assets/images/room27.jpg') }}') no-repeat center center;
         background-size: cover;
         color: white;
         text-align: center;

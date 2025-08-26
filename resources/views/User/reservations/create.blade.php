@@ -4,7 +4,7 @@
 <style>
     .form-page {
         min-height: 100vh; /* full viewport height */
-        background: url({{ asset('build/assets/images/bg2.jpg') }}) center/cover no-repeat;
+        background: url({{asset('build/assets/images/bg2.jpg')}})center/cover no-repeat;
         display: flex;
         justify-content: center;
         align-items: center;
