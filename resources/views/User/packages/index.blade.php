@@ -54,6 +54,8 @@
         transform: scale(1.03);
     }
 
+    
+
      /* -----------------------Facilities----------------------------- */
      .facilities-section {
         margin-top: 100px;
@@ -109,7 +111,12 @@
     <div class="breadcrumb-container">
         <a href="{{ route('services') }}">Home</a> > Packages
     </div>                 
-    <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>  
+    {{-- <button class="btn btn-book mt-3" data-bs-toggle="modal" data-bs-target="#pakages">Get Package Now</button>   --}}
+    <button>
+        <a href="{{ route('user.book.package') }}" class="btn btn-book mt-3">
+            Get Package Now
+        </a>
+    </button>
 </div>
 
 {{-- Packages Section --}}
@@ -148,35 +155,39 @@
 </div> --}}
 <div class="container mt-5 py-5">
     <h2 class="text-center mb-4">Our Exclusive Packages</h2>
-    <div class="row">
+    <div class="row g-4">
         @foreach($packages as $package)
-            <div class="col-md-6 mb-4 package-card">
-                <div class="card mb-3" style="max-width: 540px;">
+            <div class="col-md-12 col-lg-6 d-flex"> <!-- use flex for equal height -->
+                <div class="card flex-fill h-100">
                     <div class="row g-0 h-100">
-                        <div class="col-6">
+                        <div class="col-12 col-sm-5"> <!-- stacked on small screens -->
                             @if (file_exists(public_path('assets/images/packages/' . $package->image)))
-                            <div style="height: 100%; overflow: hidden;"> <!-- Image container -->
-                                <img src="{{ asset('assets/images/packages/' . $package->image) }}" 
-                                     alt="Package Image" 
-                                     class="img-fluid h-100 w-100 object-fit-cover"> <!-- Updated image classes -->
-                            </div>
+                                <div class="h-100 overflow-hidden">
+                                    <img src="{{ asset('assets/images/packages/' . $package->image) }}" 
+                                         alt="Package Image" 
+                                         class="img-fluid h-100 w-100 object-fit-cover">
+                                </div>
                             @else
                                 <p class="h-100 d-flex align-items-center justify-content-center">Image not found</p>
                             @endif
                         </div>
-                        <div class="col-6">
-                            <div class="card-body h-100 d-flex flex-column"> <!-- Added flex classes -->
+                        <div class="col-12 col-sm-7">
+                            <div class="card-body h-100 d-flex flex-column">
                                 <h5 class="card-title">{{ $package->name }}</h5>
-                                <p class="card-text">{{ $package->description }}</p>
-                                <div class="mt-auto"> <!-- Pushes button to bottom -->
-                                    <p class="card-text">
-                                        <p class="card-text">
-                                            <p class="text-decoration-line-through text-muted">Regular Price: PKR {{ $package->regular_price }} /night</p>
-                                            <p>Package Price: PKR {{ $package->price }}</p>
-                                        </p>
+                                <p class="card-text">{!! $package->description !!}</p>
+
+                                <div class="mt-auto">
+                                    <p class="text-decoration-line-through text-muted mb-1">
+                                        Regular Price: PKR {{ $package->regular_price }} /night
                                     </p>
-                                    <button class="btn btn-book mt-3" onclick="showBookingForm({{ $package->id }})">Get Package Now</button>
+                                    <p class="mb-2">Package Price: PKR {{ $package->price }}</p>
+
+                                    {{-- <button class="btn btn-book mt-3" onclick="showBookingForm({{ $package->id }})">
+                                        Get Package Now
+                                    </button> --}}
+                                   
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -186,8 +197,11 @@
     </div>
 </div>
 
+
+
+
 {{-- Booking Form --}}
-<div class="modal fade" id="pakages">
+{{-- <div class="modal fade" id="pakages">
     <div class="modal-dialog">
         <div class="modal-content p-4">
             <h4 class="mb-3">Book a Package</h4>
@@ -249,13 +263,13 @@
             </form>
         </div>
     </div>
-</div>
+</div> --}}
 
-<script>
+{{-- <script>
   const today = new Date().toISOString().split('T')[0];
   document.getElementById("check_in").setAttribute('min', today);
   document.getElementById("check_out").setAttribute('min', today);
-</script>
+</script> --}}
 
 {{-- ----------------------------Facilities------------------------------ --}}
 <div class="facilities-section">
@@ -294,10 +308,10 @@
     </div>
 </div>
 
-<script>
+{{-- <script>
     function showBookingForm(packageId) {
         document.getElementById('package_id').value = packageId;
         new bootstrap.Modal(document.getElementById('pakages')).show();
     }
-</script>
+</script> --}}
 @endsection
