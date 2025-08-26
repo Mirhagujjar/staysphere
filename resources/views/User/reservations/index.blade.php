@@ -174,7 +174,7 @@
             <i class="fas fa-calendar-times"></i>
             <h4 class="no-reservations">You have no reservations yet</h4>
             <p class="mb-4">Start by browsing our available rooms and make your first reservation</p>
-            <a href="{{ route('user.rooms.index') }}" class="btn btn-primary px-4">
+            <a href="{{ route('rooms.index') }}" class="btn btn-primary px-4">
                 <i class="fas fa-door-open me-2"></i> Browse Rooms
             </a>
         </div>
