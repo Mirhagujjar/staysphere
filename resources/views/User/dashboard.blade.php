@@ -15,7 +15,7 @@
         --gray-700: #4a5568;
         --gray-100: #f8f9fc;
     }
-    
+
     .dashboard-card {
         border-radius: 0.75rem;
         box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
@@ -24,12 +24,12 @@
         overflow: hidden;
         position: relative;
     }
-    
+
     .dashboard-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.2);
     }
-    
+
     .dashboard-card::before {
         content: '';
         position: absolute;
@@ -38,16 +38,16 @@
         width: 100%;
         height: 4px;
     }
-    
+
     .card-primary::before { background-color: var(--primary); }
     .card-success::before { background-color: var(--success); }
     .card-warning::before { background-color: var(--warning); }
     .card-danger::before { background-color: var(--danger); }
-    
+
     .card-body {
         padding: 1.5rem;
     }
-    
+
     .stat-label {
         font-size: 0.85rem;
         font-weight: 600;
@@ -56,14 +56,14 @@
         color: var(--gray-700);
         margin-bottom: 0.5rem;
     }
-    
+
     .stat-value {
         font-size: 1.75rem;
         font-weight: 700;
         color: var(--gray-800);
         margin-bottom: 1rem;
     }
-    
+
     .stat-icon {
         position: absolute;
         right: 1.5rem;
@@ -72,7 +72,7 @@
         font-size: 4rem;
         z-index: 0;
     }
-    
+
     .stat-link {
         font-size: 0.85rem;
         font-weight: 600;
@@ -80,27 +80,27 @@
         align-items: center;
         color: inherit;
     }
-    
+
     .stat-link i {
         transition: transform 0.2s;
         font-size: 0.75rem;
         margin-left: 0.25rem;
     }
-    
+
     .stat-link:hover {
         text-decoration: none;
     }
-    
+
     .stat-link:hover i {
         transform: translateX(3px);
     }
-    
+
     .chart-card {
         border: none;
         border-radius: 0.75rem;
         box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
     }
-    
+
     .chart-card .card-header {
         background-color: var(--gray-100);
         border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -109,13 +109,13 @@
         color: var(--gray-800);
         border-radius: 0.75rem 0.75rem 0 0 !important;
     }
-    
+
     .chart-container {
         position: relative;
         padding: 1.5rem;
         min-height: 250px;
     }
-    
+
     .welcome-banner {
         background: linear-gradient(135deg, var(--primary) 0%, #224abe 100%);
         border-radius: 0.75rem;
@@ -125,7 +125,7 @@
         position: relative;
         overflow: hidden;
     }
-    
+
     .welcome-banner::before {
         content: '';
         position: absolute;
@@ -136,7 +136,7 @@
         background-color: rgba(255, 255, 255, 0.1);
         border-radius: 50%;
     }
-    
+
     .welcome-banner::after {
         content: '';
         position: absolute;
@@ -147,14 +147,14 @@
         background-color: rgba(255, 255, 255, 0.1);
         border-radius: 50%;
     }
-    
+
     .welcome-title {
         font-weight: 700;
         margin-bottom: 0.5rem;
         position: relative;
         z-index: 1;
     }
-    
+
     .welcome-text {
         opacity: 0.9;
         margin-bottom: 1.5rem;
@@ -162,12 +162,12 @@
         position: relative;
         z-index: 1;
     }
-    
+
     @media (max-width: 768px) {
         .stat-value {
             font-size: 1.5rem;
         }
-        
+
         .welcome-banner {
             padding: 1.5rem;
         }
@@ -195,7 +195,7 @@
                 <div class="card-body position-relative">
                     <i class="fas fa-bed stat-icon text-primary"></i>
                     <div class="stat-label">My Bookings</div>
-                    <div class="stat-value">{{ $totalUserBookings ?? 0 }}</div>
+                    <div class="stat-value">{{ $totalBookings ?? 0 }}</div>
                     <a href="{{ route('user.reservations.index') }}" class="stat-link text-primary">
                         View details <i class="fas fa-arrow-right"></i>
                     </a>
@@ -209,7 +209,7 @@
                 <div class="card-body position-relative">
                     <i class="fas fa-gift stat-icon text-success"></i>
                     <div class="stat-label">My Packages</div>
-                    <div class="stat-value">{{ $totalUserPackages ?? 0 }}</div>
+                    <div class="stat-value">{{ $totalPackages ?? 0 }}</div>
                     <a href="{{ route('booking.index') }}" class="stat-link text-success">
                         View details <i class="fas fa-arrow-right"></i>
                     </a>
@@ -223,7 +223,7 @@
                 <div class="card-body position-relative">
                     <i class="fas fa-concierge-bell stat-icon text-warning"></i>
                     <div class="stat-label">My Services</div>
-                    <div class="stat-value">{{ $totalUserServices ?? 0 }}</div>
+                    <div class="stat-value">{{ $totalServices ?? 0 }}</div>
                     <a href="{{ route('user.services.requests') }}" class="stat-link text-warning">
                         View details <i class="fas fa-arrow-right"></i>
                     </a>
@@ -237,7 +237,7 @@
                 <div class="card-body position-relative">
                     <i class="fas fa-calendar-alt stat-icon text-danger"></i>
                     <div class="stat-label">My Events</div>
-                    <div class="stat-value">{{ $totalUserEvents ?? 0 }}</div>
+                    <div class="stat-value">{{ $totalEvents ?? 0 }}</div>
                     <a href="{{ route('user.event-booking.index') }}" class="stat-link text-danger">
                         View details <i class="fas fa-arrow-right"></i>
                     </a>
@@ -268,6 +268,10 @@
                 <div class="card-body">
                     <div class="chart-container">
                         <canvas id="bookingTrendChart"></canvas>
+                        {{-- <div class="chart-container" style="position: relative; height:40vh; width:100%">
+                            <canvas id="bookingChart"></canvas>
+                        </div> --}}
+
                     </div>
                 </div>
             </div>

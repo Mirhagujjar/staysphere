@@ -19,7 +19,7 @@ class UserDashboardController extends Controller
         $totalBookings = Reservation::where('user_id', $user->id)->count();
         $totalPackages = PackageBooking::where('user_id', $user->id)->count();
         $totalServices = ServiceRequest::where('user_id', $user->id)->count();
-        $totalEvents   = UserEvent::where('email', $user->email)->count(); 
+        $totalEvents   = UserEvent::where('email', $user->email)->count();
         // 👆 If you add user_id in UserEvent later → switch to ->where('user_id',$user->id)
 
         /** ───── Booking Trend (last 6 months) ───── */
