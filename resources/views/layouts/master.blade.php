@@ -214,7 +214,7 @@
           Other Pages
         </a>
         <ul class="collapse list-unstyled ps-3" id="sidebarPages">
-          <li><a class="nav-link" href="{{route('menu')}}">Menu of the Day</a></li>
+          {{-- <li><a class="nav-link" href="{{route('menu')}}">Menu of the Day</a></li> --}}
           <li><a class="nav-link" href="{{ route('user.blogs.index') }}">Blog</a></li>
           <li><a class="nav-link" href="{{ route('user.packages.index') }}">Packages</a></li>
           <li><a class="nav-link" href="{{ route('user.gallery') }}">Gallery</a></li>
@@ -269,7 +269,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">Other Pages</a>
             <ul class="dropdown-menu dropdown-menu-dark">
-              <li><a class="dropdown-item" href="{{route('menu')}}">Menu of the Day</a></li>
+              {{-- <li><a class="dropdown-item" href="{{route('menu')}}">Menu of the Day</a></li> --}}
               <li><a class="dropdown-item" href="{{ route('user.blogs.index') }}">Blog</a></li>
               <li><a class="dropdown-item" href="{{ route('user.packages.index') }}">Packages</a></li>
               <li><a class="dropdown-item" href="{{ route('user.gallery') }}">Gallery</a></li>

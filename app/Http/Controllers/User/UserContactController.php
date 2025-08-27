@@ -24,10 +24,11 @@ class UserContactController extends Controller
 
         return redirect()->back()->with('success', 'Message sent successfully!');
     }
-public function index()
-{
-    $settings = \App\Models\ContactPageSetting::first();
-    return view('user.contact', compact('settings'));
-}
+    public function index()
+    {
+        $settings = \App\Models\ContactPageSetting::latest()->first();
+        return view('user.contact', compact('settings'));
+    }
+
 
 }

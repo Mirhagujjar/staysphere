@@ -7,7 +7,8 @@
     </div>
     <form action="{{ isset($faq) ? route('admin.about.faq.update', $faq->id) : route('admin.about.faq.store') }}" method="POST">
         @csrf
-        @if(isset($faq)) @method('PUT') @endif
+        @if(isset($faq)) 
+        @method('PUT') @endif
         
         <div class="card-body">
             <div class="form-group">

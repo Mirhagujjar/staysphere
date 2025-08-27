@@ -351,7 +351,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/about/faq/create', [AboutUsController::class, 'faqCreate'])->name('admin.about.faq.create');
     Route::post('/about/faq', [AboutUsController::class, 'faqStore'])->name('admin.about.faq.store');
     Route::get('/about/faq/{faq}/edit', [AboutUsController::class, 'faqEdit'])->name('admin.about.faq.edit');
-    Route::post('/about/faq/{faq}', [AboutUsController::class, 'faqUpdate'])->name('admin.about.faq.update');
+    Route::put('/about/faq/{faq}', [AboutUsController::class, 'faqUpdate'])->name('admin.about.faq.update');
     Route::delete('/about/faq/{faq}', [AboutUsController::class, 'faqDestroy'])->name('admin.about.faq.destroy');
 });
 
@@ -415,6 +415,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Group reservations
         Route::get('/create-group', [AdminReservationController::class, 'createGroup'])->name('create-group');
         Route::post('/create-group', [AdminReservationController::class, 'storeGroup'])->name('store-group');
+        Route::post('/create-group', [AdminReservationController::class, 'showGrouped'])->name('grouped-reservations');
         
         // Room assignment
         Route::get('/{id}/assign-rooms', [AdminReservationController::class, 'showAssignRooms'])->name('assign-rooms');
@@ -466,6 +467,8 @@ Route::prefix('reservations')->name('user.reservations.')->middleware('auth')->g
     Route::get('/{id}/invoice', [ReservationController::class, 'invoice'])
     ->name('invoice');
     Route::get('/{id}/invoice/pdf', [ReservationController::class, 'downloadInvoice'])->name('invoice.pdf');
+        // Single route for both actions
+    Route::post('/{reservation}/update-status', [ReservationController::class, 'updateReservationStatus'])->name('update-status');
 
 
 

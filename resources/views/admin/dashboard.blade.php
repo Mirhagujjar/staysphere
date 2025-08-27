@@ -296,6 +296,7 @@
                         </div>
                         <div class="mt-3">
                             <a href="{{ route('events') }}" class="text-info font-weight-bold">
+                            {{-- <a href="{{ route('admin.event-bookings.index') }}" class="text-info font-weight-bold"> --}}
                                 View details <i class="fas fa-arrow-right ml-1"></i>
                             </a>
                         </div>

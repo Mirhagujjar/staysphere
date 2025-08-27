@@ -545,16 +545,16 @@
 
 
     {{-- ---------------------- about us-------------- --}}
-    <div class="container section-container">
+    {{-- <div class="container section-container">
         <div class="row align-items-center">
-            <!-- Left Column: Images -->
+
             <div class="col-lg-5 col-md-6 position-relative text-center ">
                 <img src="{{ asset('build/assets/images/home/A1.jpg') }}" alt="Main Image"
                     class="img-fluid rounded-img main-img">
                 <img src="{{ asset('build/assets/images/home/A2.jpg') }}" alt="Overlay Image"
                     class="img-fluid rounded-img overlay-img">
             </div>
-            <!-- Right Column: Content -->
+
             <div class="col-lg-5 col-md-6 margin">
                 <div class="history-title">
                     <small>StaySphere Hotel</small>
@@ -568,7 +568,31 @@
                 <p class="history-text"> Creating memories through unparalleled service and exceptional comfort.</p>
             </div>
         </div>
+    </div> --}}
+
+    @if(isset($about))
+    <div class="container section-container">
+        <div class="row align-items-center">
+            {{-- Left --}}
+            <div class="col-lg-5 col-md-6 position-relative text-center">
+                <img src="{{ $about->main_image ? asset($about->main_image) : asset('assets/images/aboutus/about3.jpg') }}"
+                    alt="Main Image" class="img-fluid rounded-img main-img">
+
+                <img src="{{ $about->overlay_image ? asset($about->overlay_image) : asset('assets/images/aboutus/about2.jpg') }}"
+                    alt="Overlay Image" class="img-fluid rounded-img overlay-img">
+            </div>
+            {{-- Right --}}
+            <div class="col-lg-5 col-md-6 margin">
+                <div class="history-title">
+                    <small>{{ $about->history_subtitle }}</small>
+                    <h2>{{ $about->history_title }}</h2>
+                </div>
+                <p class="history-text">{!! nl2br(e($about->history_content)) !!}</p>
+            </div>
+        </div>
     </div>
+    @endif
+
 
 
     {{-- ----------------------rooms=--------------------- --}}
@@ -797,14 +821,14 @@
     </section>
 
     {{-- ----------------------our team----------------- --}}
-    <div class="our-team-section py-5">
+    {{-- <div class="our-team-section py-5">
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="section-title">Meet Our Team</h2>
                 <p class="section-subtitle">A dedicated team of professionals bringing luxury and comfort to your stay.</p>
             </div>
             <div class="row gy-4 text-dark">
-                {{-- --1 -- --}}
+
                 <div class="col-md-4">
                     <div class="team-card text-center p-4 shadow rounded">
                         <div class="team-image">
@@ -823,7 +847,6 @@
                     </div>
                 </div>
 
-                {{-- -- 2 -- --}}
                 <div class="col-md-4">
                     <div class="team-card text-center p-4 shadow rounded">
                         <div class="team-image">
@@ -842,8 +865,7 @@
                     </div>
                 </div>
 
-                {{-- -- 3 -- --}}
-                <div class="col-md-4">
+               <div class="col-md-4">
                     <div class="team-card text-center p-4 shadow rounded">
                         <div class="team-image">
                             <img src="{{ asset('build/assets/images/client1.jpg') }}" alt="Team Member 3"
@@ -860,6 +882,42 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div> --}}
+
+    <div class="our-team-section py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">{{ $about->team_section_title }}</h2>
+                <p class="section-subtitle">{{ $about->team_section_subtitle }}</p>
+            </div>
+            <div class="row gy-4">
+                @foreach($teamMembers as $member)
+                <div class="col-md-4">
+                    <div class="team-card text-center p-4 shadow rounded">
+                        <div class="team-image">
+                            <img src="{{ $member->image ? asset($member->image) : asset('assets/images/team1.jpg') }}"
+                                alt="{{ $member->name }}" class="img-fluid rounded-circle">
+                        </div>
+
+                        <h5 class="mt-3">{{ $member->name }}</h5>
+                        <p>{{ $member->position }}</p>
+                        <p class="team-description">{{ $member->description }}</p>
+                        <div class="social-links mt-3">
+                            @if($member->facebook)
+                            <a href="{{ $member->facebook }}" class="me-3"><i class="bi bi-facebook"></i></a>
+                            @endif
+                            @if($member->twitter)
+                            <a href="{{ $member->twitter }}" class="me-3"><i class="bi bi-twitter"></i></a>
+                            @endif
+                            @if($member->linkedin)
+                            <a href="{{ $member->linkedin }}"><i class="bi bi-linkedin"></i></a>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                @endforeach
             </div>
         </div>
     </div>

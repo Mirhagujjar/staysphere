@@ -30,10 +30,17 @@
                         @foreach ($packages as $package)
                             <tr>
                                 <td class="d-none d-md-table-cell">
-                                    <img src="{{ asset('assets/images/packages/' . $package->image) }}" 
-                                         alt="Package Image" 
-                                         class="img-thumbnail" 
-                                         style="width: 80px; height: auto;">
+                                    @if(!empty($package->image) && file_exists(public_path('assets/images/packages/' . $package->image)))
+                                        <img src="{{ asset('assets/images/packages/' . $package->image) }}" 
+                                            alt="{{ $package->name }}" 
+                                            class="img-thumbnail" 
+                                            style="width: 80px; height: auto;">
+                                    @else
+                                        <div class="bg-light d-flex align-items-center justify-content-center" 
+                                            style="width: 80px; height: 60px;">
+                                            <span class="text-muted">No image</span>
+                                        </div>
+                                    @endif
                                 </td>
                                 <td>{{ $package->name }}</td>
                                 <td>PKR {{ number_format($package->price, 2) }}</td>

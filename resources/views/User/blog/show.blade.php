@@ -1,3 +1,6 @@
+@php
+use Illuminate\Support\Str;
+@endphp
 @extends('layouts.app')
 
 @section('content')
@@ -107,20 +110,6 @@
             <div class="blog-content">
                 {!! $blog->content !!}
             </div>
-
-            {{-- Optional: Uncomment if gallery is needed inside blog --}}
-            {{-- @if($blog->gallery->count() > 0)
-                <section class="gallery-section mt-5">
-                    <h2 class="text-center">Gallery</h2>
-                    <div class="gallery-grid">
-                        @foreach($blog->gallery as $image)
-                            <div class="gallery-item">
-                                <img src="{{ asset($image->image_path) }}" alt="Gallery Image">
-                            </div>
-                        @endforeach
-                    </div>
-                </section>
-            @endif --}}
         </div>
 
         <!-- Sidebar -->
@@ -133,24 +122,6 @@
                     @endforeach
                 </ul>
             </div>
-
-            {{-- Optional: Blog Categories --}}
-            {{-- <div class="sidebar-section">
-                <h4>Categories</h4>
-                <ul class="list-unstyled">
-                    @foreach($blog->categories as $category)
-                        <li><a href="{{ route('user.blogs.category', $category) }}">{{ $category->name }}</a></li>
-                    @endforeach
-                </ul>
-            </div> --}}
-
-            {{-- Optional: CTA box --}}
-            {{-- <div class="cta-box mt-4">
-                <h5>Exclusive Offer: 20% Off on Deluxe Rooms!</h5>
-                <p>Book now and enjoy a luxurious stay with us.</p>
-                <a href="{{ route('user.reservations.create') }}" class="btn btn-warning">Book Now</a>
-            </div> --}}
-        </div>
     </div>
 </div>
 @endsection

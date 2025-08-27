@@ -67,7 +67,7 @@
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Room Name*</label>
                                 <input type="text" name="room_name" class="form-control @error('room_name') is-invalid @enderror" 
-                                       value="{{ old('room_name') }}" required>
+                                       value="{{ old('room_name')}}" required>
                                 @error('room_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

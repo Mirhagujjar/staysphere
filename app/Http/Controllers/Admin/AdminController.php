@@ -16,6 +16,7 @@ use App\Models\Event;
 use App\Models\Review;
 use App\Models\Blog;
 use App\Models\ContactMessage; // use the model you actually have
+use App\Models\UserEvent;
 
 class AdminController extends Controller
 {
@@ -33,6 +34,7 @@ class AdminController extends Controller
         $totalUsers            = User::count();
         $totalPackages         = Package::count();
         $totalEvents           = Event::count();
+        $totalEventbookings    = UserEvent::count();
         $totalReviews          = Review::count();
         $totalBlogs            = Blog::count();
         $totalContactMessages  = ContactMessage::count();
@@ -62,7 +64,8 @@ class AdminController extends Controller
             'totalContactMessages',
             'typeWiseCounts',
             'latestReservations',
-            'latestServiceRequests'
+            'latestServiceRequests',
+            'totalEventbookings'
         );
 
         // super admin vs normal admin view

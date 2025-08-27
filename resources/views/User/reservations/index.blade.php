@@ -127,6 +127,31 @@
         font-weight: 500;
         min-width: 100px;
     }
+    
+    /* Modal styling */
+    .modal-content {
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+    }
+    .modal-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #e9ecef;
+        border-radius: 10px 10px 0 0;
+        padding: 1rem 1.5rem;
+    }
+    .modal-title {
+        font-weight: 600;
+        color: #2d3748;
+    }
+    .modal-body {
+        padding: 1.5rem;
+    }
+    .modal-footer {
+        border-top: 1px solid #e9ecef;
+        padding: 1rem 1.5rem;
+        border-radius: 0 0 10px 10px;
+    }
 </style>
 
 
@@ -218,6 +243,7 @@
                             </div>
 
                             <div class="card-body">
+                                
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <div class="detail-item">
@@ -234,55 +260,6 @@
                                         </div>
                                     </div>
 
-
-
-
-
-
-
-
-                                    {{-- @if($reservation->is_parent)
-                                    @php
-                                        $roomTotal = $reservation->children->sum(function($child) use ($reservation) {
-                                            return ($child->room ? $child->room->price : 0) * $reservation->check_in->diffInDays($reservation->check_out);
-                                        });
-                                    @endphp
-                                @else
-                                    @php
-                                        $roomTotal = ($reservation->room ? $reservation->room->price : 0) * $reservation->check_in->diffInDays($reservation->check_out);
-                                    @endphp
-                                @endif --}}
-                                
-                                {{-- @php
-                                    $servicesTotal = $reservation->services->sum('price');
-                                    $subtotal = $roomTotal + $servicesTotal;
-                                    $tax = $subtotal * 0.10;
-                                    $grandTotal = $subtotal + $tax;
-                                @endphp --}}
-
-                                {{-- <div class="d-flex justify-content-between fw-bold fs-5 border-top pt-2 mt-2">
-                                    <span>Total:</span>
-                                    <span>Rs {{ number_format($grandTotal, 2) }}</span>
-                                </div> --}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                     <div class="col-md-6">
                                         <div class="detail-item">
                                             <span class="detail-label"><i class="fas fa-user-friends me-2"></i>Total Guests:</span>
@@ -292,10 +269,7 @@
                                             <span class="detail-label"><i class="fas fa-door-open me-2"></i>Total Rooms:</span>
                                             <span>{{ $group->children->count() }}</span>
                                         </div>
-                                        <div class="detail-item">
-                                            <span class="detail-label"><i class="fas fa-hashtag me-2"></i>Reference:</span>
-                                            <span>{{ $group->reference_number }}</span>
-                                        </div>
+                                        
                                     </div>
                                 </div>
 
@@ -329,12 +303,12 @@
                                                 <span class="room-number">{{ $child->room->room_name }}</span>
                                             </div>
                                             @endif
-                                           @if($child->room && $child->room->price)
+                                           {{-- @if($child->room && $child->room->price)
                                             <div class="detail-item">
                                                 <span class="detail-label"><i class="fas fa-hashtag me-2"></i>Price:</span>
                                                 <span class="room-price">{{ $child->price }}</span>
                                             </div>
-                                            @endif
+                                            @endif --}}
 
                                             <div class="d-flex flex-wrap mt-2">
                                                 <a href="{{ route('user.reservations.show', $child->id) }}" 
@@ -352,6 +326,19 @@
                                                             <i class="fas fa-times"></i> Cancel
                                                         </button>
                                                     </form>
+                                                @endif
+                                                
+                                                <!-- Add Checkout and Cancel buttons for confirmed status -->
+                                                @if($child->status == 'confirmed')
+                                                    <button type="button" class="btn btn-sm btn-outline-success mb-2 checkout-btn" 
+                                                            data-reservation-id="{{ $child->id }}">
+                                                        <i class="fas fa-sign-out-alt"></i> Checkout
+                                                    </button>
+                                                    
+                                                    <button type="button" class="btn btn-sm btn-outline-danger mb-2 cancel-btn" 
+                                                            data-reservation-id="{{ $child->id }}">
+                                                        <i class="fas fa-times"></i> Cancel
+                                                    </button>
                                                 @endif
                                             </div>
                                         </div>
@@ -381,6 +368,19 @@
                                             </button>
                                         </form>
                                     @endif
+                                    
+                                    <!-- Add Checkout and Cancel buttons for confirmed group status -->
+                                    @if($group->status == 'confirmed')
+                                        <button type="button" class="action-btn btn btn-outline-success checkout-btn" 
+                                                data-reservation-id="{{ $group->id }}">
+                                            <i class="fas fa-sign-out-alt me-1"></i> Group Checkout
+                                        </button>
+                                        
+                                        <button type="button" class="action-btn btn btn-outline-danger cancel-btn" 
+                                                data-reservation-id="{{ $group->id }}">
+                                            <i class="fas fa-times me-1"></i> Cancel Group
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -406,14 +406,18 @@
 
                             <div class="card-body">
                                 <h5>{{ $roomReservation->room_type }}</h5>
+                                {{-- Status Badge --}}
+                                <span class="status-badge status-{{ str_replace(' ', '_', $roomReservation->status) }}">
+                                        {{ ucfirst($roomReservation->status) }}
+                                    </span>
                                 <div class="detail-item">
                                     <span class="detail-label"><i class="fas fa-user-friends me-2"></i>Guests:</span>
                                     <span>{{ $roomReservation->guests }}</span>
                                 </div>
-                                <div class="detail-item">
+                                {{-- <div class="detail-item">
                                     <span class="detail-label"><i class="bi-icon bi bi-Dollar me-2"></i>Price:</span>
                                     <span>{{$roomReservation->room->price }}</span>
-                                </div>
+                                </div> --}}
                                 <div class="detail-item">
                                     <span class="detail-label"><i class="fas fa-calendar-check me-2"></i>Check-in:</span>
                                     <span>{{ $roomReservation->check_in->format('M d, Y') }}</span>
@@ -450,6 +454,19 @@
                                                 <i class="fas fa-times"></i> Cancel
                                             </button>
                                         </form>
+                                    @endif
+                                    
+                                    <!-- Add Checkout and Cancel buttons for confirmed status -->
+                                    @if($roomReservation->status == 'confirmed')
+                                        <button type="button" class="btn btn-sm btn-outline-success mb-2 checkout-btn" 
+                                                data-reservation-id="{{ $roomReservation->id }}">
+                                            <i class="fas fa-sign-out-alt"></i> Checkout
+                                        </button>
+                                        
+                                        <button type="button" class="btn btn-sm btn-outline-danger mb-2 cancel-btn" 
+                                                data-reservation-id="{{ $roomReservation->id }}">
+                                            <i class="fas fa-times"></i> Cancel
+                                        </button>
                                     @endif
                                 </div>
                             </div>
@@ -532,15 +549,89 @@
     @endif
 </div>
 
+<!-- Cancel Modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cancelModalLabel">Cancel Reservation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="cancelForm" method="POST">
+                @csrf
+                <input type="hidden" name="status" value="cancelled">
+                <div class="modal-body">
+                    <p>Are you sure you want to cancel this reservation?</p>
+                    <div class="mb-3">
+                        <label for="cancelReason" class="form-label">Reason for cancellation:</label>
+                        <textarea class="form-control" id="cancelReason" name="reason" rows="3" 
+                                  placeholder="Please provide a reason for cancellation" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Confirm Cancellation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Checkout Modal -->
+<div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="checkoutModalLabel">Checkout</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="checkoutForm" method="POST">
+                @csrf
+                <input type="hidden" name="status" value="checked_out">
+                <div class="modal-body">
+                    <p>Are you sure you want to checkout from this reservation?</p>
+                    <div class="mb-3">
+                        <label for="checkoutNotes" class="form-label">Checkout notes:</label>
+                        <textarea class="form-control" id="checkoutNotes" name="reason" rows="3" 
+                                  placeholder="Any feedback about your stay" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Confirm Checkout</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Add confirmation for cancellation buttons
-    document.querySelectorAll('form[action*="destroy"]').forEach(form => {
-        form.addEventListener('submit', function(e) {
-            const isGroup = form.getAttribute('action').includes('group');
-            if (!confirm(`Are you sure you want to cancel this ${isGroup ? 'group ' : ''}reservation?`)) {
-                e.preventDefault();
-            }
+    // Handle cancel button clicks
+    document.querySelectorAll('.cancel-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const reservationId = this.getAttribute('data-reservation-id');
+            const form = document.getElementById('cancelForm');
+            
+            // Use the correct route name with parameter
+            form.action = `/reservations/${reservationId}/update-status`;
+            
+            const modal = new bootstrap.Modal(document.getElementById('cancelModal'));
+            modal.show();
+        });
+    });
+    
+    // Handle checkout button clicks
+    document.querySelectorAll('.checkout-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const reservationId = this.getAttribute('data-reservation-id');
+            const form = document.getElementById('checkoutForm');
+            
+            // Use the correct route name with parameter
+            form.action = `/reservations/${reservationId}/update-status`;
+            
+            const modal = new bootstrap.Modal(document.getElementById('checkoutModal'));
+            modal.show();
         });
     });
 });

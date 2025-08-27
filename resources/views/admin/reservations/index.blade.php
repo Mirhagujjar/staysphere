@@ -1,4 +1,3 @@
-
 @extends('layouts.admin')
 
 @section('content')
@@ -9,6 +8,17 @@
     .room-img-container { height:120px; overflow:hidden; }
     .room-img { width:100%; height:100%; object-fit:cover; }
     .section-title { font-weight:600; color:#2d3748; margin:2rem 0 1.5rem; padding-bottom:0.75rem; border-bottom:1px solid rgba(0,0,0,0.1); }
+    .reason-box {
+        background-color: #f8f9fa;
+        border-left: 4px solid #6c757d;
+        padding: 10px;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+    .reason-label {
+        font-weight: 600;
+        color: #495057;
+    }
 </style>
 
 <div class="container-fluid px-4 py-4">
@@ -19,6 +29,20 @@
             <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-search me-1"></i> Search</button>
         </form>
     </div>
+
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show mb-4">
+            <i class="fas fa-check-circle me-2"></i> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show mb-4">
+            <i class="fas fa-exclamation-circle me-2"></i> {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
     {{-- Group Reservations --}}
     @if($groupedReservations->isNotEmpty())
@@ -40,9 +64,13 @@
                             <option value="checked_out" {{ $group->status == 'checked_out' ? 'selected' : '' }}>Checked Out</option>
                             <option value="cancelled" {{ $group->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                         </select>
+                        <div class="me-2">
+                            <input type="text" name="reason" class="form-control form-control-sm" placeholder="Reason (if cancelling)" 
+                                   value="{{ $group->reason }}" style="width: 200px;">
+                        </div>
                         <button type="submit" class="btn btn-sm btn-outline-primary">Update</button>
                     </form>
-                    <a href="{{ route('admin.reservations.grouped-reservation', $group->id) }}" class="btn btn-sm btn-outline-secondary me-2">
+                    <a href="{{ route('admin.reservations.grouped-reservations', $group->id) }}" class="btn btn-sm btn-outline-secondary me-2">
                         <i class="fas fa-eye"></i> View Group
                     </a>
                     <a href="{{ route('admin.reservations.invoice', $group->id) }}" class="btn btn-outline-primary">
@@ -62,17 +90,32 @@
                             <p><strong>Phone:</strong> {{ $group->phone }}</p>
                         </div>
                         <div class="col-md-6">
+                            <span class="position-absolute top-0 end-0 m-2 badge rounded-pill 
+                                @if($group->status == 'confirmed') bg-success
+                                @elseif($group->status == 'pending') bg-warning
+                                @elseif($group->status == 'cancelled') bg-danger
+                                @elseif($group->status == 'checked_out') bg-secondary
+                                @else bg-light text-dark
+                                @endif">
+                                {{ ucfirst($group->status) }}
+                            </span>
                             <p><strong>Total Guests:</strong> {{ $group->children->sum('guests') }}</p>
                             <p><strong>Total Rooms:</strong> {{ $group->children->count() }}</p>
-                            <p><strong>Reference:</strong> {{ $group->reference_number }}</p>
                         </div>
                     </div>
+
+                    <!-- Display reason if exists -->
+                    @if($group->reason)
+                    <div class="reason-box mb-3">
+                        <span class="reason-label">Reason:</span> {{ $group->reason }}
+                    </div>
+                    @endif
 
                     <h6 class="mb-3"><i class="fas fa-door-open me-2"></i> Rooms in this Group:</h6>
                     <div class="row g-3">
                         @foreach($group->children as $child)
                         <div class="col-md-4">
-                            <div class="room-card p-3">
+                            <div class="room-card p-3">   
                                 <h6>{{ $child->room_type }}</h6>
                                 @if($child->room && $child->room->image)
                                 <div class="room-img-container mb-2 rounded">
@@ -83,6 +126,13 @@
                                 <p>Check-in: {{ $child->check_in->format('M d, Y') }}</p>
                                 <p>Check-out: {{ $child->check_out->format('M d, Y') }}</p>
 
+                                <!-- Display child reason if exists -->
+                                @if($child->reason)
+                                <div class="reason-box mb-2">
+                                    <span class="reason-label">Reason:</span> {{ $child->reason }}
+                                </div>
+                                @endif
+
                                 {{-- Child status form --}}
                                 <form method="POST" action="{{ route('admin.reservations.updatestatus', $child->id) }}" class="d-flex mb-2">
                                     @csrf @method('PATCH')
@@ -92,6 +142,10 @@
                                         <option value="checked_out" {{ $child->status == 'checked_out' ? 'selected' : '' }}>Checked Out</option>
                                         <option value="cancelled" {{ $child->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                                     </select>
+                                    <div class="me-2">
+                                        <input type="text" name="reason" class="form-control form-control-sm" placeholder="Reason" 
+                                               value="{{ $child->reason }}" style="width: 120px;">
+                                    </div>
                                     <button type="submit" class="btn btn-sm btn-outline-primary">Save</button>
                                 </form>
 
@@ -106,9 +160,7 @@
                                     <i class="fas fa-file-invoice me-1"></i> Invoice
                                 </a>
 
-
-
-                                <div class="d-flex flex-wrap">
+                                <div class="d-flex flex-wrap mt-2">
                                     <a href="{{ route('admin.reservations.show', $child->id) }}" class="btn btn-sm btn-outline-secondary me-2"><i class="fas fa-eye"></i></a>
                                     <form action="{{ route('admin.reservations.destroy', $child->id) }}" method="POST">
                                         @csrf @method('DELETE')
@@ -127,11 +179,10 @@
     @endif
 
     {{-- Single Reservations --}}
-        <!-- Individual Reservations -->
     <h4 class="section-title"><i class="fas fa-calendar-check me-2"></i> Single Reservations</h4>
     <div class="row">
         @forelse($reservations as $reservation)
-        <div class="col-xl-4 col-lg-6 col-md-6 mb-4 ">
+        <div class="col-xl-4 col-lg-6 col-md-6 mb-4">
             <div class="card reservation-card h-100">
                 <div class="position-relative">
                     @if($reservation->room && $reservation->room->image)
@@ -144,12 +195,28 @@
                 </div>
 
                 <div class="card-body">
+                    <span class="position-absolute top-0 end-0 m-2 badge rounded-pill 
+                        @if($reservation->status == 'confirmed') bg-success
+                        @elseif($reservation->status == 'pending') bg-warning
+                        @elseif($reservation->status == 'cancelled') bg-danger
+                        @elseif($reservation->status == 'checked_out') bg-secondary
+                        @else bg-light text-dark
+                        @endif">
+                        {{ ucfirst($reservation->status) }}
+                    </span>
                     <h5>{{ $reservation->name }}</h5>
                     <p><strong>Room Type:</strong> {{ $reservation->room_type }}</p>
                     <p><i class="fas fa-user-friends me-1"></i> {{ $reservation->guests }} guests</p>
                     <p>Check-in: {{ $reservation->check_in->format('M d, Y') }}</p>
                     <p>Check-out: {{ $reservation->check_out->format('M d, Y') }}</p>
                     <p><strong>Contact:</strong> {{ $reservation->email }} | {{ $reservation->phone }}</p>
+
+                    <!-- Display reason if exists -->
+                    @if($reservation->reason)
+                    <div class="reason-box mb-3">
+                        <span class="reason-label">Reason:</span> {{ $reservation->reason }}
+                    </div>
+                    @endif
 
                     <!-- Single status form -->
                     <form method="POST" action="{{ route('admin.reservations.updatestatus', $reservation->id) }}" class="d-flex mb-2">
@@ -162,20 +229,21 @@
                             <option value="checked_out" {{ $reservation->status == 'checked_out' ? 'selected' : '' }}>Checked Out</option>
                             <option value="cancelled" {{ $reservation->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                         </select>
-
+                        <div class="me-2">
+                            <input type="text" name="reason" class="form-control form-control-sm" placeholder="Reason" 
+                                   value="{{ $reservation->reason }}" style="width: 120px;">
+                        </div>
                         <button type="submit" class="btn btn-sm btn-outline-primary">Save</button>
                     </form>
 
-                         <button type="button" 
-                                class="btn btn-primary" 
-                                data-bs-toggle="modal" 
-                                data-bs-target="#assignRoomModal-{{ $reservation->id }}">
-                            Assign Room
-                        </button>
+                    <button type="button" 
+                            class="btn btn-primary" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#assignRoomModal-{{ $reservation->id }}">
+                        Assign Room
+                    </button>
 
-
-
-                    <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-wrap mt-2">
                         <a href="{{ route('admin.reservations.show', $reservation->id) }}" class="btn btn-sm btn-outline-secondary me-2">
                             <i class="fas fa-eye"></i>
                         </a>
@@ -238,12 +306,19 @@
                             <p class="mb-1"><i class="fas fa-hashtag me-1"></i> Room {{ $reservation->room->room_name }}</p>
                             @endif
                         </div>
+
+                        <!-- Display reason if exists -->
+                        @if($reservation->reason)
+                        <div class="reason-box mb-3">
+                            <span class="reason-label">Reason:</span> {{ $reservation->reason }}
+                        </div>
+                        @endif
                         
                         <div class="d-flex flex-wrap border-top pt-3">
                             <a href="{{ route('admin.reservations.show', $reservation->id) }}" class="btn btn-outline-secondary me-2">
                                 <i class="fas fa-eye me-1"></i> Details
                             </a>
-                             <form action="{{ route('admin.reservations.destroy', $reservation->id) }}" method="POST">
+                            <form action="{{ route('admin.reservations.destroy', $reservation->id) }}" method="POST">
                                 @csrf @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
                             </form>
@@ -260,5 +335,20 @@
 </div>
 
 @include('admin.reservations.partials.assign-room-modal')
-@endsection
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listeners for status changes
+    document.querySelectorAll('.status-select').forEach(select => {
+        select.addEventListener('change', function() {
+            const reservationId = this.getAttribute('data-id');
+            const roomType = this.getAttribute('data-roomtype');
+            const newStatus = this.value;
+            
+            // You can add additional logic here if needed
+            console.log(`Reservation ${reservationId} (${roomType}) status changed to: ${newStatus}`);
+        });
+    });
+});
+</script>
+@endsection

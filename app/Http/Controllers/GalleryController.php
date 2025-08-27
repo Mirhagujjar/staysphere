@@ -64,7 +64,7 @@ class GalleryController extends Controller
     public function updateGallery(Request $request)
     {
         $request->validate([
-            'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+            'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg'
         ]);
 
         $page = PageSetting::where('page_name', 'blog_main')->firstOrFail();

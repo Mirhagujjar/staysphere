@@ -9,7 +9,7 @@ class ContactPageSettingController extends Controller
 {
     public function index()
     {
-        $settings = ContactPageSetting::first();
+        $settings = ContactPageSetting::latest()->first();
         return view('admin.contact.contact_settings.index', compact('settings'));
     }
 
@@ -28,8 +28,8 @@ class ContactPageSettingController extends Controller
             'right_section_phone' => 'required|string',
             'right_section_email' => 'required|email',
             'contact_info_heading' => 'nullable|string|max:255',
-            'half_page_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'contact_section_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'half_page_image' => 'nullable|image|mimes:jpg,jpeg,png',
+            'contact_section_image' => 'nullable|image|mimes:jpg,jpeg,png',
         ]);
 
         $data = $request->only([
@@ -72,8 +72,8 @@ class ContactPageSettingController extends Controller
             'right_section_phone' => 'required|string',
             'right_section_email' => 'required|email',
             'contact_info_heading' => 'nullable|string|max:255',
-            'half_page_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'contact_section_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'half_page_image' => 'nullable|image|mimes:jpg,jpeg,png',
+            'contact_section_image' => 'nullable|image|mimes:jpg,jpeg,png',
         ]);
 
         $settings = ContactPageSetting::findOrFail($id);
@@ -85,10 +85,12 @@ class ContactPageSettingController extends Controller
         ]);
 
         if ($request->hasFile('half_page_image')) {
-            $name = time().'_half.'.$request->half_page_image->extension();
+            $extension = $request->half_page_image->extension(); // gets jpg, png etc.
+            $name = time().'_half.'.$extension;
             $request->half_page_image->move(public_path('assets/images/contact'), $name);
             $data['half_page_image'] = 'assets/images/contact/'.$name;
         }
+
 
         if ($request->hasFile('contact_section_image')) {
             $name = time().'_section.'.$request->contact_section_image->extension();

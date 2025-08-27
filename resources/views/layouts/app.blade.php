@@ -60,10 +60,12 @@
                 <i class="fas fa-user-circle me-2 text-primary"></i>
                 <span>{{ __('Profile') }}</span>
             </a>
-            <a class="dropdown-item d-flex align-items-center py-2" href="{{ route('user.dashboard') }}">
+            <a class="dropdown-item d-flex align-items-center py-2" 
+            href="{{ auth()->user()->can('access-super-admin') ? route('admin.dashboard') : route('user.dashboard') }}">
                 <i class="fas fa-tachometer-alt me-2 text-info"></i>
                 <span>Dashboard</span>
             </a>
+
             
             <hr class="dropdown-divider my-1">
             

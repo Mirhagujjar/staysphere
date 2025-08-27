@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Log;
+use App\Models\User;
+use App\Models\NotificationHelper;
 
 /**
  * Display the specified reservation.
@@ -336,313 +338,41 @@ class ReservationController extends Controller
     }
 
 
-    // public function cancelReservation($id)
-    // {
-    //     $reservation = Reservation::where('user_id', auth()->id())->findOrFail($id);
+// Add this method to your User ReservationController
+    public function updateReservationStatus(Request $request, $id)
+    {
+        $reservation = Reservation::findOrFail($id);
+        
+        // Check if the reservation belongs to the authenticated user
+        if ($reservation->user_id !== Auth::id()) {
+            return redirect()->back()->with('error', 'You are not authorized to update this reservation.');
+        }
 
-    //     if ($reservation->status !== 'pending') {
-    //         return back()->with('error', 'Only pending reservations can be cancelled.');
-    //     }
+        $request->validate([
+            'status' => 'required|in:cancelled,checked_out',
+            'reason' => 'required|string|max:500'
+        ]);
 
-    //     $reservation->update(['status' => 'cancelled']);
+        // Only allow certain status changes
+        if (!in_array($request->status, ['cancelled', 'checked_out'])) {
+            return redirect()->back()->with('error', 'Invalid status update.');
+        }
 
-    //     return redirect()->route('user.reservations.index')
-    //         ->with('success', 'Reservation cancelled successfully!');
-    // }
+        // Store the old status for notification
+        $oldStatus = $reservation->status;
+        $reservation->status = $request->status;
+        $reservation->reason = $request->reason;
+        $reservation->save();
 
-    // public function reservationHistory()
-    // {
-    //     $reservations = Reservation::where('user_id', auth()->id())
-    //         ->orderBy('check_in', 'desc')
-    //         ->paginate(10);
+        // Send notification to admin
+        NotificationHelper::sendNotificationWithPayload(
+            'admin', 
+            "Reservation {$request->status}", 
+            "Reservation #{$reservation->id} has been {$request->status} by user. Reason: {$request->reason}"
+        );
 
-    //     return view('user.reservations.history', compact('reservations'));
-    // }
-
-    // public function reservationDetails($id)
-    // {
-    //     $reservation = Reservation::with(['room', 'services'])
-    //         ->where('user_id', auth()->id())
-    //         ->findOrFail($id);
-
-    //     return view('user.reservations.details', compact('reservation'));
-    // }
-
-    // public function reservationStatus($id)
-    // {
-    //     $reservation = Reservation::where('user_id', auth()->id())->findOrFail($id);
-
-    //     if ($reservation->status === 'pending') {
-    //         return back()->with('error', 'This reservation is still pending.');
-    //     }
-
-    //     return view('user.reservations.status', compact('reservation'));
-    // }
-
-    // public function reservationPayment($id)
-    // {
-    //     $reservation = Reservation::where('user_id', auth()->id())->findOrFail($id);
-
-    //     if ($reservation->status !== 'pending') {
-    //         return back()->with('error', 'Only pending reservations can be paid.');
-    //     }
-
-    //     // Here you would typically integrate with a payment gateway
-    //     // For now, we'll just simulate a successful payment
-
-    //     $reservation->update(['status' => 'paid']);
-
-    //     return redirect()->route('user.reservations.index')
-    //         ->with('success', 'Payment successful! Reservation is now confirmed.');
-    // }
-
-    // public function reservationSummary($id)
-    // {
-    //     $reservation = Reservation::with(['room', 'services'])
-    //         ->where('user_id', auth()->id())
-    //         ->findOrFail($id);
-
-    //     $roomTotal = $reservation->room->price ?? 0;
-    //     $servicesTotal = $reservation->services->sum('price');
-    //     $total = $roomTotal + $servicesTotal;
-
-    //     return view('user.reservations.summary', compact('reservation', 'roomTotal', 'servicesTotal', 'total'));
-    // }
-
-    // public function reservationFeedback($id)
-    // {
-    //     $reservation = Reservation::where('user_id', auth()->id())->findOrFail($id);
-
-    //     if ($reservation->status !== 'completed') {
-    //         return back()->with('error', 'Only completed reservations can be reviewed.');
-    //     }
-
-    //     return view('user.reservations.feedback', compact('reservation'));
-    // }
-
-    // public function submitFeedback(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'rating' => 'required|integer|min:1|max:5',
-    //         'comments' => 'nullable|string|max:500',
-    //     ]);
-
-    //     $reservation = Reservation::where('user_id', auth()->id())->findOrFail($id);
-
-    //     if ($reservation->status !== 'completed') {
-    //         return back()->with('error', 'Only completed reservations can be reviewed.');
-    //     }
-
-    //     // Save feedback logic here (e.g., save to a Feedback model)
-
-    //     return redirect()->route('user.reservations.index')
-    //         ->with('success', 'Thank you for your feedback!');
-    // }
-
-    // public function reservationCancellationPolicy()
-    // {
-    //     // Return a view with cancellation policy details
-    //     return view('user.reservations.cancellation_policy');
-    // }
-
-    // public function reservationTermsAndConditions()
-    // {
-    //     // Return a view with terms and conditions
-    //     return view('user.reservations.terms_and_conditions');
-    // }
-
-    // public function reservationPrivacyPolicy()
-    // {
-    //     // Return a view with privacy policy details
-    //     return view('user.reservations.privacy_policy');
-    // }
-
-    // public function reservationContactSupport()
-    // {
-    //     // Return a view with contact support details
-    //     return view('user.reservations.contact_support');
-    // }
-
-    // public function reservationFAQs()
-    // {
-    //     // Return a view with frequently asked questions
-    //     return view('user.reservations.faqs');
-    // }
-
-    // public function reservationNotifications()
-    // {
-    //     // Return a view with reservation notifications
-    //     return view('user.reservations.notifications');
-    // }
-
-    // public function reservationSettings()
-    // {
-    //     // Return a view with reservation settings
-    //     return view('user.reservations.settings');
-    // }
-
-    // public function reservationHelp()
-    // {
-    //     // Return a view with reservation help and support
-    //     return view('user.reservations.help');
-    // }
-    // public function reservationHistoryDetails($id)
-    // {
-    //     $reservation = Reservation::with(['room', 'services'])
-    //         ->where('user_id', auth()->id())
-    //         ->findOrFail($id);
-
-    //     return view('user.reservations.history_details', compact('reservation'));
-    // }
-
-    // public function reservationUpcoming()
-    // {
-    //     $reservations = Reservation::where('user_id', auth()->id())
-    //         ->whereDate('check_in', '>=', now())
-    //         ->orderBy('check_in', 'asc')
-    //         ->paginate(10);
-
-    //     return view('user.reservations.upcoming', compact('reservations'));
-    // }
-
-    // public function reservationPast()
-    // {
-    //     $reservations = Reservation::where('user_id', auth()->id())
-    //         ->whereDate('check_out', '<', now())
-    //         ->orderBy('check_out', 'desc')
-    //         ->paginate(10);
-
-    //     return view('user.reservations.past', compact('reservations'));
-    // }
-
-    // public function reservationPending()
-    // {
-    //     $reservations = Reservation::where('user_id', auth()->id())
-    //         ->where('status', 'pending')
-    //         ->orderBy('check_in', 'asc')
-    //         ->paginate(10);
-
-    //     return view('user.reservations.pending', compact('reservations'));
-    // }
-
-    // public function reservationConfirmed()
-    // {
-    //     $reservations = Reservation::where('user_id', auth()->id())
-    //         ->where('status', 'confirmed')
-    //         ->orderBy('check_in', 'asc')
-    //         ->paginate(10);
-
-    //     return view('user.reservations.confirmed', compact('reservations'));
-    // }
-
-    // public function reservationCancelled()
-    // {
-    //     $reservations = Reservation::where('user_id', auth()->id())
-    //         ->where('status', 'cancelled')
-    //         ->orderBy('check_in', 'asc')
-    //         ->paginate(10);
-
-    //     return view('user.reservations.cancelled', compact('reservations'));
-    // }
-
-    // public function reservationCheckedOut()
-    // {
-    //     $reservations = Reservation::where('user_id', auth()->id())
-    //         ->where('status', 'checked_out')
-    //         ->orderBy('check_in', 'asc')
-    //         ->paginate(10);
-
-    //     return view('user.reservations.checked_out', compact('reservations'));
-    // }
-
-    // public function reservationDetailsByStatus($status)
-    // {
-    //     $reservations = Reservation::where('user_id', auth()->id())
-    //         ->where('status', $status)
-    //         ->orderBy('check_in', 'asc')
-    //         ->paginate(10);
-
-    //     return view('user.reservations.details_by_status', compact('reservations', 'status'));
-    // }
-
-    // public function reservationSearch(Request $request)
-    // {
-    //     $search = $request->input('search');
-    //     $reservations = Reservation::where('user_id', auth()->id())
-    //         ->where(function ($query) use ($search) {
-    //             $query->where('room_name', 'like', "%{$search}%")
-    //                 ->orWhere('status', 'like', "%{$search}%");
-    //         })
-    //         ->orderBy('check_in', 'asc')
-    //         ->paginate(10);
-
-    //     return view('user.reservations.search_results', compact('reservations', 'search'));
-    // }
-    // public function reservationFilter(Request $request)
-    // {
-    //     $status = $request->input('status');
-    //     $reservations = Reservation::where('user_id', auth()->id())
-    //         ->when($status, function ($query) use ($status) {
-    //             $query->where('status', $status);
-    //         })
-    //         ->orderBy('check_in', 'asc')
-    //         ->paginate(10);
-
-    //     return view('user.reservations.filter_results', compact('reservations', 'status'));
-    // }
-
-    // public function reservationSort(Request $request)
-    // {
-    //     $sortBy = $request->input('sort_by', 'check_in');
-    //     $sortOrder = $request->input('sort_order', 'asc');
-
-    //     $reservations = Reservation::where('user_id', auth()->id())
-    //         ->orderBy($sortBy, $sortOrder)
-    //         ->paginate(10);
-
-    //     return view('user.reservations.sort_results', compact('reservations', 'sortBy', 'sortOrder'));
-    // }
-
-    // public function reservationExport(Request $request)
-    // {
-    //     $format = $request->input('format', 'csv');
-    //     $reservations = Reservation::where('user_id', auth()->id())
-    //         ->orderBy('check_in', 'asc')
-    //         ->get();
-
-    //     if ($format === 'csv') {
-    //         $filename = 'reservations_' . now()->format('Y_m_d_H_i_s') . '.csv';
-    //         $handle = fopen('php://output', 'w');
-    //         fputcsv($handle, ['ID', 'Room Name', 'Check In', 'Check Out', 'Status']);
-
-    //         foreach ($reservations as $reservation) {
-    //             fputcsv($handle, [
-    //                 $reservation->id,
-    //                 $reservation->room->name ?? 'N/A',
-    //                 $reservation->check_in->format('Y-m-d'),
-    //                 $reservation->check_out->format('Y-m-d'),
-    //                 $reservation->status,
-    //             ]);
-    //         }
-
-    //         fclose($handle);
-    //         return response()->stream(
-    //             function () use ($handle) {
-    //                 fclose($handle);
-    //             },
-    //             200,
-    //             [
-    //                 'Content-Type' => 'text/csv',
-    //                 'Content-Disposition' => "attachment; filename=\"$filename\"",
-    //             ]
-    //         );
-    //     } elseif ($format === 'pdf') {
-    //         // Generate PDF logic here
-    //     }
-
-    //     return back()->with('error', 'Invalid export format selected.');
-    // }
-
+        return redirect()->back()->with('success', "Reservation has been {$request->status} successfully.");
+    }
     
 
 }

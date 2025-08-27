@@ -113,69 +113,42 @@
 </div>
 
 {{-- Packages Section --}}
-{{-- <div class="container mt-5 py-5">
-    <h2 class="text-center mb-4">Our Exclusive Packages</h2>
-    <div class="row">
-        @foreach($packages as $package)
-            <div class="col-md-6 mb-4 package-card">
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-6">
-                            @if (file_exists(public_path('assets/images/packages/' . $package->image)))
-                            <img src="{{ asset('assets/images/packages/' . $package->image) }}" alt="Package Image" width="150" class="mt-2">
 
-                            @else
-                                <p>Image not found</p>
-                            @endif
-                        </div>
-                        <div class="col-6">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $package->name }}</h5>
-                                <p class="card-text">{{ $package->description }}</p>
-                                <p class="card-text">
-                                    <p>Regular Price: PKR {{ $package->regular_price }} /night</p>
-                                    <p>Package Price: PKR {{ $package->price }}</p>
-
-                                </p>
-                                <button class="btn btn-book mt-3" onclick="showBookingForm({{ $package->id }})">Get Package Now</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    </div>
-</div> --}}
 <div class="container mt-5 py-5">
     <h2 class="text-center mb-4">Our Exclusive Packages</h2>
-    <div class="row">
+
+    <div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 g-4">
         @foreach($packages as $package)
-            <div class="col-md-6 mb-4 package-card">
-                <div class="card mb-3" style="max-width: 540px;">
+            <div class="col">
+                <div class="card h-100 shadow-sm package-card">
                     <div class="row g-0 h-100">
-                        <div class="col-6">
-                            @if (file_exists(public_path('assets/images/packages/' . $package->image)))
-                            <div style="height: 100%; overflow: hidden;"> <!-- Image container -->
-                                <img src="{{ asset('assets/images/packages/' . $package->image) }}" 
-                                     alt="Package Image" 
-                                     class="img-fluid h-100 w-100 object-fit-cover"> <!-- Updated image classes -->
-                            </div>
+                        <div class="col-6 d-flex align-items-center justify-content-center">
+                            @php
+                                $imagePath = public_path('assets/images/packages/' . $package->image);
+                            @endphp
+                            @if(file_exists($imagePath) && $package->image)
+                                <div class="h-100 overflow-hidden">
+                                    <img src="{{ asset('assets/images/packages/' . $package->image) }}" 
+                                         alt="{{ $package->name }}" 
+                                         class="img-fluid h-100 w-100 object-fit-cover">
+                                </div>
                             @else
-                                <p class="h-100 d-flex align-items-center justify-content-center">Image not found</p>
+                                <div class="h-100 d-flex align-items-center justify-content-center bg-light text-muted">
+                                    Image not found
+                                </div>
                             @endif
                         </div>
                         <div class="col-6">
-                            <div class="card-body h-100 d-flex flex-column"> <!-- Added flex classes -->
+                            <div class="card-body d-flex flex-column h-100">
                                 <h5 class="card-title">{{ $package->name }}</h5>
-                                <p class="card-text">{{ $package->description }}</p>
-                                <div class="mt-auto"> <!-- Pushes button to bottom -->
-                                    <p class="card-text">
-                                        <p class="card-text">
-                                            <p class="text-decoration-line-through text-muted">Regular Price: PKR {{ $package->regular_price }} /night</p>
-                                            <p>Package Price: PKR {{ $package->price }}</p>
-                                        </p>
-                                    </p>
-                                    <button class="btn btn-book mt-3" onclick="showBookingForm({{ $package->id }})">Get Package Now</button>
+                                <p class="card-text flex-grow-1">{!! $package->description !!}</p>
+
+                                <div class="mt-auto">
+                                    <p class="text-decoration-line-through text-muted mb-1">Regular Price: PKR {{ $package->regular_price }} /night</p>
+                                    <p class="fw-bold mb-2">Package Price: PKR {{ $package->price }}</p>
+                                    <button class="btn btn-success w-100" onclick="showBookingForm({{ $package->id }})">
+                                        Get Package Now
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -186,76 +159,28 @@
     </div>
 </div>
 
-{{-- Booking Form --}}
-<div class="modal fade" id="pakages">
-    <div class="modal-dialog">
-        <div class="modal-content p-4">
-            <h4 class="mb-3">Book a Package</h4>
-            <form action="{{ route('user.book.package') }}" method="POST">
-                @csrf
-                <input type="hidden" id="package_id" name="package_id">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="fullName" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="fullName" name="user_name" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="user_email" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="phone" class="form-label">Phone Number</label>
-                    <input type="text" class="form-control" id="phone" name="user_phone" required>
-                </div>           
-                <div class="mb-3">
-                    <label for="packageSelect" class="form-label">Select Package</label>
-                    <select class="form-select" id="packageSelect" name="package_id" required>
-                        <option value="" disabled selected>Select a package</option>
-                        @foreach($packages as $package)
-                            <option value="{{ $package->id }}">{{ $package->name }} (PKR {{ $package->price }}/night)</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="checkInDate" class="form-label">Check-in Date</label>
-                        <input type="date" class="form-control" id="checkInDate" name="check_in"  min="{{ \Carbon\Carbon::today()->toDateString() }}"required>
-                        
+<style>
+    /* Ensure all package cards have the same height */
+    .package-card .card {
+        min-height: 300px; /* Adjust as needed */
+    }
 
-                    </div>
-                    <div class="col-md-6">
-                        <label for="checkOutDate" class="form-label">Check-out Date</label>
-                        <input type="date" class="form-control" id="checkOutDate" name="check_out" min="{{ \Carbon\Carbon::today()->toDateString() }}" required>
-                    </div>
-                </div> 
-                <div class="mb-3">
-                    <label for="paymentMethod" class="form-label">Payment Method</label>
-                    <select class="form-select" id="paymentMethod" name="payment_method" required>
-                        <option value="Pay at Arrival">Pay at Arrival</option>
-                        <option value="Online Payment">Online Payment</option>
-                        <option value="Partial Payment">Partial Payment</option>
-                    </select>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="specialRequests" class="form-label">Special Requests</label>
-                    <textarea class="form-control" id="specialRequests" name="special_requests" rows="2" placeholder="Any special requests or requirements"></textarea>
-                </div>
+    /* Optional: make buttons consistent */
+    .btn-book, .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    .btn-book:hover, .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
 
-                <div class="text-center col-mb-6">
-                    <button type="submit" class="btn btn-book">Submit Booking</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+    /* Make images cover the div nicely */
+    .object-fit-cover {
+        object-fit: cover;
+    }
+</style>
 
-<script>
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById("check_in").setAttribute('min', today);
-  document.getElementById("check_out").setAttribute('min', today);
-</script>
 
 {{-- ----------------------------Facilities------------------------------ --}}
 <div class="facilities-section">
@@ -294,10 +219,4 @@
     </div>
 </div>
 
-<script>
-    function showBookingForm(packageId) {
-        document.getElementById('package_id').value = packageId;
-        new bootstrap.Modal(document.getElementById('pakages')).show();
-    }
-</script>
 @endsection

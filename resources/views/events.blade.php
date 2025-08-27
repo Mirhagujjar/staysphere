@@ -205,7 +205,9 @@
         <h1>{{ $hero->hero_title }}</h1>
         <p>{{ $hero->hero_description }}</p>
         <a href="/">Home</a> > Events
-
+<a href="{{ route('user.event-booking.create') }}" class="btn btn-success">
+            <i class="fas fa-calendar-plus me-2"></i> Book an Event
+        </a>
     </div>
 </section>
 
@@ -297,11 +299,13 @@
     <div class="text-section mt-3">
         <h1>Trends & Highlights</h1>
         <p>Get inspired: Trends, tips and more.</p>
+        
     </div>
     <div class="card-container1">
         @foreach($events as $event)
             <div class="custom-card1">
                 <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}">
+                
 
                 {{-- <img src="{{ asset('build/assets/images/events/' . $event->image) }}" alt="{{ $event->title }}"> --}}
                 <div class="bottom-text1">{{ $event->title }}</div>
@@ -357,11 +361,17 @@
             <div class="col-md-6 text-section text-center">
                 <h2>{{ $experience->title }}</h2>
                 <p>{{ $experience->description }}</p>
+                <a href="{{ route('user.event-booking.create') }}" class="btn btn-success">
+            <i class="fas fa-calendar-plus me-2"></i> Book an Event
+        </a>
             </div>
         @else
             <div class="col-md-6 order-md-2 text-section text-center">
                 <h2>{{ $experience->title }}</h2>
                 <p>{{ $experience->description }}</p>
+                <a href="{{ route('user.event-booking.create') }}" class="btn btn-success">
+            <i class="fas fa-calendar-plus me-2"></i> Book an Event
+        </a>
             </div>
             <div class="col-md-6 order-md-1 image-section">
                 <img src="{{ asset('storage/' . $experience->image) }}" alt="{{ $experience->title }}">
